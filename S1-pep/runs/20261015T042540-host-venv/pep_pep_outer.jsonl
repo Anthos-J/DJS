@@ -1,0 +1,4 @@
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792018577.7592418}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792018577.7602105}
+{"phase": "pre", "name": "write_record", "args": {"x": "z"}, "t": 1792018577.7986789}
+{"phase": "post", "name": "write_record", "t": 1792018577.8301294}

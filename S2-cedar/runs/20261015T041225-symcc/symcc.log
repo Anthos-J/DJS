@@ -1,0 +1,19 @@
+### --principal-type Agent --action Action::"send" --resource-type Sink -s config/schema.cedarschema --counterexample implies --policies1 config/policies_P.cedar --policies2 config/Q_G3a.cedar
+✓ Policy set 1 implies policy set 2: VERIFIED
+exit=0
+### --principal-type Agent --action Action::"send" --resource-type Sink -s config/schema.cedarschema --counterexample implies --policies1 config/policies_P_bad.cedar --policies2 config/Q_G3a.cedar
+✗ Policy set 1 implies policy set 2: DOES NOT HOLD
+  Counterexample found:
+principal: Agent::"procurement", action: Action::"send", resource: Sink::""
+context: {approved: false, params: {all_grounded: true}, session: {conf: -1, integ: -1}, target: {clearance: -2, external: true, untrusted_threshold: 9223372036854775807}}
+entities: [
+  Action::"send",
+  Resource::"hr_records",
+  Sink::"",
+  Action::"read",
+  Agent::"procurement",
+]
+exit=0
+### --principal-type Agent --action Action::"read" --resource-type Resource -s config/schema.cedarschema --counterexample implies --policies1 config/policies_P.cedar --policies2 config/Q_G3a.cedar
+✓ Policy set 1 implies policy set 2: VERIFIED
+exit=0

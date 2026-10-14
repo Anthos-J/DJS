@@ -1,0 +1,65 @@
+# S3 cell-isolation spike topology (spike harness, not product code)
+name: s3iso
+
+x-netshoot: &netshoot
+  image: ${NETSHOOT_IMAGE}
+  command: ["sleep", "infinity"]
+
+networks:
+  cellnet_a:
+    internal: true
+  cellnet_b:
+    internal: true
+  edge: {}
+
+services:
+  gateway:
+    image: ${PY_IMAGE}
+    command: ["python", "-m", "http.server", "8080"]
+    networks: [cellnet_a, cellnet_b, edge]
+
+  sidecar_a:
+    <<: *netshoot
+    # holds a dummy secret and listens on loopback only
+    command: ["sh", "-c", "mkdir -p /secrets && echo DUMMY-CELL-KEY-A-91c2 > /secrets/cell.key && (while true; do nc -l -s 127.0.0.1 -p 8081 -e echo sidecar_a_loopback; done) & sleep infinity"]
+    networks: [cellnet_a]
+
+  agent_a:
+    <<: *netshoot
+    network_mode: "service:sidecar_a"
+    cap_drop: [ALL]
+    read_only: true
+    security_opt: ["no-new-privileges:true"]
+    tmpfs: ["/tmp"]
+    depends_on: [sidecar_a]
+
+  # a second listener on the SAME internal net bound to 0.0.0.0 (informational: shared-network risk)
+  neighbour_a2:
+    <<: *netshoot
+    command: ["sh", "-c", "(while true; do nc -l -p 9000 -e echo neighbour_a2_open; done) & sleep infinity"]
+    networks: [cellnet_a]
+
+  sidecar_b:
+    <<: *netshoot
+    command: ["sh", "-c", "(while true; do nc -l -p 8081 -e echo sidecar_b_open; done) & sleep infinity"]
+    networks: [cellnet_b]
+
+  agent_b:
+    <<: *netshoot
+    network_mode: "service:sidecar_b"
+    cap_drop: [ALL]
+    read_only: true
+    security_opt: ["no-new-privileges:true"]
+    tmpfs: ["/tmp"]
+    depends_on: [sidecar_b]
+
+  # positive-control container with normal egress
+  outside:
+    <<: *netshoot
+    networks: [edge]
+
+  # positive control for capability tests: same internal net, NET_ADMIN granted
+  privctl_a:
+    <<: *netshoot
+    cap_add: [NET_ADMIN, NET_RAW]
+    networks: [cellnet_a]

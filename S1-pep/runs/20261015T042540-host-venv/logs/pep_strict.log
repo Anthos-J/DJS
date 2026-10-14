@@ -1,0 +1,174 @@
+
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│                                                                             │
+│                        ▄▀▀ ▄▀█ █▀▀ ▀█▀ █▀▄▀█ █▀▀ █▀█                        │
+│                        █▀  █▀█ ▄▄█  █  █ ▀ █ █▄▄ █▀▀                        │
+│                                                                             │
+│                                                                             │
+│                                                                             │
+│                                FastMCP 4.1.0                                │
+│                            https://gofastmcp.com                            │
+│                                                                             │
+│                 🖥  Server:      pep, 4.1.0                                  │
+│                 🚀 Deploy free: https://horizon.prefect.io                  │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+
+[10/15/26 04:25:49] INFO     Starting MCP server 'pep' with    transport.py:358
+                             transport 'http' on                               
+                             http://127.0.0.1:8001/mcp                         
+INFO:     Started server process [17704]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8001 (Press CTRL+C to quit)
+INFO:     127.0.0.1:49733 - "POST /mcp HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:49741 - "POST /mcp HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57436 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57438 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57441 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57443 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57445 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57447 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57450 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57452 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57455 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57457 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57437 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57440 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57442 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57444 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57448 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57446 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57451 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57454 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57456 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57391 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58196 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58203 - "POST /mcp HTTP/1.1" 202 Accepted
+INFO:     127.0.0.1:58204 - "GET /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58205 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58206 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58212 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58218 - "DELETE /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58219 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58219 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58219 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58219 - "POST /mcp HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61075 - "POST /mcp HTTP/1.1" 400 Bad Request

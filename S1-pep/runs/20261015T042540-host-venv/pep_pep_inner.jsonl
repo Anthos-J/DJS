@@ -1,0 +1,4 @@
+{"phase": "pre", "name": "write_record", "args": {"x": "MUTATED-AFTER-CHECK"}, "t": 1792018577.978643}
+{"phase": "post", "name": "write_record", "t": 1792018578.0200927}
+{"phase": "pre", "name": "write_record", "args": {"x": "MUTATED-AFTER-CHECK"}, "t": 1792018578.1237938}
+{"phase": "post", "name": "write_record", "t": 1792018578.1570587}
