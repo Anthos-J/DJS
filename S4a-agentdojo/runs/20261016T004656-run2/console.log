@@ -1,0 +1,28 @@
+workspace done 19.5 s
+travel done 22.7 s
+banking done 23.2 s
+slack done 23.7 s
+{
+ "LABEL": "in-process decision emulation (S4a). Not mediation, not LLM behaviour, not attack success rates.",
+ "agentdojo_benchmark_version": "v1.2.2",
+ "annotations_sha256_raw": "fa30be1c3fb8899c6bc10e3c4637680b924fc26a48b312788f06d5a067e83c95",
+ "annotations_sha256_lf": "fa30be1c3fb8899c6bc10e3c4637680b924fc26a48b312788f06d5a067e83c95",
+ "benign_tasks": 97,
+ "benign_native_pass": 97,
+ "benign_native_fail_or_error": [],
+ "parity_benign_mismatches": [],
+ "negative_control_deny_all_changes_outcome": 57,
+ "mandate_benign_utility_preserved": 72,
+ "mandate_benign_call_decisions": {
+  "APPROVAL_REQUIRED": 31,
+  "PERMIT": 308
+ },
+ "attack_pairs": 949,
+ "attack_native_success": 592,
+ "attack_native_errors": 0,
+ "parity_attack_mismatches": 0,
+ "mandate_blocks_of_native_successful_attacks": 413,
+ "seconds": 23.7,
+ "decision_hash": "91517b3a0a9cff3cee509511b5ee511f8347bdb567c36f280860ef9f5578044d"
+}
+exit=0

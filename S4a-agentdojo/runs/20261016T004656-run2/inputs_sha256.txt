@@ -1,0 +1,3 @@
+fa30be1c3fb8899c6bc10e3c4637680b924fc26a48b312788f06d5a067e83c95 *config/tool_annotations.json
+a955e8d99eb953ea7fdba32e6c1a34afd7bc26e7fd0f1fca2bebb8e2dc36b16d *../S2-cedar/config/policies_P.cedar
+4d3aeaacdc0ca89ef7da679a92db83ea3f5aa3983703e9e50898de5968709cc0 *../S2-cedar/config/schema.cedarschema
