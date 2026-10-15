@@ -1,0 +1,475 @@
+{
+ "_about": "S4a annotations v2 (CANDIDATE, Wave 6). Identical to the frozen v1 (config/tool_annotations.json, sha256 fa30be1c...) except: slack get_webpage is kind 'fetch' (an outbound request whose URL is consequential AND whose response is untrusted content). Written and committed before any v2 run.",
+ "untrusted_threshold": 1,
+ "suites": {
+  "workspace": {
+   "get_unread_emails": {
+    "kind": "read",
+    "conf": 1,
+    "integ_source": "untrusted"
+   },
+   "get_sent_emails": {
+    "kind": "read",
+    "conf": 1,
+    "integ_source": "untrusted"
+   },
+   "get_received_emails": {
+    "kind": "read",
+    "conf": 1,
+    "integ_source": "untrusted"
+   },
+   "get_draft_emails": {
+    "kind": "read",
+    "conf": 1,
+    "integ_source": "untrusted"
+   },
+   "search_emails": {
+    "kind": "read",
+    "conf": 1,
+    "integ_source": "untrusted"
+   },
+   "search_contacts_by_name": {
+    "kind": "read",
+    "conf": 1,
+    "integ_source": "trusted"
+   },
+   "search_contacts_by_email": {
+    "kind": "read",
+    "conf": 1,
+    "integ_source": "trusted"
+   },
+   "get_current_day": {
+    "kind": "read",
+    "conf": 0,
+    "integ_source": "trusted"
+   },
+   "search_calendar_events": {
+    "kind": "read",
+    "conf": 1,
+    "integ_source": "untrusted"
+   },
+   "get_day_calendar_events": {
+    "kind": "read",
+    "conf": 1,
+    "integ_source": "untrusted"
+   },
+   "search_files_by_filename": {
+    "kind": "read",
+    "conf": 1,
+    "integ_source": "untrusted"
+   },
+   "get_file_by_id": {
+    "kind": "read",
+    "conf": 1,
+    "integ_source": "untrusted"
+   },
+   "list_files": {
+    "kind": "read",
+    "conf": 1,
+    "integ_source": "untrusted"
+   },
+   "search_files": {
+    "kind": "read",
+    "conf": 1,
+    "integ_source": "untrusted"
+   },
+   "send_email": {
+    "kind": "send",
+    "external": true,
+    "clearance": 0,
+    "consequential": [
+     "recipients",
+     "cc",
+     "bcc"
+    ]
+   },
+   "delete_email": {
+    "kind": "send",
+    "external": false,
+    "clearance": 3,
+    "consequential": [
+     "email_id"
+    ]
+   },
+   "create_calendar_event": {
+    "kind": "send",
+    "external": true,
+    "clearance": 0,
+    "consequential": [
+     "participants"
+    ]
+   },
+   "cancel_calendar_event": {
+    "kind": "send",
+    "external": false,
+    "clearance": 3,
+    "consequential": [
+     "event_id"
+    ]
+   },
+   "reschedule_calendar_event": {
+    "kind": "send",
+    "external": false,
+    "clearance": 3,
+    "consequential": [
+     "event_id"
+    ]
+   },
+   "add_calendar_event_participants": {
+    "kind": "send",
+    "external": true,
+    "clearance": 0,
+    "consequential": [
+     "participants"
+    ]
+   },
+   "append_to_file": {
+    "kind": "send",
+    "external": false,
+    "clearance": 3,
+    "consequential": [
+     "file_id"
+    ]
+   },
+   "create_file": {
+    "kind": "send",
+    "external": false,
+    "clearance": 3,
+    "consequential": []
+   },
+   "delete_file": {
+    "kind": "send",
+    "external": false,
+    "clearance": 3,
+    "consequential": [
+     "file_id"
+    ]
+   },
+   "share_file": {
+    "kind": "send",
+    "external": true,
+    "clearance": 0,
+    "consequential": [
+     "email"
+    ]
+   }
+  },
+  "travel": {
+   "get_user_information": {
+    "kind": "read",
+    "conf": 2,
+    "integ_source": "trusted"
+   },
+   "get_all_hotels_in_city": {
+    "kind": "read",
+    "conf": 0,
+    "integ_source": "trusted"
+   },
+   "get_hotels_prices": {
+    "kind": "read",
+    "conf": 0,
+    "integ_source": "trusted"
+   },
+   "get_rating_reviews_for_hotels": {
+    "kind": "read",
+    "conf": 0,
+    "integ_source": "untrusted"
+   },
+   "get_hotels_address": {
+    "kind": "read",
+    "conf": 0,
+    "integ_source": "trusted"
+   },
+   "get_all_restaurants_in_city": {
+    "kind": "read",
+    "conf": 0,
+    "integ_source": "trusted"
+   },
+   "get_cuisine_type_for_restaurants": {
+    "kind": "read",
+    "conf": 0,
+    "integ_source": "trusted"
+   },
+   "get_restaurants_address": {
+    "kind": "read",
+    "conf": 0,
+    "integ_source": "trusted"
+   },
+   "get_rating_reviews_for_restaurants": {
+    "kind": "read",
+    "conf": 0,
+    "integ_source": "untrusted"
+   },
+   "get_dietary_restrictions_for_all_restaurants": {
+    "kind": "read",
+    "conf": 0,
+    "integ_source": "trusted"
+   },
+   "get_contact_information_for_restaurants": {
+    "kind": "read",
+    "conf": 0,
+    "integ_source": "trusted"
+   },
+   "get_price_for_restaurants": {
+    "kind": "read",
+    "conf": 0,
+    "integ_source": "trusted"
+   },
+   "check_restaurant_opening_hours": {
+    "kind": "read",
+    "conf": 0,
+    "integ_source": "trusted"
+   },
+   "get_all_car_rental_companies_in_city": {
+    "kind": "read",
+    "conf": 0,
+    "integ_source": "trusted"
+   },
+   "get_car_types_available": {
+    "kind": "read",
+    "conf": 0,
+    "integ_source": "trusted"
+   },
+   "get_rating_reviews_for_car_rental": {
+    "kind": "read",
+    "conf": 0,
+    "integ_source": "untrusted"
+   },
+   "get_car_fuel_options": {
+    "kind": "read",
+    "conf": 0,
+    "integ_source": "trusted"
+   },
+   "get_car_rental_address": {
+    "kind": "read",
+    "conf": 0,
+    "integ_source": "trusted"
+   },
+   "get_car_price_per_day": {
+    "kind": "read",
+    "conf": 0,
+    "integ_source": "trusted"
+   },
+   "search_calendar_events": {
+    "kind": "read",
+    "conf": 1,
+    "integ_source": "untrusted"
+   },
+   "get_day_calendar_events": {
+    "kind": "read",
+    "conf": 1,
+    "integ_source": "untrusted"
+   },
+   "get_flight_information": {
+    "kind": "read",
+    "conf": 0,
+    "integ_source": "trusted"
+   },
+   "create_calendar_event": {
+    "kind": "send",
+    "external": true,
+    "clearance": 0,
+    "consequential": [
+     "participants"
+    ]
+   },
+   "cancel_calendar_event": {
+    "kind": "send",
+    "external": false,
+    "clearance": 3,
+    "consequential": [
+     "event_id"
+    ]
+   },
+   "reserve_hotel": {
+    "kind": "send",
+    "external": true,
+    "clearance": 0,
+    "consequential": [
+     "hotel"
+    ]
+   },
+   "reserve_car_rental": {
+    "kind": "send",
+    "external": true,
+    "clearance": 0,
+    "consequential": [
+     "company"
+    ]
+   },
+   "reserve_restaurant": {
+    "kind": "send",
+    "external": true,
+    "clearance": 0,
+    "consequential": [
+     "restaurant"
+    ]
+   },
+   "send_email": {
+    "kind": "send",
+    "external": true,
+    "clearance": 0,
+    "consequential": [
+     "recipients",
+     "cc",
+     "bcc"
+    ]
+   }
+  },
+  "banking": {
+   "get_iban": {
+    "kind": "read",
+    "conf": 2,
+    "integ_source": "trusted"
+   },
+   "get_balance": {
+    "kind": "read",
+    "conf": 2,
+    "integ_source": "trusted"
+   },
+   "get_most_recent_transactions": {
+    "kind": "read",
+    "conf": 2,
+    "integ_source": "untrusted"
+   },
+   "get_scheduled_transactions": {
+    "kind": "read",
+    "conf": 2,
+    "integ_source": "untrusted"
+   },
+   "read_file": {
+    "kind": "read",
+    "conf": 1,
+    "integ_source": "untrusted"
+   },
+   "get_user_info": {
+    "kind": "read",
+    "conf": 2,
+    "integ_source": "trusted"
+   },
+   "send_money": {
+    "kind": "send",
+    "external": true,
+    "clearance": 0,
+    "consequential": [
+     "recipient",
+     "amount"
+    ]
+   },
+   "schedule_transaction": {
+    "kind": "send",
+    "external": true,
+    "clearance": 0,
+    "consequential": [
+     "recipient",
+     "amount"
+    ]
+   },
+   "update_scheduled_transaction": {
+    "kind": "send",
+    "external": true,
+    "clearance": 0,
+    "consequential": [
+     "recipient",
+     "amount"
+    ]
+   },
+   "update_password": {
+    "kind": "send",
+    "external": false,
+    "clearance": 3,
+    "consequential": [
+     "password"
+    ]
+   },
+   "update_user_info": {
+    "kind": "send",
+    "external": false,
+    "clearance": 3,
+    "consequential": []
+   }
+  },
+  "slack": {
+   "get_channels": {
+    "kind": "read",
+    "conf": 1,
+    "integ_source": "trusted"
+   },
+   "read_channel_messages": {
+    "kind": "read",
+    "conf": 1,
+    "integ_source": "untrusted"
+   },
+   "read_inbox": {
+    "kind": "read",
+    "conf": 1,
+    "integ_source": "untrusted"
+   },
+   "get_users_in_channel": {
+    "kind": "read",
+    "conf": 1,
+    "integ_source": "trusted"
+   },
+   "get_webpage": {
+    "kind": "fetch",
+    "conf": 0,
+    "integ_source": "untrusted",
+    "external": true,
+    "clearance": 0,
+    "consequential": [
+     "url"
+    ]
+   },
+   "send_direct_message": {
+    "kind": "send",
+    "external": false,
+    "clearance": 3,
+    "consequential": [
+     "recipient"
+    ]
+   },
+   "send_channel_message": {
+    "kind": "send",
+    "external": false,
+    "clearance": 3,
+    "consequential": [
+     "channel"
+    ]
+   },
+   "add_user_to_channel": {
+    "kind": "send",
+    "external": false,
+    "clearance": 3,
+    "consequential": [
+     "user",
+     "channel"
+    ]
+   },
+   "invite_user_to_slack": {
+    "kind": "send",
+    "external": true,
+    "clearance": 0,
+    "consequential": [
+     "user",
+     "user_email"
+    ]
+   },
+   "remove_user_from_slack": {
+    "kind": "send",
+    "external": false,
+    "clearance": 3,
+    "consequential": [
+     "user"
+    ]
+   },
+   "post_webpage": {
+    "kind": "send",
+    "external": true,
+    "clearance": 0,
+    "consequential": [
+     "url"
+    ]
+   }
+  }
+ }
+}

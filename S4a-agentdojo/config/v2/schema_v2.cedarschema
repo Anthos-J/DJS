@@ -1,0 +1,11 @@
+entity Agent;
+entity Resource;
+entity Sink;
+type Ctx = {
+  session: { conf: Long, integ: Long },
+  target: { external: Bool, clearance: Long, untrusted_threshold: Long },
+  params: { all_grounded: Bool, prompt_grounded: Bool },
+  approved: Bool
+};
+action "read" appliesTo { principal: Agent, resource: Resource, context: Ctx };
+action "send" appliesTo { principal: Agent, resource: Sink, context: Ctx };
