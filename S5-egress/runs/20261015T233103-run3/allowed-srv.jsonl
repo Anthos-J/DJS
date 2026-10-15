@@ -1,0 +1,21 @@
+{"ev": "started", "t": 1792087266.4986017}
+{"ev": "tcp-accept", "port": 80, "peer": "172.18.0.4", "t": 1792087284.4778903}
+{"ev": "http", "method": "GET", "path": "/", "host": "allowed-srv", "peer": "172.18.0.4", "t": 1792087284.4786901}
+{"ev": "udp", "port": 9999, "peer": "172.18.0.4", "bytes": 1, "t": 1792087285.9253747}
+{"ev": "udp", "port": 443, "peer": "172.18.0.4", "bytes": 1, "t": 1792087285.9256382}
+{"ev": "tcp-accept", "port": 80, "peer": "172.18.0.5", "t": 1792087288.761568}
+{"ev": "http", "method": "GET", "path": "/", "host": "allowed-srv", "peer": "172.18.0.5", "t": 1792087288.7620609}
+{"ev": "tcp-accept", "port": 443, "peer": "172.18.0.5", "t": 1792087291.5564582}
+{"ev": "http", "method": "GET", "path": "/", "host": "allowed-srv", "peer": "172.18.0.5", "t": 1792087291.5568576}
+{"ev": "tcp-accept", "port": 80, "peer": "172.18.0.5", "t": 1792087312.9938707}
+{"ev": "http", "method": "GET", "path": "/", "host": "denied-srv", "peer": "172.18.0.5", "t": 1792087312.9945633}
+{"ev": "tcp-accept", "port": 80, "peer": "172.18.0.5", "t": 1792087315.8038335}
+{"ev": "http", "method": "GET", "path": "/redirect", "host": "allowed-srv", "peer": "172.18.0.5", "t": 1792087315.8041801}
+{"ev": "tcp-accept", "port": 80, "peer": "172.18.0.5", "t": 1792087338.5927763}
+{"ev": "http", "method": "POST", "path": "/upload", "bytes": 1000000, "peer": "172.18.0.5", "t": 1792087338.5942984}
+{"ev": "tcp-accept", "port": 80, "peer": "172.18.0.5", "t": 1792087339.0405803}
+{"ev": "http", "method": "POST", "path": "/upload", "bytes": 1000000, "peer": "172.18.0.5", "t": 1792087339.0420923}
+{"ev": "tcp-accept", "port": 80, "peer": "172.18.0.5", "t": 1792087339.4886727}
+{"ev": "http", "method": "POST", "path": "/upload", "bytes": 1000000, "peer": "172.18.0.5", "t": 1792087339.4897375}
+{"ev": "tcp-accept", "port": 80, "peer": "172.18.0.5", "t": 1792087341.9817572}
+{"ev": "http", "method": "GET", "path": "/sse", "host": "allowed-srv", "peer": "172.18.0.5", "t": 1792087341.9821675}

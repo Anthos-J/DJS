@@ -1,0 +1,76 @@
+# S5 HTTP egress PEP on the canonical AM11 cell profile. Spike harness only. Fully local (no internet).
+# sandbox (agent; shares cellside's netns) --cellnet_s (AM11)--> egress (mitmproxy, gateway) --edge (internal)--> allowed-srv / denied-srv
+# Deployed only through driver/run_s5.sh (AM11 static + runtime gate before tests).
+name: s5egress
+
+x-mandate-cell-network: &mandate_cell_network
+  driver: bridge
+  internal: true
+  enable_ipv6: false
+  driver_opts:
+    com.docker.network.bridge.gateway_mode_ipv4: isolated
+    com.docker.network.bridge.gateway_mode_ipv6: isolated
+
+networks:
+  cellnet_s: {<<: *mandate_cell_network, labels: {mandate.role: execution-cell, mandate.cell: s}}
+  edge: {internal: true}
+
+volumes:
+  egress_log: {}
+  srv_log: {}
+
+services:
+  egress:
+    image: ${MITM_IMAGE}
+    labels: {mandate.role: gateway}
+    command: ["mitmdump", "--mode", "regular", "--listen-port", "8080", "-s", "/harness/egress_addon.py",
+              "--set", "connection_strategy=lazy", "--set", "upstream_cert=false", "--set", "ignore_hosts=.*",
+              "--set", "block_global=false"]
+    environment: {BYTE_BUDGET: "3000000"}
+    volumes: ["../harness:/harness:ro", "egress_log:/log"]
+    networks: [cellnet_s, edge]
+    depends_on: [allowed-srv, denied-srv]
+
+  cellside:          # owns the cell's network namespace (stands in for the cell sidecar; holds nothing here)
+    image: ${NETSHOOT_IMAGE}
+    command: ["sleep", "infinity"]
+    labels: {mandate.role: cell-netns-owner, mandate.cell: s}
+    networks: [cellnet_s]
+
+  sandbox:
+    image: ${MITM_IMAGE}
+    command: ["sleep", "infinity"]
+    labels: {mandate.role: agent, mandate.cell: s}
+    network_mode: "service:cellside"
+    cap_drop: [ALL]
+    read_only: true
+    security_opt: ["no-new-privileges:true"]
+    tmpfs: ["/tmp"]
+    volumes: ["../harness:/harness:ro"]
+    environment:
+      HTTP_PROXY: http://sess-1:tok-good-1@egress:8080
+      HTTPS_PROXY: http://sess-1:tok-good-1@egress:8080
+    depends_on: [cellside]
+
+  allowed-srv:
+    image: ${MITM_IMAGE}
+    command: ["python", "/harness/srv.py"]
+    labels: {mandate.role: test-fixture}
+    environment: {SRV_NAME: allowed-srv}
+    volumes: ["../harness:/harness:ro", "srv_log:/log"]
+    networks: [edge]
+
+  denied-srv:
+    image: ${MITM_IMAGE}
+    command: ["python", "/harness/srv.py"]
+    labels: {mandate.role: test-fixture}
+    environment: {SRV_NAME: denied-srv}
+    volumes: ["../harness:/harness:ro", "srv_log:/log"]
+    networks: [edge]
+
+  outside:           # positive controls: direct (unmediated) contact on edge
+    image: ${MITM_IMAGE}
+    command: ["sleep", "infinity"]
+    labels: {mandate.role: test-fixture}
+    volumes: ["../harness:/harness:ro"]
+    networks: [edge]

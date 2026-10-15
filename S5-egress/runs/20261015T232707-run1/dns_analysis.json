@@ -1,0 +1,12 @@
+{
+ "query_counts": {},
+ "positive_control_allowed_srv_queried": false,
+ "denied_names_queried": {
+  "denied-srv": 0,
+  "allowed-srv.evil.test": 0,
+  "DENIED-SRV": 0,
+  "denied-srv.": 0
+ },
+ "total_lines": 32,
+ "verdict_no_dns_for_denied": "HARNESS-ERROR"
+}

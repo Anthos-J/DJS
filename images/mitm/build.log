@@ -1,0 +1,329 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 471B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/mandate-spike-py312:wave2
+#2 DONE 0.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context:
+#3 transferring context: 2B done
+#3 DONE 0.1s
+
+#4 [1/2] FROM docker.io/library/mandate-spike-py312:wave2@sha256:44bc7e002d45a6d70020932c82aad758b9c8edcf077ab29ce8f08a443f21d90a
+#4 resolve docker.io/library/mandate-spike-py312:wave2@sha256:44bc7e002d45a6d70020932c82aad758b9c8edcf077ab29ce8f08a443f21d90a 0.0s done
+#4 DONE 0.1s
+
+#5 [2/2] RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*  && pip install --no-cache-dir --disable-pip-version-check mitmproxy==12.2.3 && pip freeze > /pip_freeze_mitm.txt
+#5 0.735 Hit:1 http://deb.debian.org/debian trixie InRelease
+#5 0.883 Get:2 http://deb.debian.org/debian trixie-updates InRelease [47.3 kB]
+#5 1.112 Get:3 http://deb.debian.org/debian-security trixie-security InRelease [43.4 kB]
+#5 1.328 Get:4 http://deb.debian.org/debian trixie/main amd64 Packages [9678 kB]
+#5 24.37 Get:5 http://deb.debian.org/debian trixie-updates/main amd64 Packages [4412 B]
+#5 24.51 Get:6 http://deb.debian.org/debian-security trixie-security/main amd64 Packages [268 kB]
+#5 25.57 Fetched 10.0 MB in 25s (399 kB/s)
+#5 25.57 Reading package lists...
+#5 26.14 Reading package lists...
+#5 26.70 Building dependency tree...
+#5 26.86 Reading state information...
+#5 27.07 The following additional packages will be installed:
+#5 27.07   libbrotli1 libcom-err2 libcurl4t64 libgnutls30t64 libgssapi-krb5-2 libidn2-0
+#5 27.07   libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0 libldap2 libnghttp2-14
+#5 27.07   libnghttp3-9 libp11-kit0 libpsl5t64 librtmp1 libsasl2-2 libsasl2-modules-db
+#5 27.07   libssh2-1t64 libtasn1-6 libunistring5
+#5 27.07 Suggested packages:
+#5 27.07   gnutls-bin krb5-doc krb5-user
+#5 27.07 Recommended packages:
+#5 27.07   bash-completion krb5-locales libldap-common publicsuffix libsasl2-modules
+#5 27.17 The following NEW packages will be installed:
+#5 27.17   curl libbrotli1 libcom-err2 libcurl4t64 libgnutls30t64 libgssapi-krb5-2
+#5 27.17   libidn2-0 libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0 libldap2
+#5 27.17   libnghttp2-14 libnghttp3-9 libp11-kit0 libpsl5t64 librtmp1 libsasl2-2
+#5 27.17   libsasl2-modules-db libssh2-1t64 libtasn1-6 libunistring5
+#5 27.41 0 upgraded, 22 newly installed, 0 to remove and 1 not upgraded.
+#5 27.41 Need to get 4888 kB of archives.
+#5 27.41 After this operation, 14.7 MB of additional disk space will be used.
+#5 27.41 Get:1 http://deb.debian.org/debian trixie/main amd64 libbrotli1 amd64 1.1.0-2+b7 [307 kB]
+#5 28.20 Get:2 http://deb.debian.org/debian trixie/main amd64 libkrb5support0 amd64 1.21.3-5+deb13u1 [33.1 kB]
+#5 28.21 Get:3 http://deb.debian.org/debian trixie/main amd64 libcom-err2 amd64 1.47.2-3+b12 [25.0 kB]
+#5 28.21 Get:4 http://deb.debian.org/debian trixie/main amd64 libk5crypto3 amd64 1.21.3-5+deb13u1 [81.2 kB]
+#5 28.39 Get:5 http://deb.debian.org/debian trixie/main amd64 libkeyutils1 amd64 1.6.3-6 [9456 B]
+#5 28.48 Get:6 http://deb.debian.org/debian trixie/main amd64 libkrb5-3 amd64 1.21.3-5+deb13u1 [326 kB]
+#5 29.33 Get:7 http://deb.debian.org/debian trixie/main amd64 libgssapi-krb5-2 amd64 1.21.3-5+deb13u1 [138 kB]
+#5 30.31 Get:8 http://deb.debian.org/debian trixie/main amd64 libunistring5 amd64 1.3-2 [477 kB]
+#5 38.55 Get:9 http://deb.debian.org/debian trixie/main amd64 libidn2-0 amd64 2.3.8-2 [109 kB]
+#5 41.29 Get:10 http://deb.debian.org/debian trixie/main amd64 libsasl2-modules-db amd64 2.1.28+dfsg1-9 [19.8 kB]
+#5 41.85 Get:11 http://deb.debian.org/debian trixie/main amd64 libsasl2-2 amd64 2.1.28+dfsg1-9 [57.5 kB]
+#5 42.85 Get:12 http://deb.debian.org/debian trixie/main amd64 libldap2 amd64 2.6.10+dfsg-1 [194 kB]
+#5 47.92 Get:13 http://deb.debian.org/debian trixie/main amd64 libnghttp2-14 amd64 1.64.0-1.1+deb13u1 [76.2 kB]
+#5 49.09 Get:14 http://deb.debian.org/debian trixie/main amd64 libnghttp3-9 amd64 1.8.0-1 [67.7 kB]
+#5 49.79 Get:15 http://deb.debian.org/debian trixie/main amd64 libpsl5t64 amd64 0.21.2-1.1+b1 [57.2 kB]
+#5 50.26 Get:16 http://deb.debian.org/debian trixie/main amd64 libp11-kit0 amd64 0.25.5-3 [425 kB]
+#5 56.93 Get:17 http://deb.debian.org/debian trixie/main amd64 libtasn1-6 amd64 4.20.0-2+deb13u1 [50.1 kB]
+#5 58.45 Get:18 http://deb.debian.org/debian trixie/main amd64 libgnutls30t64 amd64 3.8.9-3+deb13u4 [1469 kB]
+#5 89.23 Get:19 http://deb.debian.org/debian trixie/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-2+b5 [58.8 kB]
+#5 90.36 Get:20 http://deb.debian.org/debian trixie/main amd64 libssh2-1t64 amd64 1.11.1-1+deb13u2 [245 kB]
+#5 95.17 Get:21 http://deb.debian.org/debian-security trixie-security/main amd64 libcurl4t64 amd64 8.14.1-2+deb13u7 [392 kB]
+#5 101.6 Get:22 http://deb.debian.org/debian-security trixie-security/main amd64 curl amd64 8.14.1-2+deb13u7 [270 kB]
+#5 106.6 debconf: unable to initialize frontend: Dialog
+#5 106.6 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#5 106.6 debconf: falling back to frontend: Readline
+#5 106.6 debconf: unable to initialize frontend: Readline
+#5 106.6 debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC entries checked: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.40.1 /usr/local/share/perl/5.40.1 /usr/lib/x86_64-linux-gnu/perl5/5.40 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.40 /usr/share/perl/5.40 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 8, <STDIN> line 22.)
+#5 106.6 debconf: falling back to frontend: Teletype
+#5 106.6 debconf: unable to initialize frontend: Teletype
+#5 106.6 debconf: (This frontend requires a controlling tty.)
+#5 106.6 debconf: falling back to frontend: Noninteractive
+#5 107.0 Fetched 4888 kB in 1min 19s (61.7 kB/s)
+#5 107.1 Selecting previously unselected package libbrotli1:amd64.
+#5 107.1 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 5660 files and directories currently installed.)
+#5 107.1 Preparing to unpack .../00-libbrotli1_1.1.0-2+b7_amd64.deb ...
+#5 107.1 Unpacking libbrotli1:amd64 (1.1.0-2+b7) ...
+#5 107.2 Selecting previously unselected package libkrb5support0:amd64.
+#5 107.2 Preparing to unpack .../01-libkrb5support0_1.21.3-5+deb13u1_amd64.deb ...
+#5 107.2 Unpacking libkrb5support0:amd64 (1.21.3-5+deb13u1) ...
+#5 107.3 Selecting previously unselected package libcom-err2:amd64.
+#5 107.3 Preparing to unpack .../02-libcom-err2_1.47.2-3+b12_amd64.deb ...
+#5 107.3 Unpacking libcom-err2:amd64 (1.47.2-3+b12) ...
+#5 107.4 Selecting previously unselected package libk5crypto3:amd64.
+#5 107.4 Preparing to unpack .../03-libk5crypto3_1.21.3-5+deb13u1_amd64.deb ...
+#5 107.4 Unpacking libk5crypto3:amd64 (1.21.3-5+deb13u1) ...
+#5 107.5 Selecting previously unselected package libkeyutils1:amd64.
+#5 107.5 Preparing to unpack .../04-libkeyutils1_1.6.3-6_amd64.deb ...
+#5 107.5 Unpacking libkeyutils1:amd64 (1.6.3-6) ...
+#5 107.6 Selecting previously unselected package libkrb5-3:amd64.
+#5 107.6 Preparing to unpack .../05-libkrb5-3_1.21.3-5+deb13u1_amd64.deb ...
+#5 107.6 Unpacking libkrb5-3:amd64 (1.21.3-5+deb13u1) ...
+#5 107.7 Selecting previously unselected package libgssapi-krb5-2:amd64.
+#5 107.7 Preparing to unpack .../06-libgssapi-krb5-2_1.21.3-5+deb13u1_amd64.deb ...
+#5 107.7 Unpacking libgssapi-krb5-2:amd64 (1.21.3-5+deb13u1) ...
+#5 107.8 Selecting previously unselected package libunistring5:amd64.
+#5 107.8 Preparing to unpack .../07-libunistring5_1.3-2_amd64.deb ...
+#5 107.8 Unpacking libunistring5:amd64 (1.3-2) ...
+#5 108.0 Selecting previously unselected package libidn2-0:amd64.
+#5 108.0 Preparing to unpack .../08-libidn2-0_2.3.8-2_amd64.deb ...
+#5 108.0 Unpacking libidn2-0:amd64 (2.3.8-2) ...
+#5 108.0 Selecting previously unselected package libsasl2-modules-db:amd64.
+#5 108.0 Preparing to unpack .../09-libsasl2-modules-db_2.1.28+dfsg1-9_amd64.deb ...
+#5 108.1 Unpacking libsasl2-modules-db:amd64 (2.1.28+dfsg1-9) ...
+#5 108.1 Selecting previously unselected package libsasl2-2:amd64.
+#5 108.1 Preparing to unpack .../10-libsasl2-2_2.1.28+dfsg1-9_amd64.deb ...
+#5 108.1 Unpacking libsasl2-2:amd64 (2.1.28+dfsg1-9) ...
+#5 108.2 Selecting previously unselected package libldap2:amd64.
+#5 108.2 Preparing to unpack .../11-libldap2_2.6.10+dfsg-1_amd64.deb ...
+#5 108.3 Unpacking libldap2:amd64 (2.6.10+dfsg-1) ...
+#5 108.4 Selecting previously unselected package libnghttp2-14:amd64.
+#5 108.4 Preparing to unpack .../12-libnghttp2-14_1.64.0-1.1+deb13u1_amd64.deb ...
+#5 108.4 Unpacking libnghttp2-14:amd64 (1.64.0-1.1+deb13u1) ...
+#5 108.5 Selecting previously unselected package libnghttp3-9:amd64.
+#5 108.5 Preparing to unpack .../13-libnghttp3-9_1.8.0-1_amd64.deb ...
+#5 108.5 Unpacking libnghttp3-9:amd64 (1.8.0-1) ...
+#5 108.6 Selecting previously unselected package libpsl5t64:amd64.
+#5 108.6 Preparing to unpack .../14-libpsl5t64_0.21.2-1.1+b1_amd64.deb ...
+#5 108.6 Unpacking libpsl5t64:amd64 (0.21.2-1.1+b1) ...
+#5 108.7 Selecting previously unselected package libp11-kit0:amd64.
+#5 108.7 Preparing to unpack .../15-libp11-kit0_0.25.5-3_amd64.deb ...
+#5 108.7 Unpacking libp11-kit0:amd64 (0.25.5-3) ...
+#5 108.8 Selecting previously unselected package libtasn1-6:amd64.
+#5 108.8 Preparing to unpack .../16-libtasn1-6_4.20.0-2+deb13u1_amd64.deb ...
+#5 108.8 Unpacking libtasn1-6:amd64 (4.20.0-2+deb13u1) ...
+#5 108.9 Selecting previously unselected package libgnutls30t64:amd64.
+#5 108.9 Preparing to unpack .../17-libgnutls30t64_3.8.9-3+deb13u4_amd64.deb ...
+#5 108.9 Unpacking libgnutls30t64:amd64 (3.8.9-3+deb13u4) ...
+#5 109.0 Selecting previously unselected package librtmp1:amd64.
+#5 109.0 Preparing to unpack .../18-librtmp1_2.4+20151223.gitfa8646d.1-2+b5_amd64.deb ...
+#5 109.0 Unpacking librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2+b5) ...
+#5 109.1 Selecting previously unselected package libssh2-1t64:amd64.
+#5 109.1 Preparing to unpack .../19-libssh2-1t64_1.11.1-1+deb13u2_amd64.deb ...
+#5 109.1 Unpacking libssh2-1t64:amd64 (1.11.1-1+deb13u2) ...
+#5 109.2 Selecting previously unselected package libcurl4t64:amd64.
+#5 109.2 Preparing to unpack .../20-libcurl4t64_8.14.1-2+deb13u7_amd64.deb ...
+#5 109.2 Unpacking libcurl4t64:amd64 (8.14.1-2+deb13u7) ...
+#5 109.3 Selecting previously unselected package curl.
+#5 109.3 Preparing to unpack .../21-curl_8.14.1-2+deb13u7_amd64.deb ...
+#5 109.3 Unpacking curl (8.14.1-2+deb13u7) ...
+#5 109.4 Setting up libkeyutils1:amd64 (1.6.3-6) ...
+#5 109.4 Setting up libbrotli1:amd64 (1.1.0-2+b7) ...
+#5 109.4 Setting up libnghttp2-14:amd64 (1.64.0-1.1+deb13u1) ...
+#5 109.5 Setting up libcom-err2:amd64 (1.47.2-3+b12) ...
+#5 109.5 Setting up libkrb5support0:amd64 (1.21.3-5+deb13u1) ...
+#5 109.5 Setting up libsasl2-modules-db:amd64 (2.1.28+dfsg1-9) ...
+#5 109.6 Setting up libp11-kit0:amd64 (0.25.5-3) ...
+#5 109.6 Setting up libunistring5:amd64 (1.3-2) ...
+#5 109.6 Setting up libk5crypto3:amd64 (1.21.3-5+deb13u1) ...
+#5 109.7 Setting up libsasl2-2:amd64 (2.1.28+dfsg1-9) ...
+#5 109.7 Setting up libnghttp3-9:amd64 (1.8.0-1) ...
+#5 109.7 Setting up libtasn1-6:amd64 (4.20.0-2+deb13u1) ...
+#5 109.8 Setting up libkrb5-3:amd64 (1.21.3-5+deb13u1) ...
+#5 109.8 Setting up libssh2-1t64:amd64 (1.11.1-1+deb13u2) ...
+#5 109.9 Setting up libldap2:amd64 (2.6.10+dfsg-1) ...
+#5 109.9 Setting up libidn2-0:amd64 (2.3.8-2) ...
+#5 109.9 Setting up libgssapi-krb5-2:amd64 (1.21.3-5+deb13u1) ...
+#5 110.0 Setting up libgnutls30t64:amd64 (3.8.9-3+deb13u4) ...
+#5 110.0 Setting up libpsl5t64:amd64 (0.21.2-1.1+b1) ...
+#5 110.0 Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2+b5) ...
+#5 110.1 Setting up libcurl4t64:amd64 (8.14.1-2+deb13u7) ...
+#5 110.1 Setting up curl (8.14.1-2+deb13u7) ...
+#5 110.1 Processing triggers for libc-bin (2.41-12+deb13u4) ...
+#5 111.1 Collecting mitmproxy==12.2.3
+#5 111.3   Downloading mitmproxy-12.2.3-py3-none-any.whl.metadata (7.8 kB)
+#5 111.6 Collecting aioquic<=1.2.0,>=1.2.0 (from mitmproxy==12.2.3)
+#5 111.6   Downloading aioquic-1.2.0-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.3 kB)
+#5 111.6 Collecting argon2-cffi<=25.1.0,>=23.1.0 (from mitmproxy==12.2.3)
+#5 111.6   Downloading argon2_cffi-25.1.0-py3-none-any.whl.metadata (4.1 kB)
+#5 111.7 Collecting asgiref<=3.11.1,>=3.2.10 (from mitmproxy==12.2.3)
+#5 111.7   Downloading asgiref-3.11.1-py3-none-any.whl.metadata (9.3 kB)
+#5 111.7 Collecting bcrypt<=5.0.0,>=5.0.0 (from mitmproxy==12.2.3)
+#5 111.8   Downloading bcrypt-5.0.0-cp39-abi3-manylinux_2_34_x86_64.whl.metadata (10 kB)
+#5 111.8 Collecting Brotli<=1.2.0,>=1.0 (from mitmproxy==12.2.3)
+#5 111.8   Downloading brotli-1.2.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (6.1 kB)
+#5 111.8 Collecting certifi>=2019.9.11 (from mitmproxy==12.2.3)
+#5 111.8   Downloading certifi-2026.7.22-py3-none-any.whl.metadata (2.5 kB)
+#5 112.0 Collecting cryptography<=48.1,>=42.0 (from mitmproxy==12.2.3)
+#5 112.0   Downloading cryptography-48.0.1-cp311-abi3-manylinux_2_34_x86_64.whl.metadata (4.3 kB)
+#5 112.1 Collecting flask<=3.1.3,>=3.0 (from mitmproxy==12.2.3)
+#5 112.1   Downloading flask-3.1.3-py3-none-any.whl.metadata (3.2 kB)
+#5 112.1 Requirement already satisfied: h11<=0.16.0,>=0.16.0 in /usr/local/lib/python3.12/site-packages (from mitmproxy==12.2.3) (0.16.0)
+#5 112.1 Collecting h2<=4.3.0,>=4.3.0 (from mitmproxy==12.2.3)
+#5 112.1   Downloading h2-4.3.0-py3-none-any.whl.metadata (5.1 kB)
+#5 112.1 Collecting hyperframe<=6.1.0,>=6.0 (from mitmproxy==12.2.3)
+#5 112.2   Downloading hyperframe-6.1.0-py3-none-any.whl.metadata (4.3 kB)
+#5 112.5 Collecting kaitaistruct<=0.11,>=0.10 (from mitmproxy==12.2.3)
+#5 112.5   Downloading kaitaistruct-0.11-py2.py3-none-any.whl.metadata (2.9 kB)
+#5 112.9 Collecting ldap3<=2.9.1,>=2.8 (from mitmproxy==12.2.3)
+#5 112.9   Downloading ldap3-2.9.1-py2.py3-none-any.whl.metadata (5.4 kB)
+#5 113.3 Collecting mitmproxy-rs<0.13,>=0.12.6 (from mitmproxy==12.2.3)
+#5 113.3   Downloading mitmproxy_rs-0.12.11-cp312-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (693 bytes)
+#5 113.4 Collecting msgpack<=1.1.2,>=1.0.0 (from mitmproxy==12.2.3)
+#5 113.6   Downloading msgpack-1.1.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.1 kB)
+#5 113.6 Collecting pyOpenSSL<=27.0.0,>=24.3 (from mitmproxy==12.2.3)
+#5 113.6   Downloading pyopenssl-26.4.0-py3-none-any.whl.metadata (22 kB)
+#5 113.8 Collecting pyparsing<=3.3.2,>=2.4.2 (from mitmproxy==12.2.3)
+#5 113.8   Downloading pyparsing-3.3.2-py3-none-any.whl.metadata (5.8 kB)
+#5 113.8 Requirement already satisfied: pyperclip<=1.11.0,>=1.9.0 in /usr/local/lib/python3.12/site-packages (from mitmproxy==12.2.3) (1.11.0)
+#5 114.2 Collecting ruamel.yaml<=0.19.1,>=0.18.10 (from mitmproxy==12.2.3)
+#5 114.3   Downloading ruamel_yaml-0.19.1-py3-none-any.whl.metadata (16 kB)
+#5 114.3 Collecting sortedcontainers<=2.4.0,>=2.3 (from mitmproxy==12.2.3)
+#5 114.4   Downloading sortedcontainers-2.4.0-py2.py3-none-any.whl.metadata (10 kB)
+#5 114.8 Collecting tornado<=6.5.5,>=6.5.0 (from mitmproxy==12.2.3)
+#5 114.8   Downloading tornado-6.5.5-cp39-abi3-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (2.8 kB)
+#5 115.1 Collecting urwid<=3.0.5,>=2.6.14 (from mitmproxy==12.2.3)
+#5 115.2   Downloading urwid-3.0.5-py3-none-any.whl.metadata (11 kB)
+#5 115.3 Collecting wsproto<=1.3.2,>=1.0 (from mitmproxy==12.2.3)
+#5 115.3   Downloading wsproto-1.3.2-py3-none-any.whl.metadata (5.2 kB)
+#5 115.6 Collecting publicsuffix2<=2.20191221,>=2.20190812 (from mitmproxy==12.2.3)
+#5 115.7   Downloading publicsuffix2-2.20191221-py2.py3-none-any.whl.metadata (13 kB)
+#5 115.8 Collecting zstandard<=0.25.0,>=0.25 (from mitmproxy==12.2.3)
+#5 115.8   Downloading zstandard-0.25.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (3.3 kB)
+#5 115.9 Collecting typing-extensions<=4.14,>=4.13.2 (from mitmproxy==12.2.3)
+#5 115.9   Downloading typing_extensions-4.14.0-py3-none-any.whl.metadata (3.0 kB)
+#5 116.2 Collecting pylsqpack<0.4.0,>=0.3.3 (from aioquic<=1.2.0,>=1.2.0->mitmproxy==12.2.3)
+#5 116.3   Downloading pylsqpack-0.3.24-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.1 kB)
+#5 116.6 Collecting service-identity>=24.1.0 (from aioquic<=1.2.0,>=1.2.0->mitmproxy==12.2.3)
+#5 116.7   Downloading service_identity-26.1.0-py3-none-any.whl.metadata (4.8 kB)
+#5 116.7 Collecting argon2-cffi-bindings (from argon2-cffi<=25.1.0,>=23.1.0->mitmproxy==12.2.3)
+#5 116.8   Downloading argon2_cffi_bindings-26.1.0-cp310-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl.metadata (7.5 kB)
+#5 116.8 Requirement already satisfied: cffi>=2.0.0 in /usr/local/lib/python3.12/site-packages (from cryptography<=48.1,>=42.0->mitmproxy==12.2.3) (2.1.1)
+#5 116.8 Collecting blinker>=1.9.0 (from flask<=3.1.3,>=3.0->mitmproxy==12.2.3)
+#5 116.9   Downloading blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+#5 116.9 Requirement already satisfied: click>=8.1.3 in /usr/local/lib/python3.12/site-packages (from flask<=3.1.3,>=3.0->mitmproxy==12.2.3) (8.5.0)
+#5 116.9 Collecting itsdangerous>=2.2.0 (from flask<=3.1.3,>=3.0->mitmproxy==12.2.3)
+#5 117.0   Downloading itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+#5 117.1 Collecting jinja2>=3.1.2 (from flask<=3.1.3,>=3.0->mitmproxy==12.2.3)
+#5 117.1   Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+#5 117.2 Collecting markupsafe>=2.1.1 (from flask<=3.1.3,>=3.0->mitmproxy==12.2.3)
+#5 117.2   Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+#5 117.3 Collecting werkzeug>=3.1.0 (from flask<=3.1.3,>=3.0->mitmproxy==12.2.3)
+#5 117.4   Downloading werkzeug-3.1.9-py3-none-any.whl.metadata (4.1 kB)
+#5 117.4 Collecting hpack<5,>=4.1 (from h2<=4.3.0,>=4.3.0->mitmproxy==12.2.3)
+#5 117.5   Downloading hpack-4.2.0-py3-none-any.whl.metadata (3.3 kB)
+#5 117.5 Collecting pyasn1>=0.4.6 (from ldap3<=2.9.1,>=2.8->mitmproxy==12.2.3)
+#5 117.6   Downloading pyasn1-0.6.4-py3-none-any.whl.metadata (8.4 kB)
+#5 117.9 Collecting mitmproxy-linux==0.12.11 (from mitmproxy-rs<0.13,>=0.12.6->mitmproxy==12.2.3)
+#5 118.0   Downloading mitmproxy_linux-0.12.11-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (289 bytes)
+#5 118.0 INFO: pip is looking at multiple versions of pyopenssl to determine which version is compatible with other requirements. This could take a while.
+#5 118.0 Collecting pyOpenSSL<=27.0.0,>=24.3 (from mitmproxy==12.2.3)
+#5 118.1   Downloading pyopenssl-26.3.0-py3-none-any.whl.metadata (22 kB)
+#5 118.1   Downloading pyopenssl-26.2.0-py3-none-any.whl.metadata (19 kB)
+#5 118.2 Collecting wcwidth>=0.4 (from urwid<=3.0.5,>=2.6.14->mitmproxy==12.2.3)
+#5 118.2   Downloading wcwidth-0.9.2-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (23 kB)
+#5 118.3 Requirement already satisfied: pycparser in /usr/local/lib/python3.12/site-packages (from cffi>=2.0.0->cryptography<=48.1,>=42.0->mitmproxy==12.2.3) (3.11)
+#5 118.3 Requirement already satisfied: attrs>=19.1.0 in /usr/local/lib/python3.12/site-packages (from service-identity>=24.1.0->aioquic<=1.2.0,>=1.2.0->mitmproxy==12.2.3) (26.1.0)
+#5 118.3 Downloading mitmproxy-12.2.3-py3-none-any.whl (1.7 MB)
+#5 119.2    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.7/1.7 MB 1.6 MB/s eta 0:00:00
+#5 119.2 Downloading aioquic-1.2.0-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.2 MB)
+#5 119.5    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.2/2.2 MB 9.6 MB/s eta 0:00:00
+#5 119.5 Downloading argon2_cffi-25.1.0-py3-none-any.whl (14 kB)
+#5 119.5 Downloading asgiref-3.11.1-py3-none-any.whl (24 kB)
+#5 119.5 Downloading bcrypt-5.0.0-cp39-abi3-manylinux_2_34_x86_64.whl (278 kB)
+#5 119.6 Downloading brotli-1.2.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.4 MB)
+#5 119.7    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.4/1.4 MB 11.9 MB/s eta 0:00:00
+#5 119.7 Downloading certifi-2026.7.22-py3-none-any.whl (136 kB)
+#5 119.8 Downloading cryptography-48.0.1-cp311-abi3-manylinux_2_34_x86_64.whl (4.7 MB)
+#5 120.4    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.7/4.7 MB 6.9 MB/s eta 0:00:00
+#5 120.5 Downloading flask-3.1.3-py3-none-any.whl (103 kB)
+#5 120.5 Downloading h2-4.3.0-py3-none-any.whl (61 kB)
+#5 120.6 Downloading hyperframe-6.1.0-py3-none-any.whl (13 kB)
+#5 120.6 Downloading kaitaistruct-0.11-py2.py3-none-any.whl (11 kB)
+#5 120.6 Downloading ldap3-2.9.1-py2.py3-none-any.whl (432 kB)
+#5 120.7 Downloading mitmproxy_rs-0.12.11-cp312-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.3 MB)
+#5 121.0    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.3/3.3 MB 8.5 MB/s eta 0:00:00
+#5 121.1 Downloading mitmproxy_linux-0.12.11-py3-none-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (1.6 MB)
+#5 121.3    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.6/1.6 MB 7.0 MB/s eta 0:00:00
+#5 121.3 Downloading msgpack-1.1.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (427 kB)
+#5 121.4 Downloading publicsuffix2-2.20191221-py2.py3-none-any.whl (89 kB)
+#5 121.4 Downloading pyopenssl-26.2.0-py3-none-any.whl (55 kB)
+#5 121.5 Downloading pyparsing-3.3.2-py3-none-any.whl (122 kB)
+#5 121.5 Downloading ruamel_yaml-0.19.1-py3-none-any.whl (118 kB)
+#5 121.5 Downloading sortedcontainers-2.4.0-py2.py3-none-any.whl (29 kB)
+#5 121.5 Downloading tornado-6.5.5-cp39-abi3-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (447 kB)
+#5 121.6 Downloading typing_extensions-4.14.0-py3-none-any.whl (43 kB)
+#5 121.9 Downloading urwid-3.0.5-py3-none-any.whl (296 kB)
+#5 122.4 Downloading wsproto-1.3.2-py3-none-any.whl (24 kB)
+#5 122.4 Downloading zstandard-0.25.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.5 MB)
+#5 123.0    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.5/5.5 MB 9.6 MB/s eta 0:00:00
+#5 123.1 Downloading blinker-1.9.0-py3-none-any.whl (8.5 kB)
+#5 123.1 Downloading hpack-4.2.0-py3-none-any.whl (34 kB)
+#5 123.2 Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+#5 123.2 Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+#5 123.2 Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+#5 123.2 Downloading pyasn1-0.6.4-py3-none-any.whl (84 kB)
+#5 123.3 Downloading pylsqpack-0.3.24-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (250 kB)
+#5 123.3 Downloading service_identity-26.1.0-py3-none-any.whl (11 kB)
+#5 123.3 Downloading wcwidth-0.9.2-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (769 kB)
+#5 123.4    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 769.8/769.8 kB 9.4 MB/s eta 0:00:00
+#5 123.4 Downloading werkzeug-3.1.9-py3-none-any.whl (228 kB)
+#5 123.5 Downloading argon2_cffi_bindings-26.1.0-cp310-abi3-manylinux_2_26_x86_64.manylinux_2_28_x86_64.whl (26 kB)
+#5 123.6 Installing collected packages: sortedcontainers, publicsuffix2, Brotli, zstandard, wsproto, wcwidth, typing-extensions, tornado, ruamel.yaml, pyparsing, pylsqpack, pyasn1, msgpack, mitmproxy-linux, markupsafe, kaitaistruct, itsdangerous, hyperframe, hpack, certifi, blinker, bcrypt, asgiref, werkzeug, urwid, mitmproxy-rs, ldap3, jinja2, h2, cryptography, argon2-cffi-bindings, service-identity, pyOpenSSL, flask, argon2-cffi, aioquic, mitmproxy
+#5 124.0   Attempting uninstall: typing-extensions
+#5 124.0     Found existing installation: typing_extensions 4.16.0
+#5 124.0     Uninstalling typing_extensions-4.16.0:
+#5 124.3       Successfully uninstalled typing_extensions-4.16.0
+#5 125.7   Attempting uninstall: cryptography
+#5 125.7     Found existing installation: cryptography 50.0.2
+#5 125.7     Uninstalling cryptography-50.0.2:
+#5 125.8       Successfully uninstalled cryptography-50.0.2
+#5 126.5 ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
+#5 126.5 anyio 4.15.1 requires typing_extensions>=4.16.0; python_version < "3.15", but you have typing-extensions 4.14.0 which is incompatible.
+#5 126.5 pydantic 2.14.1 requires typing-extensions>=4.16.0, but you have typing-extensions 4.14.0 which is incompatible.
+#5 126.5 pydantic-core 2.50.1 requires typing-extensions>=4.16.0, but you have typing-extensions 4.14.0 which is incompatible.
+#5 126.5 py-key-value-aio 0.4.6 requires typing-extensions>=4.15.0, but you have typing-extensions 4.14.0 which is incompatible.
+#5 126.5 typing-inspection 0.4.4 requires typing-extensions>=4.15.0, but you have typing-extensions 4.14.0 which is incompatible.
+#5 126.5 Successfully installed Brotli-1.2.0 aioquic-1.2.0 argon2-cffi-25.1.0 argon2-cffi-bindings-26.1.0 asgiref-3.11.1 bcrypt-5.0.0 blinker-1.9.0 certifi-2026.7.22 cryptography-48.0.1 flask-3.1.3 h2-4.3.0 hpack-4.2.0 hyperframe-6.1.0 itsdangerous-2.2.0 jinja2-3.1.6 kaitaistruct-0.11 ldap3-2.9.1 markupsafe-3.0.4 mitmproxy-12.2.3 mitmproxy-linux-0.12.11 mitmproxy-rs-0.12.11 msgpack-1.1.2 publicsuffix2-2.20191221 pyOpenSSL-26.2.0 pyasn1-0.6.4 pylsqpack-0.3.24 pyparsing-3.3.2 ruamel.yaml-0.19.1 service-identity-26.1.0 sortedcontainers-2.4.0 tornado-6.5.5 typing-extensions-4.14.0 urwid-3.0.5 wcwidth-0.9.2 werkzeug-3.1.9 wsproto-1.3.2 zstandard-0.25.0
+#5 126.5 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#5 DONE 127.3s
+
+#6 exporting to image
+#6 exporting layers
+#6 exporting layers 3.2s done
+#6 exporting manifest sha256:66fdbb1bebdccb4c22e9c5255e1e186683fe9a9cbb39934f1242b09679a3312b 0.0s done
+#6 exporting config sha256:5407d8115236ffbb835005f02e39b8cbebed1a2dbed7c608ad1f73f1fbe42866 0.0s done
+#6 exporting attestation manifest sha256:9a069075d3f37b373b60c23c96c373205da6b22136ce920b9fd220138e6ae8f5
+#6 exporting attestation manifest sha256:9a069075d3f37b373b60c23c96c373205da6b22136ce920b9fd220138e6ae8f5 0.0s done
+#6 exporting manifest list sha256:0ac91aba32972d3456d699c57184897811d79479cfbfd24c1eb98dc3e1be8cdf 0.0s done
+#6 naming to docker.io/library/mandate-mitm:wave3 0.0s done
+#6 unpacking to docker.io/library/mandate-mitm:wave3
+#6 unpacking to docker.io/library/mandate-mitm:wave3 0.8s done
+#6 DONE 4.2s

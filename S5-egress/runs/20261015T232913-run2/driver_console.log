@@ -1,0 +1,25 @@
+C-denied-srv-logs-contact          PASS          code=200 logged=2
+C-allowed-direct-from-edge         PASS          
+C-udp-observable                   PASS          
+T1-allowed-http                    PASS          code=200
+T1b-allowed-connect                PASS          code=200
+T2-connect-denied-name             PASS          stderr='curl: (56) CONNECT tunnel failed, response 403'
+T2b-connect-denied-ip              PASS          stderr='curl: (56) CONNECT tunnel failed, response 403'
+T2c-connect-allowed-ip-literal     PASS          stderr='curl: (56) CONNECT tunnel failed, response 403'
+T2d-connect-suffix-trick           PASS          stderr='curl: (56) CONNECT tunnel failed, response 403'
+T2e-connect-case-trailing-dot      PASS          stderr='curl: (56) CONNECT tunnel failed, response 403'
+T3-http-denied                     PASS          code=403 denied_contacts=0
+T3b-userinfo-trick                 PASS          code=403 denied_contacts=0
+T3c-host-header-confusion          PASS          code=200 denied_contacts=0
+T4-redirect-to-denied              PASS          final=403
+T5-noproxy-name                    PASS          curl: (6) Could not resolve host: allowed-srv
+T5b-noproxy-ip                     PASS          curl: (7) Failed to connect to 172.19.0.4 port 80 after 0 ms: Could not connect 
+T10-raw-tcp-udp                    PASS          {"tcp80": "OSError: [Errno 101] Network is unreachable", "tcp443": "OSError: [Errno 101] Network is unreachable", "udp443": "OSError: [Errno 101] Netw
+T6-no-credentials                  PASS          code=407
+T6b-bad-credentials                PASS          code=407
+T6c-unknown-session                PASS          code=407
+T6d-connect-no-credentials         PASS          curl: (56) CONNECT tunnel failed, response 407
+T7-byte-budget                     PASS          codes=['200', '200', '200', '403', '403'] posts=3
+T8-sse                             PASS          arrivals=[0.01, 0.611, 1.211, 1.811, 2.412]
+SUMMARY {'PASS': 23}
+driver_exit=0

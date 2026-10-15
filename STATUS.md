@@ -11,7 +11,8 @@
 | **S1** MCP PEP | **Re-run in pinned python:3.12 containers** (3 runs; all pass/fail checks PASS; see *Wave 2* below). The host-venv runs are kept separately. | Ledger 1–4 and 8: **INTEGRATION-VERIFIED** (container network hop, backend-side observation). Ledger 5, 7, 9: LOCALLY REPRODUCED. **Not SECURITY-TESTED.** |
 | **S2** Cedar + SymCC | **Re-run in the pinned container** (all pass/fail checks PASS; full 9,216-case differential; fail-closed SymCC verdict parser). | LOCALLY REPRODUCED |
 | **S7** Credential binding | **Executed** on the AM11 cell profile, behind the deploy gate: 38/38 PASS, reproduced twice with fresh PKI. See `S7-binding/VERDICT.md`. | Ledger 22, 25: **INTEGRATION-VERIFIED**. Ledger 23, 24: LOCALLY REPRODUCED. **Not SECURITY-TESTED.** |
-| S5, S6, S4a, S8 | **Not started.** Waiting for your go-ahead after this report. | — |
+| **S5** HTTP egress | **Executed** (Wave 3): 23/23 + DNS check, reproduced. See `S5-egress/VERDICT.md`. | 26–28 LOCALLY REPRODUCED; 29 partial (HTTPS-tunnel bytes not counted). **Not SECURITY-TESTED.** |
+| S6, S4a, S8 | **Not started.** Order: S6 → S4a → S8 (`PLAN_remaining.md`). | — |
 
 **Wave 2 (15 Oct, late):** S1 and S2 were re-run in pinned `python:3.12` containers (AM5), and S7 was executed. See the *Wave 2* section at the end. The text directly below describes the original Windows-host runs and is kept unchanged.
 
@@ -253,3 +254,65 @@ Supporting change: `S3-isolation/harness/cell_policy.py` gained the roles `pep` 
 - **IPv6 (S3-T4)** is shown only by the profile disabling IPv6 in the cell and by its absence on the host. No IPv6-enabled bypass test exists, because the environment has no IPv6 path, so the positive control is weak. A network-profile restriction is not a demonstrated IPv6 bypass test.
 - **Drift detection** happens at deploy time, or on demand with `cell_policy.py runtime`. Nothing enforces it continuously.
 - **SECURITY-TESTED:** nothing is.
+
+---
+
+## Wave 3 (15 Oct 2026, night): S5 HTTP egress. Plan: `PLAN_remaining.md`
+
+**Starting state:** `0175cd8`, clean tree.
+- `sha256sum -c S3-isolation/EVIDENCE_MANIFEST.sha256` reports 3 mismatches: `config/README.md`, `harness/cell_policy.py`, `runs/LATEST`.
+- All three equal the manifest hashes **at tag `s3-am11-local-repro`**. They changed only in later commits (`0175cd8`: checker roles; the regression rerun updated `LATEST`). This is recorded change, not evidence loss. No run directory differs.
+
+**Dependency order:**
+1. S5 (needs S3 ✔);
+2. S6 (needs S3 ✔; reuses the mitmproxy image);
+3. S4a (needs S2 ✔);
+4. S8 (needs S1, S5, S6, S7).
+
+S5 is executed here; S6, S4a and S8 have **not been started**.
+
+### S5 result: see `S5-egress/VERDICT.md`
+
+**23/23 driver checks PASS, plus the DNS check PASS, in run2 and run3.** Every run passed the AM11 static and runtime gate first. Judgement is independent: destination-server logs and a DNS pcap in the proxy's network namespace.
+
+| Ledger | Claim | Now | Gate requirement |
+|---|---|---|---|
+| 26 | CONNECT to a denied host blocked before upstream contact | LOCALLY REPRODUCED (403; 0 contacts at denied-srv; IP-literal, suffix and case variants too) | SECURITY-TESTED ✘ |
+| 27 | No DNS or TCP to denied hosts from the proxy | LOCALLY REPRODUCED (pcap: 0 denied-name queries; positive control `allowed-srv` ×16) | SECURITY-TESTED ✘ |
+| 28 | Redirect hops re-evaluated | LOCALLY REPRODUCED | SECURITY-TESTED ✘ |
+| 29 | Per-session identity and byte accounting | **Partial.** Identity and plain-HTTP bytes INTEGRATION-VERIFIED; **HTTPS-tunnel bytes not counted** | INTEGRATION-VERIFIED ✘ (not met) |
+
+Harness error: the run1 DNS decode (Docker DNATs resolver queries). It was not credited, was re-analysed from the preserved pcap, and was fixed.
+
+### Entry gate after Wave 3
+
+| Gate | State | What closes it |
+|---|---|---|
+| EG-1 Environment | met | — |
+| EG-5 Policy engine | met (LOCALLY REPRODUCED, as required) | — |
+| EG-2 Confinement | **not met** | clean-environment rerun on another machine + independent review (human) |
+| EG-3 PEP interception | **not met** | same, for ledger 5 and 7 |
+| EG-4 Credential binding | **not met** | same, for ledger 23 and 24 |
+| EG-6 Egress | **not met** | ledger 29: tunnel byte accounting (engineering), then SECURITY-TESTED for 26–28 (clean rerun + review) |
+| EG-7 Model route | **not started** | S6 |
+| EG-8 Evaluation harness | **not started** | S4a |
+| EG-9 Integration | **not started** | S8 (after S6) |
+
+**The validation plan is not complete.**
+
+### Limitations register (kept explicit)
+
+1. **cvc5 1.3.1** has no published hash. It is pinned on first use (`1a1cda20…`); its authenticity rests on GitHub TLS on one date.
+2. **`_meta` stripping** works only with request-context clearing **and** `FASTMCP_TELEMETRY_MODE=off`. Otherwise the client's `traceparent` crosses the PEP. AM12 is proposed, not adopted.
+3. **Sidecar compromise:** a compromised sidecar can use its cell's credential while it lives (accepted residual risk in v3; not tested).
+4. **IPv6:** no IPv6 bypass test exists. The S3 evidence is that the profile disables IPv6 and the host has none; that is not a demonstrated bypass test.
+5. **Drift detection** happens at deploy time or on demand (`cell_policy.py runtime`). It is not continuous.
+6. **S5 byte budget** excludes HTTPS-tunnel bytes (see ledger 29).
+7. **All runs are same-machine and same-engine** (Docker Desktop 4.95.0 / Engine 29.8.2). Nothing is SECURITY-TESTED.
+
+### Needs a human
+
+- A **clean-environment rerun on another machine** of S3, S1, S7 and S5, with the same commands.
+- An **independent reviewer** for S3, S1, S7 and S5 evidence. Rule 7 requires this before any SECURITY-TESTED claim.
+- A decision on **S4b / S6-T9 API access**, and on adopting **AM12**.
+- Accept, or fund, the engineering fix for ledger 29 (tunnel byte accounting).

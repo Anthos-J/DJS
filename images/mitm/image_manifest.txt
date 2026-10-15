@@ -1,0 +1,7 @@
+Mitmproxy: 12.2.3
+Python:    3.12.15
+OpenSSL:   OpenSSL 4.0.1 9 Jun 2026
+Platform:  Linux-6.6.87.2-microsoft-standard-WSL2-x86_64-with-glibc2.41
+curl 8.14.1 (x86_64-pc-linux-gnu) libcurl/8.14.1 OpenSSL/3.5.7 zlib/1.3.1 brotli/1.1.0 zstd/1.5.7 libidn2/2.3.8 libpsl/0.21.2 libssh2/1.11.1 nghttp2/1.64.0 nghttp3/1.8.0 librtmp/2.3 OpenLDAP/2.6.10
+Python 3.12.15
+image_id=sha256:0ac91aba32972d3456d699c57184897811d79479cfbfd24c1eb98dc3e1be8cdf
