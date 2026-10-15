@@ -6,8 +6,8 @@
 
 | Spike | Outcome | Highest status reached |
 |---|---|---|
-| **S0** Environment | **BLOCKED.** Docker Desktop 4.68.0 crashes on start: *"initializing Inference manager … remove …\Docker\run\dockerInference: The file cannot be accessed by the system"*. Two stale 0-byte socket placeholders from 10 Apr 2026 sit in `%LOCALAPPDATA%\Docker\run\`. Deleting them was blocked by the session's permission policy, so they are left for you. | — |
-| **S3** Cell isolation | **NOT RUN** (needs Docker). Topology is prepared: `S3-isolation/config/compose.yaml`. | UNVERIFIED |
+| **S0** Environment | **PASS** (15 Oct, after the user reinstalled Docker Desktop 4.95.0 / Engine 29.8.2). Earlier attempt: BLOCKED by the 4.68.0 startup crash. See `S0-env/VERDICT.md`. | Baseline recorded |
+| **S3** Cell isolation | **Playbook topology: FAIL** on T3. From the cell, the internal bridge's gateway IP exposes Docker Desktop VM host-namespace services (rpcbind TCP/UDP 111, TCP 44775). This was not shown to be an egress path. **Remediation R1** (gateway mode `isolated` on cell networks): **all pass/fail criteria PASS** in 2 clean runs. See `S3-isolation/VERDICT.md`. | R1: **LOCALLY REPRODUCED**. Baseline: FAIL. **Not SECURITY-TESTED.** |
 | **S1** MCP PEP | **Executed.** Every pass/fail check passed in the second run. | LOCALLY REPRODUCED. See notes on INTEGRATION-VERIFIED. |
 | **S2** Cedar + SymCC | **Executed.** All pass/fail checks passed. | LOCALLY REPRODUCED |
 
@@ -80,3 +80,39 @@ Docker Desktop's own error dialog offers only *Quit* or *Reset to factory defaul
 3. Start Docker Desktop.
 
 Also note: **only ~5.9 GB free on C:**. Wave 1–2 images (netshoot, python, nginx, mitmproxy) plus the Docker VM should fit, but it is tight.
+
+## S3 results (15 Oct 2026, evening). Full detail: `S3-isolation/VERDICT.md`
+
+| Criterion | Playbook topology (baseline) | R1: `gateway_mode_ipv4/ipv6: isolated` |
+|---|---|---|
+| T1 no direct IPv4 egress | PASS | PASS |
+| T2 no DNS resolution / exfiltration (pcap method; canary not approved) | PASS | PASS |
+| T3 no host / gateway-IP / Desktop-internal services | **FAIL**: rpcbind TCP/UDP 111 and TCP 44775 on gateway IP | PASS |
+| T4 no IPv6 path (control n/a: host has no IPv6 egress) | PASS | PASS |
+| T5 intended gateway path works | PASS | PASS |
+| T6 sidecar secrets / processes invisible | PASS | PASS |
+| T7 no NET_ADMIN/NET_RAW; caps 0; no-new-privileges; read-only | PASS | PASS |
+| T8 metadata-style service unreachable (local fixture; real 169.254.169.254 never contacted) | PASS | PASS |
+| T9 cross-cell isolation | PASS | PASS |
+
+Every negative probe is paired with a positive control, and all controls passed in the final runs. Harness errors found and fixed during the run (netcat `-e`, probe timeouts, subnet-dependent pcap filter, a vacuous T3e) are documented and were **not** counted as isolation results.
+
+### Ledger update (playbook §7)
+
+| # | Claim | Now |
+|---|---|---|
+| 15 | No direct IPv4 egress | LOCALLY REPRODUCED (baseline and R1) |
+| 16 | No DNS resolution / exfiltration | LOCALLY REPRODUCED (pcap evidence) |
+| 17 | Host / gateway-IP services unreachable | **FAIL in playbook topology**; LOCALLY REPRODUCED with R1 |
+| 18 | No IPv6 path | LOCALLY REPRODUCED (IPv6 disabled in cell; weak positive control) |
+| 19 | Sidecar secrets unreadable | LOCALLY REPRODUCED |
+| 20 | No NET_ADMIN / NET_RAW | LOCALLY REPRODUCED |
+| 21 | Cross-cell isolation | LOCALLY REPRODUCED |
+
+### New design amendment
+- **AM11:** Cell networks **must** be `internal: true` **and** use bridge gateway mode `isolated` (`com.docker.network.bridge.gateway_mode_ipv4/ipv6: isolated`). A plain internal network exposes the container host's namespace services through the bridge address (S3-T3 baseline FAIL). A cell network must contain only the cell and the gateway (T9c).
+
+### Still required before S3 can be SECURITY-TESTED
+1. Clean-environment rerun of the R1 variant on a second machine or after a Docker reset.
+2. Independent review of `S3-isolation/` evidence by a second person.
+3. Optionally, a UDP sweep of host-side addresses (only TCP full sweep + UDP 111 were run).

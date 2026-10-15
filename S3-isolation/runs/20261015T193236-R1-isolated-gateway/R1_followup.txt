@@ -1,0 +1,20 @@
+## who holds 172.20.0.1 on cellnet_a
+s3iso-sidecar_a-1 172.20.0.3/16 invalid Prefix
+s3iso-privctl_a-1 172.20.0.2/16 invalid Prefix
+s3iso-neighbour_a2-1 172.20.0.4/16 invalid Prefix
+s3iso-gateway-1 172.20.0.1/16 invalid Prefix
+
+## open port on 172.20.0.1
+Connection to 172.20.0.1 8080 port [tcp/*] succeeded!
+## IPv6 inside agent_a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 state UNKNOWN qlen 1000
+    inet6 ::1/128 scope host proto kernel_lo 
+       valid_lft forever preferred_lft forever
+0
+1
+## try host bridge link-local fe80::40e1:47ff:fe95:9a38 port 111 from agent_a
+rc=1
+## all-nodes ping6 (link-local discovery) from agent_a
+1 packets transmitted, 0 received, 100% packet loss, time 0ms
+
+rc=0

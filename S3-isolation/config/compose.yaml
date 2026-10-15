@@ -1,4 +1,5 @@
 # S3 cell-isolation spike topology (spike harness, not product code)
+# Images are pinned by digest via .env (NETSHOOT_IMAGE, PY_IMAGE).
 name: s3iso
 
 x-netshoot: &netshoot
@@ -13,15 +14,16 @@ networks:
   edge: {}
 
 services:
+  # intended path from the cell: gateway is the only peer reachable on cellnet_*
   gateway:
     image: ${PY_IMAGE}
-    command: ["python", "-m", "http.server", "8080"]
+    command: ["sh", "-c", "mkdir -p /srv && echo gateway-ok > /srv/echo && cd /srv && exec python -m http.server 8080"]
     networks: [cellnet_a, cellnet_b, edge]
 
+  # cell A: sidecar holds a dummy secret, listens on loopback only
   sidecar_a:
     <<: *netshoot
-    # holds a dummy secret and listens on loopback only
-    command: ["sh", "-c", "mkdir -p /secrets && echo DUMMY-CELL-KEY-A-91c2 > /secrets/cell.key && (while true; do nc -l -s 127.0.0.1 -p 8081 -e echo sidecar_a_loopback; done) & sleep infinity"]
+    command: ["sh", "-c", "mkdir -p /secrets && echo DUMMY-CELL-KEY-A-91c2 > /secrets/cell.key && exec socat TCP-LISTEN:8081,bind=127.0.0.1,fork,reuseaddr SYSTEM:'echo sidecar_a_loopback'"]
     networks: [cellnet_a]
 
   agent_a:
@@ -33,15 +35,16 @@ services:
     tmpfs: ["/tmp"]
     depends_on: [sidecar_a]
 
-  # a second listener on the SAME internal net bound to 0.0.0.0 (informational: shared-network risk)
+  # informational: another listener on the SAME internal net (models gateway-side peers)
   neighbour_a2:
     <<: *netshoot
-    command: ["sh", "-c", "(while true; do nc -l -p 9000 -e echo neighbour_a2_open; done) & sleep infinity"]
+    command: ["sh", "-c", "exec socat TCP-LISTEN:9000,fork,reuseaddr SYSTEM:'echo neighbour_a2_open'"]
     networks: [cellnet_a]
 
+  # cell B: sidecar listens on 0.0.0.0 so a cross-cell probe is meaningful
   sidecar_b:
     <<: *netshoot
-    command: ["sh", "-c", "(while true; do nc -l -p 8081 -e echo sidecar_b_open; done) & sleep infinity"]
+    command: ["sh", "-c", "exec socat TCP-LISTEN:8081,fork,reuseaddr SYSTEM:'echo sidecar_b_open'"]
     networks: [cellnet_b]
 
   agent_b:
@@ -58,7 +61,13 @@ services:
     <<: *netshoot
     networks: [edge]
 
-  # positive control for capability tests: same internal net, NET_ADMIN granted
+  # safe local stand-in for a metadata service (fake data only)
+  mdfixture:
+    image: ${PY_IMAGE}
+    command: ["sh", "-c", "mkdir -p /srv/latest/meta-data && echo FAKE-NOT-A-SECRET > /srv/latest/meta-data/token && cd /srv && exec python -m http.server 80"]
+    networks: [edge]
+
+  # positive control for capability tests (same internal net, NET_ADMIN/NET_RAW granted)
   privctl_a:
     <<: *netshoot
     cap_add: [NET_ADMIN, NET_RAW]

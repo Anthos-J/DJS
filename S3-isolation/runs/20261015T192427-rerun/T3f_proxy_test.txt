@@ -1,0 +1,15 @@
+## T3f: HTTP proxy-style request to each reachable port from agent_a
+-- port 111
+0000000
+rc=0
+0000000
+rc=0
+-- port 44775
+0000000
+rc=0
+0000000
+rc=0
+-- UDP 111 reachability
+Connection to 172.19.0.1 111 port [udp/*] succeeded!
+rc=0
+outbound_non_private_packets=0

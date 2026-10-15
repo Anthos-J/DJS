@@ -1,0 +1,11 @@
+## VM host netns listening sockets (ss -ltnup), recorded from a --net host diagnostic container
+Netid State  Recv-Q Send-Q Local Address:Port  Peer Address:PortProcess
+udp   UNCONN 0      0          127.0.0.1:673        0.0.0.0:*   
+udp   UNCONN 0      0            0.0.0.0:111        0.0.0.0:*   
+udp   UNCONN 0      0            0.0.0.0:45179      0.0.0.0:*   
+udp   UNCONN 0      0               [::]:44799         [::]:*   
+udp   UNCONN 0      0               [::]:111           [::]:*   
+tcp   LISTEN 0      4096         0.0.0.0:44775      0.0.0.0:*   
+tcp   LISTEN 0      4096         0.0.0.0:111        0.0.0.0:*   
+tcp   LISTEN 0      4096            [::]:111           [::]:*   
+tcp   LISTEN 0      4096            [::]:33569         [::]:*   

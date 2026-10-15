@@ -1,0 +1,3 @@
+compose=compose.isolated.yaml label=R1-isolated-gateway
+engine=29.8.2
+Thu Oct 15 14:02:37 UTC 2026

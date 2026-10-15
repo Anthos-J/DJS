@@ -1,0 +1,9 @@
+{
+ "cellnet_a_gateway_ip": "172.19.0.1",
+ "sidecar_b_ip": "172.18.0.2",
+ "outside_ip": "172.20.0.4",
+ "mdfixture_ip": "172.20.0.2",
+ "neighbour_a2_ip": "172.19.0.5",
+ "dns_probe_cell": "s3probe-71ab3b95-cell.example.com",
+ "dns_probe_ctl": "s3probe-71ab3b95-ctl.example.com"
+}

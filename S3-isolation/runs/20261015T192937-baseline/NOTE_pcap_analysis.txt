@@ -1,0 +1,1 @@
+pcap_analysis.txt in this run was produced by an inline filter that assumed fixed subnets (172.19/172.18); Docker renumbered networks in this run, so those counts are INVALID. Use pcap_analysis.json (harness/analyze_pcap.py, subnets read from net_*.json).

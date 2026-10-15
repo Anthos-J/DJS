@@ -1,0 +1,15 @@
+lo               UNKNOWN        127.0.0.1/8 ::1/128 
+services1@if2    UP             192.168.65.6/32 fdc4:f303:9324::6/128 fe80::bc54:7eff:fe86:2372/64 
+eth0             UNKNOWN        192.168.65.3/24 fdc4:f303:9324::3/64 fe80::8801:a6ff:fe44:e081/64 
+docker0          DOWN           172.17.0.1/16 fe80::70de:8fff:fe67:341f/64 
+br-74975c9dd879  UP             172.18.0.1/16 fe80::e0de:68ff:fe40:1255/64 
+br-6ce5e729bbca  UP             172.19.0.1/16 fe80::e448:ddff:feed:3116/64 
+br-0bb4424bf25e  UP             172.20.0.1/16 fe80::24ac:4cff:fec8:552d/64 
+veth7aa98f9@if2  UP             fe80::3ce5:ebff:fe85:a493/64 
+veth628afab@if3  UP             fe80::38f2:4ff:fee1:19ab/64 
+veth9484721@if4  UP             fe80::b895:23ff:fec0:a09/64 
+veth8a48985@if2  UP             fe80::f825:b5ff:fe73:272a/64 
+veth78a10d1@if2  UP             fe80::e837:a7ff:fea6:f274/64 
+vethc25c09a@if2  UP             fe80::ec7b:efff:fea6:3eb4/64 
+veth2b14c48@if2  UP             fe80::5848:e8ff:feb1:676b/64 
+veth3fbed25@if2  UP             fe80::7415:44ff:fe7b:ee43/64 

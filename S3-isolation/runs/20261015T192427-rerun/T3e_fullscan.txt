@@ -1,0 +1,5 @@
+cmd: nc -zn -w1 172.19.0.1 1-65535 2>&1 | grep -iE "succeeded|open"; echo "exit_of_grep=$?"
+Connection to 172.19.0.1 111 port [tcp/*] succeeded!
+Connection to 172.19.0.1 44775 port [tcp/*] succeeded!
+exit_of_grep=0
+Connection to 172.19.0.4 8080 port [tcp/*] succeeded!

@@ -1,0 +1,2 @@
+## rpcinfo from diag container (host netns)
+no-rpcinfo

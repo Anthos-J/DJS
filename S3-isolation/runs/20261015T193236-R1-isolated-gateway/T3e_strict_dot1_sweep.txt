@@ -1,0 +1,12 @@
+cellnet_a subnet=172.20.0.0/16 bridge=br-a7b1fca71889
+## host VM bridge interface for cellnet_a:
+br-a7b1fca71889  UP             fe80::40e1:47ff:fe95:9a38/64 
+## T3e-strict: full TCP sweep of 172.20.0.1 (former gateway address) from agent_a
+1
+0
+## agent_a ARP/neigh + routes
+172.20.0.0/16 dev eth0 proto kernel scope link src 172.20.0.3 
+172.20.0.4 dev eth0 lladdr fa:0f:39:c8:1e:29 STALE 
+172.20.0.1 dev eth0 lladdr de:df:6a:24:5c:1c DELAY 
+## intended path still works (T5):
+gateway-ok

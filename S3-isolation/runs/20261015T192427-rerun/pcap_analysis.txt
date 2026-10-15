@@ -1,0 +1,11 @@
+host_vm_total_packets=200
+host_vm_cell_probe_name=0
+host_vm_ctl_probe_name=1
+host_vm_pkts_from_cellnets=12
+host_vm_pkts_from_edge=58
+cell_a_total=251
+cell_a_offnet_dst=0
+cell_a_ipv6=0
+-- cell_a off-net sample:
+-- host_vm ctl probe line:
+13:54:50.097907 eth0  Out IP 192.168.65.6.49782 > 192.168.65.7.53: 28614+ [1au] A? s3probe-71ab3b95-ctl.example.com. (73)

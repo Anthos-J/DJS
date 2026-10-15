@@ -1,0 +1,28 @@
+host_vm_total=251
+host_vm_cell_dns_probe=0
+host_vm_ctl_dns_probe=1
+host_vm_from_cellnets=60
+cell_a_total=15375
+cell_a_offlink_dst=13459
+cell_a_ipv6=0
+-- host_vm packets from cell networks (first 20):
+14:00:09.707100 ?     P   IP 172.19.0.4.50630 > 104.20.23.154.443: Flags [S], seq 3359404942, win 64240, options [mss 1460,sackOK,TS val 2531621312 ecr 0,nop,wscale 7], length 0
+14:00:09.707108 ?     In  IP 172.19.0.4.50630 > 104.20.23.154.443: Flags [S], seq 3359404942, win 64240, options [mss 1460,sackOK,TS val 2531621312 ecr 0,nop,wscale 7], length 0
+14:00:09.720742 ?     P   IP 172.19.0.4.50630 > 104.20.23.154.443: Flags [.], ack 2641606726, win 502, options [nop,nop,TS val 2531621326 ecr 2273534713], length 0
+14:00:09.720750 ?     In  IP 172.19.0.4.50630 > 104.20.23.154.443: Flags [.], ack 1, win 502, options [nop,nop,TS val 2531621326 ecr 2273534713], length 0
+14:00:09.725624 ?     P   IP 172.19.0.4.50630 > 104.20.23.154.443: Flags [P.], seq 0:1562, ack 1, win 502, options [nop,nop,TS val 2531621330 ecr 2273534713], length 1562
+14:00:09.725636 ?     In  IP 172.19.0.4.50630 > 104.20.23.154.443: Flags [P.], seq 0:1562, ack 1, win 502, options [nop,nop,TS val 2531621330 ecr 2273534713], length 1562
+14:00:09.735483 ?     P   IP 172.19.0.4.50630 > 104.20.23.154.443: Flags [.], ack 1421, win 525, options [nop,nop,TS val 2531621340 ecr 2273534734], length 0
+14:00:09.735491 ?     In  IP 172.19.0.4.50630 > 104.20.23.154.443: Flags [.], ack 1421, win 525, options [nop,nop,TS val 2531621340 ecr 2273534734], length 0
+14:00:09.735572 ?     P   IP 172.19.0.4.50630 > 104.20.23.154.443: Flags [.], ack 2841, win 548, options [nop,nop,TS val 2531621340 ecr 2273534734], length 0
+14:00:09.735574 ?     In  IP 172.19.0.4.50630 > 104.20.23.154.443: Flags [.], ack 2841, win 548, options [nop,nop,TS val 2531621340 ecr 2273534734], length 0
+14:00:09.735594 ?     P   IP 172.19.0.4.50630 > 104.20.23.154.443: Flags [.], ack 4261, win 570, options [nop,nop,TS val 2531621340 ecr 2273534734], length 0
+14:00:09.735595 ?     In  IP 172.19.0.4.50630 > 104.20.23.154.443: Flags [.], ack 4261, win 570, options [nop,nop,TS val 2531621340 ecr 2273534734], length 0
+14:00:09.735614 ?     P   IP 172.19.0.4.50630 > 104.20.23.154.443: Flags [.], ack 5079, win 593, options [nop,nop,TS val 2531621340 ecr 2273534735], length 0
+14:00:09.735615 ?     In  IP 172.19.0.4.50630 > 104.20.23.154.443: Flags [.], ack 5079, win 593, options [nop,nop,TS val 2531621340 ecr 2273534735], length 0
+14:00:09.743966 ?     P   IP 172.19.0.4.50630 > 104.20.23.154.443: Flags [P.], seq 1562:1642, ack 5079, win 593, options [nop,nop,TS val 2531621349 ecr 2273534735], length 80
+14:00:09.743973 ?     In  IP 172.19.0.4.50630 > 104.20.23.154.443: Flags [P.], seq 1562:1642, ack 5079, win 593, options [nop,nop,TS val 2531621349 ecr 2273534735], length 80
+14:00:09.744692 ?     P   IP 172.19.0.4.50630 > 104.20.23.154.443: Flags [P.], seq 1642:1765, ack 5079, win 593, options [nop,nop,TS val 2531621350 ecr 2273534735], length 123
+14:00:09.744697 ?     In  IP 172.19.0.4.50630 > 104.20.23.154.443: Flags [P.], seq 1642:1765, ack 5079, win 593, options [nop,nop,TS val 2531621350 ecr 2273534735], length 123
+14:00:09.744802 ?     P   IP 172.19.0.4.50630 > 104.20.23.154.443: Flags [P.], seq 1765:1813, ack 5079, win 593, options [nop,nop,TS val 2531621350 ecr 2273534735], length 48
+14:00:09.744805 ?     In  IP 172.19.0.4.50630 > 104.20.23.154.443: Flags [P.], seq 1765:1813, ack 5079, win 593, options [nop,nop,TS val 2531621350 ecr 2273534735], length 48

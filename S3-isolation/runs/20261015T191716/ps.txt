@@ -1,0 +1,10 @@
+SERVICE        STATE     STATUS
+agent_a        running   Up 4 seconds
+agent_b        running   Up 4 seconds
+gateway        running   Up 8 seconds
+mdfixture      running   Up 5 seconds
+neighbour_a2   running   Up 5 seconds
+outside        running   Up 6 seconds
+privctl_a      running   Up 6 seconds
+sidecar_a      running   Up 7 seconds
+sidecar_b      running   Up 6 seconds

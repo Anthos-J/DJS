@@ -1,0 +1,12 @@
+13:56:02.303439 ?     P   IP 172.19.0.3.40652 > 172.19.0.1.53: Flags [S], seq 2735858595, win 64240, options [mss 1460,sackOK,TS val 987938207 ecr 0,nop,wscale 7], length 0
+13:56:02.303451 ?     In  IP 172.19.0.3.40652 > 172.19.0.1.53: Flags [S], seq 2735858595, win 64240, options [mss 1460,sackOK,TS val 987938207 ecr 0,nop,wscale 7], length 0
+13:56:02.303466 ?     Out IP 172.19.0.1.53 > 172.19.0.3.40652: Flags [R.], seq 0, ack 2735858596, win 0, length 0
+13:56:02.303484 ?     Out IP 172.19.0.1.53 > 172.19.0.3.40652: Flags [R.], seq 0, ack 1, win 0, length 0
+13:56:02.306907 ?     P   IP 172.19.0.3.43532 > 172.19.0.1.443: Flags [S], seq 3784816963, win 64240, options [mss 1460,sackOK,TS val 987938210 ecr 0,nop,wscale 7], length 0
+13:56:02.306914 ?     In  IP 172.19.0.3.43532 > 172.19.0.1.443: Flags [S], seq 3784816963, win 64240, options [mss 1460,sackOK,TS val 987938210 ecr 0,nop,wscale 7], length 0
+13:56:02.306925 ?     Out IP 172.19.0.1.443 > 172.19.0.3.43532: Flags [R.], seq 0, ack 3784816964, win 0, length 0
+13:56:02.306927 ?     Out IP 172.19.0.1.443 > 172.19.0.3.43532: Flags [R.], seq 0, ack 1, win 0, length 0
+13:56:02.312569 ?     P   IP 172.19.0.3.40662 > 172.19.0.1.3128: Flags [S], seq 2563977703, win 64240, options [mss 1460,sackOK,TS val 987938216 ecr 0,nop,wscale 7], length 0
+13:56:02.312585 ?     In  IP 172.19.0.3.40662 > 172.19.0.1.3128: Flags [S], seq 2563977703, win 64240, options [mss 1460,sackOK,TS val 987938216 ecr 0,nop,wscale 7], length 0
+13:56:02.312609 ?     Out IP 172.19.0.1.3128 > 172.19.0.3.40662: Flags [R.], seq 0, ack 2563977704, win 0, length 0
+13:56:02.312613 ?     Out IP 172.19.0.1.3128 > 172.19.0.3.40662: Flags [R.], seq 0, ack 1, win 0, length 0
