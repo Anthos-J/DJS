@@ -1,5 +1,5 @@
 """S2-T5: differential test cedarpy (engine 4.12.x) vs cedar CLI 4.13.0 on single-pass decisions.
-Spike code only. Usage: python s2_differential.py <cedar.exe> <out_dir> [n_samples]"""
+Spike code only. Usage: python s2_differential.py <cedar> <out_dir> [n_samples; 0 = full corpus]"""
 import itertools, json, random, subprocess, sys, tempfile, os
 from pathlib import Path
 from cedarpy import is_authorized, Decision
@@ -13,7 +13,8 @@ entities_file = OUT / "entities.json"; entities_file.write_text("[]")
 space = list(itertools.product(["procurement", "intruder"],
                                [("read", "Resource", "doc"), ("read", "Resource", "hr_records"), ("send", "Sink", "ext_email")],
                                range(4), range(3), [True, False], range(4), range(4), [True, False], [True, False]))
-random.seed(20261015); sample = random.sample(space, N)
+random.seed(20261015); sample = space if N <= 0 or N >= len(space) else random.sample(space, N)
+N = len(sample)
 rows = []; mism = 0
 for pr, (act, rt, rid), conf, integ, ext, clr, thr, gr, appr in sample:
     ctx = {"session": {"conf": conf, "integ": integ}, "target": {"external": ext, "clearance": clr, "untrusted_threshold": thr},

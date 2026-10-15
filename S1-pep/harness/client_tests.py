@@ -95,6 +95,20 @@ async def main():
         rec("S1-T8", "exactly the 10 allowed writes", {"delta": delta, "client_ok": sum(1 for x in rs if x.get("ok"))},
             "PASS" if delta == expected else "FAIL")
 
+        # T8b: larger concurrency (200 mixed calls), same expectation
+        w0 = writes()
+        jobs = [call(c, "write_record", {"x": ("forbidden" if i % 2 else f"k{i}")}) for i in range(200)]
+        rs = await asyncio.gather(*jobs)
+        delta = sorted(writes()[len(w0):]); expected = sorted(f"k{i}-mod" for i in range(0, 200, 2))
+        rec("S1-T8b-200", "exactly the 100 allowed writes; no forbidden write", {"n_delta": len(delta), "forbidden_written": [d for d in delta if "forbidden" in d],
+            "missing": sorted(set(expected) - set(delta))[:10], "client_ok": sum(1 for x in rs if x.get("ok"))},
+            "PASS" if delta == expected else "FAIL")
+
+        # T4 sweep: canary in ANY backend request (headers or body) during the strict-PEP phase
+        leak = [r["path"] for r in backend_reqs() if CANARY in json.dumps(r["headers"]) or CANARY in r["body"]]
+        rec("S1-T4-strict-sweep", "canary absent from every backend request (headers and body) via the strict PEP",
+            {"n_backend_requests": len(backend_reqs()), "leaks": leak[:5]}, "PASS" if not leak and backend_reqs() else "FAIL")
+
         r = await call(c, "write_record", {"x": "forbidden"})
         rec("S1-T9", "record client-visible form of a blocked call", r, "RECORDED")
 
@@ -119,8 +133,22 @@ async def main():
             s = time.perf_counter(); await call(c, "echo"); lat.append((time.perf_counter() - s) * 1000)
         rec("S1-T11-direct", "record latency (ms)", {"p50": round(statistics.median(lat), 2), "p99": round(sorted(lat)[98], 2)}, "RECORDED")
 
+    # T5 strip attempts (PEP clears _meta before forwarding); record whether x-evil still reaches the backend
+    for name in ["strip_rc", "strip_msg", "strip_rc_teloff"]:
+        url = os.environ.get("URL_" + name.upper())
+        if not url: continue
+        async with client_for(url) as c:
+            t = time.time(); r = await call(c, "echo", meta={"x-evil": "1", "traceparent": "00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-01"})
+            seen = tool_calls_seen(t)
+            metas = [s["meta"] for s in seen]
+            evil = any(m and "x-evil" in m for m in metas)
+            rec(f"S1-T5-{name}", "record whether this strip method removes client _meta (x-evil) before the backend",
+                {"client": r, "meta_at_backend": metas, "x_evil_reached_backend": evil}, "RECORDED", stripped=bool(seen) and not evil)
+
     # T10 ordering
-    for name in ["pep_outer", "pep_inner"]:
+    t10 = {}
+    for name in ["pep_outer", "pep_inner", "pep_outer_onrequest", "pep_inner_onrequest"]:
+        if not os.environ.get("URL_" + name.upper()): continue
         async with client_for(os.environ["URL_" + name.upper()]) as c:
             w0 = writes(); r = await call(c, "write_record", {"x": "forbidden"})
             d1 = writes()[len(w0):]
@@ -128,6 +156,17 @@ async def main():
             d2 = writes()[len(w0):]
             rec(f"S1-T10-{name}", "record what backend wrote when a 2nd middleware mutates args",
                 {"forbidden_call": r, "forbidden_delta": d1, "allowed_delta": d2}, "RECORDED")
+            t10[name] = {"forbidden_delta": d1, "allowed_delta": d2}
+
+    # T10 rule: with the PEP innermost, what reaches the backend is exactly what the PEP checked and
+    # rewrote (every write ends with the PEP's "-mod"); with the PEP outer, a later middleware changes
+    # arguments after authorization (the TOCTOU gap is reproduced, which is why the rule is needed).
+    inner = [k for k in t10 if k.startswith("pep_inner")]; outer = [k for k in t10 if k.startswith("pep_outer")]
+    inner_safe = all(all(w.endswith("-mod") for w in t10[k]["forbidden_delta"] + t10[k]["allowed_delta"]) and t10[k]["allowed_delta"] for k in inner)
+    outer_gap = all(any(not w.endswith("-mod") for w in t10[k]["forbidden_delta"] + t10[k]["allowed_delta"]) for k in outer)
+    rec("S1-T10-rule", "PEP innermost => backend receives only PEP-checked args; PEP outer => post-authorization mutation reproduced",
+        {"inner": {k: t10[k] for k in inner}, "outer": {k: t10[k] for k in outer}, "inner_safe": inner_safe, "outer_gap_reproduced": outer_gap},
+        "PASS" if inner and outer and inner_safe and outer_gap else "FAIL")
 
     # T7 protocol eras
     for mode in ["legacy", "auto"]:

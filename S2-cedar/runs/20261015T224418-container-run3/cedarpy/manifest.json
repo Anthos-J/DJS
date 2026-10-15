@@ -1,0 +1,6 @@
+{
+  "python": "3.12.15",
+  "cedarpy": "see pip freeze",
+  "policies_sha256": "a955e8d99eb953ea7fdba32e6c1a34afd7bc26e7fd0f1fca2bebb8e2dc36b16d",
+  "schema_sha256": "4d3aeaacdc0ca89ef7da679a92db83ea3f5aa3983703e9e50898de5968709cc0"
+}

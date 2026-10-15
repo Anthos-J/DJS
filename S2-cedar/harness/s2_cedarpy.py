@@ -97,6 +97,33 @@ rec("S2-T3b", "with schema: request validation error -> Deny + errors",
     {"decision": r_schema.decision.value, "errors": [e[:300] for e in r_schema.diagnostics.errors]},
     "PASS" if r_schema.diagnostics.errors and r_schema.decision != Decision.Allow else "FAIL")
 
+# ---------- T3d PEP decision rule (AM9): Allow only if decision == Allow AND no errors; label range check (AM10) ----------
+def pep_decide(res):
+    return "ALLOW" if (res.decision == Decision.Allow and not res.diagnostics.errors) else "DENY"
+def naive_decide(res):  # the unsafe rule the PEP must NOT use
+    return "DENY" if res.decision == Decision.Deny else "ALLOW"
+LABEL_RANGES = {("session", "conf"): (0, 3), ("session", "integ"): (0, 2), ("target", "clearance"): (0, 3), ("target", "untrusted_threshold"): (0, 3)}
+def in_range(ctx):
+    try:
+        return all(isinstance(ctx[a][b], int) and lo <= ctx[a][b] <= hi for (a, b), (lo, hi) in LABEL_RANGES.items())
+    except (KeyError, TypeError):
+        return False
+ok_ctx = {"session": {"conf": 0, "integ": 2}, "target": {"external": False, "clearance": 3, "untrusted_threshold": 3},
+          "params": {"all_grounded": True}, "approved": False}
+r_ok = is_authorized({**req, "context": ok_ctx}, pset, entities, schema=sch)
+r_deny = is_authorized({"principal": 'Agent::"intruder"', "action": 'Action::"send"', "resource": 'Sink::"ext_email"', "context": ok_ctx}, pset, entities, schema=sch)
+cases = {"clean_allow": (r_ok, "ALLOW"), "clean_deny": (r_deny, "DENY"),
+         "T3c_allow_with_errors": (r_force, "DENY"), "T3b_nodecision_with_errors": (r_schema, "DENY")}
+obs = {k: {"decision": v[0].decision.value, "n_errors": len(v[0].diagnostics.errors), "pep": pep_decide(v[0]), "naive": naive_decide(v[0]), "want": v[1]} for k, v in cases.items()}
+rec("S2-T3d", "PEP rule maps every error/NoDecision case to DENY and keeps clean Allow; naive 'decision != Deny' rule is shown unsafe",
+    obs, "PASS" if all(o["pep"] == o["want"] for o in obs.values()) and any(o["naive"] != o["want"] for o in obs.values()) else "FAIL")
+oor = {"conf=-1": {**ok_ctx, "session": {"conf": -1, "integ": 2}}, "clearance=2^63-1": {**ok_ctx, "target": {**ok_ctx["target"], "clearance": 2**63 - 1}},
+       "integ=3": {**ok_ctx, "session": {"conf": 0, "integ": 3}}, "conf='1'": {**ok_ctx, "session": {"conf": "1", "integ": 2}}}
+rc_obs = {k: in_range(v) for k, v in oor.items()}
+rec("S2-T3e", "PEP pre-check rejects out-of-range / ill-typed label values (SymCC counterexamples used such values); in-range accepted",
+    {"rejected": {k: not v for k, v in rc_obs.items()}, "in_range_ok_ctx": in_range(ok_ctx)},
+    "PASS" if not any(rc_obs.values()) and in_range(ok_ctx) else "FAIL")
+
 # ---------- T6 throughput (single requests, pre-parsed handles) ----------
 ctx = {"session": {"conf": 1, "integ": 2}, "target": {"external": True, "clearance": 1, "untrusted_threshold": 3},
        "params": {"all_grounded": True}, "approved": False}

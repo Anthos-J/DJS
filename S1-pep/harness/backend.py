@@ -50,4 +50,4 @@ async def app(scope, receive, send):
     return await inner(scope, receive, send)
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=int(os.environ.get("PORT", "9000")), lifespan="on")
+    uvicorn.run(app, host=os.environ.get("HOST", "127.0.0.1"), port=int(os.environ.get("PORT", "9000")), lifespan="on")

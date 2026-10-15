@@ -1,0 +1,74 @@
+# S1 MCP PEP spike in containers (AM5). Spike harness only.
+# One internal network (no internet needed). Every service uses the same pinned spike image
+# (validation/images/spike-py312, base python:3.12-slim by digest). /data is shared so the
+# client can independently read the backend's raw request log and writes.log.
+name: s1pep
+
+x-py: &py
+  image: ${SPIKE_IMAGE}
+  volumes: ["s1data:/data", "../harness:/harness:ro"]
+  networks: [s1net]
+  environment: &env {DATA: /data, HOST: 0.0.0.0, BACKEND: "http://backend:9000/mcp"}
+
+networks:
+  s1net: {internal: true}
+volumes:
+  s1data: {}
+
+services:
+  backend:
+    <<: *py
+    command: ["python", "/harness/backend.py"]
+    environment: {<<: *env, PORT: "9000"}
+  pep_strict:
+    <<: *py
+    command: ["python", "/harness/pep.py"]
+    environment: {<<: *env, PORT: "8000", FWD: "false", ORDER: pep_only, PEP_NAME: strict}
+  pep_default:
+    <<: *py
+    command: ["python", "/harness/pep.py"]
+    environment: {<<: *env, PORT: "8000", FWD: "default", ORDER: pep_only, PEP_NAME: default}
+  pep_outer:
+    <<: *py
+    command: ["python", "/harness/pep.py"]
+    environment: {<<: *env, PORT: "8000", FWD: "false", ORDER: pep_outer, PEP_NAME: pep_outer}
+  pep_inner:
+    <<: *py
+    command: ["python", "/harness/pep.py"]
+    environment: {<<: *env, PORT: "8000", FWD: "false", ORDER: pep_inner, PEP_NAME: pep_inner}
+  pep_outer_onrequest:
+    <<: *py
+    command: ["python", "/harness/pep.py"]
+    environment: {<<: *env, PORT: "8000", FWD: "false", ORDER: pep_outer_onrequest, PEP_NAME: pep_outer_onrequest}
+  pep_inner_onrequest:
+    <<: *py
+    command: ["python", "/harness/pep.py"]
+    environment: {<<: *env, PORT: "8000", FWD: "false", ORDER: pep_inner_onrequest, PEP_NAME: pep_inner_onrequest}
+  pep_strip_rc:
+    <<: *py
+    command: ["python", "/harness/pep.py"]
+    environment: {<<: *env, PORT: "8000", FWD: "false", ORDER: pep_only, STRIP_META: request_context, PEP_NAME: strip_rc}
+  pep_strip_msg:
+    <<: *py
+    command: ["python", "/harness/pep.py"]
+    environment: {<<: *env, PORT: "8000", FWD: "false", ORDER: pep_only, STRIP_META: message, PEP_NAME: strip_msg}
+  pep_strip_rc_teloff:   # T5: request_context strip + FastMCP telemetry off (stops traceparent re-injection)
+    <<: *py
+    command: ["python", "/harness/pep.py"]
+    environment: {<<: *env, PORT: "8000", FWD: "false", ORDER: pep_only, STRIP_META: request_context, PEP_NAME: strip_rc_teloff, FASTMCP_TELEMETRY_MODE: "off"}
+  client:
+    <<: *py
+    command: ["sleep", "infinity"]
+    volumes: ["s1data:/data", "../harness:/harness:ro", "${RUN_DIR}:/out"]
+    environment:
+      <<: *env
+      URL_STRICT: http://pep_strict:8000/mcp
+      URL_DEFAULT: http://pep_default:8000/mcp
+      URL_BACKEND: http://backend:9000/mcp
+      URL_PEP_OUTER: http://pep_outer:8000/mcp
+      URL_PEP_INNER: http://pep_inner:8000/mcp
+      URL_PEP_OUTER_ONREQUEST: http://pep_outer_onrequest:8000/mcp
+      URL_PEP_INNER_ONREQUEST: http://pep_inner_onrequest:8000/mcp
+      URL_STRIP_RC: http://pep_strip_rc:8000/mcp
+      URL_STRIP_MSG: http://pep_strip_msg:8000/mcp
+      URL_STRIP_RC_TELOFF: http://pep_strip_rc_teloff:8000/mcp

@@ -1,5 +1,6 @@
 """S1 PEP: FastMCP 4.1 proxy + spike middleware. Env:
-FWD=true|false|default (forward_incoming_headers), ORDER=pep_only|pep_outer|pep_inner."""
+FWD=true|false|default (forward_incoming_headers), ORDER=pep_only|pep_outer|pep_inner|pep_outer_onrequest,
+STRIP_META=none|request_context|message (T5 strip attempts), HOST (bind address)."""
 import json, os, time
 from fastmcp.server import create_proxy
 from fastmcp.server.providers.proxy import ProxyClient
@@ -11,6 +12,7 @@ from mcp.types import TextContent
 BACKEND = os.environ.get("BACKEND", "http://backend:9000/mcp")
 FWD = os.environ.get("FWD", "false")
 ORDER = os.environ.get("ORDER", "pep_only")
+STRIP_META = os.environ.get("STRIP_META", "none")
 LOG = os.environ.get("DATA", "/data") + f"/pep_{os.environ.get('PEP_NAME','pep')}.jsonl"
 ALLOWED = {"read_doc", "write_record", "echo"}
 
@@ -32,6 +34,24 @@ class SpikePEP(Middleware):
             raise ToolError("DENY: policy")
         if name == "write_record":
             context.message.arguments = {**args, "x": args["x"] + "-mod"}
+        if STRIP_META == "request_context":
+            # The proxy forwards ctx.request_context.meta (fastmcp/server/providers/proxy.py _forwardable_request_meta)
+            rc = context.fastmcp_context.request_context if context.fastmcp_context else None
+            before = None if rc is None else (dict(rc.meta) if isinstance(rc.meta, dict) else repr(rc.meta))
+            try:
+                if rc is not None and isinstance(rc.meta, dict):
+                    rc.meta.clear()
+                elif rc is not None and rc.meta is not None:
+                    object.__setattr__(rc, "meta", None)
+                log({"phase": "strip", "how": "request_context", "before": before})
+            except Exception as e:
+                log({"phase": "strip-failed", "how": "request_context", "err": repr(e)})
+        elif STRIP_META == "message":
+            try:
+                context.message.meta = None
+                log({"phase": "strip", "how": "message"})
+            except Exception as e:
+                log({"phase": "strip-failed", "how": "message", "err": repr(e)})
         result = await call_next(context)
         log({"phase": "post", "name": name})
         try:
@@ -47,6 +67,16 @@ class Mutator(Middleware):
             context.message.arguments = {**a, "x": "MUTATED-AFTER-CHECK"}
         return await call_next(context)
 
+class RequestMutator(Middleware):
+    """Generic on_request hook (not tool-specific), to test whether a non-tool middleware
+    added after the PEP can still change arguments after authorization (T10c)."""
+    async def on_request(self, context, call_next):
+        m = context.message
+        if getattr(m, "name", None) == "write_record":
+            a = dict(getattr(m, "arguments", None) or {})
+            m.arguments = {**a, "x": "MUTATED-BY-ON_REQUEST"}
+        return await call_next(context)
+
 transport = StreamableHttpTransport(BACKEND)
 if FWD == "default":
     client = ProxyClient(transport)
@@ -59,6 +89,13 @@ elif ORDER == "pep_outer":
     proxy.add_middleware(SpikePEP()); proxy.add_middleware(Mutator())
 elif ORDER == "pep_inner":
     proxy.add_middleware(Mutator()); proxy.add_middleware(SpikePEP())
+elif ORDER == "pep_outer_onrequest":
+    proxy.add_middleware(SpikePEP()); proxy.add_middleware(RequestMutator())
+elif ORDER == "pep_inner_onrequest":
+    proxy.add_middleware(RequestMutator()); proxy.add_middleware(SpikePEP())
+
+import fastmcp as _f
+log({"phase": "startup", "fastmcp": _f.__version__, "telemetry_mode": str(_f.settings.telemetry_mode), "FWD": FWD, "ORDER": ORDER, "STRIP_META": STRIP_META})
 
 if __name__ == "__main__":
-    proxy.run(transport="http", host="127.0.0.1", port=int(os.environ.get("PORT", "8000")))
+    proxy.run(transport="http", host=os.environ.get("HOST", "127.0.0.1"), port=int(os.environ.get("PORT", "8000")))

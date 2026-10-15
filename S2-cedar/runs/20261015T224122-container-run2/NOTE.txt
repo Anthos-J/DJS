@@ -1,0 +1,1 @@
+Harness defect (RECORDED item only): S2-T4-exitcode keyed on cmd[6] ('--resource-type') instead of the action, so 4 runs collapsed to 2 keys. Per-check records in this run show rc=0 for all four SymCC runs, incl. P_bad/send (DOES NOT HOLD). Fixed in run3.

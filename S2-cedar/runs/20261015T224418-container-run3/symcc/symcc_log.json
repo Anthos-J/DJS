@@ -1,0 +1,142 @@
+[
+ {
+  "cmd": [
+   "cedar",
+   "symcc",
+   "--principal-type",
+   "Agent",
+   "--action",
+   "Action::\"send\"",
+   "--resource-type",
+   "Sink",
+   "-s",
+   "/s2/config/schema.cedarschema",
+   "--counterexample",
+   "implies",
+   "--policies1",
+   "/s2/config/policies_P.cedar",
+   "--policies2",
+   "/s2/config/Q_G3a.cedar"
+  ],
+  "env": {},
+  "rc": 0,
+  "output": "✓ Policy set 1 implies policy set 2: VERIFIED\n"
+ },
+ {
+  "cmd": [
+   "cedar",
+   "symcc",
+   "--principal-type",
+   "Agent",
+   "--action",
+   "Action::\"read\"",
+   "--resource-type",
+   "Resource",
+   "-s",
+   "/s2/config/schema.cedarschema",
+   "--counterexample",
+   "implies",
+   "--policies1",
+   "/s2/config/policies_P.cedar",
+   "--policies2",
+   "/s2/config/Q_G3a.cedar"
+  ],
+  "env": {},
+  "rc": 0,
+  "output": "✓ Policy set 1 implies policy set 2: VERIFIED\n"
+ },
+ {
+  "cmd": [
+   "cedar",
+   "symcc",
+   "--principal-type",
+   "Agent",
+   "--action",
+   "Action::\"send\"",
+   "--resource-type",
+   "Sink",
+   "-s",
+   "/s2/config/schema.cedarschema",
+   "--counterexample",
+   "implies",
+   "--policies1",
+   "/s2/config/policies_P_bad.cedar",
+   "--policies2",
+   "/s2/config/Q_G3a.cedar"
+  ],
+  "env": {},
+  "rc": 0,
+  "output": "✗ Policy set 1 implies policy set 2: DOES NOT HOLD\n  Counterexample found:\nprincipal: Agent::\"procurement\", action: Action::\"send\", resource: Sink::\"\"\ncontext: {approved: false, params: {all_grounded: true}, session: {conf: -1, integ: -1}, target: {clearance: -2, external: true, untrusted_threshold: 9223372036854775807}}\nentities: [\n  Resource::\"hr_records\",\n  Sink::\"\",\n  Agent::\"procurement\",\n  Action::\"send\",\n  Action::\"read\",\n]\n"
+ },
+ {
+  "cmd": [
+   "cedar",
+   "symcc",
+   "--principal-type",
+   "Agent",
+   "--action",
+   "Action::\"read\"",
+   "--resource-type",
+   "Resource",
+   "-s",
+   "/s2/config/schema.cedarschema",
+   "--counterexample",
+   "implies",
+   "--policies1",
+   "/s2/config/policies_P_bad.cedar",
+   "--policies2",
+   "/s2/config/Q_G3a.cedar"
+  ],
+  "env": {},
+  "rc": 0,
+  "output": "✓ Policy set 1 implies policy set 2: VERIFIED\n"
+ },
+ {
+  "cmd": [
+   "cedar",
+   "symcc",
+   "--principal-type",
+   "Agent",
+   "--action",
+   "Action::\"send\"",
+   "--resource-type",
+   "Sink",
+   "-s",
+   "/s2/config/schema.cedarschema",
+   "--counterexample",
+   "implies",
+   "--policies1",
+   "/s2/config/policies_P.cedar",
+   "--policies2",
+   "/s2/config/Q_G3a.cedar"
+  ],
+  "env": {
+   "CVC5": "/nonexistent/cvc5"
+  },
+  "rc": 1,
+  "output": "  × Analysis failed\n  ├─▶ CVC5 solver not found or failed to start at '/nonexistent/cvc5'\n  ├─▶ IO error during a solver operation\n  ╰─▶ No such file or directory (os error 2)\n\n"
+ },
+ {
+  "cmd": [
+   "cedar",
+   "symcc",
+   "--principal-type",
+   "Agent",
+   "--action",
+   "Action::\"send\"",
+   "--resource-type",
+   "Sink",
+   "-s",
+   "/s2/config/schema.cedarschema",
+   "--counterexample",
+   "implies",
+   "--policies1",
+   "/s2/config/does_not_exist.cedar",
+   "--policies2",
+   "/s2/config/Q_G3a.cedar"
+  ],
+  "env": {},
+  "rc": 1,
+  "output": "  × Analysis failed\n  ├─▶ failed to open policy set file /s2/config/does_not_exist.cedar\n  ╰─▶ No such file or directory (os error 2)\n\n"
+ }
+]

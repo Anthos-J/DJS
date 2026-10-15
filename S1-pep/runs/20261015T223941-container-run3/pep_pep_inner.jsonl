@@ -1,0 +1,5 @@
+{"phase": "startup", "fastmcp": "4.1.0", "telemetry_mode": "native", "FWD": "false", "ORDER": "pep_inner", "STRIP_META": "none", "t": 1792084187.350543}
+{"phase": "pre", "name": "write_record", "args": {"x": "MUTATED-AFTER-CHECK"}, "t": 1792084198.094642}
+{"phase": "post", "name": "write_record", "t": 1792084198.1092548}
+{"phase": "pre", "name": "write_record", "args": {"x": "MUTATED-AFTER-CHECK"}, "t": 1792084198.145139}
+{"phase": "post", "name": "write_record", "t": 1792084198.160145}

@@ -1,0 +1,673 @@
+{"phase": "startup", "fastmcp": "4.1.0", "telemetry_mode": "native", "FWD": "false", "ORDER": "pep_only", "STRIP_META": "none", "t": 1792084187.5801756}
+{"phase": "pre", "name": "read_doc", "args": {}, "t": 1792084190.926492}
+{"phase": "post", "name": "read_doc", "t": 1792084191.1600351}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084191.2283912}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084191.22844}
+{"phase": "pre", "name": "write_record", "args": {"x": "a"}, "t": 1792084191.2474065}
+{"phase": "post", "name": "write_record", "t": 1792084191.2634554}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084191.2673273}
+{"phase": "post", "name": "echo", "t": 1792084191.2812915}
+{"phase": "pre", "name": "READ_DOC", "args": {}, "t": 1792084191.2854435}
+{"phase": "deny", "name": "READ_DOC", "why": "not-allowlisted", "t": 1792084191.285509}
+{"phase": "pre", "name": "read_doc ", "args": {}, "t": 1792084191.2878513}
+{"phase": "deny", "name": "read_doc ", "why": "not-allowlisted", "t": 1792084191.2879152}
+{"phase": "pre", "name": "Read_Doc", "args": {}, "t": 1792084191.2902098}
+{"phase": "deny", "name": "Read_Doc", "why": "not-allowlisted", "t": 1792084191.290281}
+{"phase": "pre", "name": "backend_read_doc", "args": {}, "t": 1792084191.2925403}
+{"phase": "deny", "name": "backend_read_doc", "why": "not-allowlisted", "t": 1792084191.2927577}
+{"phase": "pre", "name": "0123abcd_read_doc", "args": {}, "t": 1792084191.2951207}
+{"phase": "deny", "name": "0123abcd_read_doc", "why": "not-allowlisted", "t": 1792084191.2951703}
+{"phase": "pre", "name": "read_doc\u200b", "args": {}, "t": 1792084191.2971554}
+{"phase": "deny", "name": "read_doc\u200b", "why": "not-allowlisted", "t": 1792084191.2972095}
+{"phase": "pre", "name": "write_record\u0000", "args": {"x": "alias"}, "t": 1792084191.3123431}
+{"phase": "deny", "name": "write_record\u0000", "why": "not-allowlisted", "t": 1792084191.3123949}
+{"phase": "pre", "name": "write_record", "args": {"x": "c0"}, "t": 1792084191.529469}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084191.5608907}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084191.5611424}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084191.5627942}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084191.5628536}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084191.5657535}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084191.5659764}
+{"phase": "pre", "name": "write_record", "args": {"x": "c2"}, "t": 1792084191.5690103}
+{"phase": "pre", "name": "write_record", "args": {"x": "c4"}, "t": 1792084191.5722563}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084191.5876667}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084191.5877314}
+{"phase": "pre", "name": "write_record", "args": {"x": "c8"}, "t": 1792084191.5901034}
+{"phase": "pre", "name": "write_record", "args": {"x": "c6"}, "t": 1792084191.5904498}
+{"phase": "pre", "name": "write_record", "args": {"x": "c10"}, "t": 1792084191.592139}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084191.5924091}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084191.5924397}
+{"phase": "pre", "name": "write_record", "args": {"x": "c12"}, "t": 1792084191.5930533}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084191.6183686}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084191.6184607}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084191.6192193}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084191.6192672}
+{"phase": "pre", "name": "write_record", "args": {"x": "c14"}, "t": 1792084191.6201513}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084191.6235464}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084191.6236513}
+{"phase": "pre", "name": "write_record", "args": {"x": "c18"}, "t": 1792084191.624474}
+{"phase": "pre", "name": "write_record", "args": {"x": "c16"}, "t": 1792084191.6248784}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084191.6281762}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084191.6282609}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084191.6319509}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084191.6320202}
+{"phase": "post", "name": "write_record", "t": 1792084191.6648629}
+{"phase": "post", "name": "write_record", "t": 1792084191.695428}
+{"phase": "post", "name": "write_record", "t": 1792084191.696541}
+{"phase": "post", "name": "write_record", "t": 1792084191.7036145}
+{"phase": "post", "name": "write_record", "t": 1792084191.7151463}
+{"phase": "post", "name": "write_record", "t": 1792084191.7164545}
+{"phase": "post", "name": "write_record", "t": 1792084191.7194552}
+{"phase": "post", "name": "write_record", "t": 1792084191.7214057}
+{"phase": "post", "name": "write_record", "t": 1792084191.7222667}
+{"phase": "post", "name": "write_record", "t": 1792084191.7229624}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084192.5876505}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084192.5877104}
+{"phase": "pre", "name": "write_record", "args": {"x": "k0"}, "t": 1792084192.5886252}
+{"phase": "pre", "name": "write_record", "args": {"x": "k4"}, "t": 1792084192.5894408}
+{"phase": "pre", "name": "write_record", "args": {"x": "k2"}, "t": 1792084192.6011734}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084192.6015465}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084192.601577}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084192.6021721}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084192.6022058}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084192.602701}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084192.6027308}
+{"phase": "pre", "name": "write_record", "args": {"x": "k6"}, "t": 1792084192.6033657}
+{"phase": "pre", "name": "write_record", "args": {"x": "k8"}, "t": 1792084192.7380674}
+{"phase": "pre", "name": "write_record", "args": {"x": "k10"}, "t": 1792084192.7430174}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084192.7437773}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084192.7441204}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084192.745361}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084192.745404}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084192.745973}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084192.7460048}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084192.755775}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084192.7559285}
+{"phase": "pre", "name": "write_record", "args": {"x": "k12"}, "t": 1792084192.7991958}
+{"phase": "pre", "name": "write_record", "args": {"x": "k14"}, "t": 1792084192.7996006}
+{"phase": "pre", "name": "write_record", "args": {"x": "k16"}, "t": 1792084192.8047926}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084192.8182135}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084192.8182774}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084192.8189397}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084192.8189812}
+{"phase": "pre", "name": "write_record", "args": {"x": "k18"}, "t": 1792084192.8281133}
+{"phase": "pre", "name": "write_record", "args": {"x": "k20"}, "t": 1792084192.828521}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084192.8288352}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084192.828869}
+{"phase": "pre", "name": "write_record", "args": {"x": "k28"}, "t": 1792084192.846292}
+{"phase": "pre", "name": "write_record", "args": {"x": "k30"}, "t": 1792084192.8466783}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084192.847051}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084192.8471768}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084192.847774}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084192.8478057}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084192.84828}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084192.8483121}
+{"phase": "pre", "name": "write_record", "args": {"x": "k22"}, "t": 1792084192.8487973}
+{"phase": "pre", "name": "write_record", "args": {"x": "k24"}, "t": 1792084192.8491223}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084192.8617315}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084192.861989}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084192.8628855}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084192.862927}
+{"phase": "pre", "name": "write_record", "args": {"x": "k32"}, "t": 1792084192.8636851}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084192.8639665}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084192.863993}
+{"phase": "pre", "name": "write_record", "args": {"x": "k26"}, "t": 1792084192.8645139}
+{"phase": "pre", "name": "write_record", "args": {"x": "k36"}, "t": 1792084192.868783}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084192.8950038}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084192.895073}
+{"phase": "pre", "name": "write_record", "args": {"x": "k38"}, "t": 1792084192.9125514}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084192.9130585}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084192.9132009}
+{"phase": "pre", "name": "write_record", "args": {"x": "k34"}, "t": 1792084192.913979}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084192.9417226}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084192.941861}
+{"phase": "pre", "name": "write_record", "args": {"x": "k40"}, "t": 1792084192.9426203}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084192.9952781}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084192.9953675}
+{"phase": "pre", "name": "write_record", "args": {"x": "k44"}, "t": 1792084193.0036848}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.009044}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.0092278}
+{"phase": "pre", "name": "write_record", "args": {"x": "k42"}, "t": 1792084193.0099516}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.0373716}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.0376089}
+{"phase": "pre", "name": "write_record", "args": {"x": "k48"}, "t": 1792084193.0992415}
+{"phase": "pre", "name": "write_record", "args": {"x": "k46"}, "t": 1792084193.169849}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.1880102}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.1880682}
+{"phase": "pre", "name": "write_record", "args": {"x": "k52"}, "t": 1792084193.1888278}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.2114258}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.2114856}
+{"phase": "pre", "name": "write_record", "args": {"x": "k50"}, "t": 1792084193.2221534}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.2331877}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.2332664}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.2440097}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.244087}
+{"phase": "pre", "name": "write_record", "args": {"x": "k56"}, "t": 1792084193.2448797}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.2610576}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.2611196}
+{"phase": "pre", "name": "write_record", "args": {"x": "k54"}, "t": 1792084193.2821624}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.2826676}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.2827077}
+{"phase": "pre", "name": "write_record", "args": {"x": "k66"}, "t": 1792084193.2932622}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.3022256}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.302293}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.313457}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.3136163}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.3145337}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.3145773}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.3151278}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.3151624}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.3156672}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.3157024}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.3263564}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.3264303}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.3374417}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.3375158}
+{"phase": "pre", "name": "write_record", "args": {"x": "k68"}, "t": 1792084193.3381965}
+{"phase": "pre", "name": "write_record", "args": {"x": "k70"}, "t": 1792084193.3385332}
+{"phase": "pre", "name": "write_record", "args": {"x": "k72"}, "t": 1792084193.3393922}
+{"phase": "pre", "name": "write_record", "args": {"x": "k62"}, "t": 1792084193.350477}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.3510768}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.3511114}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.361296}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.361384}
+{"phase": "pre", "name": "write_record", "args": {"x": "k80"}, "t": 1792084193.3622196}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.3638566}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.3640234}
+{"phase": "pre", "name": "write_record", "args": {"x": "k90"}, "t": 1792084193.3649228}
+{"phase": "pre", "name": "write_record", "args": {"x": "k88"}, "t": 1792084193.37224}
+{"phase": "pre", "name": "write_record", "args": {"x": "k94"}, "t": 1792084193.372901}
+{"phase": "pre", "name": "write_record", "args": {"x": "k76"}, "t": 1792084193.3845656}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.3848956}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.3849277}
+{"phase": "pre", "name": "write_record", "args": {"x": "k82"}, "t": 1792084193.385525}
+{"phase": "pre", "name": "write_record", "args": {"x": "k74"}, "t": 1792084193.3914568}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.3918712}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.3919063}
+{"phase": "pre", "name": "write_record", "args": {"x": "k84"}, "t": 1792084193.3926325}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.3930058}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.3930387}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.393573}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.3936028}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.3940685}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.3941033}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.4053783}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.4054496}
+{"phase": "pre", "name": "write_record", "args": {"x": "k86"}, "t": 1792084193.4060912}
+{"phase": "pre", "name": "write_record", "args": {"x": "k96"}, "t": 1792084193.4065998}
+{"phase": "pre", "name": "write_record", "args": {"x": "k58"}, "t": 1792084193.406879}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.4071941}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.4072218}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.4077854}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.407817}
+{"phase": "pre", "name": "write_record", "args": {"x": "k92"}, "t": 1792084193.4083066}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.4085698}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.4086237}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.4091306}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.4091709}
+{"phase": "pre", "name": "write_record", "args": {"x": "k64"}, "t": 1792084193.409645}
+{"phase": "pre", "name": "write_record", "args": {"x": "k60"}, "t": 1792084193.4100137}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.4350612}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.4353306}
+{"phase": "pre", "name": "write_record", "args": {"x": "k78"}, "t": 1792084193.446086}
+{"phase": "pre", "name": "write_record", "args": {"x": "k98"}, "t": 1792084193.4547076}
+{"phase": "pre", "name": "write_record", "args": {"x": "k100"}, "t": 1792084193.773501}
+{"phase": "post", "name": "write_record", "t": 1792084193.7750561}
+{"phase": "post", "name": "write_record", "t": 1792084193.7757297}
+{"phase": "post", "name": "write_record", "t": 1792084193.7760549}
+{"phase": "post", "name": "write_record", "t": 1792084193.776238}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.7870631}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.7872307}
+{"phase": "pre", "name": "write_record", "args": {"x": "k102"}, "t": 1792084193.7882397}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.788543}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.7885706}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.9458296}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.945885}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.94657}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.946614}
+{"phase": "pre", "name": "write_record", "args": {"x": "k104"}, "t": 1792084193.947159}
+{"phase": "pre", "name": "write_record", "args": {"x": "k106"}, "t": 1792084193.9474797}
+{"phase": "post", "name": "write_record", "t": 1792084193.9477391}
+{"phase": "post", "name": "write_record", "t": 1792084193.9595284}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.9667256}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.9667947}
+{"phase": "pre", "name": "write_record", "args": {"x": "k108"}, "t": 1792084193.9674864}
+{"phase": "post", "name": "write_record", "t": 1792084193.968352}
+{"phase": "post", "name": "write_record", "t": 1792084193.9686906}
+{"phase": "post", "name": "write_record", "t": 1792084193.9689293}
+{"phase": "post", "name": "write_record", "t": 1792084193.9804544}
+{"phase": "post", "name": "write_record", "t": 1792084193.9808242}
+{"phase": "pre", "name": "write_record", "args": {"x": "k110"}, "t": 1792084193.9878476}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084193.9987414}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084193.998808}
+{"phase": "post", "name": "write_record", "t": 1792084193.9993575}
+{"phase": "pre", "name": "write_record", "args": {"x": "k112"}, "t": 1792084194.0274441}
+{"phase": "pre", "name": "write_record", "args": {"x": "k116"}, "t": 1792084194.0357661}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084194.0361981}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084194.0362496}
+{"phase": "pre", "name": "write_record", "args": {"x": "k114"}, "t": 1792084194.0482264}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084194.0485575}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084194.0486617}
+{"phase": "post", "name": "write_record", "t": 1792084194.04919}
+{"phase": "post", "name": "write_record", "t": 1792084194.0494142}
+{"phase": "post", "name": "write_record", "t": 1792084194.0495875}
+{"phase": "post", "name": "write_record", "t": 1792084194.0497544}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084194.0558634}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084194.0559258}
+{"phase": "post", "name": "write_record", "t": 1792084194.0575988}
+{"phase": "post", "name": "write_record", "t": 1792084194.0578563}
+{"phase": "post", "name": "write_record", "t": 1792084194.0671945}
+{"phase": "pre", "name": "write_record", "args": {"x": "k118"}, "t": 1792084194.0913322}
+{"phase": "post", "name": "write_record", "t": 1792084194.0922055}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084194.10216}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084194.1022286}
+{"phase": "post", "name": "write_record", "t": 1792084194.1241226}
+{"phase": "pre", "name": "write_record", "args": {"x": "k120"}, "t": 1792084194.1734228}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084194.1805563}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084194.1807497}
+{"phase": "post", "name": "write_record", "t": 1792084194.181886}
+{"phase": "post", "name": "write_record", "t": 1792084194.1821287}
+{"phase": "pre", "name": "write_record", "args": {"x": "k122"}, "t": 1792084194.2027617}
+{"phase": "post", "name": "write_record", "t": 1792084194.2502525}
+{"phase": "pre", "name": "write_record", "args": {"x": "k124"}, "t": 1792084194.4124048}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084194.4239526}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084194.4240277}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084194.4248161}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084194.4248784}
+{"phase": "post", "name": "write_record", "t": 1792084194.4254673}
+{"phase": "post", "name": "write_record", "t": 1792084194.425745}
+{"phase": "post", "name": "write_record", "t": 1792084194.438149}
+{"phase": "post", "name": "write_record", "t": 1792084194.4493096}
+{"phase": "pre", "name": "write_record", "args": {"x": "k126"}, "t": 1792084194.4636953}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084194.4793866}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084194.4794598}
+{"phase": "pre", "name": "write_record", "args": {"x": "k128"}, "t": 1792084194.492884}
+{"phase": "post", "name": "write_record", "t": 1792084194.5034635}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084194.5131571}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084194.5132332}
+{"phase": "post", "name": "write_record", "t": 1792084194.523395}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084194.5322518}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084194.5323446}
+{"phase": "pre", "name": "write_record", "args": {"x": "k132"}, "t": 1792084194.5330448}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084194.5489562}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084194.5491385}
+{"phase": "pre", "name": "write_record", "args": {"x": "k134"}, "t": 1792084194.550026}
+{"phase": "pre", "name": "write_record", "args": {"x": "k130"}, "t": 1792084194.5503316}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084194.5602276}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084194.5602942}
+{"phase": "post", "name": "write_record", "t": 1792084194.5614676}
+{"phase": "post", "name": "write_record", "t": 1792084194.561704}
+{"phase": "post", "name": "write_record", "t": 1792084194.5619059}
+{"phase": "pre", "name": "write_record", "args": {"x": "k136"}, "t": 1792084194.5802155}
+{"phase": "post", "name": "write_record", "t": 1792084194.5821934}
+{"phase": "post", "name": "write_record", "t": 1792084194.5829518}
+{"phase": "pre", "name": "write_record", "args": {"x": "k138"}, "t": 1792084194.593434}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084194.5937567}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084194.5938058}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084194.604481}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084194.604722}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084194.6054218}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084194.605464}
+{"phase": "post", "name": "write_record", "t": 1792084194.6059918}
+{"phase": "post", "name": "write_record", "t": 1792084194.6061997}
+{"phase": "post", "name": "write_record", "t": 1792084194.6063838}
+{"phase": "post", "name": "write_record", "t": 1792084194.6065683}
+{"phase": "post", "name": "write_record", "t": 1792084194.6067297}
+{"phase": "post", "name": "write_record", "t": 1792084194.6074567}
+{"phase": "post", "name": "write_record", "t": 1792084194.6078978}
+{"phase": "pre", "name": "write_record", "args": {"x": "k140"}, "t": 1792084194.6184232}
+{"phase": "pre", "name": "write_record", "args": {"x": "k142"}, "t": 1792084194.6190066}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084194.6192777}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084194.6193066}
+{"phase": "post", "name": "write_record", "t": 1792084194.6357317}
+{"phase": "post", "name": "write_record", "t": 1792084194.6361306}
+{"phase": "post", "name": "write_record", "t": 1792084194.6363962}
+{"phase": "post", "name": "write_record", "t": 1792084194.6368365}
+{"phase": "post", "name": "write_record", "t": 1792084194.6370885}
+{"phase": "post", "name": "write_record", "t": 1792084194.637413}
+{"phase": "pre", "name": "write_record", "args": {"x": "k148"}, "t": 1792084194.6496568}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084194.6501682}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084194.6502159}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084194.651083}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084194.6511312}
+{"phase": "pre", "name": "write_record", "args": {"x": "k146"}, "t": 1792084194.6520238}
+{"phase": "pre", "name": "write_record", "args": {"x": "k144"}, "t": 1792084194.6744566}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084194.6748352}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084194.674865}
+{"phase": "post", "name": "write_record", "t": 1792084194.6757348}
+{"phase": "post", "name": "write_record", "t": 1792084194.6760077}
+{"phase": "post", "name": "write_record", "t": 1792084194.896407}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084194.9164114}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084194.9164793}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084194.917172}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084194.917213}
+{"phase": "pre", "name": "write_record", "args": {"x": "k152"}, "t": 1792084194.9177248}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084194.918052}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084194.918078}
+{"phase": "post", "name": "write_record", "t": 1792084194.9320948}
+{"phase": "pre", "name": "write_record", "args": {"x": "k154"}, "t": 1792084194.9477994}
+{"phase": "pre", "name": "write_record", "args": {"x": "k150"}, "t": 1792084194.9483202}
+{"phase": "pre", "name": "write_record", "args": {"x": "k156"}, "t": 1792084195.024198}
+{"phase": "post", "name": "write_record", "t": 1792084195.0253305}
+{"phase": "post", "name": "write_record", "t": 1792084195.0255818}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084195.0295393}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084195.029615}
+{"phase": "pre", "name": "write_record", "args": {"x": "k158"}, "t": 1792084195.030311}
+{"phase": "pre", "name": "write_record", "args": {"x": "k160"}, "t": 1792084195.0387785}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084195.039261}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084195.0393653}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084195.0400023}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084195.0400383}
+{"phase": "post", "name": "write_record", "t": 1792084195.0410526}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084195.0461369}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084195.0462227}
+{"phase": "pre", "name": "write_record", "args": {"x": "k162"}, "t": 1792084195.0526485}
+{"phase": "post", "name": "write_record", "t": 1792084195.058948}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084195.0634027}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084195.0635147}
+{"phase": "pre", "name": "write_record", "args": {"x": "k164"}, "t": 1792084195.0709188}
+{"phase": "pre", "name": "write_record", "args": {"x": "k168"}, "t": 1792084195.0830593}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084195.0835202}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084195.083561}
+{"phase": "pre", "name": "write_record", "args": {"x": "k166"}, "t": 1792084195.0842211}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084195.0910726}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084195.0911677}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084195.0918593}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084195.0919037}
+{"phase": "pre", "name": "write_record", "args": {"x": "k174"}, "t": 1792084195.0953066}
+{"phase": "post", "name": "write_record", "t": 1792084195.097441}
+{"phase": "post", "name": "write_record", "t": 1792084195.0977333}
+{"phase": "post", "name": "write_record", "t": 1792084195.097989}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084195.1030579}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084195.1032014}
+{"phase": "pre", "name": "write_record", "args": {"x": "k172"}, "t": 1792084195.103921}
+{"phase": "pre", "name": "write_record", "args": {"x": "k170"}, "t": 1792084195.1042192}
+{"phase": "pre", "name": "write_record", "args": {"x": "k176"}, "t": 1792084195.1053526}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084195.1056743}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084195.105712}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084195.115148}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084195.115216}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084195.1261816}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084195.1262612}
+{"phase": "pre", "name": "write_record", "args": {"x": "k178"}, "t": 1792084195.1269746}
+{"phase": "post", "name": "write_record", "t": 1792084195.1336985}
+{"phase": "pre", "name": "write_record", "args": {"x": "k180"}, "t": 1792084195.1385956}
+{"phase": "post", "name": "write_record", "t": 1792084195.1498177}
+{"phase": "pre", "name": "write_record", "args": {"x": "k182"}, "t": 1792084195.1564424}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084195.1600072}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084195.160222}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084195.1650348}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084195.1652327}
+{"phase": "post", "name": "write_record", "t": 1792084195.1707907}
+{"phase": "pre", "name": "write_record", "args": {"x": "k184"}, "t": 1792084195.1885264}
+{"phase": "post", "name": "write_record", "t": 1792084195.2290332}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084195.2314215}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084195.2314696}
+{"phase": "pre", "name": "write_record", "args": {"x": "k186"}, "t": 1792084195.2427037}
+{"phase": "pre", "name": "write_record", "args": {"x": "k188"}, "t": 1792084195.243839}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084195.2514958}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084195.25156}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084195.2522264}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084195.2522686}
+{"phase": "pre", "name": "write_record", "args": {"x": "k190"}, "t": 1792084195.2707675}
+{"phase": "pre", "name": "write_record", "args": {"x": "k192"}, "t": 1792084195.2913167}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084195.2917104}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084195.2917473}
+{"phase": "post", "name": "write_record", "t": 1792084195.2927458}
+{"phase": "post", "name": "write_record", "t": 1792084195.292993}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084195.296337}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084195.296389}
+{"phase": "post", "name": "write_record", "t": 1792084195.3034666}
+{"phase": "pre", "name": "write_record", "args": {"x": "k196"}, "t": 1792084195.3075514}
+{"phase": "post", "name": "write_record", "t": 1792084195.312232}
+{"phase": "pre", "name": "write_record", "args": {"x": "k194"}, "t": 1792084195.3161628}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084195.3775878}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084195.377823}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084195.3787875}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084195.3788319}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084195.3833845}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084195.3834708}
+{"phase": "pre", "name": "write_record", "args": {"x": "k198"}, "t": 1792084195.3876145}
+{"phase": "post", "name": "write_record", "t": 1792084195.3879178}
+{"phase": "post", "name": "write_record", "t": 1792084195.3881738}
+{"phase": "post", "name": "write_record", "t": 1792084195.3883557}
+{"phase": "post", "name": "write_record", "t": 1792084195.3885214}
+{"phase": "post", "name": "write_record", "t": 1792084195.388936}
+{"phase": "post", "name": "write_record", "t": 1792084195.3923018}
+{"phase": "post", "name": "write_record", "t": 1792084195.395001}
+{"phase": "post", "name": "write_record", "t": 1792084195.3999307}
+{"phase": "post", "name": "write_record", "t": 1792084195.463784}
+{"phase": "post", "name": "write_record", "t": 1792084195.4681423}
+{"phase": "post", "name": "write_record", "t": 1792084195.4728265}
+{"phase": "post", "name": "write_record", "t": 1792084195.4897585}
+{"phase": "post", "name": "write_record", "t": 1792084195.4952672}
+{"phase": "post", "name": "write_record", "t": 1792084195.495557}
+{"phase": "post", "name": "write_record", "t": 1792084195.499489}
+{"phase": "post", "name": "write_record", "t": 1792084195.49981}
+{"phase": "post", "name": "write_record", "t": 1792084195.5148094}
+{"phase": "post", "name": "write_record", "t": 1792084195.5170856}
+{"phase": "post", "name": "write_record", "t": 1792084195.5278754}
+{"phase": "post", "name": "write_record", "t": 1792084195.5283334}
+{"phase": "post", "name": "write_record", "t": 1792084195.5286798}
+{"phase": "post", "name": "write_record", "t": 1792084195.5300734}
+{"phase": "post", "name": "write_record", "t": 1792084195.531351}
+{"phase": "post", "name": "write_record", "t": 1792084195.5325515}
+{"phase": "post", "name": "write_record", "t": 1792084195.533498}
+{"phase": "post", "name": "write_record", "t": 1792084195.5347576}
+{"phase": "post", "name": "write_record", "t": 1792084195.5410311}
+{"phase": "post", "name": "write_record", "t": 1792084195.5422301}
+{"phase": "post", "name": "write_record", "t": 1792084195.5430343}
+{"phase": "post", "name": "write_record", "t": 1792084195.5477867}
+{"phase": "post", "name": "write_record", "t": 1792084195.5495002}
+{"phase": "post", "name": "write_record", "t": 1792084195.5503795}
+{"phase": "post", "name": "write_record", "t": 1792084195.5511363}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084195.5965018}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084195.5965514}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084195.599654}
+{"phase": "post", "name": "echo", "t": 1792084195.6132202}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084195.6157203}
+{"phase": "post", "name": "echo", "t": 1792084195.628466}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084195.6323338}
+{"phase": "post", "name": "echo", "t": 1792084195.645987}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084195.6494827}
+{"phase": "post", "name": "echo", "t": 1792084195.6627622}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084195.66618}
+{"phase": "post", "name": "echo", "t": 1792084195.67903}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084195.6823297}
+{"phase": "post", "name": "echo", "t": 1792084195.6959221}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084195.698804}
+{"phase": "post", "name": "echo", "t": 1792084195.7133255}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084195.7164173}
+{"phase": "post", "name": "echo", "t": 1792084195.7315366}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084195.7345614}
+{"phase": "post", "name": "echo", "t": 1792084195.7476938}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084195.750793}
+{"phase": "post", "name": "echo", "t": 1792084195.7642596}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084195.767604}
+{"phase": "post", "name": "echo", "t": 1792084195.7814608}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084195.7848938}
+{"phase": "post", "name": "echo", "t": 1792084195.8023565}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084195.8066292}
+{"phase": "post", "name": "echo", "t": 1792084195.821609}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084195.824293}
+{"phase": "post", "name": "echo", "t": 1792084195.8387454}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084195.841401}
+{"phase": "post", "name": "echo", "t": 1792084195.855116}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084195.8577678}
+{"phase": "post", "name": "echo", "t": 1792084195.8705182}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084195.8732743}
+{"phase": "post", "name": "echo", "t": 1792084195.8866403}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084195.8900106}
+{"phase": "post", "name": "echo", "t": 1792084195.9039598}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084195.906975}
+{"phase": "post", "name": "echo", "t": 1792084195.9217312}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084195.9252787}
+{"phase": "post", "name": "echo", "t": 1792084195.9391484}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084195.9422996}
+{"phase": "post", "name": "echo", "t": 1792084195.9560063}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084195.9588573}
+{"phase": "post", "name": "echo", "t": 1792084195.9722672}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084195.9757156}
+{"phase": "post", "name": "echo", "t": 1792084195.9889328}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084195.9924815}
+{"phase": "post", "name": "echo", "t": 1792084196.0063674}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.0098138}
+{"phase": "post", "name": "echo", "t": 1792084196.0250566}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.028571}
+{"phase": "post", "name": "echo", "t": 1792084196.04188}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.0454159}
+{"phase": "post", "name": "echo", "t": 1792084196.058742}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.0622413}
+{"phase": "post", "name": "echo", "t": 1792084196.076032}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.079736}
+{"phase": "post", "name": "echo", "t": 1792084196.0934942}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.0970197}
+{"phase": "post", "name": "echo", "t": 1792084196.1106067}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.1135988}
+{"phase": "post", "name": "echo", "t": 1792084196.1279244}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.1307673}
+{"phase": "post", "name": "echo", "t": 1792084196.1452985}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.1480887}
+{"phase": "post", "name": "echo", "t": 1792084196.1618457}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.1653254}
+{"phase": "post", "name": "echo", "t": 1792084196.1787212}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.1821249}
+{"phase": "post", "name": "echo", "t": 1792084196.1968699}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.2002099}
+{"phase": "post", "name": "echo", "t": 1792084196.2138822}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.2172673}
+{"phase": "post", "name": "echo", "t": 1792084196.2320654}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.2356038}
+{"phase": "post", "name": "echo", "t": 1792084196.2493575}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.252973}
+{"phase": "post", "name": "echo", "t": 1792084196.2668192}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.26997}
+{"phase": "post", "name": "echo", "t": 1792084196.2840307}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.287012}
+{"phase": "post", "name": "echo", "t": 1792084196.3004992}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.3039436}
+{"phase": "post", "name": "echo", "t": 1792084196.320368}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.3242943}
+{"phase": "post", "name": "echo", "t": 1792084196.3385289}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.3412707}
+{"phase": "post", "name": "echo", "t": 1792084196.3554354}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.3585737}
+{"phase": "post", "name": "echo", "t": 1792084196.3733902}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.3770614}
+{"phase": "post", "name": "echo", "t": 1792084196.3920407}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.3955257}
+{"phase": "post", "name": "echo", "t": 1792084196.4092262}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.412686}
+{"phase": "post", "name": "echo", "t": 1792084196.4264152}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.429802}
+{"phase": "post", "name": "echo", "t": 1792084196.4925697}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.49598}
+{"phase": "post", "name": "echo", "t": 1792084196.5111864}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.5142648}
+{"phase": "post", "name": "echo", "t": 1792084196.5280938}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.5307589}
+{"phase": "post", "name": "echo", "t": 1792084196.544947}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.5484958}
+{"phase": "post", "name": "echo", "t": 1792084196.5639467}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.5669167}
+{"phase": "post", "name": "echo", "t": 1792084196.580907}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.5837066}
+{"phase": "post", "name": "echo", "t": 1792084196.5971615}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.599828}
+{"phase": "post", "name": "echo", "t": 1792084196.6139116}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.6175935}
+{"phase": "post", "name": "echo", "t": 1792084196.6310549}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.6342478}
+{"phase": "post", "name": "echo", "t": 1792084196.6473062}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.650107}
+{"phase": "post", "name": "echo", "t": 1792084196.6643617}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.668051}
+{"phase": "post", "name": "echo", "t": 1792084196.6818957}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.6854796}
+{"phase": "post", "name": "echo", "t": 1792084196.6989408}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.7023923}
+{"phase": "post", "name": "echo", "t": 1792084196.7172668}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.7202773}
+{"phase": "post", "name": "echo", "t": 1792084196.7338662}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.7373624}
+{"phase": "post", "name": "echo", "t": 1792084196.7504919}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.753944}
+{"phase": "post", "name": "echo", "t": 1792084196.7675457}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.7702527}
+{"phase": "post", "name": "echo", "t": 1792084196.7844436}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.7878346}
+{"phase": "post", "name": "echo", "t": 1792084196.8015282}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.805029}
+{"phase": "post", "name": "echo", "t": 1792084196.821878}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.8251007}
+{"phase": "post", "name": "echo", "t": 1792084196.8388724}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.841624}
+{"phase": "post", "name": "echo", "t": 1792084196.856332}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.860053}
+{"phase": "post", "name": "echo", "t": 1792084196.8738408}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.877234}
+{"phase": "post", "name": "echo", "t": 1792084196.890406}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.8937988}
+{"phase": "post", "name": "echo", "t": 1792084196.9070802}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.9102623}
+{"phase": "post", "name": "echo", "t": 1792084196.9235408}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.9266737}
+{"phase": "post", "name": "echo", "t": 1792084196.9404652}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.9440267}
+{"phase": "post", "name": "echo", "t": 1792084196.9581842}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.9615407}
+{"phase": "post", "name": "echo", "t": 1792084196.9751437}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.9785576}
+{"phase": "post", "name": "echo", "t": 1792084196.994082}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084196.9976962}
+{"phase": "post", "name": "echo", "t": 1792084197.0120294}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084197.015615}
+{"phase": "post", "name": "echo", "t": 1792084197.0295897}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084197.0322971}
+{"phase": "post", "name": "echo", "t": 1792084197.0463085}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084197.049092}
+{"phase": "post", "name": "echo", "t": 1792084197.064131}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084197.0669456}
+{"phase": "post", "name": "echo", "t": 1792084197.0805244}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084197.0832007}
+{"phase": "post", "name": "echo", "t": 1792084197.0966256}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084197.0993032}
+{"phase": "post", "name": "echo", "t": 1792084197.11281}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084197.116316}
+{"phase": "post", "name": "echo", "t": 1792084197.1300442}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084197.1328342}
+{"phase": "post", "name": "echo", "t": 1792084197.1468306}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084197.1504729}
+{"phase": "post", "name": "echo", "t": 1792084197.1654994}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084197.1689012}
+{"phase": "post", "name": "echo", "t": 1792084197.1827433}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084197.1862657}
+{"phase": "post", "name": "echo", "t": 1792084197.199217}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084197.202022}
+{"phase": "post", "name": "echo", "t": 1792084197.2151105}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084197.218406}
+{"phase": "post", "name": "echo", "t": 1792084197.231348}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084197.2340384}
+{"phase": "post", "name": "echo", "t": 1792084197.2475486}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084197.2510548}
+{"phase": "post", "name": "echo", "t": 1792084197.263757}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084197.267234}
+{"phase": "post", "name": "echo", "t": 1792084197.280551}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084197.2841156}
+{"phase": "post", "name": "echo", "t": 1792084197.2987118}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084197.3019881}
+{"phase": "post", "name": "echo", "t": 1792084197.3187313}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084197.322201}
+{"phase": "post", "name": "echo", "t": 1792084197.3358018}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084197.3385768}
+{"phase": "post", "name": "echo", "t": 1792084197.352287}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084197.355821}
+{"phase": "post", "name": "echo", "t": 1792084197.3705962}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084198.4337504}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084198.4338326}
+{"phase": "pre", "name": "write_record", "args": {"x": "era-legacy"}, "t": 1792084198.43781}
+{"phase": "post", "name": "write_record", "t": 1792084198.4533134}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084198.508024}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084198.508106}
+{"phase": "pre", "name": "write_record", "args": {"x": "era-auto"}, "t": 1792084198.5254178}
+{"phase": "post", "name": "write_record", "t": 1792084198.5385933}

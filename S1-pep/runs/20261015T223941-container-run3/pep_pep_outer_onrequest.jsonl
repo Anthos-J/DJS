@@ -1,0 +1,5 @@
+{"phase": "startup", "fastmcp": "4.1.0", "telemetry_mode": "native", "FWD": "false", "ORDER": "pep_outer_onrequest", "STRIP_META": "none", "t": 1792084186.4395995}
+{"phase": "pre", "name": "write_record", "args": {"x": "forbidden"}, "t": 1792084198.1996024}
+{"phase": "deny", "name": "write_record", "why": "policy", "t": 1792084198.199661}
+{"phase": "pre", "name": "write_record", "args": {"x": "z"}, "t": 1792084198.2215524}
+{"phase": "post", "name": "write_record", "t": 1792084198.2416}

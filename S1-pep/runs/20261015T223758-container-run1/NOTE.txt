@@ -1,0 +1,1 @@
+NOTE: run1 predates the telemetry-off T5 variant and the PEP startup log; otherwise identical harness. All pass/fail checks passed.

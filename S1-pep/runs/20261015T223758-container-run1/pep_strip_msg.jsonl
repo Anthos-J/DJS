@@ -1,0 +1,3 @@
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084093.2875183}
+{"phase": "strip", "how": "message", "t": 1792084093.2876294}
+{"phase": "post", "name": "echo", "t": 1792084093.3212442}

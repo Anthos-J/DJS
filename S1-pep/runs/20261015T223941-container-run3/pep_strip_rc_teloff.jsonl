@@ -1,0 +1,4 @@
+{"phase": "startup", "fastmcp": "4.1.0", "telemetry_mode": "off", "FWD": "false", "ORDER": "pep_only", "STRIP_META": "request_context", "t": 1792084185.3749168}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792084197.898617}
+{"phase": "strip", "how": "request_context", "before": {"x-evil": "1", "traceparent": "00-0af7651916cd43dd8448eb211c80319c-b7ad6b7169203331-01", "io.modelcontextprotocol/protocolVersion": "2026-07-28", "io.modelcontextprotocol/clientInfo": {"name": "mcp", "version": "0.1.0"}, "io.modelcontextprotocol/clientCapabilities": {}, "io.modelcontextprotocol/logLevel": "debug", "progressToken": 2}, "t": 1792084197.8987017}
+{"phase": "post", "name": "echo", "t": 1792084197.931034}
