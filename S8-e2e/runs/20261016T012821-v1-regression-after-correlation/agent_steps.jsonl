@@ -1,0 +1,7 @@
+{"step": "list_tools", "tools": ["read_doc", "read_hr", "send_report"]}
+{"step": "call:read_doc", "is_error": false, "text": ["quarterly figures (conf 2)"]}
+{"step": "call:read_hr", "is_error": true, "text": ["DENY (dc39a5b5851b)"]}
+{"step": "call:send_report", "is_error": true, "text": ["APPROVAL_REQUIRED: pending approval a1448fb154a6; not executed"]}
+{"step": "call:drop_tables", "is_error": true, "text": ["DENY (a47e79b4c715)"]}
+{"step": "model:allowed", "status": 200, "body": "{\"mock\": true, \"path\": \"/v1/messages\"}"}
+{"step": "model:server_tool", "status": 400, "body": "{\"error\": \"model-proxy rejected\", \"why\": \"tool type not allowed: 'web_search_20260209'\"}"}

@@ -1,0 +1,26 @@
+[
+ {
+  "where": "tool-server",
+  "what": "read_doc",
+  "t": 1792094331.092892,
+  "covered": true
+ },
+ {
+  "where": "allowed-srv",
+  "what": "tcp-accept",
+  "t": 1792094332.3609943,
+  "covered": true
+ },
+ {
+  "where": "allowed-srv",
+  "what": "http",
+  "t": 1792094332.3620124,
+  "covered": true
+ },
+ {
+  "where": "provider",
+  "what": "/v1/messages",
+  "t": 1792094331.2714598,
+  "covered": true
+ }
+]

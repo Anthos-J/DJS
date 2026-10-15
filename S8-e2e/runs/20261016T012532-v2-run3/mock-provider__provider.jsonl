@@ -1,0 +1,5 @@
+{"ev": "started", "t": 1792094139.042744}
+{"ev": "tcp-accept", "peer": "172.19.0.3", "t": 1792094197.2902577}
+{"ev": "request", "path": "/v1/messages", "peer": "172.19.0.3", "headers": {"host": "mock-provider:9000", "content-type": "application/json", "content-length": "73", "x-api-key": "DUMMY-PROVIDER-KEY-4b9d"}, "sha256": "5206f0ba14b0611f7c688aa0a368e93cd68617655f35f71cf57b102cfdeb50d0", "body": "{\"model\":\"m\",\"max_tokens\":16,\"messages\":[{\"role\":\"user\",\"content\":\"hi\"}]}", "t": 1792094197.2940614}
+{"ev": "tcp-accept", "peer": "172.19.0.3", "t": 1792094248.7515025}
+{"ev": "request", "path": "/v1/messages", "peer": "172.19.0.3", "headers": {"host": "mock-provider:9000", "content-type": "application/json", "connection": "keep-alive", "content-length": "73", "x-api-key": "DUMMY-PROVIDER-KEY-4b9d"}, "sha256": "5206f0ba14b0611f7c688aa0a368e93cd68617655f35f71cf57b102cfdeb50d0", "body": "{\"model\":\"m\",\"max_tokens\":16,\"messages\":[{\"role\":\"user\",\"content\":\"hi\"}]}", "t": 1792094248.7528818}

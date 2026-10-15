@@ -16,6 +16,7 @@
 | S5 ledger 29 | **v2 tunnel accounting** implemented and tested (Wave 4): 27/27, reproduced; accounting-off control shows the leak. | 29 INTEGRATION-VERIFIED (local, v2). |
 | **S4a** AgentDojo replay | **Executed** (Wave 5): parity 0 mismatches, deterministic, deny-all control sensitive. *In-process decision emulation.* See `S4a-agentdojo/VERDICT.md`. | 32, 33 LOCALLY REPRODUCED |
 | **S8** End-to-end | **Executed** (Wave 5): 18/18 ×2; G0 4/4 effects covered; unmediated-effect control flagged. See `S8-e2e/VERDICT.md`. | 35 INTEGRATION-VERIFIED (local, one scripted scenario) |
+| Wave 6 | S4a corrected baseline vs candidate P2 (not adopted); S8 extended 27/27 ×2 with correlated G0; clean-machine checklist written, **not executed**. | Gates: see *Wave 6* |
 
 **Wave 2 (15 Oct, late):** S1 and S2 were re-run in pinned `python:3.12` containers (AM5), and S7 was executed. See the *Wave 2* section at the end. The text directly below describes the original Windows-host runs and is kept unchanged.
 
@@ -431,3 +432,58 @@ Items 1–7 above remain: cvc5 pinned on first use; telemetry-dependent `_meta` 
 12. S6 run3/run4 T1e passed vacuously before the Content-Length fix (recorded, not rewritten).
 
 Items 1–9 remain: cvc5 pinned on first use; telemetry-dependent `_meta` stripping; sidecar-compromise residual risk; no IPv6 bypass test; on-demand drift detection; same-machine runs; nothing SECURITY-TESTED; S5 v2 byte-accounting limits; S6 mock-only.
+
+---
+
+## Wave 6 (16 Oct 2026): candidate policy P2, extended S8, clean-machine checklist
+
+**Starting state:** `9c0ffca`, clean tree. Candidate inputs were frozen in `c5ab7ea` before any run. No historical policy, annotation, harness result or failed-run note was modified; new evidence was only appended.
+
+### S4a: corrected baseline vs candidate P2 (in-process decision emulation); see the `S4a-agentdojo/VERDICT.md` Wave 6 addendum
+
+**Defect found in my v1 emulator:** the grounding check was always true, so G2 never fired. The Wave 5 "413/592 prevented / 179 remaining" figures describe P **without G2**. NOTE files were added to those runs; their results are unchanged.
+
+| | Baseline P (corrected emulator) | Candidate P2 (+G2b, get_webpage as fetch) |
+|---|---|---|
+| Decision hash (identical across 2 runs) | `e69d6d61e6bef1e731737ad6e23d4a3ea675a06d3ff27905d8c008edb6c1802d` | `acb29d3ef9ab987724217d7887b0471e0856105cb7f1d19c01c3d3a839029558` |
+| Attacks prevented (of 592 natively successful) | 524 | **566** |
+| Attacks still succeeding | 68 | **26** (content-level calendar title 16, Slack link body 7, short-ID substring grounding 3) |
+| Benign tasks keeping utility without approvals | 63 / 97 | 58 / 97 |
+| Benign tasks needing ≥1 approval | 37 | 43 |
+| Benign calls PERMIT / APPROVAL_REQUIRED | 292 / 47 | 278 / 61 |
+| Regressions | — | 5 benign (Slack URL fetches from channel data); **0 attack regressions** |
+
+Parity: 0 mismatches. Deny-all control: 57. **Caveat:** P2 was designed after seeing this benchmark's failures, so the result is **not held-out** and is likely optimistic. **P2 is not adopted.**
+
+### S8: extended scenarios; see the `S8-e2e/VERDICT.md` Wave 6 addendum
+
+- **27/27 PASS ×2:** policy-denied and pending actions, 10 tool-routing aliases, argument smuggling, forged identity headers, live revocation and restore, sidecar bypass, 9 malformed / smuggled / chunked / gzip model requests, 6 direct-route bypasses.
+- G0 is now **correlated by decision ID**, with the unmediated-effect negative control detected.
+- The v1 scenario still passes 18/18 after the change.
+- **Failures found and kept (v2-run1):**
+  - The count-based G0 checker could be fooled by an orphan PERMIT. It is fixed by correlation; v1 G0 is weaker evidence.
+  - D7's expectation was wrong for an HTTP/1.0 provider. The criterion was revised, and D7b was added.
+
+### Clean-machine checklist
+
+`CLEAN_MACHINE_CHECKLIST.md` lists exact commands, expected results, evidence locations and reviewer checks for S3, S1, S7, S5 v2 and S6, with a sign-off table. **Not executed. No gate is affected until a human completes it on a second machine.** `tools/cygpath` is a shim for Linux reruns.
+
+### Exact entry-gate state (playbook §8) after Wave 6
+
+| Gate | Requirement | Current evidence | **State** |
+|---|---|---|---|
+| EG-1 Environment | S0 pass | S0 PASS (rechecked) | **MET** |
+| EG-2 Confinement | 15–21 SECURITY-TESTED | 15–21 LOCALLY REPRODUCED (canonical AM11; 6 S3 regression runs) | **NOT MET**: needs the checklist on a second machine + independent review |
+| EG-3 PEP interception | 1–4 INTEGRATION-VERIFIED; 5, 7 SECURITY-TESTED; 8 INTEGRATION-VERIFIED; 9 LOCALLY REPRODUCED | 1–4 and 8 INTEGRATION-VERIFIED; 9 LOCALLY REPRODUCED; **5, 7 LOCALLY REPRODUCED** | **NOT MET**: 5 and 7 need clean rerun + review |
+| EG-4 Credential binding | 22, 25 INTEGRATION-VERIFIED; 23, 24 SECURITY-TESTED | 22, 25 INTEGRATION-VERIFIED; **23, 24 LOCALLY REPRODUCED** | **NOT MET**: 23 and 24 need clean rerun + review |
+| EG-5 Policy engine | 10–12, 14 LOCALLY REPRODUCED | met | **MET** |
+| EG-6 Egress | 26–28 SECURITY-TESTED; 29 INTEGRATION-VERIFIED | 29 INTEGRATION-VERIFIED (v2); **26–28 LOCALLY REPRODUCED** | **NOT MET**: 26–28 need clean rerun + review |
+| EG-7 Model route | 30, 31 SECURITY-TESTED | **30, 31 LOCALLY REPRODUCED** (mock); Content-Length defect fixed | **NOT MET**: needs clean rerun + review. T9 BLOCKED (optional) |
+| EG-8 Evaluation harness | 32, 33 LOCALLY REPRODUCED | met (emulation only; corrected emulator) | **MET** |
+| EG-9 Integration | 35 INTEGRATION-VERIFIED | met locally (S8 v1 + v2; correlated G0) | **MET (local, scripted scenarios only)** |
+
+**Nothing is SECURITY-TESTED. The full build must not start** (EG-2, EG-3, EG-4, EG-6 and EG-7 are open). The validation plan is not complete.
+
+### Blocked tests
+
+- **S6-T9 (live provider)** and **S4b (LLM-in-the-loop):** BLOCKED until you explicitly approve provider access and supply the configuration. Not attempted.

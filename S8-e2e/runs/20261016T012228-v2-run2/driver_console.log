@@ -1,0 +1,30 @@
+A0-ctl-approved-read                     PASS          effects=['read_doc']
+A1-policy-denied-and-pending             PASS          texts=["['DENY (1b0e5f9330ab)']", "['APPROVAL_REQUIRED: pending a", "['APPROVAL_REQUIRED: pending a", "['DENY (5515edd57d5f)']"] effects=0
+B1-tool-name-aliases                     PASS          denied=10/10 effects=0
+B2-argument-smuggling                    PASS          effects=[] texts=['["1 validation error for call[read_doc]\\', "['APPROVAL_REQUIRED: pending approval cd"]
+C1-forged-identity-headers               PASS          subs=['agent:cell-a']
+C2-live-revocation                       PASS          out={'cmd': 'mcp', 'exception': 'MCPError: Server returned an error response'} effects=0
+C3-restore-after-revocation              PASS          effects=1
+C4-sidecar-bypass-plain                  PASS          {'cmd': 'raw', 'response': 'HTTP/1.1 400 Bad Request\r\nServer: nginx/1.29.8\r\nDate: Thu, 15 Oct 20
+D0-ctl-model-allowed                     PASS          HTTP/1.0 200 OK
+Server: BaseHTTP/0.6 Py
+D1-duplicate-tools-key                   PASS          resp='HTTP/1.1 400 Bad Request\r\nContent-Type: application/json\r\nco' provider_new=0 bad=0
+D2-escaped-key                           PASS          resp='HTTP/1.1 400 Bad Request\r\nContent-Type: application/json\r\nco' provider_new=0 bad=0
+D3-mcp-servers                           PASS          resp='HTTP/1.1 400 Bad Request\r\nContent-Type: application/json\r\nco' provider_new=0 bad=0
+D4-unknown-field                         PASS          resp='HTTP/1.1 400 Bad Request\r\nContent-Type: application/json\r\nco' provider_new=0 bad=0
+D5-gzip-body                             PASS          resp='HTTP/1.1 400 Bad Request\r\nContent-Type: application/json\r\nco' provider_new=0 bad=0
+D6-chunked-server-tool                   PASS          resp='HTTP/1.1 400 Bad Request\r\nContent-Type: application/json\r\nco' provider_new=0 bad=0
+D7-pipelined-smuggle                     PASS          resp='HTTP/1.0 200 OK\r\nServer: BaseHTTP/0.6 Python/3.12.15\r\nDate: ' provider_new=1 bad=0
+D8-other-route                           PASS          resp='HTTP/1.1 400 Bad Request\r\nContent-Type: application/json\r\nco' provider_new=0 bad=0
+D7b-pipelined-after-proxy-response       PASS          resp='HTTP/1.1 400 Bad Request\r\nContent-Type: application/json\r\nco' provider_new=0 bad=0
+E-direct-mock-provider:9000              PASS          gaierror: [Errno -3] Temporary failure in name resolution
+E-direct-egress:8080                     PASS          gaierror: [Errno -3] Temporary failure in name resolution
+E-direct-pep:8000                        PASS          gaierror: [Errno -3] Temporary failure in name resolution
+E-direct-backend:9000                    PASS          gaierror: [Errno -3] Temporary failure in name resolution
+E-direct-172.22.0.2:9000                 PASS          OSError: [Errno 101] Network is unreachable
+E-direct-172.19.0.2:8000                 PASS          OSError: [Errno 101] Network is unreachable
+G0-coverage-v2                           PASS          effects=5 uncovered=0 orphan_permits=1
+G0-no-denied-effects-v2                  PASS          forbidden_effects=[]
+C-G0-detects-unmediated-effect-v2        PASS          uncovered_after_bypass=1
+SUMMARY {'PASS': 27}
+driver_exit=0

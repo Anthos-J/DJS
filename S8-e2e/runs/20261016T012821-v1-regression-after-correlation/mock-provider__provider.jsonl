@@ -1,0 +1,3 @@
+{"ev": "started", "t": 1792094308.9735255}
+{"ev": "tcp-accept", "peer": "172.19.0.3", "t": 1792094331.2698555}
+{"ev": "request", "path": "/v1/messages", "peer": "172.19.0.3", "headers": {"host": "mock-provider:9000", "accept-encoding": "identity", "content-type": "application/json", "content-length": "80", "x-api-key": "DUMMY-PROVIDER-KEY-4b9d"}, "sha256": "a245ce286e59bc4ce811cfa0af117a30a1cdf375bdea93a23cba3a47f567b22b", "body": "{\"model\":\"m\",\"max_tokens\":16,\"messages\":[{\"role\":\"user\",\"content\":\"summarise\"}]}", "t": 1792094331.2714598}

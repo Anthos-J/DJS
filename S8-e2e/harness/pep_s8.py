@@ -46,6 +46,16 @@ class DecisionPEP(Middleware):
             raise ToolError(f"DENY ({rid})")
         if dec == "APPROVAL_REQUIRED":
             raise ToolError(f"APPROVAL_REQUIRED: pending approval {rid}; not executed")
+        # Correlation (Wave 6): attach THIS decision's id to the forwarded request (_meta is forwarded to the backend,
+        # S1-T5). Overwrites any client-supplied value, so an agent cannot borrow another decision's id.
+        rc = context.fastmcp_context.request_context if context.fastmcp_context else None
+        try:
+            if rc is not None and isinstance(rc.meta, dict):
+                rc.meta["mandate_decision_id"] = rid
+            elif rc is not None:
+                object.__setattr__(rc, "meta", {**(dict(rc.meta) if rc.meta else {}), "mandate_decision_id": rid})
+        except Exception as e:
+            pb.log({"phase": "correlation-failed", "rid": rid, "err": repr(e)})
         return await call_next(context)
 
 proxy = create_proxy(ProxyClient(StreamableHttpTransport(os.environ["BACKEND"]), forward_incoming_headers=False), name="pep-s8")

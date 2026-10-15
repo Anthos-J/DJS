@@ -1,0 +1,78 @@
+[
+    {
+        "Name": "s8e2e_edge",
+        "Id": "8939fb52b59515c90175db181b8b36ecb976aa7e2d6a694d927ac8bfd2e3702a",
+        "Created": "2026-10-15T19:55:35.216282938Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.23.0.0/16",
+                    "Gateway": "172.23.0.1"
+                }
+            ]
+        },
+        "Internal": true,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {
+            "com.docker.network.enable_ipv4": "true",
+            "com.docker.network.enable_ipv6": "false"
+        },
+        "Labels": {
+            "com.docker.compose.config-hash": "b178fb3667e3b71aeb02ec72eaf45069a1695af92db29f4061c90b66e1af080a",
+            "com.docker.compose.network": "edge",
+            "com.docker.compose.project": "s8e2e",
+            "com.docker.compose.version": "5.6.0"
+        },
+        "Containers": {
+            "320a5a772a660593e5cc58e00f3e5003b8c630baa086b952f57d57e0cd48af4f": {
+                "Name": "s8e2e-outside-1",
+                "EndpointID": "8bbe5bb2066ca5cfbfac6fb63cdf18c64fafefcb1702e4fa25d86d25630d4374",
+                "MacAddress": "32:09:d5:b2:0a:7f",
+                "IPv4Address": "172.23.0.4/16",
+                "IPv6Address": ""
+            },
+            "4c858eeb42a42be9c81cd30bafda5a4e6f3531b7d00da810ba7c3a72f0bc3bb9": {
+                "Name": "s8e2e-denied-srv-1",
+                "EndpointID": "04d953bd022516849a3911488dd74f3e2e3ad6c0d15442370cd217283b25934e",
+                "MacAddress": "7a:61:99:7c:f1:66",
+                "IPv4Address": "172.23.0.3/16",
+                "IPv6Address": ""
+            },
+            "5364dbc65affbd1b1de8bef7878284bce1dc1366318dc50cb30e436eaef8d115": {
+                "Name": "s8e2e-allowed-srv-1",
+                "EndpointID": "0e58a1e4f63749e29bf91fe3f598dcae59baa5baa61a465e4c7c77e8ab727e02",
+                "MacAddress": "5e:3e:3e:42:d4:b6",
+                "IPv4Address": "172.23.0.2/16",
+                "IPv6Address": ""
+            },
+            "d1448a0d2181f450fb3166d3ae2c98c05eb3d5d1edec4fe23e6a7f030e35cffb": {
+                "Name": "s8e2e-egress-1",
+                "EndpointID": "85062bb1c8b48bd6e626593a5dd1d5e97af5fdffbe012a187905a8e4006947a1",
+                "MacAddress": "32:ea:2e:4f:cf:c1",
+                "IPv4Address": "172.23.0.5/16",
+                "IPv6Address": ""
+            }
+        },
+        "Status": {
+            "IPAM": {
+                "Subnets": {
+                    "172.23.0.0/16": {
+                        "IPsInUse": 7,
+                        "DynamicIPsAvailable": 65529
+                    }
+                }
+            }
+        }
+    }
+]

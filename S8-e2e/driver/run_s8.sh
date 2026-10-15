@@ -19,7 +19,7 @@ $CHK runtime s8e2e > "$R/cell_policy_runtime.json"; rc=$?; echo "runtime_check_e
 { docker image inspect "$MITM_IMAGE" --format 'mitm_image={{.Id}}'; echo "netshoot=$NETSHOOT_IMAGE"; } > "$R/images.txt"
 $DC config > "$R/compose_resolved.yaml"
 for n in $(docker network ls --filter label=com.docker.compose.project=s8e2e --format '{{.Name}}'); do docker network inspect "$n" > "$R/net_${n#s8e2e_}.json"; done
-python driver/s8_driver.py "$R" > "$R/driver_console.log" 2>&1; echo "driver_exit=$?" >> "$R/driver_console.log"
+python driver/${S8_DRIVER:-s8_driver.py} "$R" > "$R/driver_console.log" 2>&1; echo "driver_exit=$?" >> "$R/driver_console.log"
 for s in "pep /log/pep.jsonl" "backend /log/effects.jsonl" "backend /log/backend_requests.jsonl" "egress /log/egress.jsonl" "allowed-srv /log/allowed-srv.jsonl" "allowed-srv /log/denied-srv.jsonl" "model-proxy /log/model_proxy.jsonl" "mock-provider /log/provider.jsonl"; do set -- $s; $DC exec -T $1 cat $2 > "$R/$1__$(basename $2)"; done
 $DC logs --no-color > "$R/compose_logs.txt" 2>&1
 $DC down -v --remove-orphans >/dev/null 2>&1

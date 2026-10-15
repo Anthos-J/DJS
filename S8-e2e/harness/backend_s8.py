@@ -2,10 +2,18 @@
 for G0 ('every effect is preceded by a PEP decision'). Raw requests are logged too (credential leak check)."""
 import json, os, time
 import uvicorn
-from fastmcp import FastMCP
+from fastmcp import FastMCP, Context
 
 EFF = "/log/effects.jsonl"; REQ = "/log/backend_requests.jsonl"
 mcp = FastMCP("backend-s8")
+
+def decision_id(ctx):
+    try:
+        m = ctx.request_context.meta
+        d = m if isinstance(m, dict) else (m.model_dump() if hasattr(m, "model_dump") else {})
+        return (d or {}).get("mandate_decision_id")
+    except Exception:
+        return None
 
 def effect(tool, **kw):
     os.makedirs("/log", exist_ok=True)
@@ -13,16 +21,16 @@ def effect(tool, **kw):
         f.write(json.dumps({"t": time.time(), "tool": tool, **kw}) + "\n")
 
 @mcp.tool
-def read_doc() -> str:
-    effect("read_doc"); return "quarterly figures (conf 2)"
+def read_doc(ctx: Context) -> str:
+    effect("read_doc", decision_id=decision_id(ctx)); return "quarterly figures (conf 2)"
 
 @mcp.tool
-def read_hr() -> str:
-    effect("read_hr"); return "HR RECORDS"
+def read_hr(ctx: Context) -> str:
+    effect("read_hr", decision_id=decision_id(ctx)); return "HR RECORDS"
 
 @mcp.tool
-def send_report(to: str) -> str:
-    effect("send_report", to=to); return f"sent to {to}"
+def send_report(to: str, ctx: Context) -> str:
+    effect("send_report", to=to, decision_id=decision_id(ctx)); return f"sent to {to}"
 
 inner = mcp.http_app()
 

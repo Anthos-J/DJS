@@ -1,0 +1,100 @@
+terminator-1  | 2026/10/15 19:58:31 [notice] 1#1: using the "epoll" event method
+terminator-1  | 2026/10/15 19:58:31 [notice] 1#1: nginx/1.29.8
+terminator-1  | 2026/10/15 19:58:31 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+terminator-1  | 2026/10/15 19:58:31 [notice] 1#1: OS: Linux 6.6.87.2-microsoft-standard-WSL2
+terminator-1  | 2026/10/15 19:58:31 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+terminator-1  | 2026/10/15 19:58:31 [notice] 1#1: start worker processes
+terminator-1  | 2026/10/15 19:58:31 [notice] 1#1: start worker process 7
+terminator-1  | 172.20.0.3 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 19:58:50 [info] 7#7: *1 client 172.20.0.3 closed keepalive connection
+terminator-1  | 172.20.0.3 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 19:58:51 [info] 7#7: *3 client 172.20.0.3 closed keepalive connection
+terminator-1  | 2026/10/15 19:58:51 [info] 7#7: *5 client 172.20.0.3 closed keepalive connection
+terminator-1  | 172.20.0.3 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.20.0.3 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 19:58:51 [info] 7#7: *7 client 172.20.0.3 closed keepalive connection
+terminator-1  | 172.20.0.3 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 19:58:51 [info] 7#7: *9 client 172.20.0.3 closed keepalive connection
+terminator-1  | 172.20.0.3 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 19:58:51 [info] 7#7: *11 client 172.20.0.3 closed keepalive connection
+sidecar_a-1   | 2026/10/15 19:58:31 [notice] 1#1: using the "epoll" event method
+sidecar_a-1   | 2026/10/15 19:58:31 [notice] 1#1: nginx/1.29.8
+sidecar_a-1   | 2026/10/15 19:58:31 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+sidecar_a-1   | 2026/10/15 19:58:31 [notice] 1#1: OS: Linux 6.6.87.2-microsoft-standard-WSL2
+sidecar_a-1   | 2026/10/15 19:58:31 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+sidecar_a-1   | 2026/10/15 19:58:31 [notice] 1#1: start worker processes
+sidecar_a-1   | 2026/10/15 19:58:31 [notice] 1#1: start worker process 7
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 2026/10/15 19:58:51 [info] 7#7: *1 client 127.0.0.1 closed keepalive connection
+backend-1     | INFO:     Started server process [1]
+backend-1     | INFO:     Waiting for application startup.
+backend-1     | INFO:     Application startup complete.
+backend-1     | INFO:     Uvicorn running on http://0.0.0.0:9000 (Press CTRL+C to quit)
+backend-1     | INFO:     172.21.0.3:43656 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:43666 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1     | INFO:     172.21.0.3:43674 - "GET /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:43684 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:43696 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:43706 - "GET /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:43718 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1     | INFO:     172.21.0.3:43720 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:43736 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:43752 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:43760 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1     | INFO:     172.21.0.3:43766 - "GET /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:43772 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:43782 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:43790 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:43804 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1     | INFO:     172.21.0.3:43810 - "GET /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:43826 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:43840 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:53892 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:53892 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:53892 - "POST /mcp HTTP/1.1" 200 OK
+model-proxy-1  | [19:58:31.676] Loading script /s6h/model_addon.py
+model-proxy-1  | [19:58:31.693] reverse proxy to http://mock-provider:9000 listening at *:8080.
+model-proxy-1  | [19:58:51.263][172.20.0.3:40446] client connect
+model-proxy-1  | [19:58:51.269][172.20.0.3:40446] server connect mock-provider:9000 (172.19.0.2:9000)
+model-proxy-1  | [19:58:51.274][172.20.0.3:40446] Streaming response from mock-provider.
+model-proxy-1  | 172.20.0.3:40446: POST http://mock-provider:9000/v1/messages HTTP/1.1
+model-proxy-1  |       << HTTP/1.0 200 OK (content missing)
+model-proxy-1  | [19:58:51.277][172.20.0.3:40446] server disconnect mock-provider:9000 (172.19.0.2:9000)
+model-proxy-1  | [19:58:51.278][172.20.0.3:40460] client connect
+model-proxy-1  | [19:58:51.279][172.20.0.3:40446] client disconnect
+model-proxy-1  | 172.20.0.3:40460: POST http://mock-provider:9000/v1/messages
+model-proxy-1  |                << 400 Bad Request 88b
+model-proxy-1  | [19:58:51.285][172.20.0.3:40460] client disconnect
+pep-1          | INFO:     Started server process [1]
+pep-1          | INFO:     Waiting for application startup.
+pep-1          | INFO:     Application startup complete.
+pep-1          | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+pep-1          | INFO:     172.23.0.3:38378 - "POST /mcp HTTP/1.1" 200 OK
+pep-1          | INFO:     172.23.0.3:38382 - "POST /mcp HTTP/1.1" 200 OK
+pep-1          | INFO:     172.23.0.3:38386 - "POST /mcp HTTP/1.1" 200 OK
+pep-1          | INFO:     172.23.0.3:38388 - "POST /mcp HTTP/1.1" 200 OK
+pep-1          | INFO:     172.23.0.3:38396 - "POST /mcp HTTP/1.1" 200 OK
+pep-1          | INFO:     172.23.0.3:38412 - "POST /mcp HTTP/1.1" 200 OK
+pki-1          | {"cell-a": "lnFU8llz37T_Sf7p9tfEAOUps_kZ5kO-d-Rs5PeS7EA", "cell-b": "I2-nNjWhSUoPRmK6hukAY2zlChf3Orvagb9yNczigZg", "rogue": "lodSKd5WtOaakn_LuiLq_z7nUldS-NzTWQdgKadzR70"}
+egress-1       | [19:58:31.134] Loading script /s5h/egress_addon_v2.py
+egress-1       | [19:58:31.154] HTTP(S) proxy listening at *:8080.
+egress-1       | [19:58:52.354][172.22.0.1:56374] client connect
+egress-1       | [19:58:52.361][172.22.0.1:56374] server connect allowed-srv:80 (172.18.0.4:80)
+egress-1       | [19:58:52.363][172.22.0.1:56374] Streaming response from allowed-srv.
+egress-1       | 172.22.0.1:56374: GET http://allowed-srv/ HTTP/1.1
+egress-1       |       << HTTP/1.0 200 OK (content missing)
+egress-1       | [19:58:52.372][172.22.0.1:56374] server disconnect allowed-srv:80 (172.18.0.4:80)
+egress-1       | [19:58:52.373][172.22.0.1:56374] client disconnect
+egress-1       | [19:58:53.008][172.22.0.1:56380] client connect
+egress-1       | 172.22.0.1:56380: GET http://denied-srv/
+egress-1       |                << 403 Forbidden 32b
+egress-1       | [19:58:53.012][172.22.0.1:56380] client disconnect
+egress-1       | [19:58:53.675][172.22.0.1:56386] client connect
+egress-1       | 172.22.0.1:56386: CONNECT denied-srv:443
+egress-1       |                << 403 Forbidden 32b
+egress-1       | [19:58:53.678][172.22.0.1:56386] client disconnect

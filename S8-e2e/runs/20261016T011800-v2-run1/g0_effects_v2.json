@@ -1,0 +1,27 @@
+[
+ {
+  "where": "tool-server",
+  "what": "read_doc",
+  "covered": true
+ },
+ {
+  "where": "tool-server",
+  "what": "read_doc",
+  "covered": true
+ },
+ {
+  "where": "tool-server",
+  "what": "read_doc",
+  "covered": true
+ },
+ {
+  "where": "provider",
+  "what": "/v1/messages",
+  "covered": true
+ },
+ {
+  "where": "provider",
+  "what": "/v1/messages",
+  "covered": true
+ }
+]
