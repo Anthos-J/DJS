@@ -1,0 +1,8 @@
+netshoot-ok
+/usr/bin/dig
+/usr/bin/curl
+/usr/bin/nc
+/usr/bin/tcpdump
+/sbin/ip
+/usr/bin/getent
+/bin/ping
