@@ -1,0 +1,4 @@
+desktop-linux
+client=29.8.2 server=29.8.2 linux/amd64
+engine=29.8.2 os=Docker Desktop kernel=6.6.87.2-microsoft-standard-WSL2 engine_id=8264e8e1-a439-48c3-a7cf-3ebd405ade2d
+Docker Compose version v5.6.0

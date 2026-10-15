@@ -1,0 +1,40 @@
+{
+ "nets": {
+  "cellnet_a": {
+   "subnet": "172.20.0.0/16",
+   "gateway": "172.20.0.1",
+   "options": {
+    "com.docker.network.enable_ipv4": "true",
+    "com.docker.network.enable_ipv6": "false"
+   }
+  },
+  "cellnet_b": {
+   "subnet": "172.19.0.0/16",
+   "gateway": "172.19.0.1",
+   "options": {
+    "com.docker.network.enable_ipv4": "true",
+    "com.docker.network.enable_ipv6": "false"
+   }
+  },
+  "edge": {
+   "subnet": "172.18.0.0/16",
+   "gateway": "172.18.0.1",
+   "options": {
+    "com.docker.network.enable_ipv4": "true",
+    "com.docker.network.enable_ipv6": "false"
+   }
+  }
+ },
+ "host_vm_total": 248,
+ "host_vm_cell_dns_probe": 0,
+ "host_vm_ctl_dns_probe": 1,
+ "host_vm_pkts_from_cellnets": 54,
+ "host_vm_cell_pkt_destinations": [
+  "172.20.0.1",
+  "172.20.0.4"
+ ],
+ "cell_a_ip_packets": 20404,
+ "cell_a_offsubnet_dst_packets": 0,
+ "cell_a_offsubnet_sample": [],
+ "cell_a_ipv6_packets": 0
+}

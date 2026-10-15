@@ -1,0 +1,71 @@
+[
+    {
+        "Name": "s3iso_edge",
+        "Id": "821793abb52537722ae7c953e1b424190910e0c53eca71250f80234e33bd0775",
+        "Created": "2026-10-15T15:14:07.538354902Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.20.0.0/16",
+                    "Gateway": "172.20.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {
+            "com.docker.network.enable_ipv4": "true",
+            "com.docker.network.enable_ipv6": "false"
+        },
+        "Labels": {
+            "com.docker.compose.config-hash": "9e587ff4c5cdda242bf3685132d74f0bec8edefc7970362fada5b07b10494de9",
+            "com.docker.compose.network": "edge",
+            "com.docker.compose.project": "s3iso",
+            "com.docker.compose.version": "5.6.0"
+        },
+        "Containers": {
+            "2a69d1ce389dc3bec35faa731f5995796b53302ac4b35c6a7090a2a71fe45663": {
+                "Name": "s3iso-outside-1",
+                "EndpointID": "0ea50c92f2b71d7a429069336c5608884f9f61249bfcc422289bf6642dbbeb5f",
+                "MacAddress": "d2:76:bf:0c:65:ef",
+                "IPv4Address": "172.20.0.4/16",
+                "IPv6Address": ""
+            },
+            "b6966a1738ad59210fa848b7bdb84a6e3e85842c93dbe49516dc0b0289ee35ce": {
+                "Name": "s3iso-gateway-1",
+                "EndpointID": "5fc5efc577416e79f4def6c98b68e4f23e2a91fcd153025e6255847da804b158",
+                "MacAddress": "fa:9c:5c:cc:90:23",
+                "IPv4Address": "172.20.0.3/16",
+                "IPv6Address": ""
+            },
+            "d9a5de967d89c01c6416ab5ccf39e30ccf39ade47365b33a86469a8066fbce53": {
+                "Name": "s3iso-mdfixture-1",
+                "EndpointID": "d5bd0a722bfac0f4b7b1ae0c21c2694d4790f9bf358a5abb3cc7f162af04ca5a",
+                "MacAddress": "0a:8d:45:44:e7:50",
+                "IPv4Address": "172.20.0.2/16",
+                "IPv6Address": ""
+            }
+        },
+        "Status": {
+            "IPAM": {
+                "Subnets": {
+                    "172.20.0.0/16": {
+                        "IPsInUse": 6,
+                        "DynamicIPsAvailable": 65530
+                    }
+                }
+            }
+        }
+    }
+]

@@ -7,8 +7,8 @@
 
 | Configuration | Result | Runs |
 |---|---|---|
-| **Baseline**: playbook topology (`config/compose.yaml`; `internal: true` cell networks) | **FAIL**, criterion T3: host-namespace services are reachable from the cell | `runs/20261015T192937-baseline`, `runs/20261015T193623-baseline-final` (2 reproductions) |
-| **Remediation R1**: same topology + `com.docker.network.bridge.gateway_mode_ipv4/ipv6: isolated` on the cell networks (`config/compose.isolated.yaml`; only those 6 lines differ) | **All pass/fail criteria PASS.** Status **LOCALLY REPRODUCED** | `runs/20261015T193842-R1-final-run1`, `runs/20261015T194057-R1-final-run2` (2 clean runs from full teardown) |
+| **Baseline**: playbook topology (`config/compose.yaml`; `internal: true` cell networks) | **FAIL**, criterion T3: host-namespace services are reachable from the cell | `runs/20261015T192937-baseline`, `runs/20261015T193623-baseline-final`, `runs/20261015T204143-baseline-rerun2` (3 reproductions) |
+| **Remediation R1**: same topology + `com.docker.network.bridge.gateway_mode_ipv4/ipv6: isolated` on the cell networks (`config/compose.isolated.yaml`; only those 6 lines differ) | **All pass/fail criteria PASS.** Status **LOCALLY REPRODUCED** | `runs/20261015T193842-R1-final-run1`, `runs/20261015T194057-R1-final-run2`, `runs/20261015T204359-R1-rerun3` (3 runs, each from full teardown) |
 
 ### The failure (baseline)
 - From inside `agent_a` (`cap_drop: ALL`, read-only, no-new-privileges), the internal network's bridge gateway IP accepts connections on **TCP 111 (rpcbind), TCP 44775 and UDP 111**.
@@ -25,13 +25,23 @@
 - The `.1` address is then given to a container. In run 2 it went to the gateway container (only port 8080 open, which is the intended path); in run 1 to the cell's own sidecar. The holder is recorded in `context.json`.
 - IPv6 is disabled on the cell interface (`disable_ipv6=1`), and a TCP attempt to the host bridge's link-local address on port 111 failed (`R1_followup.txt`).
 
+## Rerun 3 (15 Oct, 20:41–20:46, after the S0 recheck)
+- **Baseline `20261015T204143-baseline-rerun2`:** 43 PASS / 3 FAIL / 9 INFO / 0 HARNESS-ERROR.
+  - Same failure: T3e (TCP 111 + a high port), T3f (UDP 111) and T3g, at bridge address 172.20.0.1.
+  - The high port is now **55953**, not 44775. It is a dynamically assigned host-namespace listener, not a fixed service.
+- **R1 `20261015T204359-R1-rerun3`:** 46 PASS / 0 FAIL / 9 INFO / 0 HARNESS-ERROR.
+  - `.1` held by a **third** holder, `privctl_a`. No allowed ports; the strict full sweep found 0 open (2.8 s).
+  - The only host bridge with IPv4 is `edge` (172.20.0.1/16, not a cell network). T3g shows it is unreachable from the cell on 111.
+  - Cell capture: 0 off-subnet packets, 0 IPv6. Host-VM capture: cell DNS probe name 0×, control 1×.
+- **Outcome:** both verdicts are unchanged. This is a same-machine rerun; see the S0 freshness caveat. It does **not** satisfy the clean-environment rerun or the independent review.
+
 ## Criteria (final runs)
 
 | ID | Criterion | Baseline | R1 (both runs) | Positive control | Evidence / notes |
 |---|---|---|---|---|---|
 | T1 | No direct IPv4 egress (HTTPS, TCP 1.1.1.1:443, TCP 8.8.8.8:53, ICMP, edge-network peer) | PASS | **PASS** | `outside` reached HTTPS 200 and TCP 1.1.1.1:443 | Cell route table has only its own /16 and **no default route**. Cell capture: **0 packets to any destination outside its own subnet**. |
 | T2 | No DNS resolution or exfiltration | PASS | **PASS** | Control query `s3probe-<rand>-ctl.example.com` **visible** in host-VM capture (forwarded to 192.168.65.7) | Cell probe name appears **0 times** in the host-VM capture. Resolver answers SERVFAIL in 0 ms; `example.com` gets no answer; direct `@1.1.1.1` fails with "network unreachable". **Deviation:** pcap method (T2-alt) used instead of a canary service, which has not been approved. |
-| T3 | No host / gateway-IP / Desktop-internal services | **FAIL** (T3e TCP 111 & 44775, T3f UDP 111, T3g) | **PASS** | `outside` resolves `host.docker.internal` and reaches `http.docker.internal:3128` | Desktop names do not resolve in the cell; using the internal proxy `http.docker.internal:3128` as egress fails; full TCP sweep of `.1` finds no host-side listener |
+| T3 | No host / gateway-IP / Desktop-internal services | **FAIL** (T3e TCP 111 & a dynamic high port: 44775, later 55953; T3f UDP 111, T3g) | **PASS** | `outside` resolves `host.docker.internal` and reaches `http.docker.internal:3128` | Desktop names do not resolve in the cell; using the internal proxy `http.docker.internal:3128` as egress fails; full TCP sweep of `.1` finds no host-side listener |
 | T4 | No IPv6 path | PASS | **PASS** | **Not applicable:** `outside` also has no IPv6 egress | No global IPv6 address; `disable_ipv6=1` on eth0; 0 IPv6 packets in the cell capture. Evidence that IPv6 is *blocked* rests on it being disabled in the cell, not on a failed-reachable path. |
 | T5 | Intended path works | PASS | **PASS** | — | `curl gateway:8080/echo` → `gateway-ok` |
 | T6 | Sidecar secret and processes invisible | PASS | **PASS** | Sidecar reads `/secrets/cell.key` | Agent: file absent; filesystem-wide grep finds nothing; `ps` shows only the agent's own processes |

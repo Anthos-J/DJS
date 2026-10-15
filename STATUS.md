@@ -6,8 +6,8 @@
 
 | Spike | Outcome | Highest status reached |
 |---|---|---|
-| **S0** Environment | **PASS** (15 Oct, after the user reinstalled Docker Desktop 4.95.0 / Engine 29.8.2). Earlier attempt: BLOCKED by the 4.68.0 startup crash. See `S0-env/VERDICT.md`. | Baseline recorded |
-| **S3** Cell isolation | **Playbook topology: FAIL** on T3. From the cell, the internal bridge's gateway IP exposes Docker Desktop VM host-namespace services (rpcbind TCP/UDP 111, TCP 44775). This was not shown to be an egress path. **Remediation R1** (gateway mode `isolated` on cell networks): **all pass/fail criteria PASS** in 2 clean runs. See `S3-isolation/VERDICT.md`. | R1: **LOCALLY REPRODUCED**. Baseline: FAIL. **Not SECURITY-TESTED.** |
+| **S0** Environment | **PASS** (15 Oct, after the user reinstalled Docker Desktop 4.95.0 / Engine 29.8.2; **rechecked 20:39 → PASS**, `runs/20261015T203952-recheck`; earlier images still present, so this is not a fresh engine). Earlier attempt: BLOCKED by the 4.68.0 startup crash. See `S0-env/VERDICT.md`. | Baseline recorded |
+| **S3** Cell isolation | **Playbook topology: FAIL** on T3. From the cell, the internal bridge's gateway IP exposes Docker Desktop VM host-namespace services (rpcbind TCP/UDP 111, plus a dynamic high TCP port). This was not shown to be an egress path. **Reproduced 3×.** **Remediation R1** (gateway mode `isolated` on cell networks): **all pass/fail criteria PASS** in 3 runs from full teardown (latest `runs/20261015T204359-R1-rerun3`). See `S3-isolation/VERDICT.md`. | R1: **LOCALLY REPRODUCED**. Baseline: FAIL. **Not SECURITY-TESTED.** |
 | **S1** MCP PEP | **Executed.** Every pass/fail check passed in the second run. | LOCALLY REPRODUCED. See notes on INTEGRATION-VERIFIED. |
 | **S2** Cedar + SymCC | **Executed.** All pass/fail checks passed. | LOCALLY REPRODUCED |
 
@@ -66,7 +66,7 @@ cvc5 zip SHA-256 (ours): `e1e183f50f1bbd9d10b2dc6ab9574cb9fa02acfdc1957f43040db3
 | 12 | Errors → DENY rule demonstrable | UNVERIFIED | **LOCALLY REPRODUCED** (T3c shows it is necessary) |
 | 13 | SymCC proof + counterexample | DOCUMENTED | **LOCALLY REPRODUCED** |
 | 14 | cedarpy ≡ CLI | UNVERIFIED | **LOCALLY REPRODUCED** (300-sample) |
-| 15–21 | Cell isolation claims | DOCUMENTED / UNVERIFIED | Unchanged (S3 not run) |
+| 15–21 | Cell isolation claims | DOCUMENTED / UNVERIFIED | See the S3 ledger below (S3 has now run) |
 
 ## Design consequences (add to playbook amendments)
 - **AM8:** The PEP must be the last-added (innermost) tool-call middleware, or the only one. Otherwise arguments can change after the check (S1-T10).
@@ -111,6 +111,21 @@ Every negative probe is paired with a positive control, and all controls passed 
 
 ### New design amendment
 - **AM11:** Cell networks **must** be `internal: true` **and** use bridge gateway mode `isolated` (`com.docker.network.bridge.gateway_mode_ipv4/ipv6: isolated`). A plain internal network exposes the container host's namespace services through the bridge address (S3-T3 baseline FAIL). A cell network must contain only the cell and the gateway (T9c).
+
+### S3 per-criterion status after rerun 3 (15 Oct, 20:46)
+
+| Criterion | Playbook topology (baseline) | R1 (AM11) | Evidence |
+|---|---|---|---|
+| T1 IPv4 egress | PASS | PASS | `results.jsonl` T1a–f; cell pcap 0 off-subnet packets |
+| T2 DNS | PASS | PASS | pcap method (T2-alt): probe name 0× / control 1× in host-VM capture |
+| T3 host / gateway-IP | **FAIL** | PASS | baseline: 172.20.0.1 TCP 111 + 55953, UDP 111 open; R1: strict `.1` sweep 0 open |
+| T4 IPv6 | PASS | PASS | weak positive control (no IPv6 anywhere) |
+| T5 intended path | PASS | PASS | `gateway-ok` |
+| T6 sidecar secrets | PASS | PASS | |
+| T7 caps | PASS | PASS | |
+| T8 metadata (local fixture only) | PASS | PASS | real 169.254.169.254 never contacted |
+| T9 cross-cell | PASS | PASS | |
+| **Spike** | **FAIL** | **LOCALLY REPRODUCED** | No criterion is BLOCKED. Clean-environment rerun and independent review are outstanding, so **not SECURITY-TESTED**. |
 
 ### Still required before S3 can be SECURITY-TESTED
 1. Clean-environment rerun of the R1 variant on a second machine or after a Docker reset.
