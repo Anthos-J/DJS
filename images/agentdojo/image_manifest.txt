@@ -1,0 +1,8 @@
+Python 3.12.15
+Name: agentdojo
+Version: 0.1.35
+Summary: A Dynamic Environment to Evaluate Attacks and Defenses for LLM Agents
+agentdojo==0.1.35
+cedarpy==4.12.2
+pydantic==2.14.1
+image_id=sha256:b6f1835cc5ecb979416e7b66cc2e78bce65236aed740e2cfeaf31aa44b2bb9fc
