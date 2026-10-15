@@ -1,0 +1,5 @@
+  File "C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S7-binding\driver\s7_driver.py", line 36
+    for l in r["stdout"].split("
+                               ^
+SyntaxError: unterminated string literal (detected at line 36)
+driver_exit=1

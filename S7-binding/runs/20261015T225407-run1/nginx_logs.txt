@@ -1,0 +1,38 @@
+terminator-1  | 2026/10/15 17:24:12 [notice] 1#1: using the "epoll" event method
+terminator-1  | 2026/10/15 17:24:12 [notice] 1#1: nginx/1.29.8
+terminator-1  | 2026/10/15 17:24:12 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+sidecar_b-1   | 2026/10/15 17:24:12 [notice] 1#1: using the "epoll" event method
+sidecar_a-1   | 2026/10/15 17:24:13 [notice] 1#1: using the "epoll" event method
+sidecar_b-1   | 2026/10/15 17:24:12 [notice] 1#1: nginx/1.29.8
+terminator-1  | 2026/10/15 17:24:12 [notice] 1#1: OS: Linux 6.6.87.2-microsoft-standard-WSL2
+terminator-1  | 2026/10/15 17:24:12 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+terminator-1  | 2026/10/15 17:24:12 [notice] 1#1: start worker processes
+terminator-1  | 2026/10/15 17:24:12 [notice] 1#1: start worker process 7
+terminator-1  | 172.19.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+sidecar_b-1   | 2026/10/15 17:24:12 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+terminator-1  | 2026/10/15 17:24:25 [info] 7#7: *1 client 172.19.0.2 closed keepalive connection
+terminator-1  | 2026/10/15 17:24:26 [info] 7#7: *3 client 172.19.0.2 closed keepalive connection
+terminator-1  | 172.19.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+sidecar_b-1   | 2026/10/15 17:24:12 [notice] 1#1: OS: Linux 6.6.87.2-microsoft-standard-WSL2
+terminator-1  | 172.19.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:24:26 [info] 7#7: *5 client 172.19.0.2 closed keepalive connection
+sidecar_a-1   | 2026/10/15 17:24:13 [notice] 1#1: nginx/1.29.8
+sidecar_b-1   | 2026/10/15 17:24:12 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+sidecar_b-1   | 2026/10/15 17:24:12 [notice] 1#1: start worker processes
+sidecar_b-1   | 2026/10/15 17:24:12 [notice] 1#1: start worker process 7
+sidecar_a-1   | 2026/10/15 17:24:13 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+sidecar_a-1   | 2026/10/15 17:24:13 [notice] 1#1: OS: Linux 6.6.87.2-microsoft-standard-WSL2
+sidecar_a-1   | 2026/10/15 17:24:13 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+sidecar_a-1   | 2026/10/15 17:24:13 [notice] 1#1: start worker processes
+sidecar_a-1   | 2026/10/15 17:24:13 [notice] 1#1: start worker process 7
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 2026/10/15 17:24:26 [info] 7#7: *1 client 127.0.0.1 closed keepalive connection
+sidecar_c-1   | 2026/10/15 17:24:12 [notice] 1#1: using the "epoll" event method
+sidecar_c-1   | 2026/10/15 17:24:12 [notice] 1#1: nginx/1.29.8
+sidecar_c-1   | 2026/10/15 17:24:12 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+sidecar_c-1   | 2026/10/15 17:24:12 [notice] 1#1: OS: Linux 6.6.87.2-microsoft-standard-WSL2
+sidecar_c-1   | 2026/10/15 17:24:12 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+sidecar_c-1   | 2026/10/15 17:24:12 [notice] 1#1: start worker processes
+sidecar_c-1   | 2026/10/15 17:24:12 [notice] 1#1: start worker process 7

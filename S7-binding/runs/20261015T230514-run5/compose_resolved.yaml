@@ -1,0 +1,409 @@
+name: s7bind
+services:
+  agent_a:
+    cap_drop:
+      - ALL
+    command:
+      - sleep
+      - infinity
+    image: mandate-spike-py312:wave2
+    labels:
+      mandate.cell: a
+      mandate.role: agent
+    network_mode: service:sidecar_a
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+    volumes:
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S7-binding\harness
+        target: /harness
+        read_only: true
+        bind: {}
+    depends_on:
+      sidecar_a:
+        condition: service_started
+        required: true
+  agent_b:
+    cap_drop:
+      - ALL
+    command:
+      - sleep
+      - infinity
+    image: mandate-spike-py312:wave2
+    labels:
+      mandate.cell: b
+      mandate.role: agent
+    network_mode: service:sidecar_b
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+    volumes:
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S7-binding\harness
+        target: /harness
+        read_only: true
+        bind: {}
+    depends_on:
+      sidecar_b:
+        condition: service_started
+        required: true
+  agent_c:
+    cap_drop:
+      - ALL
+    command:
+      - sleep
+      - infinity
+    image: mandate-spike-py312:wave2
+    labels:
+      mandate.cell: c
+      mandate.role: agent
+    network_mode: service:sidecar_c
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+    volumes:
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S7-binding\harness
+        target: /harness
+        read_only: true
+        bind: {}
+    depends_on:
+      sidecar_c:
+        condition: service_started
+        required: true
+  backend:
+    command:
+      - python
+      - /harness/backend.py
+    environment:
+      TOOL_API_KEY: DUMMY-DOWNSTREAM-TOOL-KEY-7c1e
+    image: mandate-spike-py312:wave2
+    labels:
+      mandate.role: tool-server
+    networks:
+      toolnet: null
+    volumes:
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S7-binding\harness
+        target: /harness
+        read_only: true
+        bind: {}
+      - type: volume
+        source: backend_log
+        target: /log
+        volume: {}
+    depends_on:
+      pki:
+        condition: service_completed_successfully
+        required: true
+  harness:
+    command:
+      - sleep
+      - infinity
+    image: mandate-spike-py312:wave2
+    labels:
+      mandate.role: test-fixture
+    networks:
+      testnet: null
+    volumes:
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S7-binding\harness
+        target: /harness
+        read_only: true
+        bind: {}
+      - type: volume
+        source: sec_harness
+        target: /secrets
+        read_only: true
+        volume: {}
+    depends_on:
+      terminator:
+        condition: service_started
+        required: true
+  pep:
+    command:
+      - python
+      - /harness/pep_bound.py
+    image: mandate-spike-py312:wave2
+    labels:
+      mandate.role: pep
+    networks:
+      pepnet: null
+      toolnet: null
+    volumes:
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S7-binding\harness
+        target: /harness
+        read_only: true
+        bind: {}
+      - type: volume
+        source: sec_pep
+        target: /secrets
+        read_only: true
+        volume: {}
+      - type: volume
+        source: pep_log
+        target: /log
+        volume: {}
+    depends_on:
+      backend:
+        condition: service_started
+        required: true
+  pki:
+    command:
+      - python
+      - /harness/pki.py
+      - /out
+    image: mandate-spike-py312:wave2
+    labels:
+      mandate.oneshot: "true"
+      mandate.role: test-fixture
+    network_mode: none
+    volumes:
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S7-binding\harness
+        target: /harness
+        read_only: true
+        bind: {}
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S7-binding\runs\20261015T230514-run5
+        target: /out
+        bind: {}
+      - type: volume
+        source: sec_side_a
+        target: /vol/side_a
+        volume: {}
+      - type: volume
+        source: sec_side_b
+        target: /vol/side_b
+        volume: {}
+      - type: volume
+        source: sec_side_c
+        target: /vol/side_c
+        volume: {}
+      - type: volume
+        source: sec_term
+        target: /vol/term
+        volume: {}
+      - type: volume
+        source: sec_pep
+        target: /vol/pep
+        volume: {}
+      - type: volume
+        source: sec_harness
+        target: /vol/harness
+        volume: {}
+  sidecar_a:
+    entrypoint:
+      - nginx
+      - -g
+      - daemon off;
+      - -c
+      - /etc/nginx-s7/nginx.conf
+    image: nginx@sha256:5616878291a2eed594aee8db4dade5878cf7edcb475e59193904b198d9b830de
+    labels:
+      mandate.cell: a
+      mandate.role: cell-netns-owner
+    networks:
+      cellnet_a: null
+    volumes:
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S7-binding\config\nginx-sidecar.conf
+        target: /etc/nginx-s7/nginx.conf
+        read_only: true
+        bind: {}
+      - type: volume
+        source: sec_side_a
+        target: /secrets
+        read_only: true
+        volume: {}
+    depends_on:
+      terminator:
+        condition: service_started
+        required: true
+  sidecar_b:
+    entrypoint:
+      - nginx
+      - -g
+      - daemon off;
+      - -c
+      - /etc/nginx-s7/nginx.conf
+    image: nginx@sha256:5616878291a2eed594aee8db4dade5878cf7edcb475e59193904b198d9b830de
+    labels:
+      mandate.cell: b
+      mandate.role: cell-netns-owner
+    networks:
+      cellnet_b: null
+    volumes:
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S7-binding\config\nginx-sidecar.conf
+        target: /etc/nginx-s7/nginx.conf
+        read_only: true
+        bind: {}
+      - type: volume
+        source: sec_side_b
+        target: /secrets
+        read_only: true
+        volume: {}
+    depends_on:
+      terminator:
+        condition: service_started
+        required: true
+  sidecar_c:
+    entrypoint:
+      - nginx
+      - -g
+      - daemon off;
+      - -c
+      - /etc/nginx-s7/nginx.conf
+    image: nginx@sha256:5616878291a2eed594aee8db4dade5878cf7edcb475e59193904b198d9b830de
+    labels:
+      mandate.cell: c
+      mandate.role: cell-netns-owner
+    networks:
+      cellnet_c: null
+    volumes:
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S7-binding\config\nginx-sidecar.conf
+        target: /etc/nginx-s7/nginx.conf
+        read_only: true
+        bind: {}
+      - type: volume
+        source: sec_side_c
+        target: /secrets
+        read_only: true
+        volume: {}
+    depends_on:
+      terminator:
+        condition: service_started
+        required: true
+  terminator:
+    entrypoint:
+      - nginx
+      - -g
+      - daemon off;
+      - -c
+      - /etc/nginx-s7/nginx.conf
+    image: nginx@sha256:5616878291a2eed594aee8db4dade5878cf7edcb475e59193904b198d9b830de
+    labels:
+      mandate.role: gateway
+    networks:
+      cellnet_a: null
+      cellnet_b: null
+      cellnet_c: null
+      pepnet: null
+      testnet: null
+    volumes:
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S7-binding\config\nginx-terminator.conf
+        target: /etc/nginx-s7/nginx.conf
+        read_only: true
+        bind: {}
+      - type: volume
+        source: sec_term
+        target: /secrets
+        read_only: true
+        volume: {}
+    depends_on:
+      pep:
+        condition: service_started
+        required: true
+networks:
+  cellnet_a:
+    name: s7bind_cellnet_a
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.gateway_mode_ipv4: isolated
+      com.docker.network.bridge.gateway_mode_ipv6: isolated
+    internal: true
+    labels:
+      mandate.cell: a
+      mandate.role: execution-cell
+    enable_ipv6: false
+  cellnet_b:
+    name: s7bind_cellnet_b
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.gateway_mode_ipv4: isolated
+      com.docker.network.bridge.gateway_mode_ipv6: isolated
+    internal: true
+    labels:
+      mandate.cell: b
+      mandate.role: execution-cell
+    enable_ipv6: false
+  cellnet_c:
+    name: s7bind_cellnet_c
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.gateway_mode_ipv4: isolated
+      com.docker.network.bridge.gateway_mode_ipv6: isolated
+    internal: true
+    labels:
+      mandate.cell: c
+      mandate.role: execution-cell
+    enable_ipv6: false
+  pepnet:
+    name: s7bind_pepnet
+    internal: true
+  testnet:
+    name: s7bind_testnet
+    internal: true
+  toolnet:
+    name: s7bind_toolnet
+    internal: true
+volumes:
+  backend_log:
+    name: s7bind_backend_log
+  pep_log:
+    name: s7bind_pep_log
+  sec_harness:
+    name: s7bind_sec_harness
+  sec_pep:
+    name: s7bind_sec_pep
+  sec_side_a:
+    name: s7bind_sec_side_a
+  sec_side_b:
+    name: s7bind_sec_side_b
+  sec_side_c:
+    name: s7bind_sec_side_c
+  sec_term:
+    name: s7bind_sec_term
+x-agent:
+  cap_drop:
+    - ALL
+  command:
+    - sleep
+    - infinity
+  image: mandate-spike-py312:wave2
+  read_only: true
+  security_opt:
+    - no-new-privileges:true
+  tmpfs:
+    - /tmp
+  volumes:
+    - ../harness:/harness:ro
+x-mandate-cell-network:
+  driver: bridge
+  driver_opts:
+    com.docker.network.bridge.gateway_mode_ipv4: isolated
+    com.docker.network.bridge.gateway_mode_ipv6: isolated
+  enable_ipv6: false
+  internal: true
+x-sidecar:
+  depends_on:
+    terminator:
+      condition: service_started
+  entrypoint:
+    - nginx
+    - -g
+    - daemon off;
+    - -c
+    - /etc/nginx-s7/nginx.conf
+  image: nginx@sha256:5616878291a2eed594aee8db4dade5878cf7edcb475e59193904b198d9b830de

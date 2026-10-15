@@ -1,0 +1,1 @@
+HARNESS ERROR: driver crashed at the first test (JSONDecodeError while reading a log via 'docker compose exec cat' during the run). Logs captured afterwards parse cleanly (19 backend, 4 PEP lines). No verdicts produced. Reader made retrying and evidence-preserving; re-run.

@@ -1,0 +1,465 @@
+pki-1      | {"cell-a": "zQuX0yYCo-c4hS6rwI7UvvK2M2mD4lngaS39rzobHrw", "cell-b": "BfRnlCAcuTGpjnQi3o8piJwyatFylX2NPhDuYK32Qps", "rogue": "kksVr2BJWTZYSP88SGfZRSXBNrINAekb5kfSmBxohBE"}
+backend-1  | INFO:     Started server process [1]
+backend-1  | INFO:     Waiting for application startup.
+backend-1  | INFO:     Application startup complete.
+backend-1  | INFO:     Uvicorn running on http://0.0.0.0:9000 (Press CTRL+C to quit)
+backend-1  | INFO:     172.20.0.3:47542 - "POST /mcp HTTP/1.1" 200 OK
+backend-1  | INFO:     172.20.0.3:47550 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1  | INFO:     172.20.0.3:47558 - "GET /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47572 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47588 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47600 - "GET /mcp HTTP/1.1" 200 OK
+pep-1         | INFO:     Started server process [1]
+pep-1         | INFO:     Waiting for application startup.
+pep-1         | INFO:     Application startup complete.
+terminator-1  | 2026/10/15 17:37:33 [notice] 1#1: using the "epoll" event method
+terminator-1  | 2026/10/15 17:37:33 [notice] 1#1: nginx/1.29.8
+sidecar_a-1   | 2026/10/15 17:37:33 [notice] 1#1: using the "epoll" event method
+sidecar_a-1   | 2026/10/15 17:37:33 [notice] 1#1: nginx/1.29.8
+sidecar_a-1   | 2026/10/15 17:37:33 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+sidecar_a-1   | 2026/10/15 17:37:33 [notice] 1#1: OS: Linux 6.6.87.2-microsoft-standard-WSL2
+sidecar_a-1   | 2026/10/15 17:37:33 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+sidecar_a-1   | 2026/10/15 17:37:33 [notice] 1#1: start worker processes
+sidecar_a-1   | 2026/10/15 17:37:33 [notice] 1#1: start worker process 7
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 2026/10/15 17:37:47 [info] 7#7: *1 client 127.0.0.1 closed keepalive connection
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 2026/10/15 17:38:21 [info] 7#7: *5 client 127.0.0.1 closed keepalive connection
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 2026/10/15 17:38:24 [info] 7#7: *9 client 127.0.0.1 closed keepalive connection
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 2026/10/15 17:38:41 [info] 7#7: *13 client 127.0.0.1 closed keepalive connection
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 2026/10/15 17:38:41 [info] 7#7: *16 client 127.0.0.1 closed keepalive connection
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 401 up=401 ssl_verify_upstream
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 401 up=401 ssl_verify_upstream
+sidecar_a-1   | 2026/10/15 17:39:11 [info] 7#7: *18 client 127.0.0.1 closed keepalive connection
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+pep-1         | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+pep-1         | INFO:     172.19.0.3:42616 - "POST /mcp HTTP/1.1" 200 OK
+pep-1         | INFO:     172.19.0.3:42630 - "POST /mcp HTTP/1.1" 200 OK
+pep-1         | INFO:     172.19.0.3:42644 - "POST /mcp HTTP/1.1" 200 OK
+sidecar_c-1  | 2026/10/15 17:37:34 [notice] 1#1: using the "epoll" event method
+sidecar_c-1   | 2026/10/15 17:37:34 [notice] 1#1: nginx/1.29.8
+sidecar_c-1   | 2026/10/15 17:37:34 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+sidecar_c-1   | 2026/10/15 17:37:34 [notice] 1#1: OS: Linux 6.6.87.2-microsoft-standard-WSL2
+sidecar_c-1   | 2026/10/15 17:37:34 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+sidecar_c-1   | 2026/10/15 17:37:34 [notice] 1#1: start worker processes
+sidecar_c-1   | 2026/10/15 17:37:34 [notice] 1#1: start worker process 7
+sidecar_c-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 401 up=401 ssl_verify_upstream
+sidecar_c-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 401 up=401 ssl_verify_upstream
+backend-1     | INFO:     172.20.0.3:47608 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1     | INFO:     172.20.0.3:47618 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47628 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47638 - "POST /mcp HTTP/1.1" 200 OK
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 2026/10/15 17:39:14 [info] 7#7: *21 client 127.0.0.1 closed keepalive connection
+sidecar_c-1   | 2026/10/15 17:37:54 [info] 7#7: *1 client 127.0.0.1 closed keepalive connection
+sidecar_b-1   | 2026/10/15 17:37:34 [notice] 1#1: using the "epoll" event method
+sidecar_b-1   | 2026/10/15 17:37:34 [notice] 1#1: nginx/1.29.8
+terminator-1  | 2026/10/15 17:37:33 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+terminator-1  | 2026/10/15 17:37:33 [notice] 1#1: OS: Linux 6.6.87.2-microsoft-standard-WSL2
+terminator-1  | 2026/10/15 17:37:33 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+terminator-1  | 2026/10/15 17:37:33 [notice] 1#1: start worker processes
+backend-1     | INFO:     172.20.0.3:47648 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1     | INFO:     172.20.0.3:47654 - "GET /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47670 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47672 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47676 - "POST /mcp HTTP/1.1" 200 OK
+sidecar_b-1   | 2026/10/15 17:37:34 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+terminator-1  | 2026/10/15 17:37:33 [notice] 1#1: start worker process 7
+terminator-1  | 172.18.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:37:47 [info] 7#7: *1 client 172.18.0.2 closed keepalive connection
+backend-1     | INFO:     172.20.0.3:47692 - "GET /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47690 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1     | INFO:     172.20.0.3:47702 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47714 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47724 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47748 - "GET /mcp HTTP/1.1" 200 OK
+sidecar_b-1   | 2026/10/15 17:37:34 [notice] 1#1: OS: Linux 6.6.87.2-microsoft-standard-WSL2
+terminator-1  | 172.18.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:37:47 [info] 7#7: *3 client 172.18.0.2 closed keepalive connection
+pep-1         | INFO:     172.19.0.3:42652 - "POST /mcp HTTP/1.1" 200 OK
+pep-1         | INFO:     172.19.0.3:42654 - "POST /mcp HTTP/1.1" 200 OK
+pep-1         | INFO:     172.19.0.3:42666 - "POST /mcp HTTP/1.1" 200 OK
+pep-1         | INFO:     172.19.0.3:42682 - "POST /mcp HTTP/1.1" 401 Unauthorized
+pep-1         | INFO:     172.19.0.3:42684 - "POST /mcp HTTP/1.1" 401 Unauthorized
+pep-1         | INFO:     172.19.0.3:55172 - "POST /mcp HTTP/1.1" 406 Not Acceptable
+pep-1         | INFO:     172.19.0.3:55180 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47758 - "DELETE /mcp HTTP/1.1" 200 OK
+pep-1         | INFO:     172.19.0.3:55190 - "POST /mcp HTTP/1.1" 200 OK
+terminator-1  | 172.18.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:37:47 [info] 7#7: *5 client 172.18.0.2 closed keepalive connection
+backend-1     | INFO:     172.20.0.3:47738 - "POST /mcp HTTP/1.1" 404 Not Found
+backend-1     | INFO:     172.20.0.3:47762 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47764 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1     | INFO:     172.20.0.3:47766 - "GET /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47770 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47774 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47778 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47782 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1     | INFO:     172.20.0.3:47794 - "GET /mcp HTTP/1.1" 200 OK
+terminator-1  | 172.21.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-b"
+terminator-1  | 2026/10/15 17:37:50 [info] 7#7: *7 client 172.21.0.2 closed keepalive connection
+terminator-1  | 172.21.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-b"
+terminator-1  | 2026/10/15 17:37:50 [info] 7#7: *9 client 172.21.0.2 closed keepalive connection
+terminator-1  | 172.21.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-b"
+terminator-1  | 2026/10/15 17:37:51 [info] 7#7: *11 client 172.21.0.2 closed keepalive connection
+sidecar_b-1   | 2026/10/15 17:37:34 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+terminator-1  | 172.22.0.2 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-b"
+terminator-1  | 2026/10/15 17:37:54 [info] 7#7: *13 client 172.22.0.2 closed keepalive connection
+terminator-1  | 172.22.0.2 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-b"
+backend-1     | INFO:     172.20.0.3:47796 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47804 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:60488 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:60490 - "POST /mcp HTTP/1.1" 202 Accepted
+sidecar_b-1   | 2026/10/15 17:37:34 [notice] 1#1: start worker processes
+sidecar_b-1   | 2026/10/15 17:37:34 [notice] 1#1: start worker process 7
+backend-1     | INFO:     172.20.0.3:60500 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:60512 - "GET /mcp HTTP/1.1" 404 Not Found
+backend-1     | INFO:     172.20.0.3:60524 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:60530 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1     | INFO:     172.20.0.3:60544 - "GET /mcp HTTP/1.1" 200 OK
+terminator-1  | 2026/10/15 17:37:54 [info] 7#7: *15 client 172.22.0.2 closed keepalive connection
+pep-1         | INFO:     172.19.0.3:55196 - "POST /mcp HTTP/1.1" 200 OK
+pep-1         | INFO:     172.19.0.3:55212 - "POST /mcp HTTP/1.1" 406 Not Acceptable
+pep-1         | INFO:     172.19.0.3:55224 - "POST /mcp HTTP/1.1" 200 OK
+sidecar_b-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_b-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_b-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_b-1   | 2026/10/15 17:37:51 [info] 7#7: *1 client 127.0.0.1 closed keepalive connection
+backend-1     | INFO:     172.20.0.3:60548 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:60556 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:60570 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:60582 - "GET /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:60592 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1     | INFO:     172.20.0.3:60602 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:60608 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:60614 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:60630 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1     | INFO:     172.20.0.3:60632 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:60642 - "GET /mcp HTTP/1.1" 404 Not Found
+pep-1         | INFO:     172.19.0.3:55234 - "POST /mcp HTTP/1.1" 200 OK
+pep-1         | INFO:     172.19.0.3:55236 - "POST /mcp HTTP/1.1" 200 OK
+pep-1         | INFO:     172.19.0.3:55238 - "POST /mcp HTTP/1.1" 401 Unauthorized
+pep-1         | INFO:     172.19.0.3:55250 - "POST /mcp HTTP/1.1" 401 Unauthorized
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 406 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:37:57 [info] 7#7: *19 client 172.23.0.3 closed keepalive connection
+terminator-1  | 2026/10/15 17:37:57 [info] 7#7: *17 client 172.23.0.3 closed keepalive connection
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 406 verify=SUCCESS cn="CN=cell-b"
+backend-1     | INFO:     172.20.0.3:60658 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:60678 - "GET /mcp HTTP/1.1" 200 OK
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-b"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-b"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-b"
+backend-1     | INFO:     172.20.0.3:60672 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1     | INFO:     172.20.0.3:60688 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:60694 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:60704 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:60716 - "GET /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:60726 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1     | INFO:     172.20.0.3:60732 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:60736 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:40840 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:40842 - "GET /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:40846 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1     | INFO:     172.20.0.3:40856 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | Error handling POST request
+pep-1         | INFO:     172.19.0.3:55262 - "POST /mcp HTTP/1.1" 401 Unauthorized
+pep-1         | INFO:     172.19.0.3:41020 - "POST /mcp HTTP/1.1" 401 Unauthorized
+pep-1         | INFO:     172.19.0.3:41032 - "POST /mcp HTTP/1.1" 401 Unauthorized
+terminator-1  | 2026/10/15 17:38:00 [info] 7#7: *25 client 172.23.0.3 closed keepalive connection
+terminator-1  | 2026/10/15 17:38:00 [info] 7#7: *23 client 172.23.0.3 closed keepalive connection
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-b"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-b"
+pep-1         | INFO:     172.19.0.3:41034 - "POST /mcp HTTP/1.1" 401 Unauthorized
+pep-1         | INFO:     172.19.0.3:51268 - "POST /mcp HTTP/1.1" 200 OK
+pep-1         | INFO:     172.19.0.3:51276 - "POST /mcp HTTP/1.1" 200 OK
+pep-1         | INFO:     172.19.0.3:51282 - "POST /mcp HTTP/1.1" 200 OK
+pep-1         | INFO:     172.19.0.3:51296 - "POST /mcp HTTP/1.1" 200 OK
+pep-1         | INFO:     172.19.0.3:51298 - "POST /mcp HTTP/1.1" 200 OK
+pep-1         | INFO:     172.19.0.3:51310 - "POST /mcp HTTP/1.1" 200 OK
+pep-1         | INFO:     172.19.0.3:50450 - "POST /mcp HTTP/1.1" 401 Unauthorized
+pep-1         | INFO:     172.19.0.3:50456 - "POST /mcp HTTP/1.1" 401 Unauthorized
+pep-1         | INFO:     172.19.0.3:50462 - "POST /mcp HTTP/1.1" 401 Unauthorized
+backend-1     | Traceback (most recent call last):
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/mcp/server/streamable_http.py", line 629, in _handle_post_request
+pep-1         | INFO:     172.19.0.3:37162 - "POST /mcp HTTP/1.1" 200 OK
+pep-1         | INFO:     172.19.0.3:37174 - "POST /mcp HTTP/1.1" 200 OK
+pep-1         | INFO:     172.19.0.3:37178 - "POST /mcp HTTP/1.1" 200 OK
+pep-1         | INFO:     172.19.0.3:37182 - "POST /mcp HTTP/1.1" 401 Unauthorized
+pep-1         | INFO:     172.19.0.3:37186 - "POST /mcp HTTP/1.1" 401 Unauthorized
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-b"
+terminator-1  | 2026/10/15 17:38:03 [info] 7#7: *31 client 172.23.0.3 closed keepalive connection
+terminator-1  | 2026/10/15 17:38:03 [info] 7#7: *29 client 172.23.0.3 closed keepalive connection
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:38:06 [info] 7#7: *36 client 172.23.0.3 closed keepalive connection
+terminator-1  | 2026/10/15 17:38:06 [info] 7#7: *34 client 172.23.0.3 closed keepalive connection
+terminator-1  | 2026/10/15 17:38:08 [info] 7#7: *39 client sent no required SSL certificate while reading client request headers, client: 172.18.0.2, server: , request: "POST /mcp HTTP/1.1", host: "terminator"
+terminator-1  | 172.18.0.2 "POST /mcp HTTP/1.1" 400 verify=NONE cn="-"
+terminator-1  | 172.18.0.2 "POST /mcp HTTP/1.1" 400 verify=FAILED:self-signed certificate cn="CN=cell-a"
+backend-1     |     await writer.send(session_message)
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/mcp/shared/_context_streams.py", line 37, in send
+backend-1     |     await self._inner.send((contextvars.copy_context(), item))
+pep-1         | INFO:     172.19.0.3:37196 - "POST /mcp HTTP/1.1" 401 Unauthorized
+pep-1         | INFO:     172.19.0.3:33208 - "POST /mcp HTTP/1.1" 401 Unauthorized
+pep-1         | INFO:     172.19.0.3:33216 - "POST /mcp HTTP/1.1" 401 Unauthorized
+terminator-1  | 2026/10/15 17:38:10 [info] 7#7: *40 client SSL certificate verify error: (18:self-signed certificate) while reading client request headers, client: 172.18.0.2, server: , request: "POST /mcp HTTP/1.1", host: "terminator"
+terminator-1  | 172.18.0.2 "POST /mcp HTTP/1.1" 400 verify=- cn="-"
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/anyio/streams/memory.py", line 250, in send
+pep-1         | INFO:     172.19.0.3:33222 - "POST /mcp HTTP/1.1" 401 Unauthorized
+pep-1         | INFO:     172.19.0.3:33230 - "POST /mcp HTTP/1.1" 401 Unauthorized
+pep-1         | INFO:     172.19.0.3:33242 - "POST /mcp HTTP/1.1" 401 Unauthorized
+terminator-1  | 2026/10/15 17:38:12 [info] 7#7: *41 client sent plain HTTP request to HTTPS port while reading client request headers, client: 172.18.0.2, server: , request: "POST /mcp HTTP/1.1", host: "terminator"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 400 verify=NONE cn="-"
+terminator-1  | 2026/10/15 17:38:14 [info] 7#7: *42 client sent no required SSL certificate while reading client request headers, client: 172.23.0.3, server: , request: "POST /mcp HTTP/1.1", host: "terminator:8443"
+terminator-1  | 2026/10/15 17:38:15 [info] 7#7: *43 client sent no required SSL certificate while reading client request headers, client: 172.23.0.3, server: , request: "POST /mcp HTTP/1.1", host: "terminator:8443"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 400 verify=NONE cn="-"
+terminator-1  | 2026/10/15 17:38:15 [info] 7#7: *44 client sent no required SSL certificate while reading client request headers, client: 172.23.0.3, server: , request: "POST /mcp HTTP/1.1", host: "terminator:8443"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 400 verify=NONE cn="-"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 400 verify=FAILED:unable to verify the first certificate cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:38:17 [info] 7#7: *45 client SSL certificate verify error: (21:unable to verify the first certificate) while reading client request headers, client: 172.23.0.3, server: , request: "POST /mcp HTTP/1.1", host: "terminator:8443"
+terminator-1  | 2026/10/15 17:38:18 [info] 7#7: *46 client SSL certificate verify error: (21:unable to verify the first certificate) while reading client request headers, client: 172.23.0.3, server: , request: "POST /mcp HTTP/1.1", host: "terminator:8443"
+backend-1     |     self.send_nowait(item)
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/anyio/streams/memory.py", line 219, in send_nowait
+backend-1     |     raise ClosedResourceError
+backend-1     | anyio.ClosedResourceError
+pep-1         | INFO:     172.19.0.3:33258 - "POST /mcp HTTP/1.1" 401 Unauthorized
+pep-1         | INFO:     172.19.0.3:33266 - "POST /mcp HTTP/1.1" 401 Unauthorized
+pep-1         | INFO:     172.19.0.3:33278 - "POST /mcp HTTP/1.1" 401 Unauthorized
+pep-1         | INFO:     172.19.0.3:33286 - "POST /mcp HTTP/1.1" 401 Unauthorized
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 400 verify=FAILED:unable to verify the first certificate cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:38:18 [info] 7#7: *47 client SSL certificate verify error: (21:unable to verify the first certificate) while reading client request headers, client: 172.23.0.3, server: , request: "POST /mcp HTTP/1.1", host: "terminator:8443"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 400 verify=FAILED:unable to verify the first certificate cn="CN=cell-a"
+terminator-1  | 172.18.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:38:21 [info] 7#7: *48 client 172.18.0.2 closed keepalive connection
+terminator-1  | 172.18.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:38:21 [info] 7#7: *50 client 172.18.0.2 closed keepalive connection
+terminator-1  | 172.18.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+pep-1         | INFO:     172.19.0.3:42356 - "POST /mcp HTTP/1.1" 401 Unauthorized
+pep-1         | INFO:     172.19.0.3:42364 - "POST /mcp HTTP/1.1" 401 Unauthorized
+pep-1         | INFO:     172.19.0.3:42366 - "POST /mcp HTTP/1.1" 401 Unauthorized
+pep-1         | INFO:     172.19.0.3:42380 - "POST /mcp HTTP/1.1" 401 Unauthorized
+backend-1     | ERROR:    Exception in ASGI application
+backend-1     | Traceback (most recent call last):
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/mcp/server/streamable_http.py", line 629, in _handle_post_request
+backend-1     |     await writer.send(session_message)
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/mcp/shared/_context_streams.py", line 37, in send
+backend-1     |     await self._inner.send((contextvars.copy_context(), item))
+pep-1         | INFO:     172.19.0.3:42394 - "POST /mcp HTTP/1.1" 401 Unauthorized
+pep-1         | INFO:     172.19.0.3:42410 - "POST /mcp HTTP/1.1" 401 Unauthorized
+pep-1         | INFO:     172.19.0.3:42416 - "POST /mcp HTTP/1.1" 401 Unauthorized
+pep-1         | INFO:     172.19.0.3:42420 - "POST /mcp HTTP/1.1" 401 Unauthorized
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/anyio/streams/memory.py", line 250, in send
+backend-1     |     self.send_nowait(item)
+pep-1         | INFO:     172.19.0.3:42426 - "POST /mcp HTTP/1.1" 401 Unauthorized
+pep-1         | INFO:     172.19.0.3:41022 - "POST /mcp HTTP/1.1" 401 Unauthorized
+pep-1         | INFO:     172.19.0.3:41030 - "POST /mcp HTTP/1.1" 401 Unauthorized
+pep-1         | INFO:     172.19.0.3:41046 - "POST /mcp HTTP/1.1" 401 Unauthorized
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/anyio/streams/memory.py", line 219, in send_nowait
+backend-1     |     raise ClosedResourceError
+pep-1         | INFO:     172.19.0.3:41056 - "POST /mcp HTTP/1.1" 401 Unauthorized
+pep-1         | INFO:     172.19.0.3:41064 - "POST /mcp HTTP/1.1" 401 Unauthorized
+pep-1         | INFO:     172.19.0.3:41070 - "POST /mcp HTTP/1.1" 200 OK
+pep-1         | INFO:     172.19.0.3:41080 - "POST /mcp HTTP/1.1" 200 OK
+pep-1         | INFO:     172.19.0.3:57252 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | anyio.ClosedResourceError
+backend-1     | 
+backend-1     | During handling of the above exception, another exception occurred:
+backend-1     | 
+backend-1     | Traceback (most recent call last):
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/uvicorn/protocols/http/h11_impl.py", line 411, in run_asgi
+terminator-1  | 2026/10/15 17:38:21 [info] 7#7: *52 client 172.18.0.2 closed keepalive connection
+terminator-1  | 172.18.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:38:24 [info] 7#7: *54 client 172.18.0.2 closed keepalive connection
+terminator-1  | 172.18.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:38:24 [info] 7#7: *56 client 172.18.0.2 closed keepalive connection
+terminator-1  | 172.18.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:38:24 [info] 7#7: *58 client 172.18.0.2 closed keepalive connection
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:38:27 [info] 7#7: *62 client 172.23.0.3 closed keepalive connection
+backend-1     |     result = await app(  # type: ignore[func-returns-value]
+backend-1     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+terminator-1  | 2026/10/15 17:38:27 [info] 7#7: *60 client 172.23.0.3 closed keepalive connection
+terminator-1  | 2026/10/15 17:38:29 [info] 7#7: *65 client sent duplicate header line: "Authorization: Bearer eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJtYW5kYXRlLWd3IiwiYXVkIjoibWFuZGF0ZS1wZXAiLCJzdWIiOiJhZ2VudDpjZWxsLWIiLCJzaWQiOiJzZXNzLUItMSIsImlhdCI6MTc5MjA4NTg1MSwiZXhwIjoxNzkyMDkzMDUxLCJjbmYiOnsieDV0I1MyNTYiOiJCZlJubENBY3VUR3BqblFpM284cGlKd3lhdEZ5bFgyTlBoRHVZSzMyUXBzIn19.gp9yoSFMHblzMKBES_5RATac0mkYRQf0UUXOak5sq2NNMxICF3hwapYXFF7JENJu4yY0GHip4AdqCRQtNnTmSA", previous value: "Authorization: Bearer eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJtYW5kYXRlLWd3IiwiYXVkIjoibWFuZGF0ZS1wZXAiLCJzdWIiOiJhZ2VudDpjZWxsLWEiLCJzaWQiOiJzZXNzLUEtMSIsImlhdCI6MTc5MjA4NTg1MSwiZXhwIjoxNzkyMDkzMDUxLCJjbmYiOnsieDV0I1MyNTYiOiJ6UXVYMHlZQ28tYzRoUzZyd0k3VXZ2SzJNMm1ENGxuZ2FTMzlyem9iSHJ3In19.hN2Be0XNdsCKJkcfGQ9rLqRzanNTFY8O6cogXlqrB-XhjPBx4LMX9W-cTkiZ6QkqE-YUjEAu6rqBQcJm9nL3kQ" while reading client request headers, client: 172.23.0.3, server: , request: "POST /mcp HTTP/1.1", host: "terminator:8443"
+terminator-1  | 2026/10/15 17:38:29 [info] 7#7: *65 recv() failed (104: Connection reset by peer) while reading client request headers, client: 172.23.0.3, server: , request: "POST /mcp HTTP/1.1", host: "terminator:8443"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 400 verify=SUCCESS cn="CN=cell-a"
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 63, in __call__
+backend-1     |     return await self.app(scope, receive, send)
+backend-1     |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+terminator-1  | 172.18.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:38:38 [info] 7#7: *66 client 172.18.0.2 closed keepalive connection
+backend-1     |   File "/harness/backend.py", line 47, in app
+backend-1     |     return await inner(scope, replay, send)
+backend-1     |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/starlette/applications.py", line 96, in __call__
+terminator-1  | 172.18.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:38:41 [info] 7#7: *68 client 172.18.0.2 closed keepalive connection
+terminator-1  | 172.18.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:38:41 [info] 7#7: *70 client 172.18.0.2 closed keepalive connection
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:38:43 [info] 7#7: *74 client 172.23.0.3 closed keepalive connection
+terminator-1  | 2026/10/15 17:38:43 [info] 7#7: *72 client 172.23.0.3 closed keepalive connection
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:38:46 [info] 7#7: *79 client 172.23.0.3 closed keepalive connection
+terminator-1  | 2026/10/15 17:38:46 [info] 7#7: *77 client 172.23.0.3 closed keepalive connection
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:38:49 [info] 7#7: *84 client 172.23.0.3 closed keepalive connection
+terminator-1  | 2026/10/15 17:38:49 [info] 7#7: *82 client 172.23.0.3 closed keepalive connection
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+backend-1     |     await self.middleware_stack(scope, receive, send)
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 186, in __call__
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:38:53 [info] 7#7: *89 client 172.23.0.3 closed keepalive connection
+terminator-1  | 2026/10/15 17:38:53 [info] 7#7: *87 client 172.23.0.3 closed keepalive connection
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:38:56 [info] 7#7: *94 client 172.23.0.3 closed keepalive connection
+terminator-1  | 2026/10/15 17:38:56 [info] 7#7: *92 client 172.23.0.3 closed keepalive connection
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+backend-1     |     raise exc
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:38:59 [info] 7#7: *99 client 172.23.0.3 closed keepalive connection
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 164, in __call__
+backend-1     |     await self.app(scope, receive, _send)
+terminator-1  | 2026/10/15 17:38:59 [info] 7#7: *97 client 172.23.0.3 closed keepalive connection
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:39:03 [info] 7#7: *104 client 172.23.0.3 closed keepalive connection
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/fastmcp/server/http.py", line 411, in __call__
+backend-1     |     await self.app(scope, receive, send)
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+backend-1     |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+backend-1     |     raise exc
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+backend-1     |     await app(scope, receive, sender)
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 676, in __call__
+backend-1     |     await self.middleware_stack(scope, receive, send)
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 697, in app
+backend-1     |     await route.handle(scope, receive, send)
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/starlette/routing.py", line 282, in handle
+backend-1     |     await self.app(scope, receive, send)
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/fastmcp/server/http.py", line 96, in __call__
+backend-1     |     await self.session_manager.handle_request(scope, receive, send)
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/mcp/server/streamable_http_manager.py", line 181, in handle_request
+backend-1     |     await self.asgi_app(scope, receive, send)
+terminator-1  | 2026/10/15 17:39:03 [info] 7#7: *102 client 172.23.0.3 closed keepalive connection
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/mcp/server/transport_security.py", line 183, in __call__
+backend-1     |     await self.app(scope, replay, send)
+terminator-1  | 2026/10/15 17:39:06 [info] 7#7: *109 client 172.23.0.3 closed keepalive connection
+terminator-1  | 2026/10/15 17:39:06 [info] 7#7: *107 client 172.23.0.3 closed keepalive connection
+terminator-1  | 172.18.0.2 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/mcp/server/streamable_http_manager.py", line 204, in _handle_request
+backend-1     |     await self._handle_stateful_request(scope, receive, send)
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/mcp/server/streamable_http_manager.py", line 282, in _handle_stateful_request
+terminator-1  | 2026/10/15 17:39:11 [info] 7#7: *112 client 172.18.0.2 closed keepalive connection
+terminator-1  | 172.18.0.2 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:39:11 [info] 7#7: *114 client 172.18.0.2 closed keepalive connection
+terminator-1  | 172.18.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+backend-1     |     await transport.handle_request(scope, receive, send)
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/mcp/server/streamable_http.py", line 495, in handle_request
+backend-1     |     await self._handle_request(scope, receive, send)
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/mcp/server/streamable_http.py", line 521, in _handle_request
+backend-1     |     await self._handle_post_request(scope, request, receive, send)
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/mcp/server/streamable_http.py", line 724, in _handle_post_request
+backend-1     |     await response(scope, receive, send)
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/starlette/responses.py", line 169, in __call__
+backend-1     |     await send({"type": "http.response.start", "status": self.status_code, "headers": self.raw_headers})
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/starlette/_exception_handler.py", line 39, in sender
+backend-1     |     await send(message)
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/starlette/middleware/errors.py", line 161, in _send
+backend-1     |     await send(message)
+backend-1     |   File "/usr/local/lib/python3.12/site-packages/uvicorn/protocols/http/h11_impl.py", line 514, in send
+backend-1     |     raise RuntimeError(f"Unexpected ASGI message '{message['type']}' sent, after response already completed.")
+backend-1     | RuntimeError: Unexpected ASGI message 'http.response.start' sent, after response already completed.
+terminator-1  | 2026/10/15 17:39:14 [info] 7#7: *116 client 172.18.0.2 closed keepalive connection
+terminator-1  | 172.18.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+backend-1     | INFO:     172.20.0.3:40868 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:40878 - "GET /mcp HTTP/1.1" 200 OK
+terminator-1  | 2026/10/15 17:39:14 [info] 7#7: *118 client 172.18.0.2 closed keepalive connection
+terminator-1  | 2026/10/15 17:39:14 [info] 7#7: *120 client 172.18.0.2 closed keepalive connection
+terminator-1  | 172.18.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+backend-1     | INFO:     172.20.0.3:40882 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1     | INFO:     172.20.0.3:40894 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:40902 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:40914 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:40918 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1     | INFO:     172.20.0.3:40922 - "GET /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:40938 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:40950 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:40958 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:40974 - "GET /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:40988 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:41002 - "POST /mcp HTTP/1.1" 404 Not Found
+backend-1     | INFO:     172.20.0.3:41016 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:41024 - "GET /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:41030 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1     | INFO:     172.20.0.3:41042 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:41050 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:41056 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:41070 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1     | INFO:     172.20.0.3:41084 - "GET /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:41086 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:41092 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:55468 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:55490 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:55494 - "GET /mcp HTTP/1.1" 404 Not Found
+backend-1     | INFO:     172.20.0.3:55480 - "POST /mcp HTTP/1.1" 404 Not Found
+backend-1     | INFO:     172.20.0.3:55510 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:55516 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1     | INFO:     172.20.0.3:55518 - "GET /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:55524 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:55538 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:55542 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:55554 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1     | INFO:     172.20.0.3:55566 - "GET /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:55582 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:55588 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:55598 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:55600 - "GET /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:55614 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1     | INFO:     172.20.0.3:55620 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:55624 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47358 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47370 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47386 - "POST /mcp HTTP/1.1" 404 Not Found
+backend-1     | INFO:     172.20.0.3:47388 - "GET /mcp HTTP/1.1" 404 Not Found
+backend-1     | INFO:     172.20.0.3:47398 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47402 - "GET /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47410 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1     | INFO:     172.20.0.3:47414 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47424 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47294 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47302 - "GET /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47318 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1     | INFO:     172.20.0.3:47334 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.20.0.3:47344 - "DELETE /mcp HTTP/1.1" 200 OK

@@ -1,0 +1,35 @@
+S7-T1-approved-path                FAIL          {"summary": "bindings=3 calls=[]"}
+S7-T2-ctl-cellB-own-token          FAIL          {}
+S7-T2-JWT_A-in-certB-sidecar       HARNESS-ERROR {"summary": "{'cnf mismatch: token bound to PNixjHAsx-g'}", "note": "paired positive control did not pass; negative result not credited"}
+S7-T2-ctl-certA-JWT_A              FAIL          {"summary": "raw=406 mcp_ok=True why=['binding match']"}
+S7-T2-ctl-certB-JWT_B              FAIL          {"summary": "raw=406 mcp_ok=True why=[]"}
+S7-T2-certB-JWT_A                  FAIL          {"summary": "raw=401 mcp_ok=False why=[]", "note": "paired positive control did not pass; negative result not credited"}
+S7-T2-certA-JWT_B                  FAIL          {"summary": "raw=401 mcp_ok=False why=[]", "note": "paired positive control did not pass; negative result not credited"}
+S7-T3-agent-direct-no-cert         HARNESS-ERROR {"summary": "HTTP/1.1 400 Bad Request", "note": "paired positive control did not pass; negative result not credited"}
+S7-T3-agent-direct-rogue-cert      HARNESS-ERROR {"summary": "HTTP/1.1 400 Bad Request", "note": "paired positive control did not pass; negative result not credited"}
+S7-T3-agent-direct-plain-http      HARNESS-ERROR {"summary": "HTTP/1.1 400 Bad Request", "note": "paired positive control did not pass; negative result not credited"}
+S7-T3-harness-no-cert              HARNESS-ERROR {"summary": "raw=400 mcp_ok=False why=[]", "note": "paired positive control did not pass; negative result not credited"}
+S7-T3-harness-rogue-cert           HARNESS-ERROR {"summary": "raw=400 mcp_ok=False why=[]", "note": "paired positive control did not pass; negative result not credited"}
+S7-T4a-agent-spoofs-X-Client-Cert  FAIL          {"summary": "call_ok=True x5t_seen=[]", "note": "paired positive control did not pass; negative result not credited"}
+S7-T4b-agent-supplies-other-Authorization HARNESS-ERROR {"summary": "call_ok=True sids=['sess-A-1']", "note": "paired positive control did not pass; negative result not credited"}
+S7-T4c-harness-spoofs-X-Client-Cert FAIL          {"summary": "raw=401 mcp_ok=False why=[]", "note": "paired positive control did not pass; negative result not credited"}
+S7-T4d-duplicate-Authorization     FAIL          {"summary": "raw=400 mcp_ok=True why=[]", "note": "paired positive control did not pass; negative result not credited"}
+S7-T4e-agent-direct-pep            HARNESS-ERROR {"summary": "gaierror: [Errno -3] Temporary failure in name resolution", "note": "paired positive control did not pass; negative result not credited"}
+S7-T4e-agent-direct-backend        HARNESS-ERROR {"summary": "gaierror: [Errno -3] Temporary failure in name resolution", "note": "paired positive control did not pass; negative result not credited"}
+S7-T4f-testnet-direct-pep          PASS          {"summary": "gaierror: [Errno -3] Temporary failure in name resolution"}
+S7-T5-ctl-secrets-exist-elsewhere  PASS          {}
+S7-T5-agent-holds-no-secrets       FAIL          {"summary": "hits=[{'where': 'file', 'path': '/tmp/rogue.key'}, {'where': 'file', 'path': '/usr/bin/sqv'}] procs=['sleep infinity ', 'python /harness/
+S7-T5b-downstream-confinement      PASS          {"summary": "requests=6 leaks=0"}
+S7-T6-streaming                    PASS          {"summary": "arrivals=[0.764, 1.365, 1.967, 2.566, 3.17] total=3.829"}
+S7-T7-JWT_A_expired                HARNESS-ERROR {"summary": "raw=401 mcp_ok=False why=['jwt rejected: ExpiredSignatureError: Signature h']", "note": "paired positive control did not pass; negative r
+S7-T7-JWT_A_revoked                FAIL          {"summary": "raw=401 mcp_ok=False why=[]", "note": "paired positive control did not pass; negative result not credited"}
+S7-T7-JWT_A_tampered               FAIL          {"summary": "raw=401 mcp_ok=False why=[]", "note": "paired positive control did not pass; negative result not credited"}
+S7-T7-JWT_A_alg_none               FAIL          {"summary": "raw=401 mcp_ok=False why=[]", "note": "paired positive control did not pass; negative result not credited"}
+S7-T7-JWT_A_rogue_issuer           FAIL          {"summary": "raw=401 mcp_ok=False why=[]", "note": "paired positive control did not pass; negative result not credited"}
+S7-T7-JWT_A_wrong_aud              FAIL          {"summary": "raw=401 mcp_ok=False why=[]", "note": "paired positive control did not pass; negative result not credited"}
+S7-T7-JWT_A_no_cnf                 FAIL          {"summary": "raw=401 mcp_ok=False why=[]", "note": "paired positive control did not pass; negative result not credited"}
+S7-T7-none                         HARNESS-ERROR {"summary": "raw=401 mcp_ok=False why=['expected exactly 1 Bearer Authorization, got 0']", "note": "paired positive control did not pass; negative res
+S7-T7-runtime-revocation           FAIL          {"summary": "set()", "note": "paired positive control did not pass; negative result not credited"}
+S7-T7-runtime-revocation-restore   PASS          {}
+SUMMARY {'FAIL': 17, 'HARNESS-ERROR': 11, 'PASS': 5}
+driver_exit=0

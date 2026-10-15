@@ -1,0 +1,195 @@
+sidecar_b-1   | 2026/10/15 17:25:53 [notice] 1#1: using the "epoll" event method
+sidecar_c-1   | 2026/10/15 17:25:54 [notice] 1#1: using the "epoll" event method
+terminator-1  | 2026/10/15 17:25:53 [notice] 1#1: using the "epoll" event method
+terminator-1  | 2026/10/15 17:25:53 [notice] 1#1: nginx/1.29.8
+terminator-1  | 2026/10/15 17:25:53 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+terminator-1  | 2026/10/15 17:25:53 [notice] 1#1: OS: Linux 6.6.87.2-microsoft-standard-WSL2
+terminator-1  | 2026/10/15 17:25:53 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+terminator-1  | 2026/10/15 17:25:53 [notice] 1#1: start worker processes
+terminator-1  | 2026/10/15 17:25:53 [notice] 1#1: start worker process 7
+terminator-1  | 172.21.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:26:07 [info] 7#7: *1 client 172.21.0.2 closed keepalive connection
+terminator-1  | 172.21.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:26:07 [info] 7#7: *3 client 172.21.0.2 closed keepalive connection
+terminator-1  | 172.21.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+sidecar_c-1   | 2026/10/15 17:25:54 [notice] 1#1: nginx/1.29.8
+terminator-1  | 2026/10/15 17:26:07 [info] 7#7: *5 client 172.21.0.2 closed keepalive connection
+terminator-1  | 2026/10/15 17:26:16 [info] 7#7: *7 client 172.22.0.2 closed keepalive connection
+terminator-1  | 172.22.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-b"
+terminator-1  | 172.22.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-b"
+terminator-1  | 2026/10/15 17:26:16 [info] 7#7: *9 client 172.22.0.2 closed keepalive connection
+terminator-1  | 172.22.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-b"
+sidecar_c-1   | 2026/10/15 17:25:54 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+sidecar_c-1   | 2026/10/15 17:25:54 [notice] 1#1: OS: Linux 6.6.87.2-microsoft-standard-WSL2
+sidecar_c-1   | 2026/10/15 17:25:54 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+terminator-1  | 2026/10/15 17:26:16 [info] 7#7: *11 client 172.22.0.2 closed keepalive connection
+terminator-1  | 172.18.0.2 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-b"
+terminator-1  | 2026/10/15 17:26:26 [info] 7#7: *13 client 172.18.0.2 closed keepalive connection
+terminator-1  | 172.18.0.2 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-b"
+sidecar_c-1   | 2026/10/15 17:25:54 [notice] 1#1: start worker processes
+sidecar_c-1   | 2026/10/15 17:25:54 [notice] 1#1: start worker process 7
+sidecar_c-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 401 up=401 ssl_verify_upstream
+sidecar_c-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 401 up=401 ssl_verify_upstream
+sidecar_b-1   | 2026/10/15 17:25:53 [notice] 1#1: nginx/1.29.8
+sidecar_b-1   | 2026/10/15 17:25:53 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+sidecar_b-1   | 2026/10/15 17:25:53 [notice] 1#1: OS: Linux 6.6.87.2-microsoft-standard-WSL2
+sidecar_c-1   | 2026/10/15 17:26:26 [info] 7#7: *1 client 127.0.0.1 closed keepalive connection
+terminator-1  | 2026/10/15 17:26:26 [info] 7#7: *15 client 172.18.0.2 closed keepalive connection
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 406 verify=SUCCESS cn="CN=cell-a"
+sidecar_b-1   | 2026/10/15 17:25:53 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+sidecar_b-1   | 2026/10/15 17:25:53 [notice] 1#1: start worker processes
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+sidecar_b-1   | 2026/10/15 17:25:53 [notice] 1#1: start worker process 7
+sidecar_b-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_b-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_b-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_b-1   | 2026/10/15 17:26:16 [info] 7#7: *1 client 127.0.0.1 closed keepalive connection
+terminator-1  | 2026/10/15 17:26:38 [info] 7#7: *19 client 172.23.0.3 closed keepalive connection
+terminator-1  | 2026/10/15 17:26:38 [info] 7#7: *17 client 172.23.0.3 closed keepalive connection
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 406 verify=SUCCESS cn="CN=cell-b"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-b"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-b"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-b"
+terminator-1  | 2026/10/15 17:26:51 [info] 7#7: *25 client 172.23.0.3 closed keepalive connection
+terminator-1  | 2026/10/15 17:26:51 [info] 7#7: *23 client 172.23.0.3 closed keepalive connection
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-b"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-b"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-b"
+terminator-1  | 2026/10/15 17:27:03 [info] 7#7: *31 client 172.23.0.3 closed keepalive connection
+terminator-1  | 2026/10/15 17:27:03 [info] 7#7: *29 client 172.23.0.3 closed keepalive connection
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:27:15 [info] 7#7: *36 client 172.23.0.3 closed keepalive connection
+terminator-1  | 2026/10/15 17:27:15 [info] 7#7: *34 client 172.23.0.3 closed keepalive connection
+terminator-1  | 172.21.0.2 "POST /mcp HTTP/1.1" 400 verify=NONE cn="-"
+terminator-1  | 2026/10/15 17:27:26 [info] 7#7: *39 client sent no required SSL certificate while reading client request headers, client: 172.21.0.2, server: , request: "POST /mcp HTTP/1.1", host: "terminator"
+terminator-1  | 172.21.0.2 "POST /mcp HTTP/1.1" 400 verify=FAILED:self-signed certificate cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:27:38 [info] 7#7: *40 client SSL certificate verify error: (18:self-signed certificate) while reading client request headers, client: 172.21.0.2, server: , request: "POST /mcp HTTP/1.1", host: "terminator"
+terminator-1  | 2026/10/15 17:27:49 [info] 7#7: *41 client sent plain HTTP request to HTTPS port while reading client request headers, client: 172.21.0.2, server: , request: "POST /mcp HTTP/1.1", host: "terminator"
+terminator-1  | 172.21.0.2 "POST /mcp HTTP/1.1" 400 verify=- cn="-"
+terminator-1  | 2026/10/15 17:28:00 [info] 7#7: *42 client sent no required SSL certificate while reading client request headers, client: 172.23.0.3, server: , request: "POST /mcp HTTP/1.1", host: "terminator:8443"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 400 verify=NONE cn="-"
+terminator-1  | 2026/10/15 17:28:01 [info] 7#7: *43 client sent no required SSL certificate while reading client request headers, client: 172.23.0.3, server: , request: "POST /mcp HTTP/1.1", host: "terminator:8443"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 400 verify=NONE cn="-"
+terminator-1  | 2026/10/15 17:28:01 [info] 7#7: *44 client sent no required SSL certificate while reading client request headers, client: 172.23.0.3, server: , request: "POST /mcp HTTP/1.1", host: "terminator:8443"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 400 verify=NONE cn="-"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 400 verify=FAILED:unable to verify the first certificate cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:28:12 [info] 7#7: *45 client SSL certificate verify error: (21:unable to verify the first certificate) while reading client request headers, client: 172.23.0.3, server: , request: "POST /mcp HTTP/1.1", host: "terminator:8443"
+terminator-1  | 2026/10/15 17:28:13 [info] 7#7: *46 client SSL certificate verify error: (21:unable to verify the first certificate) while reading client request headers, client: 172.23.0.3, server: , request: "POST /mcp HTTP/1.1", host: "terminator:8443"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 400 verify=FAILED:unable to verify the first certificate cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 400 verify=FAILED:unable to verify the first certificate cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:28:13 [info] 7#7: *47 client SSL certificate verify error: (21:unable to verify the first certificate) while reading client request headers, client: 172.23.0.3, server: , request: "POST /mcp HTTP/1.1", host: "terminator:8443"
+terminator-1  | 172.21.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:28:25 [info] 7#7: *48 client 172.21.0.2 closed keepalive connection
+terminator-1  | 172.21.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:28:25 [info] 7#7: *50 client 172.21.0.2 closed keepalive connection
+terminator-1  | 172.21.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:28:25 [info] 7#7: *52 client 172.21.0.2 closed keepalive connection
+terminator-1  | 172.21.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:28:38 [info] 7#7: *54 client 172.21.0.2 closed keepalive connection
+terminator-1  | 172.21.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:28:38 [info] 7#7: *56 client 172.21.0.2 closed keepalive connection
+terminator-1  | 2026/10/15 17:28:38 [info] 7#7: *58 client 172.21.0.2 closed keepalive connection
+terminator-1  | 172.21.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:28:50 [info] 7#7: *62 client 172.23.0.3 closed keepalive connection
+terminator-1  | 2026/10/15 17:28:50 [info] 7#7: *60 client 172.23.0.3 closed keepalive connection
+terminator-1  | 2026/10/15 17:29:01 [info] 7#7: *65 client sent duplicate header line: "Authorization: Bearer eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJtYW5kYXRlLWd3IiwiYXVkIjoibWFuZGF0ZS1wZXAiLCJzdWIiOiJhZ2VudDpjZWxsLWIiLCJzaWQiOiJzZXNzLUItMSIsImlhdCI6MTc5MjA4NTE1MSwiZXhwIjoxNzkyMDkyMzUxLCJjbmYiOnsieDV0I1MyNTYiOiJxbzFzUnVyYWRMaHI1SE0yR1dESGdXOWlQT2RvU1M0WGNDdWxfM050aWNnIn19.DEVXQje3PHsrSR6_UaCKu7ZLMctyV_v5P_JXBZ7wYLHmCJ4B6PNQm_-6Tfqe-cpQR3k74h8XkC1yZNNJQbhizg", previous value: "Authorization: Bearer eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJtYW5kYXRlLWd3IiwiYXVkIjoibWFuZGF0ZS1wZXAiLCJzdWIiOiJhZ2VudDpjZWxsLWEiLCJzaWQiOiJzZXNzLUEtMSIsImlhdCI6MTc5MjA4NTE1MSwiZXhwIjoxNzkyMDkyMzUxLCJjbmYiOnsieDV0I1MyNTYiOiJQTml4akhBc3gtZ2xXNkpJZmI2T2NqOEtBNl9uM1RNU2Q4MUFZMXhDZE5nIn19.20EHPLYed2NZViPX4Zrv6x5m-5xTRCd2uC5g9NK67xxO67TlvZCdKkrEimbr13Kh-KBX_0jhpDaZSDES3rWIfQ" while reading client request headers, client: 172.23.0.3, server: , request: "POST /mcp HTTP/1.1", host: "terminator:8443"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 400 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:29:01 [info] 7#7: *65 recv() failed (104: Connection reset by peer) while reading client request headers, client: 172.23.0.3, server: , request: "POST /mcp HTTP/1.1", host: "terminator:8443"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:29:02 [info] 7#7: *66 client 172.23.0.3 closed keepalive connection
+terminator-1  | 172.21.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:29:15 [info] 7#7: *70 client 172.21.0.2 closed keepalive connection
+terminator-1  | 172.21.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:29:18 [info] 7#7: *72 client 172.21.0.2 closed keepalive connection
+terminator-1  | 172.21.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:29:18 [info] 7#7: *74 client 172.21.0.2 closed keepalive connection
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:29:25 [info] 7#7: *78 client 172.23.0.3 closed keepalive connection
+terminator-1  | 2026/10/15 17:29:25 [info] 7#7: *76 client 172.23.0.3 closed keepalive connection
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:29:37 [info] 7#7: *83 client 172.23.0.3 closed keepalive connection
+terminator-1  | 2026/10/15 17:29:38 [info] 7#7: *81 client 172.23.0.3 closed keepalive connection
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:29:50 [info] 7#7: *88 client 172.23.0.3 closed keepalive connection
+terminator-1  | 2026/10/15 17:29:50 [info] 7#7: *86 client 172.23.0.3 closed keepalive connection
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:30:03 [info] 7#7: *93 client 172.23.0.3 closed keepalive connection
+terminator-1  | 2026/10/15 17:30:03 [info] 7#7: *91 client 172.23.0.3 closed keepalive connection
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:30:15 [info] 7#7: *98 client 172.23.0.3 closed keepalive connection
+terminator-1  | 2026/10/15 17:30:15 [info] 7#7: *96 client 172.23.0.3 closed keepalive connection
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:30:27 [info] 7#7: *103 client 172.23.0.3 closed keepalive connection
+terminator-1  | 2026/10/15 17:30:27 [info] 7#7: *101 client 172.23.0.3 closed keepalive connection
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:30:39 [info] 7#7: *108 client 172.23.0.3 closed keepalive connection
+terminator-1  | 2026/10/15 17:30:39 [info] 7#7: *106 client 172.23.0.3 closed keepalive connection
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+sidecar_a-1   | 2026/10/15 17:25:53 [notice] 1#1: using the "epoll" event method
+sidecar_a-1   | 2026/10/15 17:25:53 [notice] 1#1: nginx/1.29.8
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.23.0.3 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:30:51 [info] 7#7: *113 client 172.23.0.3 closed keepalive connection
+sidecar_a-1   | 2026/10/15 17:25:53 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+terminator-1  | 2026/10/15 17:30:51 [info] 7#7: *111 client 172.23.0.3 closed keepalive connection
+terminator-1  | 172.21.0.2 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:31:04 [info] 7#7: *116 client 172.21.0.2 closed keepalive connection
+terminator-1  | 2026/10/15 17:31:04 [info] 7#7: *118 client 172.21.0.2 closed keepalive connection
+sidecar_a-1   | 2026/10/15 17:25:53 [notice] 1#1: OS: Linux 6.6.87.2-microsoft-standard-WSL2
+sidecar_a-1   | 2026/10/15 17:25:53 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+sidecar_a-1   | 2026/10/15 17:25:53 [notice] 1#1: start worker processes
+sidecar_a-1   | 2026/10/15 17:25:53 [notice] 1#1: start worker process 7
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+terminator-1  | 172.21.0.2 "POST /mcp HTTP/1.1" 401 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.21.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:31:12 [info] 7#7: *120 client 172.21.0.2 closed keepalive connection
+sidecar_a-1   | 2026/10/15 17:26:07 [info] 7#7: *1 client 127.0.0.1 closed keepalive connection
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+terminator-1  | 172.21.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:31:12 [info] 7#7: *122 client 172.21.0.2 closed keepalive connection
+terminator-1  | 172.21.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:31:12 [info] 7#7: *124 client 172.21.0.2 closed keepalive connection
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 2026/10/15 17:28:25 [info] 7#7: *5 client 127.0.0.1 closed keepalive connection
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 2026/10/15 17:28:38 [info] 7#7: *9 client 127.0.0.1 closed keepalive connection
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 2026/10/15 17:29:18 [info] 7#7: *13 client 127.0.0.1 closed keepalive connection
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 2026/10/15 17:29:18 [info] 7#7: *16 client 127.0.0.1 closed keepalive connection
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 401 up=401 ssl_verify_upstream
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 401 up=401 ssl_verify_upstream
+sidecar_a-1   | 2026/10/15 17:31:04 [info] 7#7: *18 client 127.0.0.1 closed keepalive connection
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 2026/10/15 17:31:12 [info] 7#7: *21 client 127.0.0.1 closed keepalive connection

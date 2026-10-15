@@ -1,0 +1,57 @@
+[
+    {
+        "Name": "s3iso_ctlnet",
+        "Id": "52687bf66b67efdf9a006ff083c7485683c9d0a827ee5698289daf080f1e0e93",
+        "Created": "2026-10-15T17:41:31.263288531Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.19.0.0/16",
+                    "Gateway": "172.19.0.1"
+                }
+            ]
+        },
+        "Internal": true,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {
+            "com.docker.network.enable_ipv4": "true",
+            "com.docker.network.enable_ipv6": "false"
+        },
+        "Labels": {
+            "com.docker.compose.config-hash": "4c082e705764ee230391bde04eb0542bcfb06a192d004dcd0383ba7862bb99c1",
+            "com.docker.compose.network": "ctlnet",
+            "com.docker.compose.project": "s3iso",
+            "com.docker.compose.version": "5.6.0"
+        },
+        "Containers": {
+            "9a3ac9433eb97c6fdbc6d57e49f6f502b28eaa11a86cf0d9f15a701eef339cab": {
+                "Name": "s3iso-privctl_a-1",
+                "EndpointID": "d255767183f135878b8f9da5071355d42292fa9b592a86191bbfbd56e755f0b7",
+                "MacAddress": "fe:83:a0:f4:94:b5",
+                "IPv4Address": "172.19.0.2/16",
+                "IPv6Address": ""
+            }
+        },
+        "Status": {
+            "IPAM": {
+                "Subnets": {
+                    "172.19.0.0/16": {
+                        "IPsInUse": 4,
+                        "DynamicIPsAvailable": 65532
+                    }
+                }
+            }
+        }
+    }
+]

@@ -1,0 +1,40 @@
+S7-T1-approved-path                PASS          {"summary": "bindings=3 calls=['echo']"}
+S7-T2-ctl-cellB-own-token          PASS          {}
+S7-T2-JWT_A-in-certB-sidecar       PASS          {"summary": "{'cnf mismatch: token bound to wQNWVKZ4JSL'}"}
+S7-T2-ctl-certA-JWT_A              PASS          {"summary": "raw=406 mcp_ok=True why=['binding match']"}
+S7-T2-ctl-certB-JWT_B              PASS          {"summary": "raw=406 mcp_ok=True why=['binding match']"}
+S7-T2-certB-JWT_A                  PASS          {"summary": "raw=401 mcp_ok=False why=['cnf mismatch: token bound to wQNWVKZ4JSLRzr_e10Y']"}
+S7-T2-certA-JWT_B                  PASS          {"summary": "raw=401 mcp_ok=False why=['cnf mismatch: token bound to CIkWl3BVOzuILZJJdRI']"}
+S7-T3-agent-direct-no-cert         PASS          {"summary": "HTTP/1.1 400 Bad Request"}
+S7-T3-agent-direct-rogue-cert      PASS          {"summary": "HTTP/1.1 400 Bad Request"}
+S7-T3-agent-direct-plain-http      PASS          {"summary": "HTTP/1.1 400 Bad Request"}
+S7-T3-harness-no-cert              PASS          {"summary": "raw=400 mcp_ok=False why=[]"}
+S7-T3-harness-rogue-cert           PASS          {"summary": "raw=400 mcp_ok=False why=[]"}
+S7-T4a-agent-spoofs-X-Client-Cert  PASS          {"summary": "call_ok=True x5t_seen=['wQNWVKZ4JS']"}
+S7-T4b-agent-supplies-other-Authorization PASS          {"summary": "call_ok=True sids=['sess-A-1']"}
+S7-T4c-harness-spoofs-X-Client-Cert PASS          {"summary": "raw=401 mcp_ok=False why=['cnf mismatch: token bound to CIkWl3BVOzuILZJJdRI']"}
+S7-T4d-duplicate-Authorization     PASS          {"summary": "raw=400 body='<html>\\r\\n<head><title>400 Bad Request</title></head>\\r\\n<body>\\r' why=[]"}
+S7-T4e-agent-direct-pep            PASS          {"summary": "gaierror: [Errno -3] Temporary failure in name resolution"}
+S7-T4e-agent-direct-backend        PASS          {"summary": "gaierror: [Errno -3] Temporary failure in name resolution"}
+S7-T4e-agent-direct-172.19.0.2     PASS          {"summary": "OSError: [Errno 101] Network is unreachable"}
+S7-T4e-agent-direct-172.18.0.3     PASS          {"summary": "OSError: [Errno 101] Network is unreachable"}
+S7-T4e-agent-direct-172.18.0.2     PASS          {"summary": "OSError: [Errno 101] Network is unreachable"}
+S7-T4f-testnet-direct-pep-pep      PASS          {"summary": "gaierror: [Errno -3] Temporary failure in name resolution"}
+S7-T4f-testnet-direct-pep-172.19.0.2 PASS          {"summary": "OSError: [Errno 101] Network is unreachable"}
+S7-T4f-testnet-direct-pep-172.18.0.3 PASS          {"summary": "OSError: [Errno 101] Network is unreachable"}
+S7-T5-ctl-secrets-exist-elsewhere  PASS          {}
+S7-T5-agent-holds-no-secrets       PASS          {"summary": "hits=[] procs=['sleep infinity ', 'python /harness/s7_agent.py scan ']"}
+S7-T5b-downstream-confinement      PASS          {"summary": "requests=89 leaks=0"}
+S7-T6-streaming                    PASS          {"summary": "arrivals=[0.883, 1.484, 2.086, 2.686, 3.289] total=3.945"}
+S7-T7-JWT_A_expired                PASS          {"summary": "raw=401 mcp_ok=False why=['jwt rejected: ExpiredSignatureError: Signature h']"}
+S7-T7-JWT_A_revoked                PASS          {"summary": "raw=401 mcp_ok=False why=['session revoked']"}
+S7-T7-JWT_A_tampered               PASS          {"summary": "raw=401 mcp_ok=False why=['jwt rejected: InvalidSignatureError: Signature v']"}
+S7-T7-JWT_A_alg_none               PASS          {"summary": "raw=401 mcp_ok=False why=['jwt rejected: InvalidAlgorithmError: The specifi']"}
+S7-T7-JWT_A_rogue_issuer           PASS          {"summary": "raw=401 mcp_ok=False why=['jwt rejected: InvalidSignatureError: Signature v']"}
+S7-T7-JWT_A_wrong_aud              PASS          {"summary": "raw=401 mcp_ok=False why=['jwt rejected: InvalidAudienceError: Audience doe']"}
+S7-T7-JWT_A_no_cnf                 PASS          {"summary": "raw=401 mcp_ok=False why=['jwt rejected: MissingRequiredClaimError: Token i']"}
+S7-T7-none                         PASS          {"summary": "raw=401 mcp_ok=False why=['expected exactly 1 Bearer Authorization, got 0']"}
+S7-T7-runtime-revocation           PASS          {"summary": "{'session revoked'}"}
+S7-T7-runtime-revocation-restore   PASS          {}
+SUMMARY {'PASS': 38}
+driver_exit=0

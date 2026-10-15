@@ -1,0 +1,2513 @@
+[
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"cd2304a9dbcf402ca9e0dc8f407f22ab\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"cd2304a9dbcf402ca9e0dc8f407f22ab\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"cd2304a9dbcf402ca9e0dc8f407f22ab\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"cd2304a9dbcf402ca9e0dc8f407f22ab\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"cd2304a9dbcf402ca9e0dc8f407f22ab\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"cd2304a9dbcf402ca9e0dc8f407f22ab\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"d03bc07b458f4c1aa0d7415949ec6a9c\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"d03bc07b458f4c1aa0d7415949ec6a9c\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"d03bc07b458f4c1aa0d7415949ec6a9c\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"d03bc07b458f4c1aa0d7415949ec6a9c\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"d03bc07b458f4c1aa0d7415949ec6a9c\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"d03bc07b458f4c1aa0d7415949ec6a9c\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"d03bc07b458f4c1aa0d7415949ec6a9c\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"d03bc07b458f4c1aa0d7415949ec6a9c\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"d03bc07b458f4c1aa0d7415949ec6a9c\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"d03bc07b458f4c1aa0d7415949ec6a9c\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"d03bc07b458f4c1aa0d7415949ec6a9c\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"d03bc07b458f4c1aa0d7415949ec6a9c\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   ", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085167.8938122}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   ", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085167.8938122}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   ", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085167.8938122}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "plication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6e7c0c6821264439b9ce9ff337fc9f7f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\""
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "plication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6e7c0c6821264439b9ce9ff337fc9f7f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\""
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "plication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6e7c0c6821264439b9ce9ff337fc9f7f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\""
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   ", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085167.8938122}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   ", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085167.8938122}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   ", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085167.8938122}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "plication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6e7c0c6821264439b9ce9ff337fc9f7f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\""
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "plication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6e7c0c6821264439b9ce9ff337fc9f7f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\""
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "plication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6e7c0c6821264439b9ce9ff337fc9f7f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\""
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "token bound to PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg, presented qo1sRuradLhr5HM2GWDHgW9iPOdoSS4XcCul_3Nticg\", \"cert_cn\": \"CN=cell-b\", \"cert_x5t\": \"qo1sRuradLhr5HM2GWDHgW9iPOdoSS4XcCul_3Nticg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085186.917475}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "token bound to PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg, presented qo1sRuradLhr5HM2GWDHgW9iPOdoSS4XcCul_3Nticg\", \"cert_cn\": \"CN=cell-b\", \"cert_x5t\": \"qo1sRuradLhr5HM2GWDHgW9iPOdoSS4XcCul_3Nticg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085186.917475}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "token bound to PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg, presented qo1sRuradLhr5HM2GWDHgW9iPOdoSS4XcCul_3Nticg\", \"cert_cn\": \"CN=cell-b\", \"cert_x5t\": \"qo1sRuradLhr5HM2GWDHgW9iPOdoSS4XcCul_3Nticg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085186.917475}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "token bound to PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg, presented qo1sRuradLhr5HM2GWDHgW9iPOdoSS4XcCul_3Nticg\", \"cert_cn\": \"CN=cell-b\", \"cert_x5t\": \"qo1sRuradLhr5HM2GWDHgW9iPOdoSS4XcCul_3Nticg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085186.917475}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "token bound to PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg, presented qo1sRuradLhr5HM2GWDHgW9iPOdoSS4XcCul_3Nticg\", \"cert_cn\": \"CN=cell-b\", \"cert_x5t\": \"qo1sRuradLhr5HM2GWDHgW9iPOdoSS4XcCul_3Nticg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085186.917475}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "token bound to PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg, presented qo1sRuradLhr5HM2GWDHgW9iPOdoSS4XcCul_3Nticg\", \"cert_cn\": \"CN=cell-b\", \"cert_x5t\": \"qo1sRuradLhr5HM2GWDHgW9iPOdoSS4XcCul_3Nticg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085186.917475}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085198.0540833}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085198.0540833}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085198.0540833}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085198.0540833}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085198.0540833}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085198.0540833}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ell-b\", \"sid\": \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085210.9933105}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "lication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"6b2284a096c143d6b49c94250bfa021f\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"i"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "S4XcCul_3Nticg\", \"cert_cn\": \"CN=cell-b\", \"cert_x5t\": \"qo1sRuradLhr5HM2GWDHgW9iPOdoSS4XcCul_3Nticg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085222.4080217}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "S4XcCul_3Nticg\", \"cert_cn\": \"CN=cell-b\", \"cert_x5t\": \"qo1sRuradLhr5HM2GWDHgW9iPOdoSS4XcCul_3Nticg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085222.4080217}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "S4XcCul_3Nticg\", \"cert_cn\": \"CN=cell-b\", \"cert_x5t\": \"qo1sRuradLhr5HM2GWDHgW9iPOdoSS4XcCul_3Nticg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085222.4080217}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "pplication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"17d1ee32a9c442f1a0f71c9905c487a3\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "pplication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"17d1ee32a9c442f1a0f71c9905c487a3\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "pplication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"17d1ee32a9c442f1a0f71c9905c487a3\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "S4XcCul_3Nticg\", \"cert_cn\": \"CN=cell-b\", \"cert_x5t\": \"qo1sRuradLhr5HM2GWDHgW9iPOdoSS4XcCul_3Nticg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085222.4080217}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "S4XcCul_3Nticg\", \"cert_cn\": \"CN=cell-b\", \"cert_x5t\": \"qo1sRuradLhr5HM2GWDHgW9iPOdoSS4XcCul_3Nticg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085222.4080217}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "S4XcCul_3Nticg\", \"cert_cn\": \"CN=cell-b\", \"cert_x5t\": \"qo1sRuradLhr5HM2GWDHgW9iPOdoSS4XcCul_3Nticg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085222.4080217}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "pplication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"17d1ee32a9c442f1a0f71c9905c487a3\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "pplication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"17d1ee32a9c442f1a0f71c9905c487a3\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "pplication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"17d1ee32a9c442f1a0f71c9905c487a3\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   ": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085223.188353}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   ": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085223.188353}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   ": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085223.188353}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "plication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"24e0f84cc58e4e3497594ac0a2fd1646\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\""
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "plication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"24e0f84cc58e4e3497594ac0a2fd1646\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\""
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "plication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"24e0f84cc58e4e3497594ac0a2fd1646\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\""
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   ": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085223.188353}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   ": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085223.188353}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   ": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085223.188353}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "plication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"24e0f84cc58e4e3497594ac0a2fd1646\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\""
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "plication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"24e0f84cc58e4e3497594ac0a2fd1646\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\""
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "plication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"24e0f84cc58e4e3497594ac0a2fd1646\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\""
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   " \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085235.370626}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   " \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085235.370626}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   " \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085235.370626}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "plication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"24e0f84cc58e4e3497594ac0a2fd1646\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\""
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "plication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"24e0f84cc58e4e3497594ac0a2fd1646\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\""
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "plication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"24e0f84cc58e4e3497594ac0a2fd1646\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\""
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   " \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085235.370626}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   " \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085235.370626}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   " \"sess-B-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085235.370626}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "plication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"24e0f84cc58e4e3497594ac0a2fd1646\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\""
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "plication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"24e0f84cc58e4e3497594ac0a2fd1646\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\""
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "plication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"24e0f84cc58e4e3497594ac0a2fd1646\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\""
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "\"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085305.697193}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "\"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085305.697193}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "\"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085305.697193}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "plication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"0291a049041d451e865912912f5d88f0\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\""
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "plication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"0291a049041d451e865912912f5d88f0\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\""
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "plication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"0291a049041d451e865912912f5d88f0\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\""
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "plication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"0291a049041d451e865912912f5d88f0\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\""
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "plication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"0291a049041d451e865912912f5d88f0\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\""
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "plication/json, text/event-stream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"0291a049041d451e865912912f5d88f0\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"157\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\""
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085318.073298}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085318.073298}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085318.073298}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "0617352}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "0617352}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "0617352}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "0617352}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "0617352}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "0617352}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085342.3804376}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085342.3804376}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085342.3804376}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085342.3804376}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085342.3804376}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085342.3804376}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "\"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085355.7426946}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "\"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085355.7426946}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "\"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085355.7426946}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "\"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085355.7426946}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "\"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085355.7426946}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "\"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-1\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085355.7426946}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "wt rejected: ExpiredSignatureError: Signature has expired\", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085365.46416}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "wt rejected: ExpiredSignatureError: Signature has expired\", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085365.46416}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "wt rejected: ExpiredSignatureError: Signature has expired\", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085365.46416}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "wt rejected: ExpiredSignatureError: Signature has expired\", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085365.46416}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "wt rejected: ExpiredSignatureError: Signature has expired\", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085365.46416}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "wt rejected: ExpiredSignatureError: Signature has expired\", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085365.46416}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "rt_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-revoked\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085377.916281}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "rt_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-revoked\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085377.916281}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "rt_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-revoked\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085377.916281}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "rt_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-revoked\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085377.916281}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "rt_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-revoked\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085377.916281}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "rt_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"sub\": \"agent:cell-a\", \"sid\": \"sess-A-revoked\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085377.916281}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "rejected: InvalidSignatureError: Signature verification failed\", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085390.861874}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "rejected: InvalidSignatureError: Signature verification failed\", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085390.861874}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "rejected: InvalidSignatureError: Signature verification failed\", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085390.861874}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "rejected: InvalidSignatureError: Signature verification failed\", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085390.861874}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "rejected: InvalidSignatureError: Signature verification failed\", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085390.861874}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "rejected: InvalidSignatureError: Signature verification failed\", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085390.861874}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "gorithmError: The specified alg value is not allowed\", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085403.0687497}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "gorithmError: The specified alg value is not allowed\", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085403.0687497}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "gorithmError: The specified alg value is not allowed\", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085403.0687497}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "gorithmError: The specified alg value is not allowed\", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085403.0687497}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "gorithmError: The specified alg value is not allowed\", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085403.0687497}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "gorithmError: The specified alg value is not allowed\", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085403.0687497}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "T\", \"ok\": false, \"why\": \"jwt rejected: InvalidSignatureError: Signature verification failed\", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085414.489402}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "T\", \"ok\": false, \"why\": \"jwt rejected: InvalidSignatureError: Signature verification failed\", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085414.489402}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "T\", \"ok\": false, \"why\": \"jwt rejected: InvalidSignatureError: Signature verification failed\", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085414.489402}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "T\", \"ok\": false, \"why\": \"jwt rejected: InvalidSignatureError: Signature verification failed\", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085414.489402}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "T\", \"ok\": false, \"why\": \"jwt rejected: InvalidSignatureError: Signature verification failed\", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085414.489402}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "T\", \"ok\": false, \"why\": \"jwt rejected: InvalidSignatureError: Signature verification failed\", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085414.489402}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 0,
+  "bad": [
+   "p\", \"method\": \"POST\", \"ok\": false, \"why\": \"jwt rejected: InvalidSignatureError: Signature verification failed\", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085415.2262542}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 1,
+  "bad": [
+   "p\", \"method\": \"POST\", \"ok\": false, \"why\": \"jwt rejected: InvalidSignatureError: Signature verification failed\", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085415.2262542}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "pep",
+  "path": "/log/pep.jsonl",
+  "attempt": 2,
+  "bad": [
+   "p\", \"method\": \"POST\", \"ok\": false, \"why\": \"jwt rejected: InvalidSignatureError: Signature verification failed\", \"cert_cn\": \"CN=cell-a\", \"cert_x5t\": \"PNixjHAsx-glW6JIfb6Ocj8KA6_n3TMSd81AY1xCdNg\", \"client_ip\": \"172.19.0.3\", \"t\": 1792085415.2262542}"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 0,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 1,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ },
+ {
+  "svc": "backend",
+  "path": "/log/backend_requests.jsonl",
+  "attempt": 2,
+  "bad": [
+   "ream\", \"content-type\": \"application/json\", \"mcp-session-id\": \"72896ed11045463d95faf1fb51ba578e\", \"mcp-protocol-version\": \"2025-11-25\", \"content-length\": \"181\"}, \"body\": \"{\\\"jsonrpc\\\":\\\"2.0\\\",\\\"id\\\":2,\\\"method\\\":\\\"tools/call\\\",\\\"params\\\":{\\\"_meta\\\":{\\\"progressToken\\\":2,\\\"io.modelcontextprotocol/logLe"
+  ],
+  "stderr": ""
+ }
+]

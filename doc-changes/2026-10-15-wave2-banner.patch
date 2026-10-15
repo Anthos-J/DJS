@@ -1,0 +1,15 @@
+--- a/04_Phase4_Prebuild_Validation_Playbook.md
++++ b/04_Phase4_Prebuild_Validation_Playbook.md
+@@ -8,6 +8,12 @@
+ > - S0 passed after the Docker Desktop 4.95.0 reinstall.
+ > - S3 **fails** in the topology specified below (T3: host-namespace services reachable through the internal bridge gateway IP). It passes with **AM11** (§2), which is now **mandatory** for every execution-cell network.
+ > - Amendments AM8–AM10 are recorded in `validation/STATUS.md`.
++> - **Wave 2 (15 Oct, late):**
++>   - S1 and S2 were re-run in pinned `python:3.12` containers; all pass/fail checks passed.
++>   - S7 passed 38/38 on the AM11 cell profile, reproduced twice.
++>   - Status is LOCALLY REPRODUCED, with ledger 1–4, 8, 22 and 25 INTEGRATION-VERIFIED. **Nothing is SECURITY-TESTED.**
++>   - EG-2, EG-3 and EG-4 remain open until the clean-environment rerun and independent review. S5, S6, S4a and S8 have not started.
++>   - Proposed (not adopted) AM12: `_meta` stripping needs request-context clearing **plus** `FASTMCP_TELEMETRY_MODE=off`.
+ >
+ > See [validation/STATUS.md](validation/STATUS.md). The ledger statuses in §7 below are the pre-execution baseline.
+ 

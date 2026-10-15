@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S7-binding\driver\s7_driver.py", line 68, in <module>
+    s0 = snap(); r = ex("agent_a", "python", "/harness/s7_agent.py", "call", "echo"); pd, bd, calls = delta(s0); o = jout(r)
+                                                                                                      ~~~~~^^^^
+  File "C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S7-binding\driver\s7_driver.py", line 37, in delta
+    p, b = lines("pep", "/log/pep.jsonl"), lines("backend", "/log/backend_requests.jsonl")
+                                           ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S7-binding\driver\s7_driver.py", line 31, in lines
+    return [json.loads(l) for l in r["stdout"].splitlines() if l.strip()]
+            ~~~~~~~~~~^^^
+  File "C:\Users\SEBIN\AppData\Local\Programs\Python\Python314\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\SEBIN\AppData\Local\Programs\Python\Python314\Lib\json\decoder.py", line 345, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SEBIN\AppData\Local\Programs\Python\Python314\Lib\json\decoder.py", line 363, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+driver_exit=1

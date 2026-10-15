@@ -16,7 +16,7 @@ import json, os, subprocess, sys
 ISO = "isolated"
 GW4, GW6 = "com.docker.network.bridge.gateway_mode_ipv4", "com.docker.network.bridge.gateway_mode_ipv6"
 ALLOWED_CELL_OPTS = {GW4, GW6}  # unknown keys are rejected: Docker silently accepts misspelled option keys
-ROLES = {"cell-netns-owner", "agent", "gateway", "test-fixture"}
+ROLES = {"cell-netns-owner", "agent", "gateway", "test-fixture", "pep", "tool-server"}  # pep / tool-server: never on a cell network
 NETSHOOT = "nicolaka/netshoot@sha256:b09d9b21381f47a79b3cbcb30da25266dc17186ea00ae65e99fdc51396f48e70"
 
 
@@ -153,8 +153,10 @@ def runtime(project, image=NETSHOOT):
                 v.append(f"container {c['Name']}: uses NetworkMode container:... but is not labelled agent")
                 roles[c["Id"]] = "agent"
     for c in conts:
-        if c["State"]["Status"] != "running":
-            v.append(f"container {c['Name']}: state {c['State']['Status']}")
+        oneshot_ok = (c["Config"]["Labels"].get("mandate.oneshot") == "true" and c["State"]["Status"] == "exited"
+                      and c["State"].get("ExitCode") == 0)
+        if c["State"]["Status"] != "running" and not oneshot_ok:
+            v.append(f"container {c['Name']}: state {c['State']['Status']} (exit {c['State'].get('ExitCode')})")
         if role(c) not in ROLES:
             v.append(f"container {c['Name']}: missing/unknown mandate.role label ({role(c)!r})")
     net_ids = _run(["docker", "network", "ls", "-q", "--filter", f"label=com.docker.compose.project={project}"]).split()

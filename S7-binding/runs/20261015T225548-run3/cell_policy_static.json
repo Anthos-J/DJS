@@ -1,0 +1,17 @@
+{
+ "mode": "static",
+ "compliant": true,
+ "violations": [],
+ "facts": {
+  "cell_networks": [
+   "cellnet_a",
+   "cellnet_b",
+   "cellnet_c"
+  ],
+  "unconstrained_networks": [
+   "pepnet",
+   "testnet",
+   "toolnet"
+  ]
+ }
+}

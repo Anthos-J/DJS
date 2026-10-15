@@ -31,7 +31,7 @@ At runtime the checker also requires that the IPAM config has no gateway and tha
 - set `read_only: true`;
 - set `no-new-privileges:true`.
 
-**Roles.** Every service must carry `mandate.role`, one of `cell-netns-owner`, `agent`, `gateway` or `test-fixture`.
+**Roles.** Every service must carry `mandate.role`, one of `cell-netns-owner`, `agent`, `gateway`, `test-fixture`, `pep` or `tool-server` (the last two are forbidden on cell networks like every non-gateway role). A container labelled `mandate.oneshot=true` may be exited with code 0 at runtime.
 
 `deploy_cells.sh` exits as follows:
 

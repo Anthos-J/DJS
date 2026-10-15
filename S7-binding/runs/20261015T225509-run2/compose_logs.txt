@@ -1,0 +1,37 @@
+sidecar_b-1  | 2026/10/15 17:25:14 [notice] 1#1: using the "epoll" event method
+sidecar_b-1  | 2026/10/15 17:25:14 [notice] 1#1: nginx/1.29.8
+sidecar_b-1  | 2026/10/15 17:25:14 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+sidecar_b-1  | 2026/10/15 17:25:14 [notice] 1#1: OS: Linux 6.6.87.2-microsoft-standard-WSL2
+sidecar_b-1  | 2026/10/15 17:25:14 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+sidecar_b-1  | 2026/10/15 17:25:14 [notice] 1#1: start worker processes
+sidecar_b-1  | 2026/10/15 17:25:14 [notice] 1#1: start worker process 7
+sidecar_c-1  | 2026/10/15 17:25:14 [notice] 1#1: using the "epoll" event method
+sidecar_c-1  | 2026/10/15 17:25:14 [notice] 1#1: nginx/1.29.8
+sidecar_c-1  | 2026/10/15 17:25:14 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+sidecar_c-1  | 2026/10/15 17:25:14 [notice] 1#1: OS: Linux 6.6.87.2-microsoft-standard-WSL2
+sidecar_c-1  | 2026/10/15 17:25:14 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+sidecar_c-1  | 2026/10/15 17:25:14 [notice] 1#1: start worker processes
+sidecar_c-1  | 2026/10/15 17:25:14 [notice] 1#1: start worker process 7
+pki-1        | {"cell-a": "ptbs4yxQDvopCzc6XTzXqztqRC4aOysjkQJ5l8Mepm4", "cell-b": "giFTavYz8MQaKwtpBv1tSbsHC-TqjKPptHCX3Whcuuw", "rogue": "oDWWMUaxJodPCCCBmGRIkjvMd-aJcKV-b8Z3HJtG2wY"}
+backend-1    | INFO:     Started server process [1]
+backend-1    | INFO:     Waiting for application startup.
+sidecar_a-1  | 2026/10/15 17:25:14 [notice] 1#1: using the "epoll" event method
+sidecar_a-1  | 2026/10/15 17:25:14 [notice] 1#1: nginx/1.29.8
+sidecar_a-1  | 2026/10/15 17:25:14 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+sidecar_a-1  | 2026/10/15 17:25:14 [notice] 1#1: OS: Linux 6.6.87.2-microsoft-standard-WSL2
+sidecar_a-1  | 2026/10/15 17:25:14 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+sidecar_a-1  | 2026/10/15 17:25:14 [notice] 1#1: start worker processes
+sidecar_a-1  | 2026/10/15 17:25:14 [notice] 1#1: start worker process 7
+backend-1    | INFO:     Application startup complete.
+backend-1    | INFO:     Uvicorn running on http://0.0.0.0:9000 (Press CTRL+C to quit)
+pep-1        | INFO:     Started server process [1]
+pep-1        | INFO:     Waiting for application startup.
+pep-1        | INFO:     Application startup complete.
+pep-1        | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+terminator-1  | 2026/10/15 17:25:13 [notice] 1#1: using the "epoll" event method
+terminator-1  | 2026/10/15 17:25:13 [notice] 1#1: nginx/1.29.8
+terminator-1  | 2026/10/15 17:25:13 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+terminator-1  | 2026/10/15 17:25:13 [notice] 1#1: OS: Linux 6.6.87.2-microsoft-standard-WSL2
+terminator-1  | 2026/10/15 17:25:13 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+terminator-1  | 2026/10/15 17:25:13 [notice] 1#1: start worker processes
+terminator-1  | 2026/10/15 17:25:13 [notice] 1#1: start worker process 7

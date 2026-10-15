@@ -1,0 +1,69 @@
+sidecar_b-1  | 2026/10/15 17:24:12 [notice] 1#1: using the "epoll" event method
+sidecar_b-1  | 2026/10/15 17:24:12 [notice] 1#1: nginx/1.29.8
+sidecar_b-1  | 2026/10/15 17:24:12 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+sidecar_b-1  | 2026/10/15 17:24:12 [notice] 1#1: OS: Linux 6.6.87.2-microsoft-standard-WSL2
+sidecar_b-1  | 2026/10/15 17:24:12 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+sidecar_b-1  | 2026/10/15 17:24:12 [notice] 1#1: start worker processes
+sidecar_b-1  | 2026/10/15 17:24:12 [notice] 1#1: start worker process 7
+pki-1        | {"cell-a": "SBdppZUDCtPZUBmgMlVPTTf25DI9YJBi4o-XcMRfH3E", "cell-b": "aAef1TCVnKt3ubXfvs1w6X37YiU4Ksi9zzhcA51OxxU", "rogue": "HIcNEVd9o41pPPMjoEqQd76hItLnUkt7ELvw5zRFplk"}
+terminator-1  | 2026/10/15 17:24:12 [notice] 1#1: using the "epoll" event method
+terminator-1  | 2026/10/15 17:24:12 [notice] 1#1: nginx/1.29.8
+terminator-1  | 2026/10/15 17:24:12 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+backend-1     | INFO:     Started server process [1]
+terminator-1  | 2026/10/15 17:24:12 [notice] 1#1: OS: Linux 6.6.87.2-microsoft-standard-WSL2
+terminator-1  | 2026/10/15 17:24:12 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+terminator-1  | 2026/10/15 17:24:12 [notice] 1#1: start worker processes
+terminator-1  | 2026/10/15 17:24:12 [notice] 1#1: start worker process 7
+sidecar_c-1   | 2026/10/15 17:24:12 [notice] 1#1: using the "epoll" event method
+sidecar_c-1   | 2026/10/15 17:24:12 [notice] 1#1: nginx/1.29.8
+sidecar_c-1   | 2026/10/15 17:24:12 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+terminator-1  | 172.19.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:24:25 [info] 7#7: *1 client 172.19.0.2 closed keepalive connection
+terminator-1  | 2026/10/15 17:24:26 [info] 7#7: *3 client 172.19.0.2 closed keepalive connection
+terminator-1  | 172.19.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 172.19.0.2 "POST /mcp HTTP/1.1" 200 verify=SUCCESS cn="CN=cell-a"
+terminator-1  | 2026/10/15 17:24:26 [info] 7#7: *5 client 172.19.0.2 closed keepalive connection
+backend-1     | INFO:     Waiting for application startup.
+backend-1     | INFO:     Application startup complete.
+backend-1     | INFO:     Uvicorn running on http://0.0.0.0:9000 (Press CTRL+C to quit)
+sidecar_c-1   | 2026/10/15 17:24:12 [notice] 1#1: OS: Linux 6.6.87.2-microsoft-standard-WSL2
+sidecar_c-1   | 2026/10/15 17:24:12 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+backend-1     | INFO:     172.21.0.3:59600 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:59604 - "GET /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:59620 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1     | INFO:     172.21.0.3:59628 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:59630 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:59640 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1     | INFO:     172.21.0.3:59654 - "GET /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:59664 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:59672 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:59678 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:59680 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1     | INFO:     172.21.0.3:59688 - "GET /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:59698 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:59714 - "DELETE /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:59728 - "POST /mcp HTTP/1.1" 200 OK
+sidecar_c-1   | 2026/10/15 17:24:12 [notice] 1#1: start worker processes
+backend-1     | INFO:     172.21.0.3:59750 - "GET /mcp HTTP/1.1" 200 OK
+sidecar_c-1   | 2026/10/15 17:24:12 [notice] 1#1: start worker process 7
+backend-1     | INFO:     172.21.0.3:59734 - "POST /mcp HTTP/1.1" 202 Accepted
+backend-1     | INFO:     172.21.0.3:59766 - "POST /mcp HTTP/1.1" 200 OK
+backend-1     | INFO:     172.21.0.3:59768 - "DELETE /mcp HTTP/1.1" 200 OK
+pep-1         | INFO:     Started server process [1]
+pep-1         | INFO:     Waiting for application startup.
+pep-1         | INFO:     Application startup complete.
+pep-1         | INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+pep-1         | INFO:     172.22.0.3:44666 - "POST /mcp HTTP/1.1" 200 OK
+pep-1         | INFO:     172.22.0.3:44678 - "POST /mcp HTTP/1.1" 200 OK
+pep-1         | INFO:     172.22.0.3:44680 - "POST /mcp HTTP/1.1" 200 OK
+sidecar_a-1   | 2026/10/15 17:24:13 [notice] 1#1: using the "epoll" event method
+sidecar_a-1   | 2026/10/15 17:24:13 [notice] 1#1: nginx/1.29.8
+sidecar_a-1   | 2026/10/15 17:24:13 [notice] 1#1: built by gcc 15.2.0 (Alpine 15.2.0) 
+sidecar_a-1   | 2026/10/15 17:24:13 [notice] 1#1: OS: Linux 6.6.87.2-microsoft-standard-WSL2
+sidecar_a-1   | 2026/10/15 17:24:13 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+sidecar_a-1   | 2026/10/15 17:24:13 [notice] 1#1: start worker processes
+sidecar_a-1   | 2026/10/15 17:24:13 [notice] 1#1: start worker process 7
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 127.0.0.1 "POST /mcp HTTP/1.1" 200 up=200 ssl_verify_upstream
+sidecar_a-1   | 2026/10/15 17:24:26 [info] 7#7: *1 client 127.0.0.1 closed keepalive connection

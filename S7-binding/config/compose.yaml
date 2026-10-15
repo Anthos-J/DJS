@@ -1,0 +1,130 @@
+# S7 credential binding (AM2 / G5) on the canonical AM11 cell profile. Spike harness only.
+# Path: agent -> 127.0.0.1:8081 (sidecar nginx, shared netns; adds client cert + JWT)
+#       -> terminator:8443 (mTLS required; forwards verified cert as X-Client-Cert)
+#       -> pep:8000 (binding check + S1 PEP; reachable only from the terminator) -> backend:9000.
+# Deployed only through harness/run_s7.sh, which runs the AM11 checker before and after `up`.
+name: s7bind
+
+x-mandate-cell-network: &mandate_cell_network
+  driver: bridge
+  internal: true
+  enable_ipv6: false
+  driver_opts:
+    com.docker.network.bridge.gateway_mode_ipv4: isolated
+    com.docker.network.bridge.gateway_mode_ipv6: isolated
+
+x-agent: &agent
+  image: ${SPIKE_IMAGE}
+  command: ["sleep", "infinity"]
+  cap_drop: [ALL]
+  read_only: true
+  security_opt: ["no-new-privileges:true"]
+  tmpfs: ["/tmp"]
+  volumes: ["../harness:/harness:ro"]   # test scripts only; no secrets
+
+x-sidecar: &sidecar
+  image: ${NGINX_IMAGE}
+  entrypoint: ["nginx", "-g", "daemon off;", "-c", "/etc/nginx-s7/nginx.conf"]
+  depends_on:
+    terminator: {condition: service_started}
+
+networks:
+  cellnet_a: {<<: *mandate_cell_network, labels: {mandate.role: execution-cell, mandate.cell: a}}
+  cellnet_b: {<<: *mandate_cell_network, labels: {mandate.role: execution-cell, mandate.cell: b}}
+  cellnet_c: {<<: *mandate_cell_network, labels: {mandate.role: execution-cell, mandate.cell: c}}
+  testnet: {internal: true}   # test fixture -> terminator (negative-credential matrix)
+  pepnet: {internal: true}    # terminator -> PEP only
+  toolnet: {internal: true}   # PEP -> backend only
+
+volumes:
+  sec_side_a: {}
+  sec_side_b: {}
+  sec_side_c: {}
+  sec_term: {}
+  sec_pep: {}
+  sec_harness: {}
+  pep_log: {}
+  backend_log: {}
+
+services:
+  pki:
+    image: ${SPIKE_IMAGE}
+    network_mode: none
+    labels: {mandate.role: test-fixture, mandate.oneshot: "true"}
+    command: ["python", "/harness/pki.py", "/out"]
+    volumes:
+      - ../harness:/harness:ro
+      - ${RUN_DIR}:/out
+      - sec_side_a:/vol/side_a
+      - sec_side_b:/vol/side_b
+      - sec_side_c:/vol/side_c
+      - sec_term:/vol/term
+      - sec_pep:/vol/pep
+      - sec_harness:/vol/harness
+
+  backend:
+    image: ${SPIKE_IMAGE}
+    command: ["python", "/harness/backend.py"]
+    labels: {mandate.role: tool-server}
+    environment: {TOOL_API_KEY: DUMMY-DOWNSTREAM-TOOL-KEY-7c1e}
+    volumes: ["../harness:/harness:ro", "backend_log:/log"]
+    networks: [toolnet]
+    depends_on: {pki: {condition: service_completed_successfully}}
+
+  pep:
+    image: ${SPIKE_IMAGE}
+    command: ["python", "/harness/pep_bound.py"]
+    labels: {mandate.role: pep}
+    volumes: ["../harness:/harness:ro", "sec_pep:/secrets:ro", "pep_log:/log"]
+    networks: [pepnet, toolnet]
+    depends_on: {backend: {condition: service_started}}
+
+  terminator:
+    image: ${NGINX_IMAGE}
+    entrypoint: ["nginx", "-g", "daemon off;", "-c", "/etc/nginx-s7/nginx.conf"]
+    labels: {mandate.role: gateway}
+    volumes: ["./nginx-terminator.conf:/etc/nginx-s7/nginx.conf:ro", "sec_term:/secrets:ro"]
+    networks: [cellnet_a, cellnet_b, cellnet_c, testnet, pepnet]
+    depends_on: {pep: {condition: service_started}}
+
+  sidecar_a:
+    <<: *sidecar
+    labels: {mandate.role: cell-netns-owner, mandate.cell: a}
+    volumes: ["./nginx-sidecar.conf:/etc/nginx-s7/nginx.conf:ro", "sec_side_a:/secrets:ro"]
+    networks: [cellnet_a]
+  agent_a:
+    <<: *agent
+    labels: {mandate.role: agent, mandate.cell: a}
+    network_mode: "service:sidecar_a"
+    depends_on: [sidecar_a]
+
+  sidecar_b:
+    <<: *sidecar
+    labels: {mandate.role: cell-netns-owner, mandate.cell: b}
+    volumes: ["./nginx-sidecar.conf:/etc/nginx-s7/nginx.conf:ro", "sec_side_b:/secrets:ro"]
+    networks: [cellnet_b]
+  agent_b:
+    <<: *agent
+    labels: {mandate.role: agent, mandate.cell: b}
+    network_mode: "service:sidecar_b"
+    depends_on: [sidecar_b]
+
+  # T2: JWT_A placed in a sidecar that holds cert B
+  sidecar_c:
+    <<: *sidecar
+    labels: {mandate.role: cell-netns-owner, mandate.cell: c}
+    volumes: ["./nginx-sidecar.conf:/etc/nginx-s7/nginx.conf:ro", "sec_side_c:/secrets:ro"]
+    networks: [cellnet_c]
+  agent_c:
+    <<: *agent
+    labels: {mandate.role: agent, mandate.cell: c}
+    network_mode: "service:sidecar_c"
+    depends_on: [sidecar_c]
+
+  harness:
+    image: ${SPIKE_IMAGE}
+    command: ["sleep", "infinity"]
+    labels: {mandate.role: test-fixture}
+    volumes: ["../harness:/harness:ro", "sec_harness:/secrets:ro"]
+    networks: [testnet]
+    depends_on: {terminator: {condition: service_started}}

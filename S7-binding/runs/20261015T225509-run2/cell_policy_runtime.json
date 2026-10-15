@@ -1,0 +1,89 @@
+{
+ "mode": "runtime",
+ "compliant": true,
+ "violations": [],
+ "facts": {
+  "networks": {
+   "s7bind_cellnet_a": {
+    "id": "6caaace0e9691a3ea6e56d7a6ecd00b7054265c0e3a46c6bbe06224a27b4c239",
+    "driver": "bridge",
+    "internal": true,
+    "enable_ipv6": false,
+    "options": {
+     "com.docker.network.bridge.gateway_mode_ipv4": "isolated",
+     "com.docker.network.bridge.gateway_mode_ipv6": "isolated",
+     "com.docker.network.enable_ipv4": "true"
+    },
+    "ipam": [
+     {
+      "Subnet": "172.18.0.0/16"
+     }
+    ],
+    "host_bridge": "br-6caaace0e969",
+    "host_bridge_ipv4": [],
+    "members": [
+     "sidecar_a(cell-netns-owner)",
+     "terminator(gateway)"
+    ]
+   },
+   "s7bind_cellnet_b": {
+    "id": "cb31cd8afcf6e85774f89391993ff2e8f752e40289de00c240dc1924c452d203",
+    "driver": "bridge",
+    "internal": true,
+    "enable_ipv6": false,
+    "options": {
+     "com.docker.network.bridge.gateway_mode_ipv4": "isolated",
+     "com.docker.network.bridge.gateway_mode_ipv6": "isolated",
+     "com.docker.network.enable_ipv4": "true"
+    },
+    "ipam": [
+     {
+      "Subnet": "172.21.0.0/16"
+     }
+    ],
+    "host_bridge": "br-cb31cd8afcf6",
+    "host_bridge_ipv4": [],
+    "members": [
+     "sidecar_b(cell-netns-owner)",
+     "terminator(gateway)"
+    ]
+   },
+   "s7bind_cellnet_c": {
+    "id": "789c9d6db4f41910e41b8f8540aeb4c2ec8761fd9c377dac32b14aeedf68dd3e",
+    "driver": "bridge",
+    "internal": true,
+    "enable_ipv6": false,
+    "options": {
+     "com.docker.network.bridge.gateway_mode_ipv4": "isolated",
+     "com.docker.network.bridge.gateway_mode_ipv6": "isolated",
+     "com.docker.network.enable_ipv4": "true"
+    },
+    "ipam": [
+     {
+      "Subnet": "172.19.0.0/16"
+     }
+    ],
+    "host_bridge": "br-789c9d6db4f4",
+    "host_bridge_ipv4": [],
+    "members": [
+     "sidecar_c(cell-netns-owner)",
+     "terminator(gateway)"
+    ]
+   }
+  },
+  "host_vm_ipv4_addrs": [
+   "1: lo    inet 127.0.0.1/8 scope host lo\\       valid_lft forever preferred_lft forever",
+   "2: services1    inet 192.168.65.6/32 scope global services1\\       valid_lft forever preferred_lft forever",
+   "3: eth0    inet 192.168.65.3/24 brd 192.168.65.255 scope global eth0\\       valid_lft forever preferred_lft forever",
+   "4: docker0    inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0\\       valid_lft forever preferred_lft forever",
+   "154: br-3059c83dd392    inet 172.20.0.1/16 brd 172.20.255.255 scope global br-3059c83dd392\\       valid_lft forever preferred_lft forever",
+   "156: br-72d77a12c48e    inet 172.22.0.1/16 brd 172.22.255.255 scope global br-72d77a12c48e\\       valid_lft forever preferred_lft forever",
+   "157: br-2a02772504af    inet 172.23.0.1/16 brd 172.23.255.255 scope global br-2a02772504af\\       valid_lft forever preferred_lft forever"
+  ],
+  "cell_networks": [
+   "s7bind_cellnet_a",
+   "s7bind_cellnet_b",
+   "s7bind_cellnet_c"
+  ]
+ }
+}

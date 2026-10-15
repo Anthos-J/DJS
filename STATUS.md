@@ -1,4 +1,4 @@
-# MANDATE v3 — Spike execution status (Wave 0–1)
+# MANDATE v3 — Spike execution status (Waves 0–2)
 
 *Run date: 15 Oct 2026. Playbook: [../04_Phase4_Prebuild_Validation_Playbook.md](../04_Phase4_Prebuild_Validation_Playbook.md). Runner: Claude. **Reviewer: not yet assigned.** Under playbook rule 7, no claim can reach SECURITY-TESTED until a second person reviews the evidence.*
 
@@ -8,10 +8,14 @@
 |---|---|---|
 | **S0** Environment | **PASS** (15 Oct, after the user reinstalled Docker Desktop 4.95.0 / Engine 29.8.2; **rechecked 20:39 → PASS**, `runs/20261015T203952-recheck`; earlier images still present, so this is not a fresh engine). Earlier attempt: BLOCKED by the 4.68.0 startup crash. See `S0-env/VERDICT.md`. | Baseline recorded |
 | **S3** Cell isolation | **Playbook topology: FAIL** on T3. From the cell, the internal bridge's gateway IP exposes Docker Desktop VM host-namespace services (rpcbind TCP/UDP 111, plus a dynamic high TCP port). This was not shown to be an egress path. **Reproduced 5×**; kept as regression fixture. **AM11 is now mandatory** (user decision, 15 Oct). The canonical profile `config/compose.cell.yaml`, deployed through the fail-closed gate `deploy_cells.sh`, passes **all pass/fail criteria** (46 PASS / 0 FAIL / 0 HARNESS-ERROR, `runs/20261015T210358-canonical`). The regression suite `harness/regression.sh` passes 0-failing (`runs/20261015T210203-regression`). See `S3-isolation/VERDICT.md`. | Canonical AM11 profile: **LOCALLY REPRODUCED**. Original topology: FAIL (regression fixture). **Not SECURITY-TESTED.** |
-| **S1** MCP PEP | **Executed.** Every pass/fail check passed in the second run. | LOCALLY REPRODUCED. See notes on INTEGRATION-VERIFIED. |
-| **S2** Cedar + SymCC | **Executed.** All pass/fail checks passed. | LOCALLY REPRODUCED |
+| **S1** MCP PEP | **Re-run in pinned python:3.12 containers** (3 runs; all pass/fail checks PASS; see *Wave 2* below). The host-venv runs are kept separately. | Ledger 1–4 and 8: **INTEGRATION-VERIFIED** (container network hop, backend-side observation). Ledger 5, 7, 9: LOCALLY REPRODUCED. **Not SECURITY-TESTED.** |
+| **S2** Cedar + SymCC | **Re-run in the pinned container** (all pass/fail checks PASS; full 9,216-case differential; fail-closed SymCC verdict parser). | LOCALLY REPRODUCED |
+| **S7** Credential binding | **Executed** on the AM11 cell profile, behind the deploy gate: 38/38 PASS, reproduced twice with fresh PKI. See `S7-binding/VERDICT.md`. | Ledger 22, 25: **INTEGRATION-VERIFIED**. Ledger 23, 24: LOCALLY REPRODUCED. **Not SECURITY-TESTED.** |
+| S5, S6, S4a, S8 | **Not started.** Waiting for your go-ahead after this report. | — |
 
-**Deviation from instructions:** S1 and S2 ran in a Python 3.14 virtual environment on the Windows host, **not inside containers**, because Docker was unavailable. Neither spike depends on network isolation, so its claims are unaffected. Both must still be re-run in `python:3.12` containers once S0 passes, to satisfy AM5. Versions: fastmcp 4.1.0, mcp 2.3.0, cedarpy 4.12.2 (see `pip_freeze.txt`), cedar-policy-cli 4.13.0 experimental (SHA-256 matches the published value), cvc5 1.3.1 (static Win64 build; no published hash, ours recorded below).
+**Wave 2 (15 Oct, late):** S1 and S2 were re-run in pinned `python:3.12` containers (AM5), and S7 was executed. See the *Wave 2* section at the end. The text directly below describes the original Windows-host runs and is kept unchanged.
+
+**Deviation from instructions (original runs):** S1 and S2 ran in a Python 3.14 virtual environment on the Windows host, **not inside containers**, because Docker was unavailable. Neither spike depends on network isolation, so its claims are unaffected. Both must still be re-run in `python:3.12` containers once S0 passes, to satisfy AM5. Versions: fastmcp 4.1.0, mcp 2.3.0, cedarpy 4.12.2 (see `pip_freeze.txt`), cedar-policy-cli 4.13.0 experimental (SHA-256 matches the published value), cvc5 1.3.1 (static Win64 build; no published hash, ours recorded below).
 
 ## S1 results (`S1-pep/runs/20261015T042718-host-venv-rerun`)
 
@@ -73,13 +77,8 @@ cvc5 zip SHA-256 (ours): `e1e183f50f1bbd9d10b2dc6ab9574cb9fa02acfdc1957f43040db3
 - **AM9:** PEP decision rule = `decision == Allow and diagnostics.errors == []`. Request validation can return `NoDecision`. Always evaluate with the schema (S2-T3a/b/c).
 - **AM10:** SymCC in CI must parse the verdict text (exit code is 0 on failure). The PEP must range-check every label attribute before evaluation (S2-T4).
 
-## To unblock S0 / S3 (your action)
-Docker Desktop's own error dialog offers only *Quit* or *Reset to factory defaults*. A narrower fix, which I could not apply under this session's permissions:
-1. Quit Docker Desktop.
-2. Delete the two 0-byte stale socket files in `%LOCALAPPDATA%\Docker\run\` (`dockerInference`, `userAnalyticsOtlpHttp.sock`). If Explorer refuses, run `fsutil reparsepoint delete <file>` first, or reboot and try again.
-3. Start Docker Desktop.
-
-Also note: **only ~5.9 GB free on C:**. Wave 1–2 images (netshoot, python, nginx, mitmproxy) plus the Docker VM should fit, but it is tight.
+## Docker unblock (historical, resolved)
+Docker Desktop 4.68 failed to start; the user reinstalled 4.95.0 on 15 Oct and S0 passed. C: had about 17 GB free at the last check.
 
 ## S3 results (15 Oct 2026, evening). Full detail: `S3-isolation/VERDICT.md`
 
@@ -151,3 +150,106 @@ Docker prerequisite (`runs/20261015T205246-prereq-gateway-mode`): Docker rejects
 1. Clean-environment rerun of the R1 variant on a second machine or after a Docker reset.
 2. Independent review of `S3-isolation/` evidence by a second person.
 3. Optionally, a UDP sweep of host-side addresses (only TCP full sweep + UDP 111 were run).
+
+---
+
+## Wave 2 (15 Oct 2026, late): S1/S2 in pinned containers, S7 credential binding
+
+**Evidence preserved first:**
+- `S3-isolation/EVIDENCE_MANIFEST.sha256`: SHA-256 of 297 S3/S0 evidence, config and harness files plus the design-doc patch. Verified with `sha256sum -c`.
+- Annotated tag `s3-am11-local-repro` on `468526e`.
+- No earlier run directory was modified. Baseline-failure runs are intact.
+
+**Image** (`images/spike-py312`; `image_manifest.txt`, `build.log`):
+- Base: `python:3.12-slim@sha256:a6e34c59…`, Python 3.12.15.
+- Packages: fastmcp 4.1.0, mcp 2.3.0, cedarpy 4.12.2, PyJWT 2.15.1, cryptography 50.0.2, uvicorn 0.54.0. The full `pip freeze` is recorded per run; transitive dependencies are recorded, not hash-pinned.
+- Cedar CLI 4.13.0 experimental: the downloaded archive's SHA-256 **matches the published `.sha256`** (`deb3a834…`).
+- cvc5 1.3.1 Linux static: no hash is published, so it is **pinned on first use** (`1a1cda20…`). The build fails on any mismatch.
+- Image ID `sha256:44bc7e00…`.
+- nginx for S7: `nginx@sha256:56168782…` (1.29.8).
+
+### S1 in containers: `S1-pep/runs/20261015T2239{00,41}-container-run{2,3}` (run1 predates two added variants)
+
+Topology: backend, 10 PEP variants and a client container on one **internal** network. The client reads the backend's raw request log, which is the independent observation. Every run gives the same results.
+
+| Test | Result | Evidence |
+|---|---|---|
+| T1 middleware sees and marks result | **PASS** | marker returned; backend saw `read_doc` |
+| T2 block prevents backend execution | **PASS** | `isError` "DENY: policy"; `writes.log` unchanged; no backend `write_record` |
+| T3 argument rewrite | **PASS** | backend wrote `a-mod` |
+| T4 `forward_incoming_headers=False` | **PASS** (+ sweep) | canary absent from all ~1,700 backend requests (headers and bodies). **Positive control:** the default config forwards `Bearer CANARY-AUTH-7f3a` |
+| T5 `_meta` forwarding | RECORDED | Without stripping, the backend receives the client's `x-evil`, `traceparent`, `progressToken`, `logLevel` |
+| T5 strip, `context.message.meta = None` | RECORDED: **does not strip** | everything still forwarded (the proxy reads `request_context.meta`, not the message) |
+| T5 strip, clear `request_context.meta` | RECORDED: **partial** | `x-evil` and `logLevel` removed, but the client's **exact `traceparent`** still reaches the backend. FastMCP extracts it into OpenTelemetry context and re-injects it (`telemetry.inject_trace_context`) |
+| T5 strip + `FASTMCP_TELEMETRY_MODE=off` | RECORDED: **strips client keys** | backend receives only `progressToken` (probably the proxy's own backend-session token; not proven) |
+| T6 aliases (7) | **PASS** | all denied; 0 backend calls |
+| T7 legacy and auto protocol eras | **PASS** | identical enforcement |
+| T8 20 concurrent mixed / T8b 200 concurrent mixed | **PASS** / **PASS** | exactly 10 / 100 allowed writes; 0 forbidden |
+| T9 blocked-call form | RECORDED | `isError: true`, "DENY: policy" |
+| T10 ordering rule | **PASS** | An `on_call_tool` **and** a generic `on_request` middleware added *after* the PEP both changed arguments after authorization: the backend received `MUTATED-AFTER-CHECK` / `MUTATED-BY-ON_REQUEST` without the PEP's `-mod`. With the PEP innermost, the backend received only PEP-checked arguments. **AM8 holds for generic hooks too** |
+| T11 latency | RECORDED | via PEP p50 ≈ 16–17 ms, p99 ≈ 21–29 ms; direct p50 ≈ 2.3 ms (container network, fresh backend session per call) |
+
+**Consequence for AM1.** Stripping client `_meta` needs **both** clearing `request_context.meta` in the PEP **and** `FASTMCP_TELEMETRY_MODE=off`. Otherwise the client-chosen `traceparent` crosses the PEP. Tool servers must still treat forwarded `_meta` as untrusted. *Proposed AM12; not yet adopted.*
+
+### S2 in the container: `S2-cedar/runs/20261015T224418-container-run3` (also run2; run1 was a harness error)
+
+| Test | Result | Evidence |
+|---|---|---|
+| T1 schema validation + negative control | **PASS** | |
+| T2 exhaustive two-pass vs oracle | **PASS** 4,608/4,608 | 0 mismatches, 0 errors |
+| T3a / T3c / T3b | RECORDED / **PASS** / **PASS** | Without a schema, the forced missing attribute gives **Allow with an error**. With the schema, it gives **NoDecision** with a request-build error. Same as the host |
+| **T3d deny-on-any-error rule** | **PASS** | The PEP rule (`Allow` and no errors) gives DENY for "Allow with errors" and for "NoDecision with errors", and keeps a clean Allow. The naive `decision != Deny` rule would **allow both error cases** |
+| T3e label range check | **PASS** | conf −1, clearance 2⁶³−1, integ 3 and the string `'1'` are rejected before Cedar |
+| T4 SymCC | **PASS** | `P ⇒ Q_G3a` VERIFIED for (send, Sink) and (read, Resource). `P_bad` gives **DOES NOT HOLD with a counterexample** for (send, Sink) and HOLDS for (read, Resource), as expected for the seeded bug |
+| T4 exit codes | RECORDED | **All four runs exit 0, including the failing property.** AM10 reproduced on Linux |
+| **T4 verdict parser** | **PASS** | Missing solver (exit 1) → UNKNOWN; missing policy file (exit 1) → UNKNOWN. 10 synthetic cases (exit ≠ 0 with VERIFIED, both lines, duplicate lines, suffix, word elsewhere, no counterexample, empty, error) all parse as expected. The gate passes only on a clean VERIFIED |
+| T5 cedarpy 4.12.2 vs CLI 4.13.0 | **PASS**, **full corpus** 9,216/9,216 | 0 mismatches (previously a 300-case sample) |
+| T6 throughput | RECORDED | ≈ 16,300 requests/s (container, one thread) |
+
+### S7 credential binding: see `S7-binding/VERDICT.md`
+
+38/38 PASS in `runs/20261015T230514-run5`, reproduced in `run6` with fresh PKI. The AM11 static and runtime checks passed before any test. Runs 1–4 are harness errors and are kept with NOTE files.
+- T1 approved path;
+- T2 cross-cell replay, including JWT_A in a cert-B sidecar;
+- T3 sidecar bypass with no certificate, a rogue certificate or plain HTTP;
+- T4 `X-Client-Cert` and `Authorization` spoofing, duplicate headers, direct PEP/backend reachability;
+- T5 agent holds no JWT, key or downstream secret, and the backend receives none;
+- T6 streaming;
+- T7 expired, revoked, tampered, `alg=none`, rogue-issuer, wrong-audience, missing-`cnf` and absent tokens, plus live revocation.
+
+Supporting change: `S3-isolation/harness/cell_policy.py` gained the roles `pep` and `tool-server` (forbidden on cell networks) and accepts one-shot containers that exit with code 0. After this change, the checker mutation suite still passes 24/24 and the full S3 regression suite passes with 0 failing assertions (`S3-isolation/runs/20261015T230931-regression`: R1–R5 all PASS; baseline T3 failure reproduced, the 6th time; canonical profile 0 FAIL).
+
+### Ledger after Wave 2 (playbook §7)
+
+| # | Claim | Now | Gate requirement |
+|---|---|---|---|
+| 1–4 | Interception, block, rewrite, result modification | **INTEGRATION-VERIFIED** (container hop; backend-side observation; also exercised behind the terminator in S7) | INTEGRATION-VERIFIED ✔ (local) |
+| 5 | No `Authorization` forwarding with `False` | LOCALLY REPRODUCED (containers + S7-T5b) | SECURITY-TESTED ✘ (needs clean rerun + review) |
+| 6 | `_meta` forwarded; strippable | Forwarding LOCALLY REPRODUCED. Stripping LOCALLY REPRODUCED **only with request_context clear + telemetry off** | LOCALLY REPRODUCED ✔ |
+| 7 | No alias bypass | LOCALLY REPRODUCED | SECURITY-TESTED ✘ |
+| 8 | Enforcement in protocol era | **INTEGRATION-VERIFIED** (legacy and auto; modern era also in S7) | ✔ |
+| 9 | Ordering rule | LOCALLY REPRODUCED (incl. generic `on_request`) | ✔ |
+| 10–12, 14 | cedarpy API / truth table / errors → DENY / CLI equivalence | LOCALLY REPRODUCED (14 now on the full corpus) | ✔ |
+| 13 | SymCC proof + counterexample | LOCALLY REPRODUCED (with fail-closed parser) | ✔ (not a blocker) |
+| 15–21 | Cell isolation | LOCALLY REPRODUCED (canonical AM11) | SECURITY-TESTED ✘ |
+| 19 | Sidecar secrets unreadable | LOCALLY REPRODUCED (S3-T6 and S7-T5) | SECURITY-TESTED ✘ |
+| 22 | PEP receives the verified client certificate via the terminator | **INTEGRATION-VERIFIED** (PEP-side thumbprint equals cell A's; spoofed header overwritten) | ✔ |
+| 23 | Cross-cell credential replay rejected | LOCALLY REPRODUCED | SECURITY-TESTED ✘ |
+| 24 | Agent cannot spoof the certificate header or reach the PEP | LOCALLY REPRODUCED | SECURITY-TESTED ✘ |
+| 25 | Streaming through both nginx hops | **INTEGRATION-VERIFIED** (client-side incremental arrivals) | ✔ |
+
+### Entry gate (playbook §8) after Wave 2
+
+| Gate | State | Blocker |
+|---|---|---|
+| EG-1 Environment | **met** | — |
+| EG-2 Confinement | **not met** | 15–21 need SECURITY-TESTED: clean-environment rerun + independent review |
+| EG-3 PEP interception | **not met** | 1–4, 8, 9 met; 5, 7 need SECURITY-TESTED (clean rerun + review) |
+| EG-4 Credential binding | **not met** | 22, 25 met; 23, 24 need SECURITY-TESTED (clean rerun + review) |
+| EG-5 Policy engine | **met** at the required level (LOCALLY REPRODUCED) | — |
+| EG-6 / EG-7 / EG-8 / EG-9 | **not started** | S5, S6, S4a, S8 not run |
+
+**Limitations kept explicit:**
+- **IPv6 (S3-T4)** is shown only by the profile disabling IPv6 in the cell and by its absence on the host. No IPv6-enabled bypass test exists, because the environment has no IPv6 path, so the positive control is weak. A network-profile restriction is not a demonstrated IPv6 bypass test.
+- **Drift detection** happens at deploy time, or on demand with `cell_policy.py runtime`. Nothing enforces it continuously.
+- **SECURITY-TESTED:** nothing is.

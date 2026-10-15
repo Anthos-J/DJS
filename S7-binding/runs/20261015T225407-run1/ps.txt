@@ -1,0 +1,11 @@
+agent_a running Up 8 seconds
+agent_b running Up 8 seconds
+agent_c running Up 8 seconds
+backend running Up 10 seconds
+harness running Up 9 seconds
+pep running Up 10 seconds
+pki exited Exited (0) 10 seconds ago
+sidecar_a running Up 8 seconds
+sidecar_b running Up 9 seconds
+sidecar_c running Up 9 seconds
+terminator running Up 10 seconds

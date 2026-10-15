@@ -1,0 +1,4 @@
+{"phase": "binding", "path": "/mcp", "method": "POST", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "SBdppZUDCtPZUBmgMlVPTTf25DI9YJBi4o-XcMRfH3E", "sub": "agent:cell-a", "sid": "sess-A-1", "client_ip": "172.22.0.3", "t": 1792085065.7651055}
+{"phase": "binding", "path": "/mcp", "method": "POST", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "SBdppZUDCtPZUBmgMlVPTTf25DI9YJBi4o-XcMRfH3E", "sub": "agent:cell-a", "sid": "sess-A-1", "client_ip": "172.22.0.3", "t": 1792085065.8000255}
+{"phase": "tool-pre", "identity": "agent:cell-a", "name": "echo", "t": 1792085065.8006706}
+{"phase": "binding", "path": "/mcp", "method": "POST", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "SBdppZUDCtPZUBmgMlVPTTf25DI9YJBi4o-XcMRfH3E", "sub": "agent:cell-a", "sid": "sess-A-1", "client_ip": "172.22.0.3", "t": 1792085066.1000865}

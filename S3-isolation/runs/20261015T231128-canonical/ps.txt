@@ -1,0 +1,8 @@
+agent_a running
+agent_b running
+gateway running
+mdfixture running
+outside running
+privctl_a running
+sidecar_a running
+sidecar_b running
