@@ -30,8 +30,18 @@ class H(BaseHTTPRequestHandler):
             return
         self._send(200, f"hello from {NAME}\n".encode())
     def do_POST(self):
-        n = int(self.headers.get("Content-Length", "0")); self.rfile.read(n)
-        log(ev="http", method="POST", path=self.path, bytes=n, peer=self.client_address[0])
+        n = int(self.headers.get("Content-Length", "0")); got = 0
+        try:  # count bytes ACTUALLY received; a cut connection ends the read early
+            while got < n:
+                chunk = self.rfile.read(min(65536, n - got))
+                if not chunk:
+                    break
+                got += len(chunk)
+        except Exception as e:
+            log(ev="read-error", err=type(e).__name__)
+        log(ev="http", method="POST", path=self.path, bytes=n, received=got, complete=(got == n), peer=self.client_address[0])
+        if got < n:
+            return
         self._send(200, f"got {n}\n".encode())
 
 class S(ThreadingHTTPServer):

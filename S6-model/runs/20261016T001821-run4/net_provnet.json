@@ -1,0 +1,71 @@
+[
+    {
+        "Name": "s6model_provnet",
+        "Id": "d6fdc3e80b4b861c08119fcb3d26b6bd010b13a1658145287f31c0a1f268a061",
+        "Created": "2026-10-15T18:48:23.336551972Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.18.0.0/16",
+                    "Gateway": "172.18.0.1"
+                }
+            ]
+        },
+        "Internal": true,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {
+            "com.docker.network.enable_ipv4": "true",
+            "com.docker.network.enable_ipv6": "false"
+        },
+        "Labels": {
+            "com.docker.compose.config-hash": "ff89bcad3812821af6234f18a876d30dd4b70d9baad27e56271bba25f4f28648",
+            "com.docker.compose.network": "provnet",
+            "com.docker.compose.project": "s6model",
+            "com.docker.compose.version": "5.6.0"
+        },
+        "Containers": {
+            "2405a149ca2b7ad3314429fa480ad7183ee53df7f72d88817fb68d68441ca28c": {
+                "Name": "s6model-outside-1",
+                "EndpointID": "c5b5f332151eaf9284f597e89ab6f2d692fb9b0acc927bf85aacb2e94a43bbe1",
+                "MacAddress": "b2:72:77:91:ad:24",
+                "IPv4Address": "172.18.0.2/16",
+                "IPv6Address": ""
+            },
+            "60df4a82e8089c1d93b8d0dd0992e75dd0e778a692e5737be5f7c8be73c675db": {
+                "Name": "s6model-model-proxy-1",
+                "EndpointID": "a5d0fbc47bb1d4a4cffbb3f20fe497c17db60502f4eb72f2800a5052b949fbfb",
+                "MacAddress": "aa:ce:0d:85:d2:55",
+                "IPv4Address": "172.18.0.4/16",
+                "IPv6Address": ""
+            },
+            "e79f2a3271813fedb4ee3d7481c93adbdd803efaf42bace170ea877a7033d903": {
+                "Name": "s6model-mock-provider-1",
+                "EndpointID": "ac049969fa13819711489f868ae4cacac8c7bfefc8ac6b62a5753f3c6420d4a4",
+                "MacAddress": "b2:92:90:9b:53:6e",
+                "IPv4Address": "172.18.0.3/16",
+                "IPv6Address": ""
+            }
+        },
+        "Status": {
+            "IPAM": {
+                "Subnets": {
+                    "172.18.0.0/16": {
+                        "IPsInUse": 6,
+                        "DynamicIPsAvailable": 65530
+                    }
+                }
+            }
+        }
+    }
+]

@@ -1,0 +1,403 @@
+egress-1  | [18:58:59.004] Loading script /harness/egress_addon_v2.py
+egress-1  | [18:58:59.011] HTTP(S) proxy listening at *:8080.
+egress-1  | [18:59:20.052][172.19.0.1:40366] client connect
+egress-1  | [18:59:20.056][172.19.0.1:40366] server connect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [18:59:20.057][172.19.0.1:40366] Streaming response from allowed-srv.
+egress-1  | 172.19.0.1:40366: GET http://allowed-srv/ HTTP/1.1
+egress-1  |       << HTTP/1.0 200 OK (content missing)
+egress-1  | [18:59:20.058][172.19.0.1:40366] server disconnect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [18:59:20.059][172.19.0.1:40366] client disconnect
+egress-1  | [18:59:22.787][172.19.0.1:40374] client connect
+egress-1  | [18:59:22.791][172.19.0.1:40374] server connect allowed-srv:443 (172.18.0.3:443)
+egress-1  | 172.19.0.1:40374 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:40374 <- tcp <- allowed-srv:443
+egress-1  | 172.19.0.1:40374 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:40374 <- tcp <- allowed-srv:443
+egress-1  | 172.19.0.1:40374 <- tcp <- allowed-srv:443
+egress-1  | [18:59:22.796][172.19.0.1:40374] server disconnect allowed-srv:443 (172.18.0.3:443)
+egress-1  | [18:59:22.796][172.19.0.1:40374] client disconnect
+egress-1  | [18:59:25.477][172.19.0.1:40376] client connect
+egress-1  | 172.19.0.1:40376: CONNECT denied-srv:443
+egress-1  |                << 403 Forbidden 32b
+egress-1  | [18:59:25.479][172.19.0.1:40376] client disconnect
+egress-1  | [18:59:28.030][172.19.0.1:40380] client connect
+egress-1  | 172.19.0.1:40380: CONNECT 172.18.0.2:443
+egress-1  |                << 403 Forbidden 32b
+egress-1  | [18:59:28.033][172.19.0.1:40380] client disconnect
+egress-1  | [18:59:30.566][172.19.0.1:37994] client connect
+egress-1  | 172.19.0.1:37994: CONNECT 172.18.0.3:443
+egress-1  |                << 403 Forbidden 32b
+egress-1  | [18:59:30.567][172.19.0.1:37994] client disconnect
+egress-1  | [18:59:33.171][172.19.0.1:37998] client connect
+egress-1  | 172.19.0.1:37998: CONNECT allowed-srv.evil.test:443
+egress-1  |                << 403 Forbidden 32b
+egress-1  | [18:59:33.188][172.19.0.1:37998] client disconnect
+egress-1  | [18:59:35.744][172.19.0.1:38004] client connect
+egress-1  | 172.19.0.1:38004: CONNECT DENIED-SRV.:443
+egress-1  |                << 403 Forbidden 32b
+egress-1  | [18:59:35.745][172.19.0.1:38004] client disconnect
+egress-1  | [18:59:38.479][172.19.0.1:38010] client connect
+egress-1  | 172.19.0.1:38010: GET http://denied-srv/
+egress-1  |                << 403 Forbidden 32b
+egress-1  | [18:59:38.495][172.19.0.1:38010] client disconnect
+egress-1  | [18:59:41.313][172.19.0.1:37688] client connect
+egress-1  | 172.19.0.1:37688: GET http://denied-srv/
+egress-1  |                << 403 Forbidden 32b
+egress-1  | [18:59:41.315][172.19.0.1:37688] client disconnect
+egress-1  | [18:59:44.056][172.19.0.1:37700] client connect
+egress-1  | [18:59:44.074][172.19.0.1:37700] server connect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [18:59:44.075][172.19.0.1:37700] Streaming response from allowed-srv.
+egress-1  | 172.19.0.1:37700: GET http://allowed-srv/ HTTP/1.1
+egress-1  |       << HTTP/1.0 200 OK (content missing)
+egress-1  | [18:59:44.076][172.19.0.1:37700] server disconnect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [18:59:44.076][172.19.0.1:37700] client disconnect
+egress-1  | [18:59:46.786][172.19.0.1:37704] client connect
+egress-1  | [18:59:46.789][172.19.0.1:37704] server connect allowed-srv:80 (172.18.0.3:80)
+egress-1  | 172.19.0.1:37704: GET http://allowed-srv/redirect HTTP/1.1
+egress-1  |       << HTTP/1.0 302 Found 0b
+egress-1  | [18:59:46.790][172.19.0.1:37704] server disconnect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [18:59:46.791][172.19.0.1:37710] client connect
+egress-1  | [18:59:46.791][172.19.0.1:37704] client disconnect
+egress-1  | 172.19.0.1:37710: GET http://denied-srv/ HTTP/1.0
+egress-1  |       << HTTP/1.1 403 Forbidden 32b
+egress-1  | [18:59:46.793][172.19.0.1:37710] client disconnect
+egress-1  | [18:59:58.446][172.19.0.1:56784] client connect
+egress-1  | 172.19.0.1:56784: GET http://allowed-srv/
+egress-1  |                << 407 Proxy Authentication Required 28b
+egress-1  | [18:59:58.449][172.19.0.1:56784] client disconnect
+egress-1  | [19:00:01.232][172.19.0.1:39278] client connect
+egress-1  | 172.19.0.1:39278: GET http://allowed-srv/
+egress-1  |                << 407 Proxy Authentication Required 28b
+egress-1  | [19:00:01.235][172.19.0.1:39278] client disconnect
+egress-1  | [19:00:03.980][172.19.0.1:39292] client connect
+egress-1  | 172.19.0.1:39292: GET http://allowed-srv/
+egress-1  |                << 407 Proxy Authentication Required 28b
+egress-1  | [19:00:03.983][172.19.0.1:39292] client disconnect
+egress-1  | [19:00:06.713][172.19.0.1:39300] client connect
+egress-1  | 172.19.0.1:39300: CONNECT allowed-srv:443
+egress-1  |                << 407 Proxy Authentication Required 28b
+egress-1  | [19:00:06.715][172.19.0.1:39300] client disconnect
+egress-1  | [19:00:09.343][172.19.0.1:39306] client connect
+egress-1  | [19:00:09.348][172.19.0.1:39306] server connect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [19:00:09.350][172.19.0.1:39306] Streaming response from allowed-srv.
+egress-1  | 172.19.0.1:39306: POST http://allowed-srv/upload HTTP/1.1
+egress-1  |       << HTTP/1.0 200 OK (content missing)
+egress-1  | [19:00:09.351][172.19.0.1:39306] server disconnect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [19:00:09.351][172.19.0.1:39306] client disconnect
+egress-1  | [19:00:09.792][172.19.0.1:59968] client connect
+egress-1  | [19:00:09.797][172.19.0.1:59968] server connect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [19:00:09.799][172.19.0.1:59968] Streaming response from allowed-srv.
+egress-1  | 172.19.0.1:59968: POST http://allowed-srv/upload HTTP/1.1
+egress-1  |       << HTTP/1.0 200 OK (content missing)
+egress-1  | [19:00:09.799][172.19.0.1:59968] server disconnect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [19:00:09.799][172.19.0.1:59968] client disconnect
+egress-1  | [19:00:10.218][172.19.0.1:59970] client connect
+egress-1  | [19:00:10.222][172.19.0.1:59970] server connect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [19:00:10.225][172.19.0.1:59970] Streaming response from allowed-srv.
+egress-1  | 172.19.0.1:59970: POST http://allowed-srv/upload HTTP/1.1
+egress-1  |       << HTTP/1.0 200 OK (content missing)
+egress-1  | [19:00:10.225][172.19.0.1:59970] server disconnect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [19:00:10.226][172.19.0.1:59970] client disconnect
+egress-1  | [19:00:10.648][172.19.0.1:59982] client connect
+egress-1  | 172.19.0.1:59982: POST http://allowed-srv/upload
+egress-1  |                << 403 Forbidden 29b
+egress-1  | [19:00:10.652][172.19.0.1:59982] client disconnect
+egress-1  | [19:00:11.084][172.19.0.1:59984] client connect
+egress-1  | 172.19.0.1:59984: POST http://allowed-srv/upload
+egress-1  |                << 403 Forbidden 30b
+egress-1  | [19:00:11.088][172.19.0.1:59984] client disconnect
+egress-1  | [19:00:13.845][172.19.0.1:59988] client connect
+egress-1  | [19:00:13.850][172.19.0.1:59988] server connect allowed-srv:443 (172.18.0.3:443)
+egress-1  | 172.19.0.1:59988 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:59988 <- tcp <- allowed-srv:443
+egress-1  | 172.19.0.1:59988 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:59988 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:59988 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:59988 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:59988 <- tcp <- allowed-srv:443
+egress-1  | 172.19.0.1:59988 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:59988 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:59988 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:59988 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:59988 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:59988 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:59988 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:59988 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:59988 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:59988 <- tcp <- allowed-srv:443
+egress-1  | [19:00:13.859][172.19.0.1:59988] server disconnect allowed-srv:443 (172.18.0.3:443)
+egress-1  | [19:00:13.859][172.19.0.1:59988] client disconnect
+egress-1  | [19:00:14.277][172.19.0.1:60002] client connect
+egress-1  | [19:00:14.281][172.19.0.1:60002] server connect allowed-srv:443 (172.18.0.3:443)
+egress-1  | 172.19.0.1:60002 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60002 <- tcp <- allowed-srv:443
+egress-1  | 172.19.0.1:60002 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60002 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60002 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60002 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60002 <- tcp <- allowed-srv:443
+egress-1  | 172.19.0.1:60002 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60002 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60002 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60002 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60002 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60002 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60002 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60002 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60002 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60002 <- tcp <- allowed-srv:443
+egress-1  | 172.19.0.1:60002 <- tcp <- allowed-srv:443
+egress-1  | [19:00:14.290][172.19.0.1:60002] server disconnect allowed-srv:443 (172.18.0.3:443)
+egress-1  | [19:00:14.290][172.19.0.1:60002] client disconnect
+egress-1  | [19:00:14.707][172.19.0.1:60018] client connect
+egress-1  | [19:00:14.726][172.19.0.1:60018] server connect allowed-srv:443 (172.18.0.3:443)
+egress-1  | 172.19.0.1:60018 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60018 <- tcp <- allowed-srv:443
+egress-1  | 172.19.0.1:60018 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60018 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60018 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60018 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60018 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60018 <- tcp <- allowed-srv:443
+egress-1  | 172.19.0.1:60018 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60018 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60018 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60018 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60018 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60018 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60018 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60018 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60018 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60018 <- tcp <- allowed-srv:443
+egress-1  | 172.19.0.1:60018 <- tcp <- allowed-srv:443
+egress-1  | [19:00:14.736][172.19.0.1:60018] server disconnect allowed-srv:443 (172.18.0.3:443)
+egress-1  | [19:00:14.737][172.19.0.1:60018] client disconnect
+egress-1  | [19:00:15.149][172.19.0.1:60034] client connect
+egress-1  | [19:00:15.154][172.19.0.1:60034] server connect allowed-srv:443 (172.18.0.3:443)
+egress-1  | 172.19.0.1:60034 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60034 <- tcp <- allowed-srv:443
+egress-1  | 172.19.0.1:60034 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60034 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60034 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60034 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60034 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60034 <- tcp <- allowed-srv:443
+egress-1  | 172.19.0.1:60034 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60034 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60034 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60034 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60034 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60034 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60034 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60034 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60034 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60034 <- tcp <- allowed-srv:443
+egress-1  | [19:00:15.163][172.19.0.1:60034] server disconnect allowed-srv:443 (172.18.0.3:443)
+egress-1  | [19:00:15.163][172.19.0.1:60034] client disconnect
+egress-1  | [19:00:15.591][172.19.0.1:60050] client connect
+egress-1  | [19:00:15.595][172.19.0.1:60050] server connect allowed-srv:443 (172.18.0.3:443)
+egress-1  | 172.19.0.1:60050 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60050 <- tcp <- allowed-srv:443
+egress-1  | 172.19.0.1:60050 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60050 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60050 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60050 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:60050 <- tcp <- allowed-srv:443
+egress-1  | 172.19.0.1:60050 -> tcp -> allowed-srv:443
+egress-1  | [19:00:15.607] Addon error: Flow is not killable.
+egress-1  | Traceback (most recent call last):
+egress-1  |   File "/harness/egress_addon_v2.py", line 97, in tcp_message
+egress-1  |     m.content = b""; flow.kill()
+egress-1  |                      ^^^^^^^^^^^
+egress-1  |   File "/usr/local/lib/python3.12/site-packages/mitmproxy/flow.py", line 235, in kill
+egress-1  |     raise exceptions.ControlException("Flow is not killable.")
+egress-1  | mitmproxy.exceptions.ControlException: Flow is not killable.
+egress-1  | 172.19.0.1:60050 -> tcp -> allowed-srv:443
+egress-1  | [19:00:15.615] Addon error: Flow is not killable.
+egress-1  | Traceback (most recent call last):
+egress-1  |   File "/harness/egress_addon_v2.py", line 97, in tcp_message
+egress-1  |     m.content = b""; flow.kill()
+egress-1  |                      ^^^^^^^^^^^
+egress-1  |   File "/usr/local/lib/python3.12/site-packages/mitmproxy/flow.py", line 235, in kill
+egress-1  |     raise exceptions.ControlException("Flow is not killable.")
+egress-1  | mitmproxy.exceptions.ControlException: Flow is not killable.
+egress-1  | 172.19.0.1:60050 -> tcp -> allowed-srv:443
+egress-1  | [19:00:15.621] Addon error: Flow is not killable.
+egress-1  | Traceback (most recent call last):
+egress-1  |   File "/harness/egress_addon_v2.py", line 97, in tcp_message
+egress-1  |     m.content = b""; flow.kill()
+egress-1  |                      ^^^^^^^^^^^
+egress-1  |   File "/usr/local/lib/python3.12/site-packages/mitmproxy/flow.py", line 235, in kill
+egress-1  |     raise exceptions.ControlException("Flow is not killable.")
+egress-1  | mitmproxy.exceptions.ControlException: Flow is not killable.
+egress-1  | 172.19.0.1:60050 -> tcp -> allowed-srv:443
+egress-1  | [19:00:15.629] Addon error: Flow is not killable.
+egress-1  | Traceback (most recent call last):
+egress-1  |   File "/harness/egress_addon_v2.py", line 97, in tcp_message
+egress-1  |     m.content = b""; flow.kill()
+egress-1  |                      ^^^^^^^^^^^
+egress-1  |   File "/usr/local/lib/python3.12/site-packages/mitmproxy/flow.py", line 235, in kill
+egress-1  |     raise exceptions.ControlException("Flow is not killable.")
+egress-1  | mitmproxy.exceptions.ControlException: Flow is not killable.
+egress-1  | 172.19.0.1:60050 -> tcp -> allowed-srv:443
+egress-1  | [19:00:15.634] Addon error: Flow is not killable.
+egress-1  | Traceback (most recent call last):
+egress-1  |   File "/harness/egress_addon_v2.py", line 97, in tcp_message
+egress-1  |     m.content = b""; flow.kill()
+egress-1  |                      ^^^^^^^^^^^
+egress-1  |   File "/usr/local/lib/python3.12/site-packages/mitmproxy/flow.py", line 235, in kill
+egress-1  |     raise exceptions.ControlException("Flow is not killable.")
+egress-1  | mitmproxy.exceptions.ControlException: Flow is not killable.
+egress-1  | 172.19.0.1:60050 -> tcp -> allowed-srv:443
+egress-1  | [19:00:15.640] Addon error: Flow is not killable.
+egress-1  | Traceback (most recent call last):
+egress-1  |   File "/harness/egress_addon_v2.py", line 97, in tcp_message
+egress-1  |     m.content = b""; flow.kill()
+egress-1  |                      ^^^^^^^^^^^
+egress-1  |   File "/usr/local/lib/python3.12/site-packages/mitmproxy/flow.py", line 235, in kill
+egress-1  |     raise exceptions.ControlException("Flow is not killable.")
+egress-1  | mitmproxy.exceptions.ControlException: Flow is not killable.
+egress-1  | 172.19.0.1:60050 -> tcp -> allowed-srv:443
+egress-1  | [19:00:15.647] Addon error: Flow is not killable.
+egress-1  | Traceback (most recent call last):
+egress-1  |   File "/harness/egress_addon_v2.py", line 97, in tcp_message
+egress-1  |     m.content = b""; flow.kill()
+egress-1  |                      ^^^^^^^^^^^
+egress-1  |   File "/usr/local/lib/python3.12/site-packages/mitmproxy/flow.py", line 235, in kill
+egress-1  |     raise exceptions.ControlException("Flow is not killable.")
+egress-1  | mitmproxy.exceptions.ControlException: Flow is not killable.
+egress-1  | 172.19.0.1:60050 -> tcp -> allowed-srv:443
+egress-1  | [19:00:15.653] Addon error: Flow is not killable.
+egress-1  | Traceback (most recent call last):
+egress-1  |   File "/harness/egress_addon_v2.py", line 97, in tcp_message
+egress-1  |     m.content = b""; flow.kill()
+egress-1  |                      ^^^^^^^^^^^
+egress-1  |   File "/usr/local/lib/python3.12/site-packages/mitmproxy/flow.py", line 235, in kill
+egress-1  |     raise exceptions.ControlException("Flow is not killable.")
+egress-1  | mitmproxy.exceptions.ControlException: Flow is not killable.
+egress-1  | 172.19.0.1:60050 -> tcp -> allowed-srv:443
+egress-1  | [19:00:35.591][172.19.0.1:60050] server disconnect allowed-srv:443 (172.18.0.3:443)
+egress-1  | [19:00:35.592][172.19.0.1:60050] client disconnect
+egress-1  | [19:00:38.337][172.19.0.1:39200] client connect
+egress-1  | [19:00:38.341][172.19.0.1:39200] server connect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [19:00:38.344][172.19.0.1:39200] Streaming response from allowed-srv.
+egress-1  | 172.19.0.1:39200: POST http://allowed-srv/upload HTTP/1.1
+egress-1  |       << HTTP/1.0 200 OK (content missing)
+egress-1  | [19:00:38.345][172.19.0.1:39200] server disconnect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [19:00:38.345][172.19.0.1:39200] client disconnect
+egress-1  | [19:00:38.765][172.19.0.1:39208] client connect
+egress-1  | [19:00:38.769][172.19.0.1:39208] server connect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [19:00:38.771][172.19.0.1:39208] Streaming response from allowed-srv.
+egress-1  | 172.19.0.1:39208: POST http://allowed-srv/upload HTTP/1.1
+egress-1  |       << HTTP/1.0 200 OK (content missing)
+egress-1  | [19:00:38.772][172.19.0.1:39208] server disconnect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [19:00:38.772][172.19.0.1:39208] client disconnect
+egress-1  | [19:00:39.196][172.19.0.1:39218] client connect
+egress-1  | [19:00:39.200][172.19.0.1:39218] server connect allowed-srv:443 (172.18.0.3:443)
+egress-1  | 172.19.0.1:39218 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:39218 <- tcp <- allowed-srv:443
+egress-1  | 172.19.0.1:39218 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:39218 <- tcp <- allowed-srv:443
+egress-1  | 172.19.0.1:39218 <- tcp <- allowed-srv:443
+egress-1  | 172.19.0.1:39218 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:39218 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:39218 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:39218 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:39218 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:39218 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:39218 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:39218 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:39218 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:39218 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:39218 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:39218 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:39218 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:39218 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:39218 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:39218 -> tcp -> allowed-srv:443
+egress-1  | 172.19.0.1:39218 -> tcp -> allowed-srv:443
+egress-1  | [19:00:40.216] Addon error: Flow is not killable.
+egress-1  | Traceback (most recent call last):
+egress-1  |   File "/harness/egress_addon_v2.py", line 97, in tcp_message
+egress-1  |     m.content = b""; flow.kill()
+egress-1  |                      ^^^^^^^^^^^
+egress-1  |   File "/usr/local/lib/python3.12/site-packages/mitmproxy/flow.py", line 235, in kill
+egress-1  |     raise exceptions.ControlException("Flow is not killable.")
+egress-1  | mitmproxy.exceptions.ControlException: Flow is not killable.
+egress-1  | 172.19.0.1:39218 -> tcp -> allowed-srv:443
+egress-1  | [19:00:40.221] Addon error: Flow is not killable.
+egress-1  | Traceback (most recent call last):
+egress-1  |   File "/harness/egress_addon_v2.py", line 97, in tcp_message
+egress-1  |     m.content = b""; flow.kill()
+egress-1  |                      ^^^^^^^^^^^
+egress-1  |   File "/usr/local/lib/python3.12/site-packages/mitmproxy/flow.py", line 235, in kill
+egress-1  |     raise exceptions.ControlException("Flow is not killable.")
+egress-1  | mitmproxy.exceptions.ControlException: Flow is not killable.
+egress-1  | 172.19.0.1:39218 -> tcp -> allowed-srv:443
+egress-1  | [19:00:40.226] Addon error: Flow is not killable.
+egress-1  | Traceback (most recent call last):
+egress-1  |   File "/harness/egress_addon_v2.py", line 97, in tcp_message
+egress-1  |     m.content = b""; flow.kill()
+egress-1  |                      ^^^^^^^^^^^
+egress-1  |   File "/usr/local/lib/python3.12/site-packages/mitmproxy/flow.py", line 235, in kill
+egress-1  |     raise exceptions.ControlException("Flow is not killable.")
+egress-1  | mitmproxy.exceptions.ControlException: Flow is not killable.
+egress-1  | 172.19.0.1:39218 -> tcp -> allowed-srv:443
+egress-1  | [19:00:40.231] Addon error: Flow is not killable.
+egress-1  | Traceback (most recent call last):
+egress-1  |   File "/harness/egress_addon_v2.py", line 97, in tcp_message
+egress-1  |     m.content = b""; flow.kill()
+egress-1  |                      ^^^^^^^^^^^
+egress-1  |   File "/usr/local/lib/python3.12/site-packages/mitmproxy/flow.py", line 235, in kill
+egress-1  |     raise exceptions.ControlException("Flow is not killable.")
+egress-1  | mitmproxy.exceptions.ControlException: Flow is not killable.
+egress-1  | 172.19.0.1:39218 -> tcp -> allowed-srv:443
+egress-1  | [19:00:40.234] Addon error: Flow is not killable.
+egress-1  | Traceback (most recent call last):
+egress-1  |   File "/harness/egress_addon_v2.py", line 97, in tcp_message
+egress-1  |     m.content = b""; flow.kill()
+egress-1  |                      ^^^^^^^^^^^
+egress-1  |   File "/usr/local/lib/python3.12/site-packages/mitmproxy/flow.py", line 235, in kill
+egress-1  |     raise exceptions.ControlException("Flow is not killable.")
+egress-1  | mitmproxy.exceptions.ControlException: Flow is not killable.
+egress-1  | 172.19.0.1:39218 -> tcp -> allowed-srv:443
+egress-1  | [19:00:40.238] Addon error: Flow is not killable.
+egress-1  | Traceback (most recent call last):
+egress-1  |   File "/harness/egress_addon_v2.py", line 97, in tcp_message
+egress-1  |     m.content = b""; flow.kill()
+egress-1  |                      ^^^^^^^^^^^
+egress-1  |   File "/usr/local/lib/python3.12/site-packages/mitmproxy/flow.py", line 235, in kill
+egress-1  |     raise exceptions.ControlException("Flow is not killable.")
+egress-1  | mitmproxy.exceptions.ControlException: Flow is not killable.
+egress-1  | 172.19.0.1:39218 -> tcp -> allowed-srv:443
+egress-1  | [19:00:40.243] Addon error: Flow is not killable.
+egress-1  | Traceback (most recent call last):
+egress-1  |   File "/harness/egress_addon_v2.py", line 97, in tcp_message
+egress-1  |     m.content = b""; flow.kill()
+egress-1  |                      ^^^^^^^^^^^
+egress-1  |   File "/usr/local/lib/python3.12/site-packages/mitmproxy/flow.py", line 235, in kill
+egress-1  |     raise exceptions.ControlException("Flow is not killable.")
+egress-1  | mitmproxy.exceptions.ControlException: Flow is not killable.
+egress-1  | 172.19.0.1:39218 -> tcp -> allowed-srv:443
+egress-1  | [19:00:40.247] Addon error: Flow is not killable.
+egress-1  | Traceback (most recent call last):
+egress-1  |   File "/harness/egress_addon_v2.py", line 97, in tcp_message
+egress-1  |     m.content = b""; flow.kill()
+egress-1  |                      ^^^^^^^^^^^
+egress-1  |   File "/usr/local/lib/python3.12/site-packages/mitmproxy/flow.py", line 235, in kill
+egress-1  |     raise exceptions.ControlException("Flow is not killable.")
+egress-1  | mitmproxy.exceptions.ControlException: Flow is not killable.
+egress-1  | 172.19.0.1:39218 -> tcp -> allowed-srv:443
+egress-1  | [19:00:59.200][172.19.0.1:39218] server disconnect allowed-srv:443 (172.18.0.3:443)
+egress-1  | [19:00:59.200][172.19.0.1:39218] client disconnect
+egress-1  | [19:01:01.946][172.19.0.1:51706] client connect
+egress-1  | 172.19.0.1:51706: CONNECT allowed-srv:443
+egress-1  |                << 403 Forbidden 30b
+egress-1  | [19:01:01.947][172.19.0.1:51706] client disconnect
+egress-1  | [19:01:03.745][172.19.0.1:51710] client connect
+egress-1  | [19:01:03.748][172.19.0.1:51710] server connect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [19:01:03.749][172.19.0.1:51710] Streaming response from allowed-srv.
+egress-1  | 172.19.0.1:51710: GET http://allowed-srv/sse HTTP/1.1
+egress-1  |       << HTTP/1.0 200 OK (content missing)
+egress-1  | [19:01:06.752][172.19.0.1:51710] server disconnect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [19:01:06.752][172.19.0.1:51710] client disconnect

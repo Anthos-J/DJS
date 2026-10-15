@@ -1,0 +1,31 @@
+{"ev": "allow", "method": "GET", "host": "allowed-srv", "path": "/", "bytes": 0, "used": 0, "sess": "sess-1", "t": 1792090929.539915}
+{"ev": "allow-connect", "host": "allowed-srv", "port": 443, "sess": "sess-1", "t": 1792090932.2605252}
+{"ev": "deny", "code": 403, "why": "destination not allowed", "method": "CONNECT", "host": "denied-srv", "port": 443, "sess": "sess-1", "t": 1792090934.9406788}
+{"ev": "deny", "code": 403, "why": "destination not allowed", "method": "CONNECT", "host": "172.19.0.4", "port": 443, "sess": "sess-1", "t": 1792090937.478099}
+{"ev": "deny", "code": 403, "why": "destination not allowed", "method": "CONNECT", "host": "172.19.0.2", "port": 443, "sess": "sess-1", "t": 1792090940.084868}
+{"ev": "deny", "code": 403, "why": "destination not allowed", "method": "CONNECT", "host": "allowed-srv.evil.test", "port": 443, "sess": "sess-1", "t": 1792090942.65056}
+{"ev": "deny", "code": 403, "why": "destination not allowed", "method": "CONNECT", "host": "DENIED-SRV.", "port": 443, "sess": "sess-1", "t": 1792090945.209076}
+{"ev": "deny", "code": 403, "why": "destination not allowed", "method": "GET", "host": "denied-srv", "port": 80, "sess": "sess-1", "t": 1792090947.7851915}
+{"ev": "deny", "code": 403, "why": "destination not allowed", "method": "GET", "host": "denied-srv", "port": 80, "sess": "sess-1", "t": 1792090950.6658742}
+{"ev": "allow", "method": "GET", "host": "allowed-srv", "path": "/", "bytes": 0, "used": 0, "sess": "sess-1", "t": 1792090953.649848}
+{"ev": "allow", "method": "GET", "host": "allowed-srv", "path": "/redirect", "bytes": 0, "used": 0, "sess": "sess-1", "t": 1792090956.6874816}
+{"ev": "deny", "code": 403, "why": "destination not allowed", "method": "GET", "host": "denied-srv", "port": 80, "sess": "sess-1", "t": 1792090956.6923347}
+{"ev": "deny", "code": 407, "why": "proxy auth required", "method": "GET", "host": "allowed-srv", "port": 80, "sess": null, "t": 1792090968.4308577}
+{"ev": "deny", "code": 407, "why": "proxy auth required", "method": "GET", "host": "allowed-srv", "port": 80, "sess": null, "t": 1792090971.360838}
+{"ev": "deny", "code": 407, "why": "proxy auth required", "method": "GET", "host": "allowed-srv", "port": 80, "sess": null, "t": 1792090974.5984929}
+{"ev": "deny", "code": 407, "why": "proxy auth required", "method": "CONNECT", "host": "allowed-srv", "port": 443, "sess": null, "t": 1792090978.3372993}
+{"ev": "allow", "method": "POST", "host": "allowed-srv", "path": "/upload", "bytes": 1000000, "used": 1000000, "sess": "sess-p", "t": 1792090981.4366605}
+{"ev": "allow", "method": "POST", "host": "allowed-srv", "path": "/upload", "bytes": 1000000, "used": 2000000, "sess": "sess-p", "t": 1792090982.117822}
+{"ev": "allow", "method": "POST", "host": "allowed-srv", "path": "/upload", "bytes": 1000000, "used": 3000000, "sess": "sess-p", "t": 1792090982.728722}
+{"ev": "deny", "code": 403, "why": "byte budget exceeded", "method": "POST", "host": "allowed-srv", "port": 80, "sess": "sess-p", "t": 1792090983.3007367}
+{"ev": "deny", "code": 403, "why": "byte budget exhausted", "method": "POST", "host": "allowed-srv", "port": 80, "sess": "sess-p", "t": 1792090983.9532151}
+{"ev": "allow-connect", "host": "allowed-srv", "port": 443, "sess": "sess-t", "t": 1792090988.0220823}
+{"ev": "allow-connect", "host": "allowed-srv", "port": 443, "sess": "sess-t", "t": 1792090988.5687773}
+{"ev": "allow-connect", "host": "allowed-srv", "port": 443, "sess": "sess-t", "t": 1792090989.1375573}
+{"ev": "allow-connect", "host": "allowed-srv", "port": 443, "sess": "sess-t", "t": 1792090989.6283867}
+{"ev": "allow-connect", "host": "allowed-srv", "port": 443, "sess": "sess-t", "t": 1792090990.1803207}
+{"ev": "allow", "method": "POST", "host": "allowed-srv", "path": "/upload", "bytes": 1000000, "used": 1000000, "sess": "sess-m", "t": 1792090993.830375}
+{"ev": "allow", "method": "POST", "host": "allowed-srv", "path": "/upload", "bytes": 1000000, "used": 2000000, "sess": "sess-m", "t": 1792090994.292235}
+{"ev": "allow-connect", "host": "allowed-srv", "port": 443, "sess": "sess-m", "t": 1792090994.8232336}
+{"ev": "allow-connect", "host": "allowed-srv", "port": 443, "sess": "sess-t", "t": 1792090998.8008943}
+{"ev": "allow", "method": "GET", "host": "allowed-srv", "path": "/sse", "bytes": 0, "used": 0, "sess": "sess-1", "t": 1792091001.0207717}

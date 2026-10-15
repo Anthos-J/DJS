@@ -1,0 +1,29 @@
+{"ev": "forward", "api": "anthropic", "path": "/v1/messages", "n_tools": 1, "client_creds_dropped": [], "sha256": "de3605c944dd2b0bd77a6a89751a2c456dc4cf43a5046d5f439521524e20f1be", "t": 1792089919.6269863}
+{"ev": "forward", "api": "anthropic", "path": "/v1/messages", "n_tools": 1, "client_creds_dropped": [], "sha256": "08a653b615654397869f6072d233c9fd745e81ec023dc96cbd87b2a1475f639e", "t": 1792089921.0641673}
+{"ev": "forward", "api": "anthropic", "path": "/v1/messages", "n_tools": 0, "client_creds_dropped": ["x-api-key", "authorization"], "sha256": "5206f0ba14b0611f7c688aa0a368e93cd68617655f35f71cf57b102cfdeb50d0", "t": 1792089922.504313}
+{"ev": "forward", "api": "openai", "path": "/v1/responses", "n_tools": 1, "client_creds_dropped": [], "sha256": "e40bae8386e19a7ef27a38d3f2aa9c0737ffa2f5574248ebd6305870126bb980", "t": 1792089923.9249697}
+{"ev": "forward", "api": "anthropic", "path": "/v1/messages", "n_tools": 0, "client_creds_dropped": [], "sha256": "5206f0ba14b0611f7c688aa0a368e93cd68617655f35f71cf57b102cfdeb50d0", "t": 1792089925.36571}
+{"ev": "forward", "api": "anthropic", "path": "/v1/messages", "n_tools": 1, "client_creds_dropped": [], "sha256": "de3605c944dd2b0bd77a6a89751a2c456dc4cf43a5046d5f439521524e20f1be", "t": 1792089926.7808986}
+{"ev": "reject", "why": "tool type not allowed: 'web_search_20260209'", "path": "/v1/messages", "client_had_key": false, "t": 1792089943.1995375}
+{"ev": "reject", "why": "tool type not allowed: 'web_search_20260209'", "path": "/v1/messages", "client_had_key": false, "t": 1792089944.6247895}
+{"ev": "reject", "why": "tool type not allowed: 'code_execution_20250825'", "path": "/v1/messages", "client_had_key": false, "t": 1792089946.0448272}
+{"ev": "reject", "why": "top-level field(s) not allowed: ['mcp_servers']", "path": "/v1/messages", "client_had_key": false, "t": 1792089947.4717999}
+{"ev": "reject", "why": "tool type not allowed: 'web_search'", "path": "/v1/responses", "client_had_key": false, "t": 1792089948.9094157}
+{"ev": "reject", "why": "tool type not allowed: 'mcp'", "path": "/v1/responses", "client_had_key": false, "t": 1792089950.3164108}
+{"ev": "reject", "why": "tool type not allowed: None", "path": "/v1/responses", "client_had_key": false, "t": 1792089951.7459953}
+{"ev": "reject", "why": "tool type not allowed: 'future_tool_20990101'", "path": "/v1/messages", "client_had_key": false, "t": 1792089953.1731114}
+{"ev": "reject", "why": "top-level field(s) not allowed: ['container']", "path": "/v1/messages", "client_had_key": false, "t": 1792089954.6266217}
+{"ev": "reject", "why": "tool field(s) not allowed: ['server_url']", "path": "/v1/messages", "client_had_key": false, "t": 1792089956.0468931}
+{"ev": "reject", "why": "duplicate JSON key(s): ['tools']", "path": "/v1/messages", "client_had_key": false, "t": 1792089957.4825299}
+{"ev": "reject", "why": "duplicate JSON key(s): ['type']", "path": "/v1/messages", "client_had_key": false, "t": 1792089958.8963308}
+{"ev": "reject", "why": "tool type not allowed: 'Custom'", "path": "/v1/messages", "client_had_key": false, "t": 1792089960.3315573}
+{"ev": "reject", "why": "tool type not allowed: 'Function'", "path": "/v1/responses", "client_had_key": false, "t": 1792089961.7673845}
+{"ev": "reject", "why": "tool type not allowed: 'web_search_20260209'", "path": "/v1/messages", "client_had_key": false, "t": 1792089963.1910224}
+{"ev": "reject", "why": "top-level field(s) not allowed: ['tools ']", "path": "/v1/messages", "client_had_key": false, "t": 1792089964.6296785}
+{"ev": "reject", "why": "tools must be a list", "path": "/v1/messages", "client_had_key": false, "t": 1792089966.0335598}
+{"ev": "reject", "why": "top-level JSON must be an object", "path": "/v1/messages", "client_had_key": false, "t": 1792089967.4511647}
+{"ev": "reject", "why": "body is not UTF-8 JSON: JSONDecodeError", "path": "/v1/messages", "client_had_key": false, "t": 1792089968.8729024}
+{"ev": "reject", "why": "route not allowed: POST /v1/files", "path": "/v1/files", "client_had_key": false, "t": 1792089970.2965221}
+{"ev": "reject", "why": "content-encoding not allowed: gzip", "path": "/v1/messages", "client_had_key": false, "t": 1792089971.739206}
+{"ev": "reject", "why": "content-encoding not allowed: gzip", "path": "/v1/messages", "client_had_key": false, "t": 1792089973.1814208}
+{"ev": "forward", "api": "anthropic", "path": "/v1/messages", "n_tools": 0, "client_creds_dropped": [], "sha256": "a4ff3d834f311d93ac3d733852bb463fc49ed8dcbfcf9bc78f5d298336e0c1a0", "t": 1792089974.5789337}

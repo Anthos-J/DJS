@@ -1,0 +1,1 @@
+HARNESS ERROR: the 'outside' control container had no /harness mount, so the positive control C-provider-observes-direct could not run (FAIL) and T8/T8b were correctly not credited (HARNESS-ERROR). All other 29 checks passed. Fixed in compose; re-run.

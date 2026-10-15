@@ -1,0 +1,1 @@
+CONFIGURATION ERROR (v2 not effective): egress_addon_v2.py loaded, but mitmproxy runs ignore_hosts tunnels as TCPLayer(ignore=True) unless show_ignored_hosts=true, so tcp_message never fired (0 tunnel-bytes events). T7b/T7c/T7d FAILED as a result; this shows the accounting was not active, not that the design fails. Fixed by setting show_ignored_hosts=true for v2 runs; re-run.

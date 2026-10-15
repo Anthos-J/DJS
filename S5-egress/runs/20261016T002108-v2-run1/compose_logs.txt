@@ -1,0 +1,152 @@
+egress-1  | [18:51:12.703] Loading script /harness/egress_addon_v2.py
+egress-1  | [18:51:12.709] HTTP(S) proxy listening at *:8080.
+egress-1  | [18:51:33.704][172.19.0.1:39306] client connect
+egress-1  | [18:51:33.708][172.19.0.1:39306] server connect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [18:51:33.709][172.19.0.1:39306] Streaming response from allowed-srv.
+egress-1  | 172.19.0.1:39306: GET http://allowed-srv/ HTTP/1.1
+egress-1  |       << HTTP/1.0 200 OK (content missing)
+egress-1  | [18:51:33.709][172.19.0.1:39306] server disconnect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [18:51:33.710][172.19.0.1:39306] client disconnect
+egress-1  | [18:51:36.460][172.19.0.1:39314] client connect
+egress-1  | [18:51:36.480][172.19.0.1:39314] server connect allowed-srv:443 (172.18.0.3:443)
+egress-1  | [18:51:36.485][172.19.0.1:39314] server disconnect allowed-srv:443 (172.18.0.3:443)
+egress-1  | [18:51:36.486][172.19.0.1:39314] client disconnect
+egress-1  | [18:51:39.197][172.19.0.1:39328] client connect
+egress-1  | 172.19.0.1:39328: CONNECT denied-srv:443
+egress-1  |                << 403 Forbidden 32b
+egress-1  | [18:51:39.199][172.19.0.1:39328] client disconnect
+egress-1  | [18:51:41.775][172.19.0.1:35830] client connect
+egress-1  | 172.19.0.1:35830: CONNECT 172.18.0.2:443
+egress-1  |                << 403 Forbidden 32b
+egress-1  | [18:51:41.793][172.19.0.1:35830] client disconnect
+egress-1  | [18:51:44.321][172.19.0.1:35832] client connect
+egress-1  | 172.19.0.1:35832: CONNECT 172.18.0.3:443
+egress-1  |                << 403 Forbidden 32b
+egress-1  | [18:51:44.323][172.19.0.1:35832] client disconnect
+egress-1  | [18:51:46.857][172.19.0.1:35846] client connect
+egress-1  | 172.19.0.1:35846: CONNECT allowed-srv.evil.test:443
+egress-1  |                << 403 Forbidden 32b
+egress-1  | [18:51:46.872][172.19.0.1:35846] client disconnect
+egress-1  | [18:51:49.452][172.19.0.1:46466] client connect
+egress-1  | 172.19.0.1:46466: CONNECT DENIED-SRV.:443
+egress-1  |                << 403 Forbidden 32b
+egress-1  | [18:51:49.454][172.19.0.1:46466] client disconnect
+egress-1  | [18:51:52.004][172.19.0.1:46474] client connect
+egress-1  | 172.19.0.1:46474: GET http://denied-srv/
+egress-1  |                << 403 Forbidden 32b
+egress-1  | [18:51:52.020][172.19.0.1:46474] client disconnect
+egress-1  | [18:51:54.743][172.19.0.1:46476] client connect
+egress-1  | 172.19.0.1:46476: GET http://denied-srv/
+egress-1  |                << 403 Forbidden 32b
+egress-1  | [18:51:54.746][172.19.0.1:46476] client disconnect
+egress-1  | [18:51:57.507][172.19.0.1:46492] client connect
+egress-1  | [18:51:57.510][172.19.0.1:46492] server connect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [18:51:57.511][172.19.0.1:46492] Streaming response from allowed-srv.
+egress-1  | 172.19.0.1:46492: GET http://allowed-srv/ HTTP/1.1
+egress-1  |       << HTTP/1.0 200 OK (content missing)
+egress-1  | [18:51:57.512][172.19.0.1:46492] server disconnect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [18:51:57.512][172.19.0.1:46492] client disconnect
+egress-1  | [18:52:00.208][172.19.0.1:43926] client connect
+egress-1  | [18:52:00.210][172.19.0.1:43926] server connect allowed-srv:80 (172.18.0.3:80)
+egress-1  | 172.19.0.1:43926: GET http://allowed-srv/redirect HTTP/1.1
+egress-1  |       << HTTP/1.0 302 Found 0b
+egress-1  | [18:52:00.212][172.19.0.1:43926] server disconnect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [18:52:00.212][172.19.0.1:43932] client connect
+egress-1  | [18:52:00.213][172.19.0.1:43926] client disconnect
+egress-1  | 172.19.0.1:43932: GET http://denied-srv/ HTTP/1.0
+egress-1  |       << HTTP/1.1 403 Forbidden 32b
+egress-1  | [18:52:00.214][172.19.0.1:43932] client disconnect
+egress-1  | [18:52:11.865][172.19.0.1:55662] client connect
+egress-1  | 172.19.0.1:55662: GET http://allowed-srv/
+egress-1  |                << 407 Proxy Authentication Required 28b
+egress-1  | [18:52:11.867][172.19.0.1:55662] client disconnect
+egress-1  | [18:52:14.590][172.19.0.1:55664] client connect
+egress-1  | 172.19.0.1:55664: GET http://allowed-srv/
+egress-1  |                << 407 Proxy Authentication Required 28b
+egress-1  | [18:52:14.592][172.19.0.1:55664] client disconnect
+egress-1  | [18:52:17.299][172.19.0.1:55672] client connect
+egress-1  | 172.19.0.1:55672: GET http://allowed-srv/
+egress-1  |                << 407 Proxy Authentication Required 28b
+egress-1  | [18:52:17.301][172.19.0.1:55672] client disconnect
+egress-1  | [18:52:20.017][172.19.0.1:48908] client connect
+egress-1  | 172.19.0.1:48908: CONNECT allowed-srv:443
+egress-1  |                << 407 Proxy Authentication Required 28b
+egress-1  | [18:52:20.020][172.19.0.1:48908] client disconnect
+egress-1  | [18:52:22.647][172.19.0.1:48920] client connect
+egress-1  | [18:52:22.651][172.19.0.1:48920] server connect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [18:52:22.654][172.19.0.1:48920] Streaming response from allowed-srv.
+egress-1  | 172.19.0.1:48920: POST http://allowed-srv/upload HTTP/1.1
+egress-1  |       << HTTP/1.0 200 OK (content missing)
+egress-1  | [18:52:22.655][172.19.0.1:48920] server disconnect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [18:52:22.655][172.19.0.1:48920] client disconnect
+egress-1  | [18:52:23.085][172.19.0.1:48932] client connect
+egress-1  | [18:52:23.090][172.19.0.1:48932] server connect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [18:52:23.092][172.19.0.1:48932] Streaming response from allowed-srv.
+egress-1  | 172.19.0.1:48932: POST http://allowed-srv/upload HTTP/1.1
+egress-1  |       << HTTP/1.0 200 OK (content missing)
+egress-1  | [18:52:23.093][172.19.0.1:48932] server disconnect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [18:52:23.093][172.19.0.1:48932] client disconnect
+egress-1  | [18:52:23.530][172.19.0.1:48934] client connect
+egress-1  | [18:52:23.535][172.19.0.1:48934] server connect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [18:52:23.537][172.19.0.1:48934] Streaming response from allowed-srv.
+egress-1  | 172.19.0.1:48934: POST http://allowed-srv/upload HTTP/1.1
+egress-1  |       << HTTP/1.0 200 OK (content missing)
+egress-1  | [18:52:23.537][172.19.0.1:48934] server disconnect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [18:52:23.538][172.19.0.1:48934] client disconnect
+egress-1  | [18:52:23.971][172.19.0.1:48940] client connect
+egress-1  | 172.19.0.1:48940: POST http://allowed-srv/upload
+egress-1  |                << 403 Forbidden 29b
+egress-1  | [18:52:23.975][172.19.0.1:48940] client disconnect
+egress-1  | [18:52:24.396][172.19.0.1:48954] client connect
+egress-1  | 172.19.0.1:48954: POST http://allowed-srv/upload
+egress-1  |                << 403 Forbidden 29b
+egress-1  | [18:52:24.400][172.19.0.1:48954] client disconnect
+egress-1  | [18:52:27.169][172.19.0.1:48968] client connect
+egress-1  | [18:52:27.174][172.19.0.1:48968] server connect allowed-srv:443 (172.18.0.3:443)
+egress-1  | [18:52:27.178][172.19.0.1:48968] server disconnect allowed-srv:443 (172.18.0.3:443)
+egress-1  | [18:52:27.179][172.19.0.1:48968] client disconnect
+egress-1  | [18:52:27.603][172.19.0.1:48982] client connect
+egress-1  | [18:52:27.607][172.19.0.1:48982] server connect allowed-srv:443 (172.18.0.3:443)
+egress-1  | [18:52:27.611][172.19.0.1:48982] server disconnect allowed-srv:443 (172.18.0.3:443)
+egress-1  | [18:52:27.611][172.19.0.1:48982] client disconnect
+egress-1  | [18:52:28.038][172.19.0.1:48996] client connect
+egress-1  | [18:52:28.056][172.19.0.1:48996] server connect allowed-srv:443 (172.18.0.3:443)
+egress-1  | [18:52:28.061][172.19.0.1:48996] server disconnect allowed-srv:443 (172.18.0.3:443)
+egress-1  | [18:52:28.061][172.19.0.1:48996] client disconnect
+egress-1  | [18:52:28.490][172.19.0.1:49012] client connect
+egress-1  | [18:52:28.495][172.19.0.1:49012] server connect allowed-srv:443 (172.18.0.3:443)
+egress-1  | [18:52:28.499][172.19.0.1:49012] server disconnect allowed-srv:443 (172.18.0.3:443)
+egress-1  | [18:52:28.499][172.19.0.1:49012] client disconnect
+egress-1  | [18:52:28.933][172.19.0.1:49016] client connect
+egress-1  | [18:52:28.937][172.19.0.1:49016] server connect allowed-srv:443 (172.18.0.3:443)
+egress-1  | [18:52:28.946][172.19.0.1:49016] server disconnect allowed-srv:443 (172.18.0.3:443)
+egress-1  | [18:52:28.947][172.19.0.1:49016] client disconnect
+egress-1  | [18:52:31.747][172.19.0.1:54108] client connect
+egress-1  | [18:52:31.751][172.19.0.1:54108] server connect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [18:52:31.753][172.19.0.1:54108] Streaming response from allowed-srv.
+egress-1  | 172.19.0.1:54108: POST http://allowed-srv/upload HTTP/1.1
+egress-1  |       << HTTP/1.0 200 OK (content missing)
+egress-1  | [18:52:31.754][172.19.0.1:54108] server disconnect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [18:52:31.754][172.19.0.1:54108] client disconnect
+egress-1  | [18:52:32.178][172.19.0.1:54114] client connect
+egress-1  | [18:52:32.181][172.19.0.1:54114] server connect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [18:52:32.183][172.19.0.1:54114] Streaming response from allowed-srv.
+egress-1  | 172.19.0.1:54114: POST http://allowed-srv/upload HTTP/1.1
+egress-1  |       << HTTP/1.0 200 OK (content missing)
+egress-1  | [18:52:32.184][172.19.0.1:54114] server disconnect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [18:52:32.184][172.19.0.1:54114] client disconnect
+egress-1  | [18:52:32.620][172.19.0.1:54118] client connect
+egress-1  | [18:52:32.625][172.19.0.1:54118] server connect allowed-srv:443 (172.18.0.3:443)
+egress-1  | [18:52:33.635][172.19.0.1:54118] server disconnect allowed-srv:443 (172.18.0.3:443)
+egress-1  | [18:52:33.636][172.19.0.1:54118] client disconnect
+egress-1  | [18:52:36.360][172.19.0.1:54126] client connect
+egress-1  | [18:52:36.364][172.19.0.1:54126] server connect allowed-srv:443 (172.18.0.3:443)
+egress-1  | [18:52:36.367][172.19.0.1:54126] server disconnect allowed-srv:443 (172.18.0.3:443)
+egress-1  | [18:52:36.367][172.19.0.1:54126] client disconnect
+egress-1  | [18:52:37.950][172.19.0.1:54130] client connect
+egress-1  | [18:52:37.953][172.19.0.1:54130] server connect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [18:52:37.954][172.19.0.1:54130] Streaming response from allowed-srv.
+egress-1  | 172.19.0.1:54130: GET http://allowed-srv/sse HTTP/1.1
+egress-1  |       << HTTP/1.0 200 OK (content missing)
+egress-1  | [18:52:40.956][172.19.0.1:54130] server disconnect allowed-srv:80 (172.18.0.3:80)
+egress-1  | [18:52:40.957][172.19.0.1:54130] client disconnect

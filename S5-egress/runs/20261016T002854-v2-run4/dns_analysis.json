@@ -1,0 +1,9 @@
+{
+ "query_counts": {
+  "allowed-srv": 32
+ },
+ "positive_control_allowed_srv_queried": true,
+ "denied_names_queried": {},
+ "total_lines": 64,
+ "verdict_no_dns_for_denied": "PASS"
+}

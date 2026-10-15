@@ -1,0 +1,63 @@
+# S6 model route on the canonical AM11 cell profile. Spike harness only; MOCK provider, no internet.
+# agent (shares cellside's netns) --cellnet_m (AM11)--> model-proxy (mitmproxy reverse; gateway) --provnet (internal)--> mock-provider
+# Deployed only through driver/run_s6.sh (AM11 static + runtime gate before tests).
+name: s6model
+
+x-mandate-cell-network: &mandate_cell_network
+  driver: bridge
+  internal: true
+  enable_ipv6: false
+  driver_opts:
+    com.docker.network.bridge.gateway_mode_ipv4: isolated
+    com.docker.network.bridge.gateway_mode_ipv6: isolated
+
+networks:
+  cellnet_m: {<<: *mandate_cell_network, labels: {mandate.role: execution-cell, mandate.cell: m}}
+  provnet: {internal: true}
+
+volumes:
+  proxy_log: {}
+  provider_log: {}
+
+services:
+  model-proxy:
+    image: ${MITM_IMAGE}
+    labels: {mandate.role: gateway}
+    command: ["mitmdump", "--mode", "reverse:http://mock-provider:9000", "--listen-port", "8080", "-s", "/harness/model_addon.py",
+              "--set", "connection_strategy=lazy", "--set", "keep_host_header=false"]
+    environment: {PROVIDER_KEY: DUMMY-PROVIDER-KEY-4b9d}
+    volumes: ["../harness:/harness:ro", "proxy_log:/log"]
+    networks: [cellnet_m, provnet]
+    depends_on: [mock-provider]
+
+  cellside:
+    image: ${NETSHOOT_IMAGE}
+    command: ["sleep", "infinity"]
+    labels: {mandate.role: cell-netns-owner, mandate.cell: m}
+    networks: [cellnet_m]
+
+  agent:
+    image: ${MITM_IMAGE}
+    command: ["sleep", "infinity"]
+    labels: {mandate.role: agent, mandate.cell: m}
+    network_mode: "service:cellside"
+    cap_drop: [ALL]
+    read_only: true
+    security_opt: ["no-new-privileges:true"]
+    tmpfs: ["/tmp"]
+    volumes: ["../harness:/harness:ro"]
+    depends_on: [cellside]
+
+  mock-provider:
+    image: ${MITM_IMAGE}
+    command: ["python", "/harness/mock_provider.py"]
+    labels: {mandate.role: test-fixture}
+    volumes: ["../harness:/harness:ro", "provider_log:/log"]
+    networks: [provnet]
+
+  outside:            # positive control: direct, unmediated contact with the mock provider
+    image: ${MITM_IMAGE}
+    command: ["sleep", "infinity"]
+    labels: {mandate.role: test-fixture}
+    volumes: ["../harness:/harness:ro"]
+    networks: [provnet]

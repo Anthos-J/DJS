@@ -1,0 +1,128 @@
+name: s6model
+services:
+  agent:
+    cap_drop:
+      - ALL
+    command:
+      - sleep
+      - infinity
+    image: mandate-mitm:wave3
+    labels:
+      mandate.cell: m
+      mandate.role: agent
+    network_mode: service:cellside
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+    volumes:
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S6-model\harness
+        target: /harness
+        read_only: true
+        bind: {}
+    depends_on:
+      cellside:
+        condition: service_started
+        required: true
+  cellside:
+    command:
+      - sleep
+      - infinity
+    image: nicolaka/netshoot@sha256:b09d9b21381f47a79b3cbcb30da25266dc17186ea00ae65e99fdc51396f48e70
+    labels:
+      mandate.cell: m
+      mandate.role: cell-netns-owner
+    networks:
+      cellnet_m: null
+  mock-provider:
+    command:
+      - python
+      - /harness/mock_provider.py
+    image: mandate-mitm:wave3
+    labels:
+      mandate.role: test-fixture
+    networks:
+      provnet: null
+    volumes:
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S6-model\harness
+        target: /harness
+        read_only: true
+        bind: {}
+      - type: volume
+        source: provider_log
+        target: /log
+        volume: {}
+  model-proxy:
+    command:
+      - mitmdump
+      - --mode
+      - reverse:http://mock-provider:9000
+      - --listen-port
+      - "8080"
+      - -s
+      - /harness/model_addon.py
+      - --set
+      - connection_strategy=lazy
+      - --set
+      - keep_host_header=false
+    environment:
+      PROVIDER_KEY: DUMMY-PROVIDER-KEY-4b9d
+    image: mandate-mitm:wave3
+    labels:
+      mandate.role: gateway
+    networks:
+      cellnet_m: null
+      provnet: null
+    volumes:
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S6-model\harness
+        target: /harness
+        read_only: true
+        bind: {}
+      - type: volume
+        source: proxy_log
+        target: /log
+        volume: {}
+    depends_on:
+      mock-provider:
+        condition: service_started
+        required: true
+  outside:
+    command:
+      - sleep
+      - infinity
+    image: mandate-mitm:wave3
+    labels:
+      mandate.role: test-fixture
+    networks:
+      provnet: null
+networks:
+  cellnet_m:
+    name: s6model_cellnet_m
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.gateway_mode_ipv4: isolated
+      com.docker.network.bridge.gateway_mode_ipv6: isolated
+    internal: true
+    labels:
+      mandate.cell: m
+      mandate.role: execution-cell
+    enable_ipv6: false
+  provnet:
+    name: s6model_provnet
+    internal: true
+volumes:
+  provider_log:
+    name: s6model_provider_log
+  proxy_log:
+    name: s6model_proxy_log
+x-mandate-cell-network:
+  driver: bridge
+  driver_opts:
+    com.docker.network.bridge.gateway_mode_ipv4: isolated
+    com.docker.network.bridge.gateway_mode_ipv6: isolated
+  enable_ipv6: false
+  internal: true

@@ -10,6 +10,9 @@ RUN = Path(sys.argv[1])
 DC = ["docker", "compose", "-f", str(Path(__file__).resolve().parent.parent / "config" / "compose.yaml")]
 ENV = {**os.environ, "MSYS_NO_PATHCONV": "1"}
 PX = "http://sess-1:tok-good-1@egress:8080"
+ADDON = os.environ.get("EGRESS_ADDON", "egress_addon.py")
+V2 = ADDON == "egress_addon_v2.py"
+PX_BUDGET = "http://sess-p:tok-p@egress:8080" if V2 else PX   # v2: dedicated session so tunnel bytes of T1b do not count here
 results = []
 
 def run(args, timeout=120, stdin=None):
@@ -134,13 +137,52 @@ rec("T6d-connect-no-credentials", "CONNECT without credentials: 407; no tunnel",
 # ---------------- T7 byte budget ----------------
 codes = []; s = snap()
 for i in range(5):
-    r = ex("sandbox", "python", "-c", "import subprocess,sys;p=subprocess.run(['curl','-s','-m','20','-o','/dev/null','-w','%{http_code}','-x','" + PX +
+    r = ex("sandbox", "python", "-c", "import subprocess,sys;p=subprocess.run(['curl','-s','-m','20','-o','/dev/null','-w','%{http_code}','-x','" + PX_BUDGET +
            "','--data-binary','@-','http://allowed-srv/upload'],input=b'\\0'*1000000,capture_output=True);print(p.stdout.decode())")
     codes.append(r["stdout"].strip())
 a, d, e = delta(s); posts = [x for x in from_egress(a) if x.get("method") == "POST"]
 rec("T7-byte-budget", "budget 3,000,000 B: three 1 MB POSTs pass, the 4th and 5th are blocked; allowed-srv receives exactly 3",
     "PASS" if codes == ["200", "200", "200", "403", "403"] and len(posts) == 3 and all(p["bytes"] == 1000000 for p in posts) else "FAIL",
     codes=codes, posts_at_server=len(posts), egress=[x for x in e if x["ev"] in ("allow", "deny")], summary=f"codes={codes} posts={len(posts)}")
+
+# ---------------- T7b-d HTTPS tunnel byte accounting (ledger 29) ----------------
+def upload(px, url, n):
+    return ex("sandbox", "python", "-c", "import subprocess;p=subprocess.run(['curl','-sk','-m','20','-o','/dev/null','-w','%{http_code}','-x','" + px +
+              "','--data-binary','@-','" + url + "'],input=b'\\0'*" + str(n) + ",capture_output=True);print(p.stdout.decode().strip() or 'ERR', p.returncode)")
+
+def tunnel_test(tid, steps, want_codes, want_posts, expected):
+    s = snap(); outs = [upload(px, url, n) for px, url, n in steps]; a, d, e = delta(s)
+    codes = [o["stdout"].split()[0] if o["stdout"].strip() else "ERR" for o in outs]
+    allposts = [x for x in from_egress(a) if x.get("method") == "POST"]
+    posts = [x for x in allposts if x.get("complete", x.get("received", x["bytes"]) == x["bytes"])]  # completed bodies only
+    kills = [x for x in e if x["ev"] == "tunnel-kill"]
+    ok = codes == want_codes and len(posts) == want_posts
+    exp_v = "PASS" if ok else "FAIL"
+    if not V2:  # v1 has no tunnel accounting: this test documents the gap (expected to FAIL)
+        exp_v = "EXPECTED-FAIL(v1)" if not ok else "UNEXPECTED-PASS(v1)"
+    rec(tid, expected, exp_v, codes=codes, posts_at_server=len(posts), post_bytes=[p["bytes"] for p in posts], tunnel_kills=kills, server_post_records=[{k: x.get(k) for k in ("bytes", "received", "complete")} for x in allposts],
+        tunnel_bytes_logged=sum(x.get("bytes", 0) for x in e if x["ev"] == "tunnel-bytes"), addon=ADDON,
+        summary=f"codes={codes} posts={len(posts)} kills={len(kills)}")
+
+PT, PM = "http://sess-t:tok-t@egress:8080", "http://sess-m:tok-m@egress:8080"
+tunnel_test("T7b-https-tunnel-budget", [(PT, "https://allowed-srv/upload", 700000)] * 5, ["200", "200", "200", "200", "000"], 4,
+            "budget 3,000,000 B counted on tunnel (TLS) bytes: four 700 kB HTTPS uploads complete, the 5th is cut; server completes exactly 4")
+tunnel_test("T7c-mixed-http-https-budget", [(PM, "http://allowed-srv/upload", 1000000), (PM, "http://allowed-srv/upload", 1000000),
+                                            (PM, "https://allowed-srv/upload", 1500000)], ["200", "200", "000"], 2,
+            "plain HTTP and HTTPS share one session budget: 2 MB plain + 1.5 MB HTTPS exceeds 3 MB, so the HTTPS upload is cut")
+s = snap(); r = curl("-k", "-x", PT, "https://allowed-srv/"); a, d, e = delta(s)
+ok = ("403" in r["stderr"]) and not from_egress(a)
+rec("T7d-connect-after-budget-exhausted", "a new CONNECT for an exhausted session is refused (403) before any upstream contact",
+    ("PASS" if ok else "FAIL") if V2 else ("EXPECTED-FAIL(v1)" if not ok else "UNEXPECTED-PASS(v1)"), exec=trim(r), addon=ADDON,
+    summary=r["stderr"].strip()[:80])
+
+if V2:  # invariant: counted bytes never exceed the budget for any session (from the egress decision log)
+    el = egresslog(); peak = {}
+    for x in el:
+        if "used" in x and x.get("sess"):
+            peak[x["sess"]] = max(peak.get(x["sess"], 0), x["used"])
+    rec("T7e-budget-invariant", "for every session, bytes counted as relayed never exceed 3,000,000",
+        "PASS" if peak and all(v <= 3000000 for v in peak.values()) else "FAIL", peak_used=peak, summary=str(peak))
 
 # ---------------- T8 SSE ----------------
 sse = ("import subprocess,time,json;t0=time.monotonic();p=subprocess.Popen(['curl','-sN','-x','" + PX + "','http://allowed-srv/sse'],stdout=subprocess.PIPE);ts=[]\n"
@@ -155,7 +197,7 @@ rec("T8-sse", "5 events arrive incrementally (~0.6 s apart) through the proxy",
     "PASS" if len(ts) == 5 and all(b > a for a, b in zip(ts, ts[1:])) and ts[-1] - ts[0] >= 4 * 0.6 * 0.7 else "FAIL", exec=trim(r), arrivals=ts, summary=f"arrivals={ts}")
 
 (RUN / "results.jsonl").write_text("\n".join(json.dumps(x) for x in results) + "\n")
-(RUN / "context.json").write_text(json.dumps({"egress_edge_ip": EGRESS_EDGE, "outside_ip": OUTSIDE, "allowed_ip": ALLOWED_IP, "denied_ip": DENIED_IP}, indent=1))
+(RUN / "context.json").write_text(json.dumps({"egress_addon": ADDON, "egress_edge_ip": EGRESS_EDGE, "outside_ip": OUTSIDE, "allowed_ip": ALLOWED_IP, "denied_ip": DENIED_IP}, indent=1))
 c = {}
 for x in results:
     c[x["verdict"]] = c.get(x["verdict"], 0) + 1

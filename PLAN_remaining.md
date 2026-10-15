@@ -25,3 +25,9 @@ Source: playbook §4 (execution order), §5 (spike specs), §8 (entry gate); `ST
 ## This session
 
 Execute **S5** (first in order; prerequisites met). S6, S4a and S8 follow in later sessions, in the order above.
+
+## Progress
+
+- 15 Oct: S5 executed (`65d800e`).
+- 16 Oct: S6 executed; S5 ledger 29 implemented and tested (v2).
+- **Next dependency-ready phase: S4a.** S8 follows.

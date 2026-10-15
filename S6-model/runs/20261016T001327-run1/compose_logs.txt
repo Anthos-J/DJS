@@ -1,0 +1,158 @@
+mock-provider-1  | ----------------------------------------
+mock-provider-1  | Exception occurred during processing of request from ('172.18.0.4', 55646)
+mock-provider-1  | Traceback (most recent call last):
+mock-provider-1  |   File "/usr/local/lib/python3.12/socketserver.py", line 697, in process_request_thread
+mock-provider-1  |     self.finish_request(request, client_address)
+mock-provider-1  |   File "/usr/local/lib/python3.12/socketserver.py", line 362, in finish_request
+mock-provider-1  |     self.RequestHandlerClass(request, client_address, self)
+mock-provider-1  |   File "/usr/local/lib/python3.12/socketserver.py", line 766, in __init__
+mock-provider-1  |     self.handle()
+mock-provider-1  |   File "/usr/local/lib/python3.12/http/server.py", line 440, in handle
+mock-provider-1  |     self.handle_one_request()
+mock-provider-1  |   File "/usr/local/lib/python3.12/http/server.py", line 428, in handle_one_request
+mock-provider-1  |     method()
+mock-provider-1  |   File "/harness/mock_provider.py", line 32, in do_POST
+mock-provider-1  |     self.end_headers(); self.wfile.write(out)
+mock-provider-1  |                         ^^^^^^^^^^^^^^^^^^^^^
+mock-provider-1  |   File "/usr/local/lib/python3.12/socketserver.py", line 845, in write
+mock-provider-1  |     self._sock.sendall(b)
+mock-provider-1  | BrokenPipeError: [Errno 32] Broken pipe
+mock-provider-1  | ----------------------------------------
+model-proxy-1    | [18:43:36.672] Loading script /harness/model_addon.py
+model-proxy-1    | [18:43:36.677] reverse proxy to http://mock-provider:9000 listening at *:8080.
+model-proxy-1    | [18:43:47.169][172.19.0.1:43878] client connect
+model-proxy-1    | [18:43:47.172][172.19.0.1:43878] server connect mock-provider:9000 (172.18.0.3:9000)
+model-proxy-1    | [18:43:47.174][172.19.0.1:43878] Streaming response from mock-provider.
+model-proxy-1    | 172.19.0.1:43878: POST http://mock-provider:9000/v1/messages HTTP/1.1
+model-proxy-1    |       << HTTP/1.0 200 OK (content missing)
+model-proxy-1    | [18:43:47.175][172.19.0.1:43878] server disconnect mock-provider:9000 (172.18.0.3:9000)
+model-proxy-1    | [18:43:47.176][172.19.0.1:43878] client disconnect
+model-proxy-1    | [18:43:48.616][172.19.0.1:43886] client connect
+model-proxy-1    | [18:43:48.620][172.19.0.1:43886] server connect mock-provider:9000 (172.18.0.3:9000)
+model-proxy-1    | [18:43:48.621][172.19.0.1:43886] Streaming response from mock-provider.
+model-proxy-1    | 172.19.0.1:43886: POST http://mock-provider:9000/v1/messages HTTP/1.1
+model-proxy-1    |       << HTTP/1.0 200 OK (content missing)
+model-proxy-1    | [18:43:48.622][172.19.0.1:43886] server disconnect mock-provider:9000 (172.18.0.3:9000)
+model-proxy-1    | [18:43:48.623][172.19.0.1:43886] client disconnect
+model-proxy-1    | [18:43:50.050][172.19.0.1:46412] client connect
+model-proxy-1    | [18:43:50.052][172.19.0.1:46412] server connect mock-provider:9000 (172.18.0.3:9000)
+model-proxy-1    | [18:43:50.053][172.19.0.1:46412] Streaming response from mock-provider.
+model-proxy-1    | 172.19.0.1:46412: POST http://mock-provider:9000/v1/messages HTTP/1.1
+model-proxy-1    |       << HTTP/1.0 200 OK (content missing)
+model-proxy-1    | [18:43:50.054][172.19.0.1:46412] server disconnect mock-provider:9000 (172.18.0.3:9000)
+model-proxy-1    | [18:43:50.054][172.19.0.1:46412] client disconnect
+model-proxy-1    | [18:43:51.457][172.19.0.1:46420] client connect
+model-proxy-1    | [18:43:51.460][172.19.0.1:46420] server connect mock-provider:9000 (172.18.0.3:9000)
+model-proxy-1    | [18:43:51.461][172.19.0.1:46420] Streaming response from mock-provider.
+model-proxy-1    | 172.19.0.1:46420: POST http://mock-provider:9000/v1/responses HTTP/1.1
+model-proxy-1    |       << HTTP/1.0 200 OK (content missing)
+model-proxy-1    | [18:43:51.462][172.19.0.1:46420] server disconnect mock-provider:9000 (172.18.0.3:9000)
+model-proxy-1    | [18:43:51.463][172.19.0.1:46420] client disconnect
+model-proxy-1    | [18:43:52.898][172.19.0.1:46422] client connect
+model-proxy-1    | [18:43:52.900][172.19.0.1:46422] server connect mock-provider:9000 (172.18.0.3:9000)
+model-proxy-1    | [18:43:52.901][172.19.0.1:46422] Streaming response from mock-provider.
+model-proxy-1    | 172.19.0.1:46422: POST http://mock-provider:9000/v1/messages HTTP/1.1
+model-proxy-1    |       << HTTP/1.0 200 OK (content missing)
+model-proxy-1    | [18:43:52.902][172.19.0.1:46422] server disconnect mock-provider:9000 (172.18.0.3:9000)
+model-proxy-1    | [18:43:52.902][172.19.0.1:46422] client disconnect
+model-proxy-1    | [18:43:54.340][172.19.0.1:46434] client connect
+model-proxy-1    | [18:43:54.355][172.19.0.1:46434] server connect mock-provider:9000 (172.18.0.3:9000)
+model-proxy-1    | 172.19.0.1:46434: POST http://mock-provider:9000/v1/messages
+model-proxy-1    |  << Client disconnected.
+model-proxy-1    | [18:44:09.357][172.19.0.1:46434] server disconnect mock-provider:9000 (172.18.0.3:9000)
+model-proxy-1    | [18:44:09.357][172.19.0.1:46434] client disconnect
+model-proxy-1    | [18:44:10.787][172.19.0.1:33496] client connect
+model-proxy-1    | 172.19.0.1:33496: POST http://mock-provider:9000/v1/messages
+model-proxy-1    |                << 400 Bad Request 88b
+model-proxy-1    | [18:44:10.792][172.19.0.1:33496] client disconnect
+model-proxy-1    | [18:44:12.220][172.19.0.1:33512] client connect
+model-proxy-1    | 172.19.0.1:33512: POST http://mock-provider:9000/v1/messages
+model-proxy-1    |                << 400 Bad Request 88b
+model-proxy-1    | [18:44:12.225][172.19.0.1:33512] client disconnect
+model-proxy-1    | [18:44:13.626][172.19.0.1:33514] client connect
+model-proxy-1    | 172.19.0.1:33514: POST http://mock-provider:9000/v1/messages
+model-proxy-1    |                << 400 Bad Request 92b
+model-proxy-1    | [18:44:13.632][172.19.0.1:33514] client disconnect
+model-proxy-1    | [18:44:15.058][172.19.0.1:33524] client connect
+model-proxy-1    | 172.19.0.1:33524: POST http://mock-provider:9000/v1/messages
+model-proxy-1    |                << 400 Bad Request 91b
+model-proxy-1    | [18:44:15.077][172.19.0.1:33524] client disconnect
+model-proxy-1    | [18:44:16.489][172.19.0.1:33538] client connect
+model-proxy-1    | 172.19.0.1:33538: POST http://mock-provider:9000/v1/responses
+model-proxy-1    |                << 400 Bad Request 79b
+model-proxy-1    | [18:44:16.494][172.19.0.1:33538] client disconnect
+model-proxy-1    | [18:44:17.917][172.19.0.1:33546] client connect
+model-proxy-1    | 172.19.0.1:33546: POST http://mock-provider:9000/v1/responses
+model-proxy-1    |                << 400 Bad Request 72b
+model-proxy-1    | [18:44:17.921][172.19.0.1:33546] client disconnect
+model-proxy-1    | [18:44:19.356][172.19.0.1:33554] client connect
+model-proxy-1    | 172.19.0.1:33554: POST http://mock-provider:9000/v1/responses
+model-proxy-1    |                << 400 Bad Request 71b
+model-proxy-1    | [18:44:19.360][172.19.0.1:33554] client disconnect
+model-proxy-1    | [18:44:20.779][172.19.0.1:39258] client connect
+model-proxy-1    | 172.19.0.1:39258: POST http://mock-provider:9000/v1/messages
+model-proxy-1    |                << 400 Bad Request 89b
+model-proxy-1    | [18:44:20.782][172.19.0.1:39258] client disconnect
+model-proxy-1    | [18:44:22.183][172.19.0.1:39270] client connect
+model-proxy-1    | 172.19.0.1:39270: POST http://mock-provider:9000/v1/messages
+model-proxy-1    |                << 400 Bad Request 89b
+model-proxy-1    | [18:44:22.186][172.19.0.1:39270] client disconnect
+model-proxy-1    | [18:44:23.598][172.19.0.1:39286] client connect
+model-proxy-1    | 172.19.0.1:39286: POST http://mock-provider:9000/v1/messages
+model-proxy-1    |                << 400 Bad Request 85b
+model-proxy-1    | [18:44:23.602][172.19.0.1:39286] client disconnect
+model-proxy-1    | [18:44:25.048][172.19.0.1:39302] client connect
+model-proxy-1    | 172.19.0.1:39302: POST http://mock-provider:9000/v1/messages
+model-proxy-1    |                << 400 Bad Request 76b
+model-proxy-1    | [18:44:25.054][172.19.0.1:39302] client disconnect
+model-proxy-1    | [18:44:26.479][172.19.0.1:39312] client connect
+model-proxy-1    | 172.19.0.1:39312: POST http://mock-provider:9000/v1/messages
+model-proxy-1    |                << 400 Bad Request 75b
+model-proxy-1    | [18:44:26.484][172.19.0.1:39312] client disconnect
+model-proxy-1    | [18:44:27.919][172.19.0.1:39328] client connect
+model-proxy-1    | 172.19.0.1:39328: POST http://mock-provider:9000/v1/messages
+model-proxy-1    |                << 400 Bad Request 75b
+model-proxy-1    | [18:44:27.922][172.19.0.1:39328] client disconnect
+model-proxy-1    | [18:44:29.352][172.19.0.1:39334] client connect
+model-proxy-1    | 172.19.0.1:39334: POST http://mock-provider:9000/v1/responses
+model-proxy-1    |                << 400 Bad Request 77b
+model-proxy-1    | [18:44:29.355][172.19.0.1:39334] client disconnect
+model-proxy-1    | [18:44:30.774][172.19.0.1:52966] client connect
+model-proxy-1    | 172.19.0.1:52966: POST http://mock-provider:9000/v1/messages
+model-proxy-1    |                << 400 Bad Request 88b
+model-proxy-1    | [18:44:30.778][172.19.0.1:52966] client disconnect
+model-proxy-1    | [18:44:32.185][172.19.0.1:52980] client connect
+model-proxy-1    | 172.19.0.1:52980: POST http://mock-provider:9000/v1/messages
+model-proxy-1    |                << 400 Bad Request 86b
+model-proxy-1    | [18:44:32.204][172.19.0.1:52980] client disconnect
+model-proxy-1    | [18:44:33.611][172.19.0.1:52986] client connect
+model-proxy-1    | 172.19.0.1:52986: POST http://mock-provider:9000/v1/messages
+model-proxy-1    |                << 400 Bad Request 64b
+model-proxy-1    | [18:44:33.614][172.19.0.1:52986] client disconnect
+model-proxy-1    | [18:44:35.040][172.19.0.1:52992] client connect
+model-proxy-1    | 172.19.0.1:52992: POST http://mock-provider:9000/v1/messages
+model-proxy-1    |                << 400 Bad Request 76b
+model-proxy-1    | [18:44:35.045][172.19.0.1:52992] client disconnect
+model-proxy-1    | [18:44:36.452][172.19.0.1:53006] client connect
+model-proxy-1    | 172.19.0.1:53006: POST http://mock-provider:9000/v1/messages
+model-proxy-1    |                << 400 Bad Request 83b
+model-proxy-1    | [18:44:36.456][172.19.0.1:53006] client disconnect
+model-proxy-1    | [18:44:37.878][172.19.0.1:53020] client connect
+model-proxy-1    | 172.19.0.1:53020: POST http://mock-provider:9000/v1/files
+model-proxy-1    |                << 400 Bad Request 77b
+model-proxy-1    | [18:44:37.882][172.19.0.1:53020] client disconnect
+model-proxy-1    | [18:44:39.309][172.19.0.1:53028] client connect
+model-proxy-1    | 172.19.0.1:53028: POST http://mock-provider:9000/v1/messages
+model-proxy-1    |                << 400 Bad Request 78b
+model-proxy-1    | [18:44:39.313][172.19.0.1:53028] client disconnect
+model-proxy-1    | [18:44:40.722][172.19.0.1:47692] client connect
+model-proxy-1    | 172.19.0.1:47692: POST http://mock-provider:9000/v1/messages
+model-proxy-1    |                << 400 Bad Request 78b
+model-proxy-1    | [18:44:40.725][172.19.0.1:47692] client disconnect
+model-proxy-1    | [18:44:42.135][172.19.0.1:47704] client connect
+model-proxy-1    | [18:44:42.137][172.19.0.1:47704] server connect mock-provider:9000 (172.18.0.3:9000)
+model-proxy-1    | [18:44:42.138][172.19.0.1:47704] Streaming response from mock-provider.
+model-proxy-1    | 172.19.0.1:47704: POST http://mock-provider:9000/v1/messages HTTP/1.1
+model-proxy-1    |       << HTTP/1.0 200 OK (content missing)
+model-proxy-1    | [18:44:45.140][172.19.0.1:47704] server disconnect mock-provider:9000 (172.18.0.3:9000)
+model-proxy-1    | [18:44:45.141][172.19.0.1:47704] client disconnect

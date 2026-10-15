@@ -1,0 +1,13 @@
+{
+ "mode": "static",
+ "compliant": true,
+ "violations": [],
+ "facts": {
+  "cell_networks": [
+   "cellnet_m"
+  ],
+  "unconstrained_networks": [
+   "provnet"
+  ]
+ }
+}

@@ -1,0 +1,117 @@
+{"ev": "allow", "method": "GET", "host": "allowed-srv", "path": "/", "bytes": 0, "used": 0, "sess": "sess-1", "t": 1792090563.8901107}
+{"ev": "allow-connect", "host": "allowed-srv", "port": 443, "sess": "sess-1", "t": 1792090566.6413271}
+{"ev": "tunnel-bytes", "sess": "sess-1", "bytes": 1571, "used": 1571, "t": 1792090566.6465414}
+{"ev": "tunnel-bytes", "sess": "sess-1", "bytes": 177, "used": 1748, "t": 1792090566.6493335}
+{"ev": "deny", "code": 403, "why": "destination not allowed", "method": "CONNECT", "host": "denied-srv", "port": 443, "sess": "sess-1", "t": 1792090569.4012449}
+{"ev": "deny", "code": 403, "why": "destination not allowed", "method": "CONNECT", "host": "172.19.0.4", "port": 443, "sess": "sess-1", "t": 1792090571.9912648}
+{"ev": "deny", "code": 403, "why": "destination not allowed", "method": "CONNECT", "host": "172.19.0.3", "port": 443, "sess": "sess-1", "t": 1792090574.5581322}
+{"ev": "deny", "code": 403, "why": "destination not allowed", "method": "CONNECT", "host": "allowed-srv.evil.test", "port": 443, "sess": "sess-1", "t": 1792090577.1456935}
+{"ev": "deny", "code": 403, "why": "destination not allowed", "method": "CONNECT", "host": "DENIED-SRV.", "port": 443, "sess": "sess-1", "t": 1792090579.7418277}
+{"ev": "deny", "code": 403, "why": "destination not allowed", "method": "GET", "host": "denied-srv", "port": 80, "sess": "sess-1", "t": 1792090582.3706965}
+{"ev": "deny", "code": 403, "why": "destination not allowed", "method": "GET", "host": "denied-srv", "port": 80, "sess": "sess-1", "t": 1792090585.1180105}
+{"ev": "allow", "method": "GET", "host": "allowed-srv", "path": "/", "bytes": 0, "used": 1748, "sess": "sess-1", "t": 1792090587.8637512}
+{"ev": "allow", "method": "GET", "host": "allowed-srv", "path": "/redirect", "bytes": 0, "used": 1748, "sess": "sess-1", "t": 1792090590.593521}
+{"ev": "deny", "code": 403, "why": "destination not allowed", "method": "GET", "host": "denied-srv", "port": 80, "sess": "sess-1", "t": 1792090590.598588}
+{"ev": "deny", "code": 407, "why": "proxy auth required", "method": "GET", "host": "allowed-srv", "port": 80, "sess": null, "t": 1792090602.2356572}
+{"ev": "deny", "code": 407, "why": "proxy auth required", "method": "GET", "host": "allowed-srv", "port": 80, "sess": null, "t": 1792090604.9129255}
+{"ev": "deny", "code": 407, "why": "proxy auth required", "method": "GET", "host": "allowed-srv", "port": 80, "sess": null, "t": 1792090607.6408033}
+{"ev": "deny", "code": 407, "why": "proxy auth required", "method": "CONNECT", "host": "allowed-srv", "port": 443, "sess": null, "t": 1792090610.376389}
+{"ev": "allow", "method": "POST", "host": "allowed-srv", "path": "/upload", "bytes": 1000000, "used": 1000000, "sess": "sess-p", "t": 1792090612.9912305}
+{"ev": "allow", "method": "POST", "host": "allowed-srv", "path": "/upload", "bytes": 1000000, "used": 2000000, "sess": "sess-p", "t": 1792090613.4335902}
+{"ev": "allow", "method": "POST", "host": "allowed-srv", "path": "/upload", "bytes": 1000000, "used": 3000000, "sess": "sess-p", "t": 1792090613.8709}
+{"ev": "deny", "code": 403, "why": "byte budget exceeded", "method": "POST", "host": "allowed-srv", "port": 80, "sess": "sess-p", "t": 1792090614.3036473}
+{"ev": "deny", "code": 403, "why": "byte budget exhausted", "method": "POST", "host": "allowed-srv", "port": 80, "sess": "sess-p", "t": 1792090614.7385876}
+{"ev": "allow-connect", "host": "allowed-srv", "port": 443, "sess": "sess-t", "t": 1792090634.7808185}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 1571, "used": 1571, "t": 1792090634.7840147}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 28070, "used": 29641, "t": 1792090634.786062}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 44888, "used": 74529, "t": 1792090634.7864954}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 140064, "t": 1792090634.7871864}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 14977, "used": 155041, "t": 1792090634.7876427}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 220576, "t": 1792090634.788194}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 286111, "t": 1792090634.7885072}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 351646, "t": 1792090634.788851}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 417181, "t": 1792090634.7891889}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 482716, "t": 1792090634.7894664}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 548251, "t": 1792090634.789758}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 613786, "t": 1792090634.7900782}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 679321, "t": 1792090634.7903805}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 23431, "used": 702752, "t": 1792090634.7906969}
+{"ev": "allow-connect", "host": "allowed-srv", "port": 443, "sess": "sess-t", "t": 1792090635.2074742}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 1571, "used": 704323, "t": 1792090635.2118478}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 28070, "used": 732393, "t": 1792090635.214067}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 44888, "used": 777281, "t": 1792090635.2146482}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 842816, "t": 1792090635.2154615}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 12161, "used": 854977, "t": 1792090635.215918}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 920512, "t": 1792090635.2165225}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 986047, "t": 1792090635.2168682}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 1051582, "t": 1792090635.2172022}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 1117117, "t": 1792090635.217606}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 1182652, "t": 1792090635.2180376}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 1248187, "t": 1792090635.2183778}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 1313722, "t": 1792090635.2188685}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 1379257, "t": 1792090635.219304}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 26247, "used": 1405504, "t": 1792090635.2198255}
+{"ev": "allow-connect", "host": "allowed-srv", "port": 443, "sess": "sess-t", "t": 1792090635.634797}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 1571, "used": 1407075, "t": 1792090635.637894}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 80, "used": 1407155, "t": 1792090635.6404152}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 29438, "used": 1436593, "t": 1792090635.640837}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 46336, "used": 1482929, "t": 1792090635.641365}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 1548464, "t": 1792090635.641893}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 12657, "used": 1561121, "t": 1792090635.6423805}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 1626656, "t": 1792090635.642967}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 1692191, "t": 1792090635.643668}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 1757726, "t": 1792090635.6440358}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 1823261, "t": 1792090635.6446376}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 1888796, "t": 1792090635.6449442}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 1954331, "t": 1792090635.6452744}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 2019866, "t": 1792090635.6456125}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 2085401, "t": 1792090635.6459584}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 22855, "used": 2108256, "t": 1792090635.6462653}
+{"ev": "allow-connect", "host": "allowed-srv", "port": 443, "sess": "sess-t", "t": 1792090636.068263}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 1571, "used": 2109827, "t": 1792090636.071477}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 13112, "used": 2122939, "t": 1792090636.0747566}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 27990, "used": 2150929, "t": 1792090636.075451}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 57920, "used": 2208849, "t": 1792090636.0760136}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 2274384, "t": 1792090636.0767577}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 12161, "used": 2286545, "t": 1792090636.0772417}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 2352080, "t": 1792090636.077828}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 2417615, "t": 1792090636.0781183}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 2483150, "t": 1792090636.0784526}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 2548685, "t": 1792090636.078896}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 2614220, "t": 1792090636.0792289}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 2679755, "t": 1792090636.079574}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 2745290, "t": 1792090636.0798779}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 2810825, "t": 1792090636.0801895}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 183, "used": 2811008, "t": 1792090636.0804806}
+{"ev": "allow-connect", "host": "allowed-srv", "port": 443, "sess": "sess-t", "t": 1792090636.5170627}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 1571, "used": 2812579, "t": 1792090636.5261407}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 80, "used": 2812659, "t": 1792090636.5298429}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 29438, "used": 2842097, "t": 1792090636.5304482}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 46336, "used": 2888433, "t": 1792090636.5309684}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 65535, "used": 2953968, "t": 1792090636.5316632}
+{"ev": "tunnel-bytes", "sess": "sess-t", "bytes": 12657, "used": 2966625, "t": 1792090636.5322177}
+{"ev": "tunnel-kill", "why": "byte budget exceeded", "sess": "sess-t", "bytes": 65535, "used": 2966625, "t": 1792090636.532955}
+{"ev": "allow", "method": "POST", "host": "allowed-srv", "path": "/upload", "bytes": 1000000, "used": 1000000, "sess": "sess-m", "t": 1792090659.2428186}
+{"ev": "allow", "method": "POST", "host": "allowed-srv", "path": "/upload", "bytes": 1000000, "used": 2000000, "sess": "sess-m", "t": 1792090659.6746535}
+{"ev": "allow-connect", "host": "allowed-srv", "port": 443, "sess": "sess-m", "t": 1792090660.1186597}
+{"ev": "tunnel-bytes", "sess": "sess-m", "bytes": 1571, "used": 2001571, "t": 1792090660.1218653}
+{"ev": "tunnel-bytes", "sess": "sess-m", "bytes": 280, "used": 2001851, "t": 1792090660.1240933}
+{"ev": "tunnel-bytes", "sess": "sess-m", "bytes": 26542, "used": 2028393, "t": 1792090661.127069}
+{"ev": "tunnel-bytes", "sess": "sess-m", "bytes": 41978, "used": 2070371, "t": 1792090661.1276145}
+{"ev": "tunnel-bytes", "sess": "sess-m", "bytes": 65535, "used": 2135906, "t": 1792090661.1283543}
+{"ev": "tunnel-bytes", "sess": "sess-m", "bytes": 12657, "used": 2148563, "t": 1792090661.1289785}
+{"ev": "tunnel-bytes", "sess": "sess-m", "bytes": 65535, "used": 2214098, "t": 1792090661.1293187}
+{"ev": "tunnel-bytes", "sess": "sess-m", "bytes": 65535, "used": 2279633, "t": 1792090661.129663}
+{"ev": "tunnel-bytes", "sess": "sess-m", "bytes": 65535, "used": 2345168, "t": 1792090661.1299832}
+{"ev": "tunnel-bytes", "sess": "sess-m", "bytes": 65535, "used": 2410703, "t": 1792090661.1304233}
+{"ev": "tunnel-bytes", "sess": "sess-m", "bytes": 65535, "used": 2476238, "t": 1792090661.1307425}
+{"ev": "tunnel-bytes", "sess": "sess-m", "bytes": 65535, "used": 2541773, "t": 1792090661.131152}
+{"ev": "tunnel-bytes", "sess": "sess-m", "bytes": 65535, "used": 2607308, "t": 1792090661.131468}
+{"ev": "tunnel-bytes", "sess": "sess-m", "bytes": 65535, "used": 2672843, "t": 1792090661.1318126}
+{"ev": "tunnel-bytes", "sess": "sess-m", "bytes": 65535, "used": 2738378, "t": 1792090661.132108}
+{"ev": "tunnel-bytes", "sess": "sess-m", "bytes": 65535, "used": 2803913, "t": 1792090661.1324234}
+{"ev": "tunnel-bytes", "sess": "sess-m", "bytes": 65535, "used": 2869448, "t": 1792090661.1328952}
+{"ev": "tunnel-bytes", "sess": "sess-m", "bytes": 65535, "used": 2934983, "t": 1792090661.1334395}
+{"ev": "tunnel-kill", "why": "byte budget exceeded", "sess": "sess-m", "bytes": 65535, "used": 2934983, "t": 1792090661.133866}
+{"ev": "deny", "code": 403, "why": "byte budget exhausted", "method": "CONNECT", "host": "allowed-srv", "port": 443, "sess": "sess-t", "t": 1792090682.8591614}
+{"ev": "allow", "method": "GET", "host": "allowed-srv", "path": "/sse", "bytes": 0, "used": 1748, "sess": "sess-1", "t": 1792090684.663211}

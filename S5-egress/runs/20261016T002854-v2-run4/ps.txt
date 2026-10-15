@@ -1,0 +1,6 @@
+allowed-srv running
+cellside running
+denied-srv running
+egress running
+outside running
+sandbox running

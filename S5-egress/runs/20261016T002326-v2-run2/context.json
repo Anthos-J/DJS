@@ -1,0 +1,7 @@
+{
+ "egress_addon": "egress_addon_v2.py",
+ "egress_edge_ip": "172.18.0.5",
+ "outside_ip": "172.18.0.2",
+ "allowed_ip": "172.18.0.4",
+ "denied_ip": "172.18.0.3"
+}

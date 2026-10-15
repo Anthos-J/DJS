@@ -12,7 +12,9 @@
 | **S2** Cedar + SymCC | **Re-run in the pinned container** (all pass/fail checks PASS; full 9,216-case differential; fail-closed SymCC verdict parser). | LOCALLY REPRODUCED |
 | **S7** Credential binding | **Executed** on the AM11 cell profile, behind the deploy gate: 38/38 PASS, reproduced twice with fresh PKI. See `S7-binding/VERDICT.md`. | Ledger 22, 25: **INTEGRATION-VERIFIED**. Ledger 23, 24: LOCALLY REPRODUCED. **Not SECURITY-TESTED.** |
 | **S5** HTTP egress | **Executed** (Wave 3): 23/23 + DNS check, reproduced. See `S5-egress/VERDICT.md`. | 26–28 LOCALLY REPRODUCED; 29 partial (HTTPS-tunnel bytes not counted). **Not SECURITY-TESTED.** |
-| S6, S4a, S8 | **Not started.** Order: S6 → S4a → S8 (`PLAN_remaining.md`). | — |
+| **S6** Model route | **Executed** (Wave 4): 32 PASS + T9 BLOCKED (needs API key + decision), reproduced. See `S6-model/VERDICT.md`. | 30, 31 LOCALLY REPRODUCED (mock provider). **Not SECURITY-TESTED.** |
+| S5 ledger 29 | **v2 tunnel accounting** implemented and tested (Wave 4): 27/27, reproduced; accounting-off control shows the leak. | 29 INTEGRATION-VERIFIED (local, v2). |
+| S4a, S8 | **Not started.** Next: S4a (needs S2 ✔), then S8 (needs S1, S5, S6, S7 ✔). | — |
 
 **Wave 2 (15 Oct, late):** S1 and S2 were re-run in pinned `python:3.12` containers (AM5), and S7 was executed. See the *Wave 2* section at the end. The text directly below describes the original Windows-host runs and is kept unchanged.
 
@@ -316,3 +318,51 @@ Harness error: the run1 DNS decode (Docker DNATs resolver queries). It was not c
 - An **independent reviewer** for S3, S1, S7 and S5 evidence. Rule 7 requires this before any SECURITY-TESTED claim.
 - A decision on **S4b / S6-T9 API access**, and on adopting **AM12**.
 - Accept, or fund, the engineering fix for ledger 29 (tunnel byte accounting).
+
+---
+
+## Wave 4 (16 Oct 2026): S6 model route; S5 ledger 29 (HTTPS-tunnel byte accounting)
+
+**Starting state:** `65d800e`, clean tree. No earlier run, verdict or manifest was modified. New evidence was only appended.
+
+### S6: see `S6-model/VERDICT.md`
+
+**32 PASS + 1 BLOCKED in run3 and run4.** run1 and run2 were harness errors (missing mount on the control container) and have NOTE files.
+- The provider log independently confirms the results: 8 requests in total (7 forwarded + 1 control); only the injected key; **0 requests with any forbidden marker**; 22 rejects never reached it.
+- Every rejection has a paired forwarded control.
+- **T9 BLOCKED.** It needs your provider choice, a spend-capped key set by you on `model-proxy` only, consent to about 3 live requests, a proxy-only egress network, and a pinned model ID.
+
+| Ledger | Claim | Now | Gate requirement |
+|---|---|---|---|
+| 30 | Server tools / connectors rejected before upstream | LOCALLY REPRODUCED (mock) | SECURITY-TESTED ✘ |
+| 31 | API key absent from cell; injected by proxy | LOCALLY REPRODUCED (mock) | SECURITY-TESTED ✘ |
+
+### S5 ledger 29: see the addendum in `S5-egress/VERDICT.md`
+
+- v2 addon with `show_ignored_hosts=true`: tunnels stay passthrough, and their client→server bytes are counted before relay. The session is cut and then latched at the budget.
+- **27/27 PASS in v2-run4 and v2-run5.** A deliberate accounting-off control run shows the server receiving 3.5 MB (an over-budget leak), so the PASS is not vacuous.
+- Three intermediate runs failed and are kept with NOTE files: a config error, a real T7d failure that led to the stricter latch, and an observer error that led to counting received bytes.
+- **Ledger 29: INTEGRATION-VERIFIED (local, v2 config).**
+
+### Entry gate after Wave 4
+
+| Gate | State | What closes it |
+|---|---|---|
+| EG-1 | met | — |
+| EG-5 | met | — |
+| EG-2 Confinement | **not met** | clean-machine rerun + independent review (human) |
+| EG-3 PEP interception | **not met** | same (ledger 5, 7) |
+| EG-4 Credential binding | **not met** | same (ledger 23, 24) |
+| EG-6 Egress | **not met** | 29 now INTEGRATION-VERIFIED; 26–28 need SECURITY-TESTED (clean rerun + review) |
+| EG-7 Model route | **not met** | 30, 31 need SECURITY-TESTED (clean rerun + review). T9 optional, needs your decision |
+| EG-8 Evaluation harness | **not started** | S4a (next, dependency-ready) |
+| EG-9 Integration | **not started** | S8 (dependency-ready after S4a in plan order; S1, S5, S6, S7 are done) |
+
+**The validation plan is not complete.** The S5 security gate (EG-6) is **not** met.
+
+### Limitations register (additions)
+
+8. **S5 v2:** the budget counts TLS record bytes, not plaintext; a cut connection lingers about 20 s until the client times out; server→client bytes are not budgeted; budgets live in memory and reset on restart.
+9. **S6:** mock provider only; the allowlists need maintenance as provider APIs evolve; response-side checks were not tested.
+
+Items 1–7 above remain: cvc5 pinned on first use; telemetry-dependent `_meta` stripping (AM12 not adopted); sidecar-compromise residual risk; no IPv6 bypass test; on-demand drift detection; same-machine runs; nothing SECURITY-TESTED.

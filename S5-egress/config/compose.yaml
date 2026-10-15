@@ -23,9 +23,9 @@ services:
   egress:
     image: ${MITM_IMAGE}
     labels: {mandate.role: gateway}
-    command: ["mitmdump", "--mode", "regular", "--listen-port", "8080", "-s", "/harness/egress_addon.py",
+    command: ["mitmdump", "--mode", "regular", "--listen-port", "8080", "-s", "/harness/${EGRESS_ADDON:-egress_addon.py}",
               "--set", "connection_strategy=lazy", "--set", "upstream_cert=false", "--set", "ignore_hosts=.*",
-              "--set", "block_global=false"]
+              "--set", "block_global=false", "--set", "show_ignored_hosts=${SHOW_IGNORED_HOSTS:-false}"]
     environment: {BYTE_BUDGET: "3000000"}
     volumes: ["../harness:/harness:ro", "egress_log:/log"]
     networks: [cellnet_s, edge]

@@ -6,6 +6,11 @@ export PATH="/c/Users/SEBIN/AppData/Local/Programs/DockerDesktop/resources/bin:$
 cd "$(dirname "$0")/.."
 R="runs/$(date +%Y%m%dT%H%M%S)-${1:-run}"; mkdir -p "$R/pcap"; echo "$R" > runs/LATEST
 export MITM_IMAGE=mandate-mitm:wave3
+export EGRESS_ADDON="${EGRESS_ADDON:-egress_addon.py}"
+# v2 needs TCP events for passthrough tunnels: show_ignored_hosts=true keeps the tunnel un-intercepted but emits tcp_message
+if [ "$EGRESS_ADDON" = egress_addon_v2.py ]; then export SHOW_IGNORED_HOSTS=true; else export SHOW_IGNORED_HOSTS=false; fi
+[ -n "${FORCE_SHOW_IGNORED_HOSTS:-}" ] && export SHOW_IGNORED_HOSTS=$FORCE_SHOW_IGNORED_HOSTS   # control runs only
+echo "egress_addon=$EGRESS_ADDON show_ignored_hosts=$SHOW_IGNORED_HOSTS" > "$R/run_meta.txt"
 export NETSHOOT_IMAGE=nicolaka/netshoot@sha256:b09d9b21381f47a79b3cbcb30da25266dc17186ea00ae65e99fdc51396f48e70
 DC="docker compose -f config/compose.yaml"; CHK="python ../S3-isolation/harness/cell_policy.py"
 docker rm -f s5cap >/dev/null 2>&1; $DC down -v --remove-orphans >/dev/null 2>&1

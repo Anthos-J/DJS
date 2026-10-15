@@ -1,0 +1,1 @@
+HARNESS ERROR (repeat of run1): my compose fix did not apply (scripted edit assertion failed), so this run had the same missing /harness mount on 'outside'. Same outcome: control FAIL, T8/T8b not credited, other 29 PASS.
