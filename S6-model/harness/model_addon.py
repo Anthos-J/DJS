@@ -95,6 +95,10 @@ def request(flow: http.HTTPFlow):
             del req.headers[h]
     canonical = json.dumps(body, separators=(",", ":"), ensure_ascii=True).encode()
     req.raw_content = canonical          # forward exactly what was checked
+    # FIX (16 Oct, found by S8): raw_content does not update framing. A stale Content-Length made the provider wait
+    # (canonical shorter) or TRUNCATE the body (canonical longer) -> provider parsed something other than what was checked.
+    req.headers.pop("transfer-encoding", None)
+    req.headers["content-length"] = str(len(canonical))
     if api == "anthropic":
         req.headers["x-api-key"] = PROVIDER_KEY
     else:

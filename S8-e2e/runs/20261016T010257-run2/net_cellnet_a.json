@@ -1,0 +1,73 @@
+[
+    {
+        "Name": "s8e2e_cellnet_a",
+        "Id": "7df6161d111e6693c0567f528bee52c654ffe1f890a137d3a523a55e1349b207",
+        "Created": "2026-10-15T19:33:01.365053715Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.19.0.0/16"
+                }
+            ]
+        },
+        "Internal": true,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {
+            "com.docker.network.bridge.gateway_mode_ipv4": "isolated",
+            "com.docker.network.bridge.gateway_mode_ipv6": "isolated",
+            "com.docker.network.enable_ipv4": "true"
+        },
+        "Labels": {
+            "com.docker.compose.config-hash": "2f787ec147740029b578f8ee31060f0cc34a0648cc6c472a19b55cb42e24a558",
+            "com.docker.compose.network": "cellnet_a",
+            "com.docker.compose.project": "s8e2e",
+            "com.docker.compose.version": "5.6.0",
+            "mandate.cell": "a",
+            "mandate.role": "execution-cell"
+        },
+        "Containers": {
+            "379117b6656893cf404aae9fe0969cecc80a15d5c9fdc512fce904714bc75a9a": {
+                "Name": "s8e2e-model-proxy-1",
+                "EndpointID": "2d514d7e896ed2b2b7c0df226bce689dc70409a8e10dae7ead62fbbac715b81e",
+                "MacAddress": "42:ad:11:6a:5e:4f",
+                "IPv4Address": "172.19.0.1/16",
+                "IPv6Address": ""
+            },
+            "96beda9323aac530cb330d415677722be015d808a4abd0b225b7229c8fbb148b": {
+                "Name": "s8e2e-sidecar_a-1",
+                "EndpointID": "fea3edd8346d6a9ad8eb1596612d917106d5ac1d7d33d214d59add6f3c16b00d",
+                "MacAddress": "0a:70:be:14:e7:18",
+                "IPv4Address": "172.19.0.3/16",
+                "IPv6Address": ""
+            },
+            "e79bc4e07c2ed06fece10bc787456504d24c89d423ccd889b2a022728af41eb4": {
+                "Name": "s8e2e-terminator-1",
+                "EndpointID": "f913811b58258ff3c40002331f41f1097a5d69ac0c10bd6c3d4b8b97f2943358",
+                "MacAddress": "4a:90:ea:ec:25:3f",
+                "IPv4Address": "172.19.0.2/16",
+                "IPv6Address": ""
+            }
+        },
+        "Status": {
+            "IPAM": {
+                "Subnets": {
+                    "172.19.0.0/16": {
+                        "IPsInUse": 5,
+                        "DynamicIPsAvailable": 65531
+                    }
+                }
+            }
+        }
+    }
+]

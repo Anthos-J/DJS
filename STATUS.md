@@ -14,7 +14,8 @@
 | **S5** HTTP egress | **Executed** (Wave 3): 23/23 + DNS check, reproduced. See `S5-egress/VERDICT.md`. | 26–28 LOCALLY REPRODUCED; 29 partial (HTTPS-tunnel bytes not counted). **Not SECURITY-TESTED.** |
 | **S6** Model route | **Executed** (Wave 4): 32 PASS + T9 BLOCKED (needs API key + decision), reproduced. See `S6-model/VERDICT.md`. | 30, 31 LOCALLY REPRODUCED (mock provider). **Not SECURITY-TESTED.** |
 | S5 ledger 29 | **v2 tunnel accounting** implemented and tested (Wave 4): 27/27, reproduced; accounting-off control shows the leak. | 29 INTEGRATION-VERIFIED (local, v2). |
-| S4a, S8 | **Not started.** Next: S4a (needs S2 ✔), then S8 (needs S1, S5, S6, S7 ✔). | — |
+| **S4a** AgentDojo replay | **Executed** (Wave 5): parity 0 mismatches, deterministic, deny-all control sensitive. *In-process decision emulation.* See `S4a-agentdojo/VERDICT.md`. | 32, 33 LOCALLY REPRODUCED |
+| **S8** End-to-end | **Executed** (Wave 5): 18/18 ×2; G0 4/4 effects covered; unmediated-effect control flagged. See `S8-e2e/VERDICT.md`. | 35 INTEGRATION-VERIFIED (local, one scripted scenario) |
 
 **Wave 2 (15 Oct, late):** S1 and S2 were re-run in pinned `python:3.12` containers (AM5), and S7 was executed. See the *Wave 2* section at the end. The text directly below describes the original Windows-host runs and is kept unchanged.
 
@@ -366,3 +367,67 @@ Harness error: the run1 DNS decode (Docker DNATs resolver queries). It was not c
 9. **S6:** mock provider only; the allowlists need maintenance as provider APIs evolve; response-side checks were not tested.
 
 Items 1–7 above remain: cvc5 pinned on first use; telemetry-dependent `_meta` stripping (AM12 not adopted); sidecar-compromise residual risk; no IPv6 bypass test; on-demand drift detection; same-machine runs; nothing SECURITY-TESTED.
+
+---
+
+## Wave 5 (16 Oct 2026): S4a AgentDojo replay; S8 end-to-end integration
+
+**Starting state:** `cd6069d`, clean tree. Commits this wave: `ab9108a` (annotations frozen before any run), `ff5bb6a` (S4a), and the Wave 5 commit.
+
+### S4a: see `S4a-agentdojo/VERDICT.md` (**in-process decision emulation**)
+
+- All 4 suites ran: 97 user tasks and 949 attack pairs, 0 errors.
+- **Parity:** 0 mismatches (benign and attack).
+- **Negative control:** deny-all changes 57 outcomes.
+- **Determinism:** two runs give the same decision hash `91517b3a…`.
+- **Measured:**
+  - 413 of 592 natively successful attacks prevented.
+  - **179 still succeed, with every injected call PERMITted.** Policy P does not floor injections whose arguments are grounded in trusted public data, or injections to internal sinks.
+  - Benign: 72/97 tasks keep utility without approvals; 31 calls step up to approval.
+- 9 injection tasks have empty ground truth in agentdojo 0.1.35.
+- run1 was a harness error (wrong check order; injected text collided with the attack's own check). NOTE in the run.
+
+### S8: see `S8-e2e/VERDICT.md`
+
+- **18/18 PASS in run3 and run4.**
+- Every effect observed at the tool server, allowed-srv, denied-srv and the provider (4) has an earlier allowing decision.
+- Denied, pending and unknown actions produced 0 effects.
+- A deliberately unmediated backend call **is detected** (negative control).
+- The agent holds no credentials, and the backend receives none.
+
+**Failures S8 surfaced:**
+1. **S6 Content-Length defect.** The provider could parse a truncated body. It was demonstrated, fixed, and S6 re-run 33/33 twice. S6 run3/run4 had passed T1e vacuously on this point; they are kept, and the addendum explains it.
+2. **mitm image dependency conflict** (`typing_extensions` downgraded, which breaks the FastMCP client).
+
+### Entry gate after Wave 5 (playbook §8)
+
+| Gate | Required | State | Outstanding |
+|---|---|---|---|
+| EG-1 Environment | S0 pass | **met** | — |
+| EG-2 Confinement | 15–21 SECURITY-TESTED | **not met** | second-machine clean rerun + independent review (human) |
+| EG-3 PEP interception | 1–5, 7–9 at required levels | **not met** | 5, 7 need SECURITY-TESTED (clean rerun + review) |
+| EG-4 Credential binding | 22–25 | **not met** | 23, 24 need SECURITY-TESTED (clean rerun + review) |
+| EG-5 Policy engine | 10–12, 14 LOCALLY REPRODUCED | **met** | — |
+| EG-6 Egress | 26–29 | **not met** | 29 INTEGRATION-VERIFIED (v2) ✔; 26–28 need SECURITY-TESTED |
+| EG-7 Model route | 30–31 SECURITY-TESTED | **not met** | clean rerun + review. T9 optional; BLOCKED on your decision |
+| EG-8 Evaluation harness | 32–33 LOCALLY REPRODUCED | **met** (emulation only) | — |
+| EG-9 Integration | 35 INTEGRATION-VERIFIED | **met at its required level, locally** (one scripted scenario; same machine) | — |
+
+**EG-2, EG-3, EG-4, EG-6 and EG-7 are open. The full build must not start.** All spikes have now been executed locally, but **the validation plan is not complete**: the gates need SECURITY-TESTED evidence that requires a second machine and an independent human reviewer.
+
+### Human decisions and actions required
+
+1. **Second-machine clean-environment rerun** of S3, S1, S7, S5 (v2) and S6, using the `run_*.sh` / `regression.sh` commands in each VERDICT.
+2. **An independent reviewer** for the S3, S1, S7, S5 and S6 evidence (playbook rule 7).
+3. **S6-T9 / S4b LLM access:** provider, spend-capped key set by you (proxy only), consent to live requests, proxy-only egress network, model ID.
+4. **AM12** (metadata stripping with telemetry off): adopt or reject.
+5. **Policy coverage gap from S4a:** accept it, or revise P / the annotations as a *new frozen version* and re-measure.
+6. **Combined image:** resolve the mitmproxy / FastMCP `typing_extensions` conflict, or keep separate images.
+
+### Limitations register (additions)
+
+10. S4a is emulation only: heuristic labels, substring grounding, no approver.
+11. S8 is one scripted scenario with 4 effects. Its ordering relies on a shared VM clock. Labels are fixed in the S8 PEP, not propagated.
+12. S6 run3/run4 T1e passed vacuously before the Content-Length fix (recorded, not rewritten).
+
+Items 1–9 remain: cvc5 pinned on first use; telemetry-dependent `_meta` stripping; sidecar-compromise residual risk; no IPv6 bypass test; on-demand drift detection; same-machine runs; nothing SECURITY-TESTED; S5 v2 byte-accounting limits; S6 mock-only.

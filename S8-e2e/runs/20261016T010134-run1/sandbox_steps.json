@@ -1,0 +1,14 @@
+{
+ "sandbox:allowed": {
+  "code": "200",
+  "stderr": ""
+ },
+ "sandbox:denied": {
+  "code": "403",
+  "stderr": ""
+ },
+ "sandbox:denied-connect": {
+  "code": "000",
+  "stderr": ""
+ }
+}

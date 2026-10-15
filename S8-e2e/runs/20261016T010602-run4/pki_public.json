@@ -1,0 +1,173 @@
+{
+ "x5t#S256": {
+  "cell-a": "XhO6QMhShzTypAGgYgIv2ueN4a7tvfQGc26c5QA0sFY",
+  "cell-b": "OqYNfZoJRJ9H0yQJxzcWM4KDwfI1d_o22vuAlPblX98",
+  "rogue": "S36I4XugyN5e7pvY60Jbfpqdpvccp7h-Qqx9al1E2c4"
+ },
+ "tokens": {
+  "JWT_A": {
+   "header": {
+    "alg": "ES256",
+    "typ": "JWT"
+   },
+   "claims": {
+    "iss": "mandate-gw",
+    "aud": "mandate-pep",
+    "sub": "agent:cell-a",
+    "sid": "sess-A-1",
+    "iat": 1792092970,
+    "exp": 1792100170,
+    "cnf": {
+     "x5t#S256": "XhO6QMhShzTypAGgYgIv2ueN4a7tvfQGc26c5QA0sFY"
+    }
+   },
+   "prefix": "eyJhbGciOiJF"
+  },
+  "JWT_B": {
+   "header": {
+    "alg": "ES256",
+    "typ": "JWT"
+   },
+   "claims": {
+    "iss": "mandate-gw",
+    "aud": "mandate-pep",
+    "sub": "agent:cell-b",
+    "sid": "sess-B-1",
+    "iat": 1792092970,
+    "exp": 1792100170,
+    "cnf": {
+     "x5t#S256": "OqYNfZoJRJ9H0yQJxzcWM4KDwfI1d_o22vuAlPblX98"
+    }
+   },
+   "prefix": "eyJhbGciOiJF"
+  },
+  "JWT_A_expired": {
+   "header": {
+    "alg": "ES256",
+    "typ": "JWT"
+   },
+   "claims": {
+    "iss": "mandate-gw",
+    "aud": "mandate-pep",
+    "sub": "agent:cell-a",
+    "sid": "sess-A-2",
+    "iat": 1792092970,
+    "exp": 1792092910,
+    "cnf": {
+     "x5t#S256": "XhO6QMhShzTypAGgYgIv2ueN4a7tvfQGc26c5QA0sFY"
+    }
+   },
+   "prefix": "eyJhbGciOiJF"
+  },
+  "JWT_A_revoked": {
+   "header": {
+    "alg": "ES256",
+    "typ": "JWT"
+   },
+   "claims": {
+    "iss": "mandate-gw",
+    "aud": "mandate-pep",
+    "sub": "agent:cell-a",
+    "sid": "sess-A-revoked",
+    "iat": 1792092970,
+    "exp": 1792100170,
+    "cnf": {
+     "x5t#S256": "XhO6QMhShzTypAGgYgIv2ueN4a7tvfQGc26c5QA0sFY"
+    }
+   },
+   "prefix": "eyJhbGciOiJF"
+  },
+  "JWT_A_rogue_issuer": {
+   "header": {
+    "alg": "ES256",
+    "typ": "JWT"
+   },
+   "claims": {
+    "iss": "mandate-gw",
+    "aud": "mandate-pep",
+    "sub": "agent:cell-a",
+    "sid": "sess-A-3",
+    "iat": 1792092970,
+    "exp": 1792100170,
+    "cnf": {
+     "x5t#S256": "XhO6QMhShzTypAGgYgIv2ueN4a7tvfQGc26c5QA0sFY"
+    }
+   },
+   "prefix": "eyJhbGciOiJF"
+  },
+  "JWT_A_wrong_aud": {
+   "header": {
+    "alg": "ES256",
+    "typ": "JWT"
+   },
+   "claims": {
+    "iss": "mandate-gw",
+    "aud": "some-other-service",
+    "sub": "agent:cell-a",
+    "sid": "sess-A-4",
+    "iat": 1792092970,
+    "exp": 1792100170,
+    "cnf": {
+     "x5t#S256": "XhO6QMhShzTypAGgYgIv2ueN4a7tvfQGc26c5QA0sFY"
+    }
+   },
+   "prefix": "eyJhbGciOiJF"
+  },
+  "JWT_A_no_cnf": {
+   "header": {
+    "alg": "ES256",
+    "typ": "JWT"
+   },
+   "claims": {
+    "iss": "mandate-gw",
+    "aud": "mandate-pep",
+    "sub": "agent:cell-a",
+    "sid": "sess-A-5",
+    "iat": 1792092970,
+    "exp": 1792100170
+   },
+   "prefix": "eyJhbGciOiJF"
+  },
+  "JWT_A_tampered": {
+   "header": {
+    "alg": "ES256",
+    "typ": "JWT"
+   },
+   "claims": {
+    "iss": "mandate-gw",
+    "aud": "mandate-pep",
+    "sub": "agent:cell-b",
+    "sid": "sess-A-1",
+    "iat": 1792092970,
+    "exp": 1792100170,
+    "cnf": {
+     "x5t#S256": "XhO6QMhShzTypAGgYgIv2ueN4a7tvfQGc26c5QA0sFY"
+    }
+   },
+   "prefix": "eyJhbGciOiJF"
+  },
+  "JWT_A_alg_none": {
+   "header": {
+    "alg": "none"
+   },
+   "claims": {
+    "iss": "mandate-gw",
+    "aud": "mandate-pep",
+    "sub": "agent:cell-a",
+    "sid": "sess-A-1",
+    "iat": 1792092970,
+    "exp": 1792100170,
+    "cnf": {
+     "x5t#S256": "XhO6QMhShzTypAGgYgIv2ueN4a7tvfQGc26c5QA0sFY"
+    }
+   },
+   "prefix": "eyJhbGciOiAi"
+  }
+ },
+ "placement": {
+  "side_a": "cert A + JWT_A",
+  "side_b": "cert B + JWT_B",
+  "side_c": "cert B + JWT_A",
+  "agents": "nothing"
+ }
+}

@@ -77,8 +77,17 @@ rec("T1d-cell-sent-no-key", "the agent's request carried no key; the provider st
 body_ws = '{ "model" : "m" , "max_tokens":16, "messages":[{"role":"user","content":"hi"}], "tools":[' + CUSTOM + '] }'
 out, got, ev = send("agent", "/v1/messages", body_ws)
 canon = json.dumps(json.loads(body_ws), separators=(",", ":"), ensure_ascii=True)
-rec("T1e-canonical-body", "provider receives the re-serialized (checked) body, not the client's raw bytes",
-    "PASS" if got and got[0]["body"] == canon else "FAIL", summary=f"match={bool(got) and got[0]['body'] == canon}")
+rec("T1e-canonical-body", "provider receives the re-serialized (checked) body, complete; client gets 200 (not a timeout)",
+    "PASS" if got and got[0]["body"] == canon and out.get("status") == 200 else "FAIL",
+    out=out, summary=f"status={out.get('status')} match={bool(got) and got[0]['body'] == canon}")
+# T1f: canonical form LONGER than the raw body (non-ASCII becomes \uXXXX). A stale Content-Length would truncate it.
+body_u = '{"model":"m","max_tokens":16,"messages":[{"role":"user","content":"héllo üñîçødé"}]}'
+out, got, ev = send("agent", "/v1/messages", body_u)
+canon_u = json.dumps(json.loads(body_u), separators=(",", ":"), ensure_ascii=True)
+rec("T1f-canonical-longer-than-raw", "non-ASCII body: provider receives the COMPLETE canonical body (no truncation); client gets 200",
+    "PASS" if got and got[0]["body"] == canon_u and out.get("status") == 200 else "FAIL",
+    out=out, provider_body=(got[0]["body"] if got else None),
+    summary=f"status={out.get('status')} complete={bool(got) and got[0]['body'] == canon_u}")
 
 # ---------------- rejections (each must leave ZERO requests at the provider) ----------------
 WS = '{"type":"web_search_20260209","name":"web_search"}'

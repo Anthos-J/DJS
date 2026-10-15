@@ -1,0 +1,64 @@
+[
+    {
+        "Name": "s8e2e_provnet",
+        "Id": "b15221bd78f2782639284337fba4cf07857856fa1fe1d45d4fec14d77fa26a1c",
+        "Created": "2026-10-15T19:34:50.870854585Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.20.0.0/16",
+                    "Gateway": "172.20.0.1"
+                }
+            ]
+        },
+        "Internal": true,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {
+            "com.docker.network.enable_ipv4": "true",
+            "com.docker.network.enable_ipv6": "false"
+        },
+        "Labels": {
+            "com.docker.compose.config-hash": "0c2e83cf7f7a72fcf433c88e47885311cf5507adf0f39b1c0cd4741994fab6b8",
+            "com.docker.compose.network": "provnet",
+            "com.docker.compose.project": "s8e2e",
+            "com.docker.compose.version": "5.6.0"
+        },
+        "Containers": {
+            "1a19adc99e33d2315adbf28a9e82473b5ae14d40e0e5b132e5d6d0add1a98ee0": {
+                "Name": "s8e2e-model-proxy-1",
+                "EndpointID": "4d7b5996ae527b660ab7dccef9ebbc6bb772789e0067394fb1875f3dbd3c2ba4",
+                "MacAddress": "12:aa:5a:ea:68:0a",
+                "IPv4Address": "172.20.0.3/16",
+                "IPv6Address": ""
+            },
+            "9e99a4c84eb71ee5abb6147d036a90cb60cad29dcc880ab5d63125f00f3073ff": {
+                "Name": "s8e2e-mock-provider-1",
+                "EndpointID": "f53aa559dbf2a0f30ba660ba8cc5c84081ae6da0f682b59101201899a1e106eb",
+                "MacAddress": "c6:89:62:17:0a:ee",
+                "IPv4Address": "172.20.0.2/16",
+                "IPv6Address": ""
+            }
+        },
+        "Status": {
+            "IPAM": {
+                "Subnets": {
+                    "172.20.0.0/16": {
+                        "IPsInUse": 5,
+                        "DynamicIPsAvailable": 65531
+                    }
+                }
+            }
+        }
+    }
+]

@@ -1,0 +1,143 @@
+# S8 end-to-end smoke: S1 + S2 + S3 (AM11) + S5 (v2) + S6 + S7 composed. Spike harness only; fully local, mock provider.
+# Cell A   (cellnet_a, AM11): sidecar_a (netns owner, mTLS + JWT) + agent_a ; gateways: terminator (MCP), model-proxy (model route)
+# Cell S   (cellnet_s, AM11): cellside_s (netns owner) + sandbox ; gateway: egress (HTTP egress PEP)
+# Private: pepnet (terminator<->pep), toolnet (pep<->backend), edge (egress<->allowed/denied), provnet (model-proxy<->provider)
+# Deployed only through driver/run_s8.sh (AM11 static + runtime gate before tests).
+name: s8e2e
+
+x-mandate-cell-network: &mandate_cell_network
+  driver: bridge
+  internal: true
+  enable_ipv6: false
+  driver_opts:
+    com.docker.network.bridge.gateway_mode_ipv4: isolated
+    com.docker.network.bridge.gateway_mode_ipv6: isolated
+
+x-hardened: &hardened
+  cap_drop: [ALL]
+  read_only: true
+  security_opt: ["no-new-privileges:true"]
+  tmpfs: ["/tmp"]
+
+networks:
+  cellnet_a: {<<: *mandate_cell_network, labels: {mandate.role: execution-cell, mandate.cell: a}}
+  cellnet_s: {<<: *mandate_cell_network, labels: {mandate.role: execution-cell, mandate.cell: s}}
+  pepnet: {internal: true}
+  toolnet: {internal: true}
+  edge: {internal: true}
+  provnet: {internal: true}
+
+volumes: {sec_side_a: {}, sec_side_b: {}, sec_side_c: {}, sec_term: {}, sec_pep: {}, sec_harness: {}, pep_log: {}, backend_log: {}, egress_log: {}, srv_log: {}, proxy_log: {}, provider_log: {}}
+
+services:
+  pki:
+    image: ${SPIKE_IMAGE}
+    network_mode: none
+    labels: {mandate.role: test-fixture, mandate.oneshot: "true"}
+    command: ["python", "/s7h/pki.py", "/out"]
+    volumes: ["../../S7-binding/harness:/s7h:ro", "${RUN_DIR}:/out", "sec_side_a:/vol/side_a", "sec_side_b:/vol/side_b", "sec_side_c:/vol/side_c",
+              "sec_term:/vol/term", "sec_pep:/vol/pep", "sec_harness:/vol/harness"]
+
+  backend:
+    image: ${SPIKE_IMAGE}
+    labels: {mandate.role: tool-server}
+    command: ["python", "/h/backend_s8.py"]
+    volumes: ["../harness:/h:ro", "backend_log:/log"]
+    networks: [toolnet]
+    depends_on: {pki: {condition: service_completed_successfully}}
+
+  pep:
+    image: ${SPIKE_IMAGE}
+    labels: {mandate.role: pep}
+    command: ["python", "/h/pep_s8.py"]
+    volumes: ["../harness:/h:ro", "../../S7-binding/harness:/s7h:ro", "../../S2-cedar/config:/s2cfg:ro", "sec_pep:/secrets:ro", "pep_log:/log"]
+    networks: [pepnet, toolnet]
+    depends_on: [backend]
+
+  terminator:
+    image: ${NGINX_IMAGE}
+    labels: {mandate.role: gateway}
+    entrypoint: ["nginx", "-g", "daemon off;", "-c", "/etc/nginx-s7/nginx.conf"]
+    volumes: ["../../S7-binding/config/nginx-terminator.conf:/etc/nginx-s7/nginx.conf:ro", "sec_term:/secrets:ro"]
+    networks: [cellnet_a, pepnet]
+    depends_on: [pep]
+
+  model-proxy:
+    image: ${MITM_IMAGE}
+    labels: {mandate.role: gateway}
+    command: ["mitmdump", "--mode", "reverse:http://mock-provider:9000", "--listen-port", "8080", "-s", "/s6h/model_addon.py",
+              "--set", "connection_strategy=lazy", "--set", "keep_host_header=false"]
+    environment: {PROVIDER_KEY: DUMMY-PROVIDER-KEY-4b9d}
+    volumes: ["../../S6-model/harness:/s6h:ro", "proxy_log:/log"]
+    networks: [cellnet_a, provnet]
+    depends_on: [mock-provider]
+
+  mock-provider:
+    image: ${MITM_IMAGE}
+    labels: {mandate.role: test-fixture}
+    command: ["python", "/s6h/mock_provider.py"]
+    volumes: ["../../S6-model/harness:/s6h:ro", "provider_log:/log"]
+    networks: [provnet]
+
+  sidecar_a:
+    image: ${NGINX_IMAGE}
+    labels: {mandate.role: cell-netns-owner, mandate.cell: a}
+    entrypoint: ["nginx", "-g", "daemon off;", "-c", "/etc/nginx-s7/nginx.conf"]
+    volumes: ["../../S7-binding/config/nginx-sidecar.conf:/etc/nginx-s7/nginx.conf:ro", "sec_side_a:/secrets:ro"]
+    networks: [cellnet_a]
+    depends_on: [terminator, model-proxy]
+
+  agent_a:
+    <<: *hardened
+    image: ${SPIKE_IMAGE}       # not MITM_IMAGE: mitmproxy's install downgrades typing_extensions and breaks the FastMCP client
+    labels: {mandate.role: agent, mandate.cell: a}
+    command: ["sleep", "infinity"]
+    network_mode: "service:sidecar_a"
+    volumes: ["../harness:/h:ro", "../../S7-binding/harness:/s7h:ro"]
+    depends_on: [sidecar_a]
+
+  egress:
+    image: ${MITM_IMAGE}
+    labels: {mandate.role: gateway}
+    command: ["mitmdump", "--mode", "regular", "--listen-port", "8080", "-s", "/s5h/egress_addon_v2.py", "--set", "connection_strategy=lazy",
+              "--set", "upstream_cert=false", "--set", "ignore_hosts=.*", "--set", "block_global=false", "--set", "show_ignored_hosts=true"]
+    environment: {BYTE_BUDGET: "3000000"}
+    volumes: ["../../S5-egress/harness:/s5h:ro", "egress_log:/log"]
+    networks: [cellnet_s, edge]
+    depends_on: [allowed-srv, denied-srv]
+
+  cellside_s:
+    image: ${NETSHOOT_IMAGE}
+    labels: {mandate.role: cell-netns-owner, mandate.cell: s}
+    command: ["sleep", "infinity"]
+    networks: [cellnet_s]
+
+  sandbox:
+    <<: *hardened
+    image: ${MITM_IMAGE}
+    labels: {mandate.role: agent, mandate.cell: s}
+    command: ["sleep", "infinity"]
+    network_mode: "service:cellside_s"
+    depends_on: [cellside_s]
+
+  allowed-srv:
+    image: ${MITM_IMAGE}
+    labels: {mandate.role: test-fixture}
+    command: ["python", "/s5h/srv.py"]
+    environment: {SRV_NAME: allowed-srv}
+    volumes: ["../../S5-egress/harness:/s5h:ro", "srv_log:/log"]
+    networks: [edge]
+
+  denied-srv:
+    image: ${MITM_IMAGE}
+    labels: {mandate.role: test-fixture}
+    command: ["python", "/s5h/srv.py"]
+    environment: {SRV_NAME: denied-srv}
+    volumes: ["../../S5-egress/harness:/s5h:ro", "srv_log:/log"]
+    networks: [edge]
+
+  outside:
+    image: ${MITM_IMAGE}
+    labels: {mandate.role: test-fixture}
+    command: ["sleep", "infinity"]
+    networks: [edge]

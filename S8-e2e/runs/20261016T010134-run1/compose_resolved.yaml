@@ -1,0 +1,452 @@
+name: s8e2e
+services:
+  agent_a:
+    cap_drop:
+      - ALL
+    command:
+      - sleep
+      - infinity
+    image: mandate-spike-py312:wave2
+    labels:
+      mandate.cell: a
+      mandate.role: agent
+    network_mode: service:sidecar_a
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+    volumes:
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S8-e2e\harness
+        target: /h
+        read_only: true
+        bind: {}
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S7-binding\harness
+        target: /s7h
+        read_only: true
+        bind: {}
+    depends_on:
+      sidecar_a:
+        condition: service_started
+        required: true
+  allowed-srv:
+    command:
+      - python
+      - /s5h/srv.py
+    environment:
+      SRV_NAME: allowed-srv
+    image: mandate-mitm:wave3
+    labels:
+      mandate.role: test-fixture
+    networks:
+      edge: null
+    volumes:
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S5-egress\harness
+        target: /s5h
+        read_only: true
+        bind: {}
+      - type: volume
+        source: srv_log
+        target: /log
+        volume: {}
+  backend:
+    command:
+      - python
+      - /h/backend_s8.py
+    image: mandate-spike-py312:wave2
+    labels:
+      mandate.role: tool-server
+    networks:
+      toolnet: null
+    volumes:
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S8-e2e\harness
+        target: /h
+        read_only: true
+        bind: {}
+      - type: volume
+        source: backend_log
+        target: /log
+        volume: {}
+    depends_on:
+      pki:
+        condition: service_completed_successfully
+        required: true
+  cellside_s:
+    command:
+      - sleep
+      - infinity
+    image: nicolaka/netshoot@sha256:b09d9b21381f47a79b3cbcb30da25266dc17186ea00ae65e99fdc51396f48e70
+    labels:
+      mandate.cell: s
+      mandate.role: cell-netns-owner
+    networks:
+      cellnet_s: null
+  denied-srv:
+    command:
+      - python
+      - /s5h/srv.py
+    environment:
+      SRV_NAME: denied-srv
+    image: mandate-mitm:wave3
+    labels:
+      mandate.role: test-fixture
+    networks:
+      edge: null
+    volumes:
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S5-egress\harness
+        target: /s5h
+        read_only: true
+        bind: {}
+      - type: volume
+        source: srv_log
+        target: /log
+        volume: {}
+  egress:
+    command:
+      - mitmdump
+      - --mode
+      - regular
+      - --listen-port
+      - "8080"
+      - -s
+      - /s5h/egress_addon_v2.py
+      - --set
+      - connection_strategy=lazy
+      - --set
+      - upstream_cert=false
+      - --set
+      - ignore_hosts=.*
+      - --set
+      - block_global=false
+      - --set
+      - show_ignored_hosts=true
+    environment:
+      BYTE_BUDGET: "3000000"
+    image: mandate-mitm:wave3
+    labels:
+      mandate.role: gateway
+    networks:
+      cellnet_s: null
+      edge: null
+    volumes:
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S5-egress\harness
+        target: /s5h
+        read_only: true
+        bind: {}
+      - type: volume
+        source: egress_log
+        target: /log
+        volume: {}
+    depends_on:
+      allowed-srv:
+        condition: service_started
+        required: true
+      denied-srv:
+        condition: service_started
+        required: true
+  mock-provider:
+    command:
+      - python
+      - /s6h/mock_provider.py
+    image: mandate-mitm:wave3
+    labels:
+      mandate.role: test-fixture
+    networks:
+      provnet: null
+    volumes:
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S6-model\harness
+        target: /s6h
+        read_only: true
+        bind: {}
+      - type: volume
+        source: provider_log
+        target: /log
+        volume: {}
+  model-proxy:
+    command:
+      - mitmdump
+      - --mode
+      - reverse:http://mock-provider:9000
+      - --listen-port
+      - "8080"
+      - -s
+      - /s6h/model_addon.py
+      - --set
+      - connection_strategy=lazy
+      - --set
+      - keep_host_header=false
+    environment:
+      PROVIDER_KEY: DUMMY-PROVIDER-KEY-4b9d
+    image: mandate-mitm:wave3
+    labels:
+      mandate.role: gateway
+    networks:
+      cellnet_a: null
+      provnet: null
+    volumes:
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S6-model\harness
+        target: /s6h
+        read_only: true
+        bind: {}
+      - type: volume
+        source: proxy_log
+        target: /log
+        volume: {}
+    depends_on:
+      mock-provider:
+        condition: service_started
+        required: true
+  outside:
+    command:
+      - sleep
+      - infinity
+    image: mandate-mitm:wave3
+    labels:
+      mandate.role: test-fixture
+    networks:
+      edge: null
+  pep:
+    command:
+      - python
+      - /h/pep_s8.py
+    image: mandate-spike-py312:wave2
+    labels:
+      mandate.role: pep
+    networks:
+      pepnet: null
+      toolnet: null
+    volumes:
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S8-e2e\harness
+        target: /h
+        read_only: true
+        bind: {}
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S7-binding\harness
+        target: /s7h
+        read_only: true
+        bind: {}
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S2-cedar\config
+        target: /s2cfg
+        read_only: true
+        bind: {}
+      - type: volume
+        source: sec_pep
+        target: /secrets
+        read_only: true
+        volume: {}
+      - type: volume
+        source: pep_log
+        target: /log
+        volume: {}
+    depends_on:
+      backend:
+        condition: service_started
+        required: true
+  pki:
+    command:
+      - python
+      - /s7h/pki.py
+      - /out
+    image: mandate-spike-py312:wave2
+    labels:
+      mandate.oneshot: "true"
+      mandate.role: test-fixture
+    network_mode: none
+    volumes:
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S7-binding\harness
+        target: /s7h
+        read_only: true
+        bind: {}
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S8-e2e\runs\20261016T010134-run1
+        target: /out
+        bind: {}
+      - type: volume
+        source: sec_side_a
+        target: /vol/side_a
+        volume: {}
+      - type: volume
+        source: sec_side_b
+        target: /vol/side_b
+        volume: {}
+      - type: volume
+        source: sec_side_c
+        target: /vol/side_c
+        volume: {}
+      - type: volume
+        source: sec_term
+        target: /vol/term
+        volume: {}
+      - type: volume
+        source: sec_pep
+        target: /vol/pep
+        volume: {}
+      - type: volume
+        source: sec_harness
+        target: /vol/harness
+        volume: {}
+  sandbox:
+    cap_drop:
+      - ALL
+    command:
+      - sleep
+      - infinity
+    image: mandate-mitm:wave3
+    labels:
+      mandate.cell: s
+      mandate.role: agent
+    network_mode: service:cellside_s
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+    depends_on:
+      cellside_s:
+        condition: service_started
+        required: true
+  sidecar_a:
+    entrypoint:
+      - nginx
+      - -g
+      - daemon off;
+      - -c
+      - /etc/nginx-s7/nginx.conf
+    image: nginx@sha256:5616878291a2eed594aee8db4dade5878cf7edcb475e59193904b198d9b830de
+    labels:
+      mandate.cell: a
+      mandate.role: cell-netns-owner
+    networks:
+      cellnet_a: null
+    volumes:
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S7-binding\config\nginx-sidecar.conf
+        target: /etc/nginx-s7/nginx.conf
+        read_only: true
+        bind: {}
+      - type: volume
+        source: sec_side_a
+        target: /secrets
+        read_only: true
+        volume: {}
+    depends_on:
+      model-proxy:
+        condition: service_started
+        required: true
+      terminator:
+        condition: service_started
+        required: true
+  terminator:
+    entrypoint:
+      - nginx
+      - -g
+      - daemon off;
+      - -c
+      - /etc/nginx-s7/nginx.conf
+    image: nginx@sha256:5616878291a2eed594aee8db4dade5878cf7edcb475e59193904b198d9b830de
+    labels:
+      mandate.role: gateway
+    networks:
+      cellnet_a: null
+      pepnet: null
+    volumes:
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S7-binding\config\nginx-terminator.conf
+        target: /etc/nginx-s7/nginx.conf
+        read_only: true
+        bind: {}
+      - type: volume
+        source: sec_term
+        target: /secrets
+        read_only: true
+        volume: {}
+    depends_on:
+      pep:
+        condition: service_started
+        required: true
+networks:
+  cellnet_a:
+    name: s8e2e_cellnet_a
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.gateway_mode_ipv4: isolated
+      com.docker.network.bridge.gateway_mode_ipv6: isolated
+    internal: true
+    labels:
+      mandate.cell: a
+      mandate.role: execution-cell
+    enable_ipv6: false
+  cellnet_s:
+    name: s8e2e_cellnet_s
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.gateway_mode_ipv4: isolated
+      com.docker.network.bridge.gateway_mode_ipv6: isolated
+    internal: true
+    labels:
+      mandate.cell: s
+      mandate.role: execution-cell
+    enable_ipv6: false
+  edge:
+    name: s8e2e_edge
+    internal: true
+  pepnet:
+    name: s8e2e_pepnet
+    internal: true
+  provnet:
+    name: s8e2e_provnet
+    internal: true
+  toolnet:
+    name: s8e2e_toolnet
+    internal: true
+volumes:
+  backend_log:
+    name: s8e2e_backend_log
+  egress_log:
+    name: s8e2e_egress_log
+  pep_log:
+    name: s8e2e_pep_log
+  provider_log:
+    name: s8e2e_provider_log
+  proxy_log:
+    name: s8e2e_proxy_log
+  sec_harness:
+    name: s8e2e_sec_harness
+  sec_pep:
+    name: s8e2e_sec_pep
+  sec_side_a:
+    name: s8e2e_sec_side_a
+  sec_side_b:
+    name: s8e2e_sec_side_b
+  sec_side_c:
+    name: s8e2e_sec_side_c
+  sec_term:
+    name: s8e2e_sec_term
+  srv_log:
+    name: s8e2e_srv_log
+x-hardened:
+  cap_drop:
+    - ALL
+  read_only: true
+  security_opt:
+    - no-new-privileges:true
+  tmpfs:
+    - /tmp
+x-mandate-cell-network:
+  driver: bridge
+  driver_opts:
+    com.docker.network.bridge.gateway_mode_ipv4: isolated
+    com.docker.network.bridge.gateway_mode_ipv6: isolated
+  enable_ipv6: false
+  internal: true

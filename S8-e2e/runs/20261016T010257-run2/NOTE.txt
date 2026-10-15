@@ -1,0 +1,1 @@
+SUPERSEDED: 17/17 PASS, but this run predates the G0-checker negative control (C-G0-detects-unmediated-effect) and the one-to-one decision/effect counting. Kept as evidence; run3+ are the reference.

@@ -1,0 +1,35 @@
+C-provider-observes-direct           PASS          status=200 logged=1
+T1-anthropic-custom-tools            PASS          status=200 key=ok n=1
+T1b-anthropic-type-custom            PASS          status=200 key=ok n=1
+T1c-client-key-replaced              PASS          status=200 key=ok n=1
+T4-ctl-openai-function               PASS          status=200 key=ok n=1
+T1d-cell-sent-no-key                 PASS          
+T1e-canonical-body                   PASS          match=True
+T2-anthropic-web-search              PASS          status=400 provider_n=0 why=' "tool type not allowed: \'web_search_20260209\'"}'
+T2b-anthropic-mixed-tools            PASS          status=400 provider_n=0 why=' "tool type not allowed: \'web_search_20260209\'"}'
+T2c-anthropic-code-exec              PASS          status=400 provider_n=0 why=' "tool type not allowed: \'code_execution_20250825\'"}'
+T3-mcp-servers                       PASS          status=400 provider_n=0 why=' "top-level field(s) not allowed: [\'mcp_servers\']"}'
+T4-openai-web-search                 PASS          status=400 provider_n=0 why=' "tool type not allowed: \'web_search\'"}'
+T4b-openai-mcp                       PASS          status=400 provider_n=0 why=' "tool type not allowed: \'mcp\'"}'
+T4c-openai-no-type                   PASS          status=400 provider_n=0 why=' "tool type not allowed: None"}'
+T5-unknown-tool-type                 PASS          status=400 provider_n=0 why=' "tool type not allowed: \'future_tool_20990101\'"}'
+T5b-unknown-top-level                PASS          status=400 provider_n=0 why=' "top-level field(s) not allowed: [\'container\']"}'
+T5c-unknown-tool-field               PASS          status=400 provider_n=0 why=' "tool field(s) not allowed: [\'server_url\']"}'
+T6-duplicate-tools-key               PASS          status=400 provider_n=0 why=' "duplicate JSON key(s): [\'tools\']"}'
+T6b-duplicate-nested-type            PASS          status=400 provider_n=0 why=' "duplicate JSON key(s): [\'type\']"}'
+T6c-mixed-case-type                  PASS          status=400 provider_n=0 why=' "tool type not allowed: \'Custom\'"}'
+T6d-openai-mixed-case                PASS          status=400 provider_n=0 why=' "tool type not allowed: \'Function\'"}'
+T6e-escaped-key-name                 PASS          status=400 provider_n=0 why=' "tool type not allowed: \'web_search_20260209\'"}'
+T6f-key-with-space                   PASS          status=400 provider_n=0 why=' "top-level field(s) not allowed: [\'tools \']"}'
+T6g-tools-as-object                  PASS          status=400 provider_n=0 why=' "tools must be a list"}'
+T6h-top-level-array                  PASS          status=400 provider_n=0 why=' "top-level JSON must be an object"}'
+T6i-not-json                         PASS          status=400 provider_n=0 why=' "body is not UTF-8 JSON: JSONDecodeError"}'
+T6j-other-route                      PASS          status=400 provider_n=0 why=' "route not allowed: POST /v1/files"}'
+T6k-gzip-encoded-body                PASS          status=400
+T6l-gzip-even-if-benign              PASS          status=400
+T7-sse                               PASS          arrivals=[0.015, 0.615, 1.216, 1.816, 2.417]
+T8-cell-direct-provider              PASS          {"mock-provider": "gaierror: [Errno -3] Temporary failure in name resolution", "api.anthropic.com": "gaierror: [Errno -3] Temporary failure in name resolution"
+T8b-cell-direct-provider-ip          PASS          OSError [Errno 101] Network is unreachable
+T9-live-provider                     BLOCKED       needs API key + decision
+SUMMARY {'PASS': 32, 'BLOCKED': 1}
+driver_exit=0

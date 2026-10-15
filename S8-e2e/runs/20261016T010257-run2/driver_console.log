@@ -1,0 +1,19 @@
+C-observer-denied-srv                PASS          logged=2
+STEP-list-tools                      PASS          {'step': 'list_tools', 'tools': ['read_doc', 'read_hr', 'send_report']}
+STEP-allowed-read                    PASS          {'step': 'call:read_doc', 'is_error': False, 'text': ['quarterly figures (conf 2)']}
+STEP-denied-read                     PASS          {'step': 'call:read_hr', 'is_error': True, 'text': ['DENY (99a8652a76fb)']}
+STEP-approval-required               PASS          {'step': 'call:send_report', 'is_error': True, 'text': ['APPROVAL_REQUIRED: pending approval 3e285df3b7ad; not executed'
+STEP-unknown-tool                    PASS          
+STEP-sandbox-allowed                 PASS          {'code': '200', 'stderr': ''}
+STEP-sandbox-denied                  PASS          {'sandbox:allowed': {'code': '200', 'stderr': ''}, 'sandbox:denied': {'code': '403', 'stderr': ''}, 'sandbox:denied-connect': {'code': '000', 'stderr': 'curl: (56) CONNE
+STEP-model-allowed                   PASS          {'step': 'model:allowed', 'status': 200, 'body': '{"mock": true, "path": "/v1/messages"}'}
+STEP-model-server-tool               PASS          {'step': 'model:server_tool', 'status': 400, 'body': '{"error": "model-proxy rejected", "why": "tool type not allowed: \
+G0-coverage                          PASS          effects=4 uncovered=0 by_where=['allowed-srv', 'provider', 'tool-server']
+G0-positive-effects                  PASS          {'tool-server:read_doc': True, 'allowed-srv': True, 'provider': True}
+G0-zero-denied-effects               PASS          {'read_hr/send_report/drop_tables at tool server': 0, 'denied-srv contacts from egress': 0, 'provider requests with server tools': 0}
+G0-identity-binding                  PASS          bindings=6
+C-secrets-exist-elsewhere            PASS          
+G0-agent-holds-no-credentials        PASS          hits=[]
+G0-backend-no-agent-credential       PASS          requests=19
+SUMMARY {'PASS': 17}
+driver_exit=0

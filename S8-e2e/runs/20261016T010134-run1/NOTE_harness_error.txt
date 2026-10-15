@@ -1,0 +1,1 @@
+HARNESS ERROR (one check): STEP-sandbox-denied used 'curl -s' without -S, so curl's 'CONNECT tunnel failed, response 403' message was suppressed and the check saw empty stderr. The egress decision log shows the CONNECT to denied-srv was denied with 403; G0 checks (zero denied-srv contacts) passed. All other 16 checks PASS. Fixed (-S); re-run.

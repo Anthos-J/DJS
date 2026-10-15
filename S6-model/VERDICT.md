@@ -71,3 +71,21 @@ T9 is optional in the playbook (§8.2, not a gate blocker). It was **not attempt
 ```
 bash driver/run_s6.sh <label>
 ```
+
+---
+
+## Addendum (16 Oct): Content-Length defect found by S8, fixed, re-tested
+
+**Defect.** `model_addon.py` set `raw_content` to the canonical JSON without updating `Content-Length`.
+- If the canonical body was shorter, the provider waited for bytes that never came, and the client timed out.
+- If it was longer (non-ASCII escaped), the **provider read a truncated body**: it parsed something other than what the proxy checked.
+
+The original T1e only compared the logged body after the client gave up, so the earlier S6 runs (run3, run4) **passed T1e vacuously** on this point. Their other 31 results are unaffected. They are kept, not rewritten.
+
+| Run | Result |
+|---|---|
+| `20261016T005241-pre-fix-content-length` | Unchanged repeat (the driver edit had not applied); NOTE |
+| `20261016T005448-pre-fix-content-length-2` | Strengthened T1e (status must be 200) and new T1f (non-ASCII, canonical longer): **both FAIL** against the old addon. T1e: client TimeoutError. T1f: provider body truncated mid-escape, yet it returned 200. NOTE_defect |
+| **`20261016T005701-post-fix-run1`**, **`20261016T005849-post-fix-run2`** | After the fix (`content-length = len(canonical)`, `transfer-encoding` dropped): **33 PASS + T9 BLOCKED** each |
+
+The S6 status is unchanged: ledger 30 and 31 are LOCALLY REPRODUCED (mock).

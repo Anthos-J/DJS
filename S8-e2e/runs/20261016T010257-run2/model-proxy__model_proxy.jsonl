@@ -1,0 +1,2 @@
+{"ev": "forward", "api": "anthropic", "path": "/v1/messages", "n_tools": 0, "client_creds_dropped": [], "sha256": "a245ce286e59bc4ce811cfa0af117a30a1cdf375bdea93a23cba3a47f567b22b", "t": 1792092812.1383514}
+{"ev": "reject", "why": "tool type not allowed: 'web_search_20260209'", "path": "/v1/messages", "client_had_key": false, "t": 1792092812.1589525}

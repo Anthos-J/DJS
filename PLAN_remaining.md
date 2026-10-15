@@ -31,3 +31,5 @@ Execute **S5** (first in order; prerequisites met). S6, S4a and S8 follow in lat
 - 15 Oct: S5 executed (`65d800e`).
 - 16 Oct: S6 executed; S5 ledger 29 implemented and tested (v2).
 - **Next dependency-ready phase: S4a.** S8 follows.
+- 16 Oct: S4a executed (annotations frozen in `ab9108a`); S8 executed. S6 Content-Length defect found by S8, fixed, re-tested.
+- **All spikes have been executed locally.** Outstanding: second-machine clean rerun + independent review (EG-2/3/4/6/7); T9 / S4b decisions.
