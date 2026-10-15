@@ -1,0 +1,1 @@
+HARNESS ERROR / ABORTED: regression.sh bug - down_all() overwrote the R2 loop variable $f, so R2 deployed a nonexistent file and was refused for the wrong reason (checker_error). Run stopped mid-way; superseded by the next *-regression run.

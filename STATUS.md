@@ -7,7 +7,7 @@
 | Spike | Outcome | Highest status reached |
 |---|---|---|
 | **S0** Environment | **PASS** (15 Oct, after the user reinstalled Docker Desktop 4.95.0 / Engine 29.8.2; **rechecked 20:39 → PASS**, `runs/20261015T203952-recheck`; earlier images still present, so this is not a fresh engine). Earlier attempt: BLOCKED by the 4.68.0 startup crash. See `S0-env/VERDICT.md`. | Baseline recorded |
-| **S3** Cell isolation | **Playbook topology: FAIL** on T3. From the cell, the internal bridge's gateway IP exposes Docker Desktop VM host-namespace services (rpcbind TCP/UDP 111, plus a dynamic high TCP port). This was not shown to be an egress path. **Reproduced 3×.** **Remediation R1** (gateway mode `isolated` on cell networks): **all pass/fail criteria PASS** in 3 runs from full teardown (latest `runs/20261015T204359-R1-rerun3`). See `S3-isolation/VERDICT.md`. | R1: **LOCALLY REPRODUCED**. Baseline: FAIL. **Not SECURITY-TESTED.** |
+| **S3** Cell isolation | **Playbook topology: FAIL** on T3. From the cell, the internal bridge's gateway IP exposes Docker Desktop VM host-namespace services (rpcbind TCP/UDP 111, plus a dynamic high TCP port). This was not shown to be an egress path. **Reproduced 5×**; kept as regression fixture. **AM11 is now mandatory** (user decision, 15 Oct). The canonical profile `config/compose.cell.yaml`, deployed through the fail-closed gate `deploy_cells.sh`, passes **all pass/fail criteria** (46 PASS / 0 FAIL / 0 HARNESS-ERROR, `runs/20261015T210358-canonical`). The regression suite `harness/regression.sh` passes 0-failing (`runs/20261015T210203-regression`). See `S3-isolation/VERDICT.md`. | Canonical AM11 profile: **LOCALLY REPRODUCED**. Original topology: FAIL (regression fixture). **Not SECURITY-TESTED.** |
 | **S1** MCP PEP | **Executed.** Every pass/fail check passed in the second run. | LOCALLY REPRODUCED. See notes on INTEGRATION-VERIFIED. |
 | **S2** Cedar + SymCC | **Executed.** All pass/fail checks passed. | LOCALLY REPRODUCED |
 
@@ -103,16 +103,36 @@ Every negative probe is paired with a positive control, and all controls passed 
 |---|---|---|
 | 15 | No direct IPv4 egress | LOCALLY REPRODUCED (baseline and R1) |
 | 16 | No DNS resolution / exfiltration | LOCALLY REPRODUCED (pcap evidence) |
-| 17 | Host / gateway-IP services unreachable | **FAIL in playbook topology**; LOCALLY REPRODUCED with R1 |
+| 17 | Host / gateway-IP services unreachable | **FAIL in playbook topology**; LOCALLY REPRODUCED with the canonical AM11 profile (mandatory, gate-enforced) |
 | 18 | No IPv6 path | LOCALLY REPRODUCED (IPv6 disabled in cell; weak positive control) |
 | 19 | Sidecar secrets unreadable | LOCALLY REPRODUCED |
 | 20 | No NET_ADMIN / NET_RAW | LOCALLY REPRODUCED |
 | 21 | Cross-cell isolation | LOCALLY REPRODUCED |
 
 ### New design amendment
-- **AM11:** Cell networks **must** be `internal: true` **and** use bridge gateway mode `isolated` (`com.docker.network.bridge.gateway_mode_ipv4/ipv6: isolated`). A plain internal network exposes the container host's namespace services through the bridge address (S3-T3 baseline FAIL). A cell network must contain only the cell and the gateway (T9c).
+- **AM11 (MANDATORY since 15 Oct, user decision; enforced fail-closed by `S3-isolation/harness/cell_policy.py` via `deploy_cells.sh`; applies only to execution-cell networks):** Cell networks **must** be `internal: true` **and** use bridge gateway mode `isolated` (`com.docker.network.bridge.gateway_mode_ipv4/ipv6: isolated`). A plain internal network exposes the container host's namespace services through the bridge address (S3-T3 baseline FAIL). A cell network must contain only the cell and the gateway (T9c).
 
-### S3 per-criterion status after rerun 3 (15 Oct, 20:46)
+### S3 per-criterion status: canonical AM11 profile (15 Oct, 21:08), `runs/20261015T210358-canonical`
+
+| Criterion | Original topology (regression fixture) | **Canonical AM11 profile (gated)** | Evidence |
+|---|---|---|---|
+| Effective network settings | non-compliant (runtime checker exit 3) | **compliant** (static 0, runtime 0) | `cell_policy_runtime.json`. Internal=true; both modes `isolated`; EnableIPv6=false; no IPAM gateway; host `br-*` has no IPv4; members {sidecar, gateway} |
+| T1 IPv4 egress | PASS | **PASS** | no default route; 0 off-subnet packets |
+| T2 DNS | PASS | **PASS** | probe name 0× / control 1× in host-VM capture |
+| T3 host / gateway-IP | **FAIL** (TCP 111, 55953; UDP 111 at 172.19.0.1) | **PASS** | `.1` = gateway container, only 8080 open |
+| T4 IPv6 | PASS | **PASS** | weak positive control (no IPv6 anywhere) |
+| T5 approved gateway path | PASS | **PASS** | `gateway-ok` |
+| T6 sidecar secrets | PASS | **PASS** | |
+| T7 capabilities | PASS | **PASS** | control `privctl_a` (now on non-cell `ctlnet`) |
+| T8 metadata (local fixture) | PASS | **PASS** | real 169.254.169.254 never contacted |
+| T9 cross-cell | PASS | **PASS** | |
+| **Spike** | **FAIL** (by design; regression fixture) | **LOCALLY REPRODUCED** | No criterion BLOCKED. **Not SECURITY-TESTED** |
+
+Regression suite (R1 checker mutations 24/24; R2 bad profiles refused with nothing created; R3 baseline T3 failure reproduced and flagged; R4 canonical gated and full suite; R5 drift detected): **0 failing assertions**. Harness errors during this work (R2 loop-variable bug; one positive-control timeout) are recorded in `S3-isolation/VERDICT.md` items 6–7.
+
+Docker prerequisite (`runs/20261015T205246-prereq-gateway-mode`): Docker rejects `isolated` without `internal`, but silently accepts a **misspelled option key** (network keeps a host gateway). Hence the checker rejects unknown keys.
+
+### S3 per-criterion status after rerun 3 (15 Oct, 20:46): superseded by the canonical-profile table above
 
 | Criterion | Playbook topology (baseline) | R1 (AM11) | Evidence |
 |---|---|---|---|

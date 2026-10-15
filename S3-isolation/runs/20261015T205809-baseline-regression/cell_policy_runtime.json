@@ -1,0 +1,96 @@
+{
+ "mode": "runtime",
+ "compliant": false,
+ "violations": [
+  "container /s3iso-sidecar_a-1: shares its netns with /s3iso-agent_a-1 but is not labelled cell-netns-owner",
+  "container /s3iso-agent_a-1: uses NetworkMode container:... but is not labelled agent",
+  "container /s3iso-sidecar_b-1: shares its netns with /s3iso-agent_b-1 but is not labelled cell-netns-owner",
+  "container /s3iso-agent_b-1: uses NetworkMode container:... but is not labelled agent",
+  "container /s3iso-outside-1: missing/unknown mandate.role label (None)",
+  "container /s3iso-gateway-1: missing/unknown mandate.role label (None)",
+  "container /s3iso-mdfixture-1: missing/unknown mandate.role label (None)",
+  "container /s3iso-privctl_a-1: missing/unknown mandate.role label (None)",
+  "container /s3iso-neighbour_a2-1: missing/unknown mandate.role label (None)",
+  "owner /s3iso-sidecar_a-1: attached to s3iso_cellnet_a, which is not labelled execution-cell",
+  "owner /s3iso-sidecar_b-1: attached to s3iso_cellnet_b, which is not labelled execution-cell",
+  "s3iso_cellnet_a: effective com.docker.network.bridge.gateway_mode_ipv4 = None, required 'isolated'",
+  "s3iso_cellnet_a: effective com.docker.network.bridge.gateway_mode_ipv6 = None, required 'isolated'",
+  "s3iso_cellnet_a: IPAM has a host-side gateway address ['172.19.0.1']",
+  "s3iso_cellnet_a: host-side bridge br-9267b957461f carries IPv4 ['103: br-9267b957461f    inet 172.19.0.1/16 brd 172.19.255.255 scope global br-9267b957461f\\\\       valid_lft forever preferred_lft forever']",
+  "s3iso_cellnet_a: no gateway attached (approved route broken)",
+  "s3iso_cellnet_a: forbidden members ['/s3iso-privctl_a-1', '/s3iso-gateway-1', '/s3iso-neighbour_a2-1']",
+  "s3iso_cellnet_b: effective com.docker.network.bridge.gateway_mode_ipv4 = None, required 'isolated'",
+  "s3iso_cellnet_b: effective com.docker.network.bridge.gateway_mode_ipv6 = None, required 'isolated'",
+  "s3iso_cellnet_b: IPAM has a host-side gateway address ['172.18.0.1']",
+  "s3iso_cellnet_b: host-side bridge br-209abf96d941 carries IPv4 ['102: br-209abf96d941    inet 172.18.0.1/16 brd 172.18.255.255 scope global br-209abf96d941\\\\       valid_lft forever preferred_lft forever']",
+  "s3iso_cellnet_b: no gateway attached (approved route broken)",
+  "s3iso_cellnet_b: forbidden members ['/s3iso-gateway-1']"
+ ],
+ "facts": {
+  "networks": {
+   "s3iso_cellnet_a": {
+    "id": "9267b957461fc58c3518c3e593b09bc1d51668da9140311f620ceda1bce8e134",
+    "driver": "bridge",
+    "internal": true,
+    "enable_ipv6": false,
+    "options": {
+     "com.docker.network.enable_ipv4": "true",
+     "com.docker.network.enable_ipv6": "false"
+    },
+    "ipam": [
+     {
+      "Subnet": "172.19.0.0/16",
+      "Gateway": "172.19.0.1"
+     }
+    ],
+    "host_bridge": "br-9267b957461f",
+    "host_bridge_ipv4": [
+     "103: br-9267b957461f    inet 172.19.0.1/16 brd 172.19.255.255 scope global br-9267b957461f\\       valid_lft forever preferred_lft forever"
+    ],
+    "members": [
+     "gateway(None)",
+     "neighbour_a2(None)",
+     "privctl_a(None)",
+     "sidecar_a(cell-netns-owner)"
+    ]
+   },
+   "s3iso_cellnet_b": {
+    "id": "209abf96d9413021c8fcf4fbff491d1112cdab5b0f333c9ff8c97b4b6b4cd793",
+    "driver": "bridge",
+    "internal": true,
+    "enable_ipv6": false,
+    "options": {
+     "com.docker.network.enable_ipv4": "true",
+     "com.docker.network.enable_ipv6": "false"
+    },
+    "ipam": [
+     {
+      "Subnet": "172.18.0.0/16",
+      "Gateway": "172.18.0.1"
+     }
+    ],
+    "host_bridge": "br-209abf96d941",
+    "host_bridge_ipv4": [
+     "102: br-209abf96d941    inet 172.18.0.1/16 brd 172.18.255.255 scope global br-209abf96d941\\       valid_lft forever preferred_lft forever"
+    ],
+    "members": [
+     "gateway(None)",
+     "sidecar_b(cell-netns-owner)"
+    ]
+   }
+  },
+  "host_vm_ipv4_addrs": [
+   "1: lo    inet 127.0.0.1/8 scope host lo\\       valid_lft forever preferred_lft forever",
+   "2: services1    inet 192.168.65.6/32 scope global services1\\       valid_lft forever preferred_lft forever",
+   "3: eth0    inet 192.168.65.3/24 brd 192.168.65.255 scope global eth0\\       valid_lft forever preferred_lft forever",
+   "4: docker0    inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0\\       valid_lft forever preferred_lft forever",
+   "102: br-209abf96d941    inet 172.18.0.1/16 brd 172.18.255.255 scope global br-209abf96d941\\       valid_lft forever preferred_lft forever",
+   "103: br-9267b957461f    inet 172.19.0.1/16 brd 172.19.255.255 scope global br-9267b957461f\\       valid_lft forever preferred_lft forever",
+   "104: br-e7c97cabcbcc    inet 172.20.0.1/16 brd 172.20.255.255 scope global br-e7c97cabcbcc\\       valid_lft forever preferred_lft forever"
+  ],
+  "cell_networks": [
+   "s3iso_cellnet_a",
+   "s3iso_cellnet_b"
+  ]
+ }
+}

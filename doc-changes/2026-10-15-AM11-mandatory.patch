@@ -1,0 +1,60 @@
+--- a/03_Phase3_MANDATE_v3_Design_Dossier.md
++++ b/03_Phase3_MANDATE_v3_Design_Dossier.md
+@@ -8,6 +8,8 @@
+ > - mitmproxy serves both the egress PEP and the model route.
+ > - Egress decisions are made at destination level.
+ >
++> - **AM11 (S3 evidence): every execution-cell network MUST be `internal: true` AND use bridge gateway mode `isolated` (IPv4 and IPv6). It contains only the cell sidecar and the gateway, and is enforced by a fail-closed deploy check.** A plain internal network exposed Docker-host services through its bridge gateway address (S3-T3 FAIL). This tightens the Host gateway IP and Isolation rows below; the architecture is unchanged.
++>
+ > This document is otherwise unchanged.
+ *Scope: research and solution design only. No PPT, no prototype, no implementation code. Policy and schema fragments below are illustrative **specification** artifacts, not implementation.*
+ 
+@@ -347,7 +349,7 @@
+ | Code execution | Raw sockets / HTTP from user code | Separate sandbox container per session; network only via egress PEP; files inherit session labels | Covert timing (out of scope) |
+ | Browser | Navigations, form posts, image loads (EchoLeak-class) | Browser container egresses via egress PEP; page content = Untrusted; any request carrying agent-chosen data = sink | Without TLS interception (production), only destination-level control |
+ | **DNS** | Exfiltration via queries to attacker nameservers (**CVE-2024-29018** for Docker internal networks) | Cell and sandbox resolver point to a gateway-controlled resolver that answers only gateway names; explicit DNS-exfil test | — |
+-| Host gateway IP | Docker internal networks can still reach the gateway IP | Nothing exposed on that interface; firewall rule; tested | — |
++| Host gateway IP | Docker internal networks can still reach the gateway IP (**confirmed by S3: rpcbind 111 and a dynamic port in the Docker Desktop VM were reachable**) | **AM11:** cell networks use bridge gateway mode `isolated`, so the host side has no address on the cell network. Enforced fail-closed by the deploy check; tested (S3, LOCALLY REPRODUCED) | — |
+ | **Model API** | Data sent to the provider; **provider-side tools** (hosted web fetch / search / remote MCP) execute *outside* our gateway | Pinned model route; request allowlist **strips provider-side tool declarations**; model route = sink with clearance | Provider retention (contractual) |
+ | Agent-to-agent (A2A) | Unmediated delegation | Delegation only via gateway endpoint (G6) | Implicit delegation through shared objects (G3c) |
+ | Memory / filesystem | Persistence of tainted context across sessions | Ephemeral cell (A7); mediated memory service with labels | — |
+@@ -896,7 +898,7 @@
+ | Not chosen as PEP | **agentgateway** (LF / AAIF) | ✔V CEL authorization on `mcp.tool.name` / target / JWT. ~ `mcp.tool.arguments` at authorization time contested across doc versions. ✔V results only available in access logs. | Would need custom Rust code for G3 | Apache-2.0 (per project) | Cannot update labels before delivery |
+ | HTTP egress PEP | **mitmproxy** addon (TLS interception inside our sandboxes) | ✔V request hook can return a synthetic response (`http-reply-from-proxy` example) | Label checks, budgets, redirect re-checks | MIT (verify) | Prototype only |
+ | Production egress | Smokescreen-style CONNECT proxy, or Envoy/Cilium L7 | ✔V Smokescreen: per-client (mTLS CN) hostname ACLs, enforce/report modes, SSRF private-IP blocking, **no payload inspection** | Dynamic per-session ACL hook | MIT | Destination-only in production |
+-| Isolation | Docker Compose: internal networks + sidecar sharing the network namespace | ✔V `--internal`: "no default route… firewall rules… drop all traffic to or from other networks"; the gateway IP is still reachable. ✔V CVE-2024-29018 DNS forwarding (patched in Moby 26.0.0/25.0.4/23.0.11; Docker Desktop unaffected). | Topology, controlled DNS, bypass suite | Apache-2.0 | Windows host via Docker Desktop / WSL2 networking quirks → Spike S3 |
++| Isolation | Docker Compose: internal networks + sidecar sharing the network namespace | ✔V `--internal`: "no default route… firewall rules… drop all traffic to or from other networks"; the gateway IP is still reachable (**S3 confirmed host-service exposure; AM11 gateway mode `isolated` is mandatory for cell networks**). ✔V CVE-2024-29018 DNS forwarding (patched in Moby 26.0.0/25.0.4/23.0.11; Docker Desktop unaffected). | Topology, controlled DNS, bypass suite | Apache-2.0 | Windows host via Docker Desktop / WSL2 networking quirks → Spike S3 |
+ | Policy | **Cedar** (runtime via `cedarpy`) + **SymCC** in CI | ✔V default deny, forbid overrides, **skip-on-error**, determining policies. ✔V SymCC: never-errors / always-allows / always-denies / implies / equivalent / disjoint, verified in Lean, cvc5. ✔V cedarpy 4.8.7 (Jul 2026), community-maintained, Windows wheels. | Mandate → Cedar compiler; reference policies `Q_Gx` | Cedar Apache-2.0; cedarpy license to verify | Binding maintenance; CLI syntax for symcc to confirm (Spike S2) |
+ | Policy fallback | OPA / Rego | ✔V CNCF graduated; maintainers moved to Apple (2025); governance unchanged | Same | Apache-2.0 | No SMT analyzer equivalent |
+ | Session credential | JWT shaped like a Txn-Token + RFC 8705 `cnf` | ✔V Txn-Token draft-11 (WG, "waiting for write-up"): `txn`, `sub`, `scope`, `tctx`, `rctx`, `req_wl`; trust-domain-only. ✔V RFC 8705 binding semantics. | Task Broker | — | Low |
+--- a/04_Phase4_Prebuild_Validation_Playbook.md
++++ b/04_Phase4_Prebuild_Validation_Playbook.md
+@@ -5,8 +5,9 @@
+ 
+ > **Execution update (15 Oct 2026):**
+ > - S1 and S2 were executed. All their pass/fail checks passed, reaching LOCALLY REPRODUCED.
+-> - S0 and S3 are blocked: Docker Desktop fails to start.
+-> - New amendments AM8–AM10 were added.
++> - S0 passed after the Docker Desktop 4.95.0 reinstall.
++> - S3 **fails** in the topology specified below (T3: host-namespace services reachable through the internal bridge gateway IP). It passes with **AM11** (§2), which is now **mandatory** for every execution-cell network.
++> - Amendments AM8–AM10 are recorded in `validation/STATUS.md`.
+ >
+ > See [validation/STATUS.md](validation/STATUS.md). The ledger statuses in §7 below are the pre-execution baseline.
+ 
+@@ -71,6 +72,7 @@
+ | AM5 | All spikes and the prototype standardize on **`python:3.12` containers** | §1.1 | Environment |
+ | AM6 | The evaluation gains an **LLM-free ground-truth replay tier** (S4a) and a declared approval policy for automated runs | F9, F11 | v3 §13 |
+ | AM7 | Three spikes are added to the six: **S0** environment baseline, **S7** credential binding at the PEP, **S8** end-to-end integration smoke | §1 | §4 |
++| AM11 | **Mandatory for every MANDATE execution-cell network** in the reference deployment profile (not for unrelated networks): bridge driver, `internal: true`, `com.docker.network.bridge.gateway_mode_ipv4` **and** `_ipv6` = `isolated`, IPv6 off, no host-side gateway address. A cell network has exactly one member that owns the cell's network namespace (the sidecar) plus the gateway, and nothing else. Agents share the sidecar namespace and are hardened. Enforced fail-closed by `validation/S3-isolation/harness/cell_policy.py` before and after `up` (`deploy_cells.sh`). | S3-T3 baseline FAIL (3 reproductions); remediation passed in every run. Docker rejects `isolated` without `internal`, but **silently accepts a misspelled option key**, hence the checker | v3 §8 isolation rows; S3 topology below |
+ 
+ ---
+ 
+@@ -264,7 +266,7 @@
+ | Why it matters | A1 underpins every guarantee. If this fails, Mode M claims fail. |
+ | Dependencies | Docker Desktop (S0) or Linux Docker Engine ≥ 26; `nicolaka/netshoot` (dig / curl / nc / tcpdump [STD; verify image contents]) |
+ | Compose keys used | `networks.<n>.internal: true` [DOC]; `network_mode: "service:sidecar"` [DOC; cannot be combined with `networks`]; `cap_drop: [ALL]` [DOC]; `read_only: true` [DOC]; `security_opt: [no-new-privileges:true]` [DOC]; `dns:` [DOC] |
+-| Topology | `cellnet_a` (internal), `cellnet_b` (internal, second cell), `edge` (normal). `sidecar_a` on `cellnet_a`, holding `/secrets/cell.key` (dummy), listening on **127.0.0.1 only**. `agent_a` uses `network_mode: service:sidecar_a`, `cap_drop: ALL`, read-only, no-new-privileges. `gateway` on `cellnet_a`, `cellnet_b` and `edge` (simple HTTP echo). `outside` on `edge` only, for positive controls. Same pattern for cell B. |
++| Topology (amended by AM11) | Canonical file: `validation/S3-isolation/config/compose.cell.yaml`. It is deployed only through `harness/deploy_cells.sh`, which runs the AM11 checks and fails closed. The original topology described next is kept as a **regression fixture** (`config/compose.yaml`) that must keep reproducing the T3 failure. Original: `cellnet_a` (internal), `cellnet_b` (internal, second cell), `edge` (normal). `sidecar_a` on `cellnet_a`, holding `/secrets/cell.key` (dummy), listening on **127.0.0.1 only**. `agent_a` uses `network_mode: service:sidecar_a`, `cap_drop: ALL`, read-only, no-new-privileges. `gateway` on `cellnet_a`, `cellnet_b` and `edge` (simple HTTP echo). `outside` on `edge` only, for positive controls. Same pattern for cell B. |
+ 
+ **Tests** (each negative test is paired with a positive control from `outside`)
+ 

@@ -1,0 +1,98 @@
+# REGRESSION FIXTURE (must be REFUSED by deploy_cells.sh): canonical profile with the AM11 driver_opts removed from the template.
+# MANDATE execution-cell reference deployment profile: CANONICAL S3 topology (AM11 mandatory).
+# Deploy ONLY through harness/deploy_cells.sh. It runs harness/cell_policy.py before `up`
+# (static) and after `up` (effective `docker network inspect` / `docker inspect` state). It tears
+# the project down if either check fails (fail closed).
+#
+# AM11 invariant (enforced by cell_policy.py, not by this file):
+#   - every network labelled mandate.role=execution-cell uses the bridge driver, is internal: true,
+#     sets gateway_mode_ipv4 AND gateway_mode_ipv6 to isolated, has no IPv6 and no host-side gateway address;
+#   - its only members are ONE cell netns owner (sidecar) plus gateway(s);
+#   - agents share the sidecar's namespace (network_mode service:<sidecar>) and are hardened.
+# Networks NOT labelled execution-cell (edge, ctlnet) are deliberately left unconstrained.
+# Images are pinned by digest via .env (NETSHOOT_IMAGE, PY_IMAGE).
+name: s3iso
+
+x-netshoot: &netshoot
+  image: ${NETSHOOT_IMAGE}
+  command: ["sleep", "infinity"]
+
+# Reusable AM11 cell-network template. Every execution-cell network merges it (<<: *mandate_cell_network)
+# and adds its own labels. Docker rejects `isolated` on a non-internal network, but silently accepts a
+# misspelled option key (S3 prereq run). The checker therefore also rejects unknown driver_opts keys.
+x-mandate-cell-network: &mandate_cell_network
+  driver: bridge
+  internal: true
+  enable_ipv6: false
+
+x-agent-hardening: &agent_hardening
+  cap_drop: [ALL]
+  read_only: true
+  security_opt: ["no-new-privileges:true"]
+  tmpfs: ["/tmp"]
+
+networks:
+  cellnet_a:
+    <<: *mandate_cell_network
+    labels: {mandate.role: execution-cell, mandate.cell: a}
+  cellnet_b:
+    <<: *mandate_cell_network
+    labels: {mandate.role: execution-cell, mandate.cell: b}
+  edge: {}            # gateway uplink + positive-control network (not a cell network)
+  ctlnet:             # capability positive-control network (not a cell network; no egress needed)
+    internal: true
+
+services:
+  # Intended path from the cell: the gateway is the only peer reachable on cellnet_*.
+  gateway:
+    image: ${PY_IMAGE}
+    command: ["sh", "-c", "mkdir -p /srv && echo gateway-ok > /srv/echo && cd /srv && exec python -m http.server 8080"]
+    labels: {mandate.role: gateway}
+    networks: [cellnet_a, cellnet_b, edge]
+
+  # Cell A: the sidecar owns the network namespace, holds a dummy secret, and listens on loopback only.
+  sidecar_a:
+    <<: *netshoot
+    command: ["sh", "-c", "mkdir -p /secrets && echo DUMMY-CELL-KEY-A-91c2 > /secrets/cell.key && exec socat TCP-LISTEN:8081,bind=127.0.0.1,fork,reuseaddr SYSTEM:'echo sidecar_a_loopback'"]
+    labels: {mandate.role: cell-netns-owner, mandate.cell: a}
+    networks: [cellnet_a]
+
+  agent_a:
+    <<: [*netshoot, *agent_hardening]
+    labels: {mandate.role: agent, mandate.cell: a}
+    network_mode: "service:sidecar_a"
+    depends_on: [sidecar_a]
+
+  # Cell B: the sidecar listens on 0.0.0.0 so the cross-cell probe is meaningful.
+  sidecar_b:
+    <<: *netshoot
+    command: ["sh", "-c", "exec socat TCP-LISTEN:8081,fork,reuseaddr SYSTEM:'echo sidecar_b_open'"]
+    labels: {mandate.role: cell-netns-owner, mandate.cell: b}
+    networks: [cellnet_b]
+
+  agent_b:
+    <<: [*netshoot, *agent_hardening]
+    labels: {mandate.role: agent, mandate.cell: b}
+    network_mode: "service:sidecar_b"
+    depends_on: [sidecar_b]
+
+  # ---- test fixtures (never on a cell network; the checker rejects them there) ----
+  outside:
+    <<: *netshoot
+    labels: {mandate.role: test-fixture}
+    networks: [edge]
+
+  # Safe local stand-in for a metadata service (fake data only).
+  mdfixture:
+    image: ${PY_IMAGE}
+    command: ["sh", "-c", "mkdir -p /srv/latest/meta-data && echo FAKE-NOT-A-SECRET > /srv/latest/meta-data/token && cd /srv && exec python -m http.server 80"]
+    labels: {mandate.role: test-fixture}
+    networks: [edge]
+
+  # Positive control for the capability tests (NET_ADMIN/NET_RAW granted). Moved off cellnet_a:
+  # AM11 allows only the sidecar and the gateway on a cell network.
+  privctl_a:
+    <<: *netshoot
+    cap_add: [NET_ADMIN, NET_RAW]
+    labels: {mandate.role: test-fixture}
+    networks: [ctlnet]

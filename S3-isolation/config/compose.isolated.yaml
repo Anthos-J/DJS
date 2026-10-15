@@ -1,3 +1,4 @@
+# HISTORICAL (runs 20261015T193236..204359): first R1 remediation file. SUPERSEDED by compose.cell.yaml (canonical, labelled, gated).
 # S3 cell-isolation spike topology - REMEDIATION VARIANT R1: internal networks with gateway mode 'isolated'
 # Images are pinned by digest via .env (NETSHOOT_IMAGE, PY_IMAGE).
 name: s3iso

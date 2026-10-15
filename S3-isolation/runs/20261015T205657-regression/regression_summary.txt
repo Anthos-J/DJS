@@ -1,0 +1,10 @@
+MUTATION SUMMARY: 24/24 PASS
+PASS  R1  checker mutation suite (exit 0)
+R2-compose.yaml deploy_exit=3 containers_after=0
+PASS  R2-compose.yaml  deploy refused (exit 3) and nothing created (containers=0)
+R2-compose.yaml deploy_exit=3 containers_after=0
+PASS  R2-compose.yaml  deploy refused (exit 3) and nothing created (containers=0)
+R3 run: runs/20261015T205708-baseline-regression
+R3 FAIL set:  | HARNESS-ERROR: 
+FAIL  R3a  baseline reproduces exactly the T3 failure set (T3e T3f T3g), no harness errors
+PASS  R3b  runtime checker flags the baseline (exit 3; host-bridge IPv4 + missing isolated mode)

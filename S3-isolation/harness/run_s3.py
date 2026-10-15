@@ -50,6 +50,8 @@ dig_answer = lambda r: r["rc"] == 0 and "status: NOERROR" in r["stdout"] and "AN
 
 def ip_of(svc, net):
     cp = subprocess.run(["docker", "inspect", "-f", "{{json .NetworkSettings.Networks}}", f"s3iso-{svc}-1"], capture_output=True, text=True)
+    if cp.returncode != 0:
+        return None  # service not present in this topology
     nets = json.loads(cp.stdout)
     return nets[f"s3iso_{net}"]["IPAddress"]
 
@@ -189,8 +191,11 @@ probe("T9a-agent_a-to-sidecar_b", "agent_a", f"nc -w 3 {ctx['sidecar_b_ip']} 808
 probe("T9b-agent_b-to-own-sidecar-loopback-of-a", "agent_b", "nc -w 3 127.0.0.1 8081 </dev/null", "fail",
       lambda r: "sidecar_a_loopback" in r["stdout"], "C-T9-own-sidecar-loopback",
       note="loopback in cell B must not reach cell A's sidecar")
-probe("T9c-same-net-neighbour", "agent_a", f"nc -w 3 {ctx['neighbour_a2_ip']} 9000 </dev/null", "INFO",
-      lambda r: "neighbour_a2_open" in r["stdout"], note="informational: peers on the SAME internal network are reachable")
+if ctx["neighbour_a2_ip"]:
+    probe("T9c-same-net-neighbour", "agent_a", f"nc -w 3 {ctx['neighbour_a2_ip']} 9000 </dev/null", "INFO",
+          lambda r: "neighbour_a2_open" in r["stdout"], note="informational: peers on the SAME internal network are reachable")
+else:
+    print("T9c skipped: no neighbour_a2 in this topology (AM11 forbids extra members on a cell network; cell_policy.py enforces it)")
 
 (RUN / "context.json").write_text(json.dumps(ctx, indent=1))
 (RUN / "results.jsonl").write_text("\n".join(json.dumps(r) for r in results) + "\n")

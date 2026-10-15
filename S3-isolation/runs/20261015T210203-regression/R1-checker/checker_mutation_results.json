@@ -1,0 +1,204 @@
+[
+ {
+  "case": "control-canonical",
+  "expected": "compliant",
+  "violations": [],
+  "result": "PASS"
+ },
+ {
+  "case": "drop-gateway_mode_ipv4",
+  "expected": "gateway_mode_ipv4 = None",
+  "violations": [
+   "cell network cellnet_a: com.docker.network.bridge.gateway_mode_ipv4 = None, required 'isolated'"
+  ],
+  "result": "PASS"
+ },
+ {
+  "case": "drop-gateway_mode_ipv6",
+  "expected": "gateway_mode_ipv6 = None",
+  "violations": [
+   "cell network cellnet_b: com.docker.network.bridge.gateway_mode_ipv6 = None, required 'isolated'"
+  ],
+  "result": "PASS"
+ },
+ {
+  "case": "drop-all-driver_opts",
+  "expected": "gateway_mode_ipv4 = None",
+  "violations": [
+   "cell network cellnet_a: com.docker.network.bridge.gateway_mode_ipv4 = None, required 'isolated'",
+   "cell network cellnet_a: com.docker.network.bridge.gateway_mode_ipv6 = None, required 'isolated'"
+  ],
+  "result": "PASS"
+ },
+ {
+  "case": "ipv4-mode-nat",
+  "expected": "gateway_mode_ipv4 = 'nat'",
+  "violations": [
+   "cell network cellnet_a: com.docker.network.bridge.gateway_mode_ipv4 = 'nat', required 'isolated'"
+  ],
+  "result": "PASS"
+ },
+ {
+  "case": "misspelled-key (Docker accepts this silently)",
+  "expected": "unexpected driver_opt",
+  "violations": [
+   "cell network cellnet_a: com.docker.network.bridge.gateway_mode_ipv4 = None, required 'isolated'",
+   "cell network cellnet_a: unexpected driver_opt 'com.docker.network.bridge.gatway_mode_ipv4'"
+  ],
+  "result": "PASS"
+ },
+ {
+  "case": "internal-false",
+  "expected": "internal is not true",
+  "violations": [
+   "cell network cellnet_a: internal is not true"
+  ],
+  "result": "PASS"
+ },
+ {
+  "case": "internal-missing",
+  "expected": "internal is not true",
+  "violations": [
+   "cell network cellnet_b: internal is not true"
+  ],
+  "result": "PASS"
+ },
+ {
+  "case": "enable_ipv6-true",
+  "expected": "enable_ipv6 true",
+  "violations": [
+   "cell network cellnet_a: enable_ipv6 true (IPv6 cells are outside the validated profile)"
+  ],
+  "result": "PASS"
+ },
+ {
+  "case": "driver-not-bridge",
+  "expected": "!= bridge",
+  "violations": [
+   "cell network cellnet_a: driver 'macvlan' != bridge"
+  ],
+  "result": "PASS"
+ },
+ {
+  "case": "external-cell-network",
+  "expected": "external networks are not allowed",
+  "violations": [
+   "cell network cellnet_b: external networks are not allowed (settings cannot be verified pre-deploy)"
+  ],
+  "result": "PASS"
+ },
+ {
+  "case": "explicit-ipam-gateway",
+  "expected": "explicit IPAM gateway",
+  "violations": [
+   "cell network cellnet_a: explicit IPAM gateway 10.99.0.1 is not allowed"
+  ],
+  "result": "PASS"
+ },
+ {
+  "case": "cell-label-removed (opt-out attempt)",
+  "expected": "not labelled mandate.role=execution-cell",
+  "violations": [
+   "owner sidecar_a: joins network cellnet_a that is not labelled mandate.role=execution-cell"
+  ],
+  "result": "PASS"
+ },
+ {
+  "case": "role-labels-removed (opt-out attempt)",
+  "expected": "shares its network namespace with agent_a",
+  "violations": [
+   "service agent_a: missing/unknown mandate.role label (None)",
+   "service sidecar_a: missing/unknown mandate.role label (None)",
+   "service sidecar_a: shares its network namespace with agent_a but is not labelled cell-netns-owner",
+   "service agent_a: uses network_mode service:sidecar_a but is not labelled agent"
+  ],
+  "result": "PASS"
+ },
+ {
+  "case": "extra-member-on-cell-network",
+  "expected": "forbidden members ['outside']",
+  "violations": [
+   "cell network cellnet_a: forbidden members ['outside'] (only the cell sidecar and gateway allowed)"
+  ],
+  "result": "PASS"
+ },
+ {
+  "case": "gateway-removed-from-cell (breaks approved route)",
+  "expected": "no gateway member",
+  "violations": [
+   "cell network cellnet_a: no gateway member (the approved route would be broken)"
+  ],
+  "result": "PASS"
+ },
+ {
+  "case": "sidecar-also-on-edge",
+  "expected": "joins network edge",
+  "violations": [
+   "owner sidecar_a: joins network edge that is not labelled mandate.role=execution-cell",
+   "owner sidecar_a: joins 2 networks; a cell owner must join exactly one cell network",
+   "cell network edge: internal is not true",
+   "cell network edge: com.docker.network.bridge.gateway_mode_ipv4 = None, required 'isolated'",
+   "cell network edge: com.docker.network.bridge.gateway_mode_ipv6 = None, required 'isolated'",
+   "cell network edge: forbidden members ['mdfixture', 'outside'] (only the cell sidecar and gateway allowed)"
+  ],
+  "result": "PASS"
+ },
+ {
+  "case": "agent-joins-network-directly",
+  "expected": "must be service:<cell-netns-owner>",
+  "violations": [
+   "cell network cellnet_a: forbidden members ['agent_a'] (only the cell sidecar and gateway allowed)",
+   "agent agent_a: network_mode '' must be service:<cell-netns-owner>",
+   "agent agent_a: must not join networks directly"
+  ],
+  "result": "PASS"
+ },
+ {
+  "case": "agent-cap_drop-removed",
+  "expected": "cap_drop must include ALL",
+  "violations": [
+   "agent agent_a: cap_drop must include ALL"
+  ],
+  "result": "PASS"
+ },
+ {
+  "case": "agent-cap_add-NET_RAW",
+  "expected": "cap_add not allowed",
+  "violations": [
+   "agent agent_b: cap_add not allowed (['NET_RAW'])"
+  ],
+  "result": "PASS"
+ },
+ {
+  "case": "agent-not-read_only",
+  "expected": "read_only must be true",
+  "violations": [
+   "agent agent_a: read_only must be true"
+  ],
+  "result": "PASS"
+ },
+ {
+  "case": "agent-no-new-privileges-removed",
+  "expected": "no-new-privileges",
+  "violations": [
+   "agent agent_a: security_opt must include no-new-privileges:true"
+  ],
+  "result": "PASS"
+ },
+ {
+  "case": "agent-privileged",
+  "expected": "privileged not allowed",
+  "violations": [
+   "agent agent_b: privileged not allowed"
+  ],
+  "result": "PASS"
+ },
+ {
+  "case": "unlabelled-extra-service",
+  "expected": "service stray: missing/unknown",
+  "violations": [
+   "service stray: missing/unknown mandate.role label (None)"
+  ],
+  "result": "PASS"
+ }
+]

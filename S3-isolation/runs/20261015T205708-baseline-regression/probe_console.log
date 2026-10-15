@@ -1,0 +1,48 @@
+context: {'cellnet_a_gateway_ip': '172.20.0.1', 'sidecar_b_ip': '172.18.0.2', 'outside_ip': '172.19.0.3', 'mdfixture_ip': '172.19.0.2', 'neighbour_a2_ip': '172.20.0.4', 'dns_probe_cell': 's3probe-4c09cd4c-cell.example.com', 'dns_probe_ctl': 's3probe-4c09cd4c-ctl.example.com'}
+C-T1a-outside-https          PASS           rc=0 '200'
+C-T1b-outside-tcp1111        PASS           rc=0 ''
+C-T2a-outside-dig            PASS           rc=0 '; <<>> DiG 9.20.23 <<>> +time=3 +tries=1 s3probe-4c09cd4c-ctl.example.com\n;; global option'
+C-T2b-outside-dig-direct     PASS           rc=0 '; <<>> DiG 9.20.23 <<>> +time=3 +tries=1 @1.1.1.1 example.com\n; (1 server found)\n;; global'
+C-T3-outside-host-docker-internal PASS           rc=0 '192.168.65.254    host.docker.internal  host.docker.internal'
+C-T3-outside-proxy3128       INFO           rc=0 ''
+C-T5-outside-gateway         PASS           rc=0 'gateway-ok'
+C-T6-sidecar-reads-secret    PASS           rc=0 'DUMMY-CELL-KEY-A-91c2'
+C-T7a-privctl-iplink         PASS           rc=0 ''
+C-T7b-privctl-tcpdump        PASS           rc=0 "tcpdump: WARNING: any: That device doesn't support promiscuous mode\n(Promiscuous mode not "
+C-T8-outside-mdfixture       PASS           rc=0 'FAKE-NOT-A-SECRET'
+C-T9-own-sidecar-loopback    PASS           rc=0 'sidecar_a_loopback'
+C-T9-crosscell-ctl           PASS           rc=0 'sidecar_b_open'
+T1a-https-example            PASS           rc=6 '000'
+T1b-tcp-1.1.1.1-443          PASS           rc=1 ''
+T1c-tcp-8.8.8.8-53           PASS           rc=1 ''
+T1d-icmp-1.1.1.1             PASS           rc=2 ''
+T1e-edge-peer-outside        PASS           rc=1 ''
+T1f-routes                   INFO           rc=0 '172.20.0.0/16 dev eth0 proto kernel scope link src 172.20.0.3 \n1: lo: <LOOPBACK,UP,LOWER_U'
+T2a-dig-default              INFO           rc=0 '; <<>> DiG 9.20.23 <<>> +time=3 +tries=1 s3probe-4c09cd4c-cell.example.com\n;; global optio'
+T2a2-dig-resolvable-name     PASS           rc=0 '; <<>> DiG 9.20.23 <<>> +time=3 +tries=1 example.com\n;; global options: +cmd\n;; Got answer'
+T2b-dig-direct-1.1.1.1       PASS           rc=9 ';; UDP setup with 1.1.1.1#53(1.1.1.1) for example.com failed: network unreachable.\n;; no s'
+T2c-getent-example           PASS           rc=2 ''
+T2d-resolv-conf              INFO           rc=3221225794 ''
+T3a-resolve-desktop-names    INFO           rc=3221225794 ''
+T3b-connect-host             PASS           rc=3221225794 ''
+T3b-connect-gateway          PASS           rc=3221225794 ''
+T3b-connect-http             PASS           rc=3221225794 ''
+T3b-connect-kubernetes       PASS           rc=3221225794 ''
+T3b-connect-docker           PASS           rc=3221225794 ''
+T3c-proxy3128-egress         PASS           rc=3221225794 ''
+T3d-cellnet-gateway-ip       PASS           rc=3221225794 ''
+Traceback (most recent call last):
+  File "C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S3-isolation\harness\run_s3.py", line 137, in <module>
+    sub_a = json.loads(subprocess.run(["docker", "network", "inspect", "-f", "{{json .IPAM.Config}}", "s3iso_cellnet_a"],
+            ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                      capture_output=True, text=True).stdout)[0]["Subnet"]
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SEBIN\AppData\Local\Programs\Python\Python314\Lib\json\__init__.py", line 346, in loads
+    return _default_decoder.decode(s)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\SEBIN\AppData\Local\Programs\Python\Python314\Lib\json\decoder.py", line 345, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\SEBIN\AppData\Local\Programs\Python\Python314\Lib\json\decoder.py", line 363, in raw_decode
+    raise JSONDecodeError("Expecting value", s, err.value) from None
+json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)

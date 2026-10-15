@@ -1,0 +1,34 @@
+$ docker network create -o com.docker.network.bridge.gateway_mode_ipv4=isolated s3pre_v4_notinternal
+Error response from daemon: gateway mode 'isolated' can only be used for an internal network
+exit=1
+
+$ docker network create -o com.docker.network.bridge.gateway_mode_ipv6=isolated s3pre_v6_notinternal
+Error response from daemon: gateway mode 'isolated' can only be used for an internal network
+exit=1
+
+$ docker network create --ipv6 -o com.docker.network.bridge.gateway_mode_ipv6=isolated s3pre_v6on_notinternal
+Error response from daemon: gateway mode 'isolated' can only be used for an internal network
+exit=1
+
+$ docker network create --internal -o com.docker.network.bridge.gateway_mode_ipv4=isolated -o com.docker.network.bridge.gateway_mode_ipv6=isolated s3pre_internal_isolated
+c57eca501173fa2cc431a8f729ff11ba986b18954f1cba97f70dace5f3bce608
+exit=0
+
+$ docker network inspect -f {{.Internal}} {{json .Options}} {{json .IPAM.Config}} s3pre_internal_isolated
+true {"com.docker.network.bridge.gateway_mode_ipv4":"isolated","com.docker.network.bridge.gateway_mode_ipv6":"isolated","com.docker.network.enable_ipv4":"true","com.docker.network.enable_ipv6":"false"} [{"Subnet":"172.21.0.0/16"}]
+exit=0
+
+$ docker network create --internal -o com.docker.network.bridge.gateway_mode_ipv4=bogus s3pre_bogus
+Error response from daemon: failed to parse com.docker.network.bridge.gateway_mode_ipv4 value: bogus (unknown gateway mode bogus)
+exit=1
+
+cleanup: removed s3pre_internal_isolated
+$ docker network create --internal -o com.docker.network.bridge.gatway_mode_ipv4=isolated s3pre_typo
+f1cbb7585d4e609690f7a4bda506a8f1dd8c2329ed3aa851a0d78281d81806f9
+exit=0
+
+$ docker network inspect -f {{.Internal}} {{json .Options}} {{json .IPAM.Config}} s3pre_typo
+true {"com.docker.network.bridge.gatway_mode_ipv4":"isolated","com.docker.network.enable_ipv4":"true","com.docker.network.enable_ipv6":"false"} [{"Subnet":"172.21.0.0/16","Gateway":"172.21.0.1"}]
+exit=0
+
+cleanup: removed s3pre_typo

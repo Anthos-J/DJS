@@ -1,0 +1,112 @@
+name: s3iso
+services:
+  agent_a:
+    cap_drop:
+      - ALL
+    command:
+      - sleep
+      - infinity
+    image: nicolaka/netshoot@sha256:b09d9b21381f47a79b3cbcb30da25266dc17186ea00ae65e99fdc51396f48e70
+    network_mode: service:sidecar_a
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+    depends_on:
+      sidecar_a:
+        condition: service_started
+        required: true
+  agent_b:
+    cap_drop:
+      - ALL
+    command:
+      - sleep
+      - infinity
+    image: nicolaka/netshoot@sha256:b09d9b21381f47a79b3cbcb30da25266dc17186ea00ae65e99fdc51396f48e70
+    network_mode: service:sidecar_b
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    tmpfs:
+      - /tmp
+    depends_on:
+      sidecar_b:
+        condition: service_started
+        required: true
+  gateway:
+    command:
+      - sh
+      - -c
+      - mkdir -p /srv && echo gateway-ok > /srv/echo && cd /srv && exec python -m
+        http.server 8080
+    image: python@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
+    networks:
+      cellnet_a: null
+      cellnet_b: null
+      edge: null
+  mdfixture:
+    command:
+      - sh
+      - -c
+      - mkdir -p /srv/latest/meta-data && echo FAKE-NOT-A-SECRET > /srv/latest/meta-data/token
+        && cd /srv && exec python -m http.server 80
+    image: python@sha256:a6e34c598f2467ed0e9a8d349809fcd8b5c603269512df273a0bb1784edc11b1
+    networks:
+      edge: null
+  neighbour_a2:
+    command:
+      - sh
+      - -c
+      - exec socat TCP-LISTEN:9000,fork,reuseaddr SYSTEM:'echo neighbour_a2_open'
+    image: nicolaka/netshoot@sha256:b09d9b21381f47a79b3cbcb30da25266dc17186ea00ae65e99fdc51396f48e70
+    networks:
+      cellnet_a: null
+  outside:
+    command:
+      - sleep
+      - infinity
+    image: nicolaka/netshoot@sha256:b09d9b21381f47a79b3cbcb30da25266dc17186ea00ae65e99fdc51396f48e70
+    networks:
+      edge: null
+  privctl_a:
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    command:
+      - sleep
+      - infinity
+    image: nicolaka/netshoot@sha256:b09d9b21381f47a79b3cbcb30da25266dc17186ea00ae65e99fdc51396f48e70
+    networks:
+      cellnet_a: null
+  sidecar_a:
+    command:
+      - sh
+      - -c
+      - mkdir -p /secrets && echo DUMMY-CELL-KEY-A-91c2 > /secrets/cell.key && exec
+        socat TCP-LISTEN:8081,bind=127.0.0.1,fork,reuseaddr SYSTEM:'echo sidecar_a_loopback'
+    image: nicolaka/netshoot@sha256:b09d9b21381f47a79b3cbcb30da25266dc17186ea00ae65e99fdc51396f48e70
+    networks:
+      cellnet_a: null
+  sidecar_b:
+    command:
+      - sh
+      - -c
+      - exec socat TCP-LISTEN:8081,fork,reuseaddr SYSTEM:'echo sidecar_b_open'
+    image: nicolaka/netshoot@sha256:b09d9b21381f47a79b3cbcb30da25266dc17186ea00ae65e99fdc51396f48e70
+    networks:
+      cellnet_b: null
+networks:
+  cellnet_a:
+    name: s3iso_cellnet_a
+    internal: true
+  cellnet_b:
+    name: s3iso_cellnet_b
+    internal: true
+  edge:
+    name: s3iso_edge
+x-netshoot:
+  command:
+    - sleep
+    - infinity
+  image: nicolaka/netshoot@sha256:b09d9b21381f47a79b3cbcb30da25266dc17186ea00ae65e99fdc51396f48e70

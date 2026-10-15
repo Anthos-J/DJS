@@ -1,0 +1,3 @@
+compose=compose.yaml label=baseline-regression mode=regression-fixture
+engine=29.8.2
+Thu Oct 15 15:32:14 UTC 2026

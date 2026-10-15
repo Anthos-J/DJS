@@ -1,0 +1,18 @@
+Thu Oct 15 15:28:03 UTC 2026
+2e786059195026d3635760b2fac33b223838abe6
+ M config/compose.isolated.yaml
+ M config/compose.yaml
+ M harness/run_s3.py
+ M harness/run_variant.sh
+ M runs/LATEST
+?? config/compose.cell.yaml
+?? config/regression/
+?? harness/cell_policy.py
+?? harness/deploy_cells.sh
+?? harness/regression.sh
+?? harness/test_cell_policy.py
+?? runs/20261015T205246-prereq-gateway-mode/
+?? runs/20261015T205657-regression/
+?? runs/20261015T205708-baseline-regression/
+?? runs/20261015T205803-regression/
+engine=29.8.2

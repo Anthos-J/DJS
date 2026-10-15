@@ -1,0 +1,66 @@
+[
+    {
+        "Name": "s3iso_cellnet_a",
+        "Id": "03afff48cbb9ad32b5b8e24c6b969ad663f426d5f6ffbfeadb0faa178db1495c",
+        "Created": "2026-10-15T15:30:05.181521648Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.19.0.0/16"
+                }
+            ]
+        },
+        "Internal": true,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {
+            "com.docker.network.bridge.gateway_mode_ipv4": "isolated",
+            "com.docker.network.bridge.gateway_mode_ipv6": "isolated",
+            "com.docker.network.enable_ipv4": "true"
+        },
+        "Labels": {
+            "com.docker.compose.config-hash": "761d1409eb887fb6077abb9d5cbe6d0621a58984ed58f956b9007e630f50655b",
+            "com.docker.compose.network": "cellnet_a",
+            "com.docker.compose.project": "s3iso",
+            "com.docker.compose.version": "5.6.0",
+            "mandate.cell": "a",
+            "mandate.role": "execution-cell"
+        },
+        "Containers": {
+            "404bd6fb6aeba912abd3b45ad7520abbca6c4862fa9d285422136cc3a47dc95a": {
+                "Name": "s3iso-sidecar_a-1",
+                "EndpointID": "a5f2867da3ea8481d6893e1899cdfc9295a3cdacfbcbd1cc269690c92d8db7f4",
+                "MacAddress": "ca:26:a8:ae:d7:bf",
+                "IPv4Address": "172.19.0.1/16",
+                "IPv6Address": ""
+            },
+            "5efff81b1ced5f8e87510099efb6f0314aefd1134f734818a861502a26785052": {
+                "Name": "s3iso-gateway-1",
+                "EndpointID": "5ec14fefd75754445e5bc380bb2bb4bf7080182e79da0ed85c64b0a6dcea2edf",
+                "MacAddress": "7a:af:45:e1:8f:c2",
+                "IPv4Address": "172.19.0.2/16",
+                "IPv6Address": ""
+            }
+        },
+        "Status": {
+            "IPAM": {
+                "Subnets": {
+                    "172.19.0.0/16": {
+                        "IPsInUse": 4,
+                        "DynamicIPsAvailable": 65532
+                    }
+                }
+            }
+        }
+    }
+]

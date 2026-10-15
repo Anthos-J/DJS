@@ -1,0 +1,5 @@
+# sha256 of the design docs before (orig) and after the AM11 edit. The docs are outside version control; the .patch holds the diff.
+e4d952151060b8d760823ebdd1b431fdb42eeda3998e9377e290253a5933aadd *03_Phase3_MANDATE_v3_Design_Dossier.md (before)
+aa19791ff6e7a15a37e8600f006b9251ef420a2d8d2b6186469f595facbbe829 *04_Phase4_Prebuild_Validation_Playbook.md (before)
+8f0d98bf401bf0683fcd1d27f68a6ba0921d4e80f1c18185892d69fd80bc925d *03_Phase3_MANDATE_v3_Design_Dossier.md (after)
+6edc1a06bddc4eee8d81fc626bb860c8fc6cb905fc4744a5af8db188e8dc3c57 *04_Phase4_Prebuild_Validation_Playbook.md (after)

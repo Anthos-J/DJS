@@ -1,0 +1,11 @@
+{
+ "cellnet_a_gateway_ip": "",
+ "sidecar_b_ip": "172.20.0.1",
+ "outside_ip": "172.21.0.4",
+ "mdfixture_ip": "172.21.0.2",
+ "neighbour_a2_ip": null,
+ "dns_probe_cell": "s3probe-b59e1f68-cell.example.com",
+ "dns_probe_ctl": "s3probe-b59e1f68-ctl.example.com",
+ "dot1": "172.18.0.1",
+ "dot1_holder": "s3iso-gateway-1"
+}

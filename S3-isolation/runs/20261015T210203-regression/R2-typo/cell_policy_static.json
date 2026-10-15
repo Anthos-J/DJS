@@ -1,0 +1,20 @@
+{
+ "mode": "static",
+ "compliant": false,
+ "violations": [
+  "cell network cellnet_a: com.docker.network.bridge.gateway_mode_ipv4 = None, required 'isolated'",
+  "cell network cellnet_a: unexpected driver_opt 'com.docker.network.bridge.gatway_mode_ipv4'",
+  "cell network cellnet_b: com.docker.network.bridge.gateway_mode_ipv4 = None, required 'isolated'",
+  "cell network cellnet_b: unexpected driver_opt 'com.docker.network.bridge.gatway_mode_ipv4'"
+ ],
+ "facts": {
+  "cell_networks": [
+   "cellnet_a",
+   "cellnet_b"
+  ],
+  "unconstrained_networks": [
+   "ctlnet",
+   "edge"
+  ]
+ }
+}

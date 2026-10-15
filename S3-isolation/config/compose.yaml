@@ -1,3 +1,5 @@
+# REGRESSION FIXTURE - DO NOT DEPLOY. Original playbook topology (internal: true only). It MUST keep reproducing
+# the S3-T3 failure; it is run only by harness/regression.sh with mode regression-fixture (AM11 gate bypassed on purpose).
 # S3 cell-isolation spike topology (spike harness, not product code)
 # Images are pinned by digest via .env (NETSHOOT_IMAGE, PY_IMAGE).
 name: s3iso

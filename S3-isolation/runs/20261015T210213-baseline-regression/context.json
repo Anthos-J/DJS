@@ -1,0 +1,11 @@
+{
+ "cellnet_a_gateway_ip": "172.19.0.1",
+ "sidecar_b_ip": "172.20.0.2",
+ "outside_ip": "172.18.0.4",
+ "mdfixture_ip": "172.18.0.2",
+ "neighbour_a2_ip": "172.19.0.3",
+ "dns_probe_cell": "s3probe-4a625f34-cell.example.com",
+ "dns_probe_ctl": "s3probe-4a625f34-ctl.example.com",
+ "dot1": "172.19.0.1",
+ "dot1_holder": "host-side (bridge address)"
+}

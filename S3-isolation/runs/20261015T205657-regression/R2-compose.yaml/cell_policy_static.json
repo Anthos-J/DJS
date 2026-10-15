@@ -1,0 +1,5 @@
+{
+ "mode": "static",
+ "compliant": false,
+ "checker_error": "docker compose -p s3iso -f config/regression/compose.cell.compose.yaml.yaml --env-file config/.env config --format json -> rc=1: compose file \"C:\\\\Users\\\\SEBIN\\\\Desktop\\\\DJ SANGHVI\\\\validation\\\\S3-isolation\\\\config\\\\regression\\\\compose.cell.compose.yaml.yaml\" is invalid: open C:\\Users\\SEBIN\\Desktop\\DJ SANGHVI\\validation\\S3-isolation\\config\\regression\\compose.cell.compose.yaml.yaml: The system cannot find the file specified."
+}

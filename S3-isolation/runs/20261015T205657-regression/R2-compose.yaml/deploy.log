@@ -1,0 +1,4 @@
+static_check_exit=2
+REFUSED: static AM11 policy check failed (exit 2); nothing deployed
+static_check_exit=2
+REFUSED: static AM11 policy check failed (exit 2); nothing deployed

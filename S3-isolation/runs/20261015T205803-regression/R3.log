@@ -1,0 +1,22 @@
+SUMMARY {'FAIL': 4, 'PASS': 41, 'INFO': 9, 'HARNESS-ERROR': 1}
+C-T1a-outside-https          FAIL           rc=28 '000'
+T1a-https-example            HARNESS-ERROR  rc=6 '000'
+T3e-dot1-full-tcp-sweep      FAIL           rc=0 'Connection to 172.19.0.1 111 port [tcp/*] succeeded!\nConnection to 172.19.0.1 55953 port ['
+T3f-dot1-udp111              FAIL           rc=0 'Connection to 172.19.0.1 111 port [udp/*] succeeded!'
+T3g-any-ip-on-host-side      FAIL           rc=0 'Connection to 172.19.0.1 111 port [tcp/*] succeeded!'
+{
+ "host_vm_total": 245,
+ "host_vm_cell_dns_probe": 0,
+ "host_vm_ctl_dns_probe": 1,
+ "host_vm_pkts_from_cellnets": 54,
+ "host_vm_cell_pkt_destinations": [
+  "172.19.0.1",
+  "172.19.0.5"
+ ],
+ "cell_a_ip_packets": 17044,
+ "cell_a_offsubnet_dst_packets": 0,
+ "cell_a_offsubnet_sample": [],
+ "cell_a_ipv6_packets": 0
+}
+cellnet_a: {'subnet': '172.19.0.0/16', 'gateway': '172.19.0.1', 'options': {'com.docker.network.enable_ipv4': 'true', 'com.docker.network.enable_ipv6': 'false'}}
+RUN=runs/20261015T205809-baseline-regression
