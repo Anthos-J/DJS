@@ -651,3 +651,16 @@ E1, E2 and E3 are untouched. Acceptance criteria were fixed before the freeze (`
   - benign alert rate 0.094 (E4.1: 0.738).
 - **E2E with E4.2.1:** 17/17. **E2E with the default E2:** 13/13. AM11 exits 0. IPv6 check PASS (ULA positive control). Dependency lock: 69 hashed pins.
 - **Decision:** acceptance criteria F1–F9 PASS. Engineering is frozen.
+
+## UI release P1 (16 Oct 2026): judge-ready prototype on frozen engine E4.2.1. Record: `prototype/UI_RELEASE_P1.md`
+
+- **New:** judge console (`console/`) at http://127.0.0.1:8090. It provides 12 live journeys through the real PEP, approvals, investigations, audit explorer, owner recovery, recorded results and diagnostics.
+- **Launch:** `demo/launch.sh` selects E4.2.1 explicitly and runs the AM11 gates.
+- **Unchanged:** the engine, state, policy and configs match `FROZEN_E421.sha256`.
+- **Changed:** `control/server.py` (status fields, scoped registration) and `compose.yaml` (recovery passthrough). Both are recorded in `FROZEN_UI_P1.sha256`.
+- **Verified:**
+  - engine suites all OK;
+  - E2E 17/17 (E4.2.1) and 13/13 (default);
+  - console integration 18/18, including the clean-state judge setup and the extracted submission ZIP.
+- **Submission ZIP:** `validation/submission/MANDATE_E4.2.1_submission.zip`, kept out of git; its sha256 is in `submission_assets/zip_verification/README.md`.
+- **Owner sign-off:** PENDING (`OWNER_REVIEW_CHECKLIST_E421.md`). External-validation gates remain open.

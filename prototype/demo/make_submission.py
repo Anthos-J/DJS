@@ -41,7 +41,8 @@ for p in ["prototype/eval/runs/20261016T1800-E4.2.1-h5eval-s95x-run*/summary.jso
     add(p)
 
 files = sorted({f for f in files if not SKIP.search(f.as_posix())})
-secret = re.compile(rb"-----BEGIN (RSA |EC |OPENSSH |)PRIVATE KEY-----|sk-ant-|AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{30}")
+# built by concatenation so this file does not match its own patterns
+secret = re.compile(b"-----" + b"BEGIN (RSA |EC |OPENSSH |)PRIVATE KEY-----|" + b"sk-" + b"ant-|" + b"AK" + b"IA[0-9A-Z]{16}|" + b"gh" + b"p_[A-Za-z0-9]{30}")
 bad = [f for f in files if secret.search(f.read_bytes())]
 if bad:
     sys.exit(f"refusing to package possible secrets: {bad}")

@@ -2,3 +2,4 @@ demo/.console.pid
 demo/.meta.json
 demo/console.log
 demo/runs/
+e2e/runs/*-console/
