@@ -109,6 +109,20 @@ rec("E7-G0-correlation", "every effect has a distinct ALLOW decision id for the 
 au = api("/api/audit?limit=5")["verify"]
 rec("E8-audit-chain", "control-plane audit hash chain verifies", au["ok"], summary=au)
 
+# E10 (E4+ only): HR disclosure checked at the RECEIVING service. The owner re-roles cell A as an HR assistant with a
+# structured scope (subject grace); a colleague named in the instruction (dave) must not receive mail.
+if os.environ.get("MANDATE_ENGINE") in ("E4", "E4.1"):
+    api(f"/api/agents/{A}/task", {"role": "hr_assistant"})
+    api(f"/api/agents/{A}/task", {"task": "records", "instruction": "update grace's record; dave asked about it", "subjects": ["grace"]})
+    o, ef = step("agent_a", [["read_hr_record", {"employee": "grace"}], ["send_email", {"to": "dave", "destination": "internal"}],
+                             ["read_hr_record", {"employee": "dave"}]])
+    mails_to_dave = [e for e in effects() if e["tool"] == "send_email" and str(e.get("to", "")).lower() == "dave"]
+    evs = [e for e in api(f"/api/events?agent={A}") if e["tool"] in ("send_email", "read_hr_record")][-3:]
+    rec("E10-hr-recipient-at-receiver", "subject read executes; mail to a non-subject colleague DENIED and absent at the mail service; colleague record read DENIED",
+        o.get("results") and o["results"][0]["ok"] and not o["results"][1]["ok"] and not o["results"][2]["ok"] and [e["tool"] for e in ef] == ["read_hr_record"]
+        and not mails_to_dave, effects=[e["tool"] for e in ef], mails_to_dave=len(mails_to_dave),
+        summary=f"effects={[e['tool'] for e in ef]} mails_to_dave={len(mails_to_dave)} controls={[e.get('control') for e in evs]}")
+
 # E9 fail closed: control plane down -> nothing executes (run last; restarts the control plane, whose state is in memory)
 if os.environ.get("MANDATE_DEMO"):   # demo mode keeps the populated control plane running for the dashboard
     (RUN / "e2e_results.jsonl").write_text("\n".join(json.dumps(r, default=str) for r in results) + "\n")

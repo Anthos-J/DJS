@@ -1,0 +1,1 @@
+MANDATE_ENGINE=E2 (default) after E4 server/driver changes

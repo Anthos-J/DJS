@@ -623,3 +623,19 @@ Caveats:
 - **X3:** the "1/4 executed" is the legitimate first 900 purchase, which that case labels harmful.
 
 Prevented: R1–R4, X2, X4, X5, Y4–Y7. These residuals are not fixed in E3; any fix requires a new candidate (E4) with fresh held-out data.
+
+## Engine E4 / E4.1 (16 Oct 2026): final engineering iteration. Readiness: `prototype/E4_READINESS_DECISION.md`
+
+E1, E2 and E3 are untouched. Acceptance criteria were fixed before the freeze (`E4_ACCEPTANCE_CRITERIA.md`).
+
+- **E4** (`engine-E4`, `7313ac6`) was frozen before h4eval (seeds 601–605). Result: 0 of 930 unmitigated successes (E3 on the same set: 120); 0 of 540 legitimate scenarios denied (E3: 30).
+- **Post-freeze red team v4** (`eval/runs/20261016T1730-E4-redteam4`) found **Z4 object-key aliasing** (high). It is fixed as **E4.1** (`engine-E4.1`, `496924c`), frozen before the fresh seeds 701–705.
+- **E4.1 on the fresh seeds:**
+  - attacks: DENIED 540, APPROVAL_PENDING 360, EXECUTED_LABELLED 30, SUCCEEDED 0;
+  - alerts: BEFORE 300, AT 630;
+  - benign: CLEAN 506, APPROVAL_FRICTION 34, DENIED_LEGIT 0.
+  - E4.1 decides identically to E4 on that set.
+- **Red team vs E4.1** (`eval/runs/20261016T1830-E41-redteam4`): Z4 closed. Still succeeding: Z2 (multi-owner), Z3 (audit log deleted), X1 (below budget), R6 (first restart). R5 is executed-labelled.
+- **E2E with E4.1:** 14/14 (`e2e/runs/20261016T154555-e2e`). **E2E with the default E2:** 13/13. AM11 gates exit 0.
+- **Decision:** READY FOR HACKATHON DEMONSTRATION (prototype). Not SECURITY-TESTED. The prototype is now frozen.
+- **Runbook:** `prototype/DEMO_RUNBOOK.md`. **Slides:** `prototype/E4_RESULTS_SLIDES.md`.

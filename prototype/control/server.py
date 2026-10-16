@@ -13,7 +13,11 @@ from starlette.responses import JSONResponse, FileResponse
 from starlette.routing import Route, Mount
 from starlette.staticfiles import StaticFiles
 ENGINE_VERSION = os.environ.get("MANDATE_ENGINE", "E2")   # E3 is opt-in; default stays the validated E2 engine
-if ENGINE_VERSION == "E3":
+if ENGINE_VERSION == "E4.1":
+    from mandate.engine_e41 import Engine
+elif ENGINE_VERSION == "E4":
+    from mandate.engine_e4 import Engine
+elif ENGINE_VERSION == "E3":
     from mandate.engine_e3 import Engine
 elif ENGINE_VERSION == "E2":
     from mandate.engine import Engine
@@ -85,7 +89,8 @@ async def agent_task(req):
         if b.get("role"):
             ENGINE.change_role(aid, b["role"], by="owner-ui")
         if b.get("task"):
-            ENGINE.assign_task(aid, b["task"], b.get("instruction", ""), by="owner-ui")
+            scope = {k: b[k] for k in ("subjects", "requester") if b.get(k) is not None}   # owner-declared structured scope (E3+)
+            ENGINE.assign_task(aid, b["task"], b.get("instruction", ""), by="owner-ui", **scope)
     except ValueError as e:
         return J({"error": str(e)}, 400)
     return J(ENGINE.agents[aid])

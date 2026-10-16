@@ -1,0 +1,22 @@
+== test_engine
+OK
+== test_engine_e2
+OK
+== test_engine_e3
+OK
+== test_engine_e4
+OK
+== test_engine_e41
+OK
+== suites_vs_E3
+FAIL  test_engine_e2.test_R1_duplicate_purchases_stopped_by_budget_not_novelty   AssertionError: False is not true
+FAIL  test_engine_e2.test_R3_tainted_sensitive_flow_not_novelty   AssertionError: 'tainted_sensitive_flow' not found in ['after_authz_violation', 'untrusted_influence', 'impact']
+FAIL  test_engine_e2.test_R4_variant_ungrounded_amount_needs_approval   
+SUMMARY 19 / 22
+== suites_vs_E4
+FAIL  test_engine_e2.test_R1_duplicate_purchases_stopped_by_budget_not_novelty   AssertionError: False is not true
+FAIL  test_engine_e2.test_R3_tainted_sensitive_flow_not_novelty   AssertionError: 'tainted_sensitive_flow' not found in ['after_authz_violation', 'untrusted_influence', 'impact']
+FAIL  test_engine_e2.test_R4_variant_ungrounded_amount_needs_approval   
+FAIL  test_engine_e3.test_hr_recipient_must_be_subject   
+FAIL  test_engine_e3.test_hr_subject_grounded_in_instruction_when_not_declared   
+SUMMARY 39 / 44
