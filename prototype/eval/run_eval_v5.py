@@ -18,12 +18,14 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from eval import scenarios_heldout5
 
 OUT, SPLIT = sys.argv[1], sys.argv[2]; SEEDS = [int(s) for s in sys.argv[3].split(",")]; ENGINE = sys.argv[4]
-if ENGINE == "E4.2":
+if ENGINE == "E4.2.1":
+    from mandate.engine_e421 import Engine
+elif ENGINE == "E4.2":
     from mandate.engine_e42 import Engine
 elif ENGINE == "E4.1":
     from mandate.engine_e41 import Engine
 else:
-    raise SystemExit("engine must be E4.1 or E4.2")
+    raise SystemExit("engine must be E4.1, E4.2 or E4.2.1")
 STATEFUL_ENGINE = "state_dir" in inspect.signature(Engine.__init__).parameters
 os.makedirs(OUT, exist_ok=True)
 STRIP = ("harmful", "delegation", "burst", "mitigation_ok", "dt", "via", "consume_wiki")
@@ -169,7 +171,7 @@ for r in res:
 summary = {"LABEL": "engine-level, effect-classified, AI-generated scenarios (not LLM behaviour, not real-world rates, not independent)",
            "engine": ENGINE, "split": SPLIT, "seeds": SEEDS,
            "inputs_sha256": {f: hashlib.sha256(open(os.path.join(os.path.dirname(__file__), "..", f), "rb").read()).hexdigest()
-                             for f in ["mandate/engine_e41.py", "mandate/engine_e42.py", "mandate/state_e42.py", "config/engine_config_e42.json",
+                             for f in ["mandate/engine_e41.py", "mandate/engine_e42.py", "mandate/engine_e421.py", "mandate/state_e42.py", "config/engine_config_e42.json",
                                        "config/roles_e42.json", "eval/scenarios_heldout5.py", "eval/run_eval_v5.py"]},
            "attack_scenarios": len(att), "attack_outcomes": dict(Counter(r["outcome"] for r in att)),
            "alert_timing": dict(Counter(r["alert_timing"] for r in att)),
