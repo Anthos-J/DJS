@@ -133,7 +133,9 @@ async def audit(req):
 @need_owner
 async def evaluation(req):
     out = {}
-    for name, pat in [("heldout", "eval/runs/*heldout-run*/summary.json"), ("redteam", "eval/runs/*redteam*/redteam_results.json"),
+    for name, pat in [("heldout2_e2", "eval/runs/*E2-heldout2-run*/summary.json"), ("heldout2_e1", "eval/runs/*E1-on-heldout2/summary.json"),
+                      ("redteam_e2", "eval/runs/*redteam-E2/redteam_e2_results.json"),
+                      ("heldout", "eval/runs/*heldout-run*/summary.json"), ("redteam", "eval/runs/*redteam-E1/redteam_results.json"),
                       ("e2e", "e2e/runs/*/e2e_summary.json")]:
         files = sorted(glob.glob(str(ROOT / pat)))
         if files:

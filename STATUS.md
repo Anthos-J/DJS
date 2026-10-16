@@ -552,3 +552,42 @@ Met: EG-1, EG-5, EG-8 (emulation), EG-9 (local, scripted). **The full build stay
 | EG-8, EG-9 | met | — | — |
 
 **None of these gates is OWNER-ACCEPTED (PROTOTYPE) until the owner completes `OWNER_ACCEPTANCE.md`.**
+
+---
+
+## Engine E2 (16 Oct 2026): drift-detection corrections, heldout2 evaluation, red team v2
+
+**E1 preserved** at tag `engine-E1` (`f7e5eb5`). **E2 frozen** at tag `engine-E2` (`91eaf76`), **before** any heldout2 run.
+
+**E2 changes:**
+- Role-aware drift-alert rule: windowed deviation that departs from the declared task **and** from learned behaviour; it is reset by declared task/role changes, and quarantine still needs the accumulator.
+- Rate counter with declared per-role ceilings (the E1 rate factor was inert).
+- Per-tool effect budgets (fixes RT R6).
+- Tainted-sensitive-flow step-up (fixes R3 without relying on novelty).
+- Provenance labels for trusted-store writes under taint, inherited by readers (mitigates R5).
+- Owner-approved actions never update the baseline.
+- Per-decision stopping-control attribution.
+
+**Unit tests:** 22/22. The 9 new tests use **mature baselines**, so novelty cannot be the stopping control.
+
+**heldout2** (new pools, seeds 201–205; 480 attack and 240 benign scenarios):
+
+| | E1 | E2 |
+|---|---|---|
+| Attacks prevented | 330 | **420** |
+| Mitigated by provenance label | 0 | 30 |
+| Attacks succeeded | 150 | **30** (A11) |
+| Early warnings | 30 | 63 |
+| Benign clean | 215 | 207 |
+| Benign denials | 0 | 0 |
+| Benign quarantines | 0 | 0 |
+
+**Red team v2** (post-freeze, against E2):
+- **3/5 new attacks evade:** X1 sub-ceiling scraping; X3 substring-grounded duplicate purchases; X5 in-mandate HR misuse.
+- E1 R1–R4 are prevented. R5 is mitigated by its label. R6 executes 1 of 5 restarts.
+
+**E2E with E2:** 13/13 (`prototype/e2e/runs/20261016T123436-e2e`).
+
+**Benign breakdown:** no false denials. All non-clean benign scenarios are approval requests from three documented rules (see `PRB_TRACEABILITY.md`).
+
+Status of the prototype: see `PRB_TRACEABILITY.md`. **Not complete:** R1, R3, C6, C7, C10 and C11 are PARTIAL. Owner acceptance is pending.

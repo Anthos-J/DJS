@@ -21,8 +21,8 @@ Requirement-by-requirement status: `../PRB_TRACEABILITY.md`.
 | `pep/backend_proto.py` | **Mock** tool server, including a supplier-PDF injection fixture; logs every effect (independent observer); outbound effects are **simulated** |
 | `pep/agent_proto.py` | Scripted agent (**no LLM**) |
 | `compose.yaml`, `run_prototype.sh` | Topology (2 AM11 cells, terminator, PEP, tool server, control) and fail-closed deploy |
-| `tests/test_engine.py` | 13 unit tests (Part E categories) |
-| `eval/scenarios.py`, `eval/run_eval.py`, `eval/redteam.py` | Scenario generator (dev / held-out), evaluation, post-freeze red team |
+| `tests/test_engine.py`, `tests/test_engine_e2.py` | 13 + 9 unit tests (Part E categories; E2 controls with mature baselines) |
+| `eval/scenarios.py`, `eval/scenarios_heldout2.py`, `eval/run_eval.py` (E1), `eval/run_eval_v2.py` (E2), `eval/redteam.py`, `eval/redteam_e2.py` | Scenario generators (dev / heldout / heldout2), evaluations, post-freeze red teams |
 | `e2e/e2e_driver.py` | End-to-end scenarios through the real path |
 
 ## Prerequisites
@@ -50,7 +50,12 @@ Unit tests, in the pinned image:
 docker run --rm --network none -e PYTHONDONTWRITEBYTECODE=1 -v "$(cygpath -w "$(pwd)/.."):/v:ro" -w /v/prototype mandate-spike-py312:wave2 python -m unittest discover -s tests -v
 ```
 
-Held-out evaluation. The expected decision hash is `31a43c07…`:
+Held-out evaluation, engine E2 on heldout2. The expected decision hash is `8ebd0968…`:
+```bash
+docker run --rm --network none -e PYTHONDONTWRITEBYTECODE=1 -v "$(cygpath -w "$(pwd)/.."):/v" -w /v/prototype mandate-spike-py312:wave2 python eval/run_eval_v2.py /v/prototype/eval/runs/my-heldout2 heldout2 201,202,203,204,205
+```
+
+Historical E1 evaluation on held-out set 1 (check out tag `engine-E1` first). The expected decision hash is `31a43c07…`:
 ```bash
 docker run --rm --network none -e PYTHONDONTWRITEBYTECODE=1 -v "$(cygpath -w "$(pwd)/.."):/v" -w /v/prototype mandate-spike-py312:wave2 python eval/run_eval.py /v/prototype/eval/runs/my-heldout heldout 101,102,103,104,105
 ```
@@ -60,14 +65,14 @@ Stop:
 docker compose -f compose.yaml down -v
 ```
 
-## Results (see `../PRB_TRACEABILITY.md` for detail)
+## Results (engine E2; see `../PRB_TRACEABILITY.md`)
 
 | Check | Result |
 |---|---|
-| Unit tests | 13/13 |
+| Unit tests | 22/22 |
 | E2E | 13/13 |
-| Held-out attacks | **300/300 prevented** (180 denied, **120 only approval-gated**). **0/300 alerted before the harmful step** |
-| Held-out benign | 130/150 scenarios uninterrupted; 0 denials; 38/900 actions needed approval |
-| Post-freeze red team | **2/6 attacks succeeded** |
+| heldout2 attacks | **420/480 prevented** (210 deny, **210 approval-gated: they need a human to reject**); 30 executed but provenance-labelled; **30 succeeded (A11)**; 63 early warnings |
+| heldout2 benign | 207/240 clean; **0 denials**; 63/1170 actions needed approval; 0 quarantines |
+| Post-freeze red team v2 | **3/5 new attacks succeed** (X1, X3, X5) |
 
-The risk score is an ordinal index of documented factors, **not a probability**.
+E1 is reproducible at tag `engine-E1`. The risk score is an ordinal index of documented factors, **not a probability**.

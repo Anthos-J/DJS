@@ -1,0 +1,1 @@
+E1 engine/config/roles extracted from tag engine-E1 into prototype/eval/runs/e1tree (scratch copy, not evidence); scenarios + harness from E2 freeze.

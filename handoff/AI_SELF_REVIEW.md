@@ -32,3 +32,15 @@
 ## What this review cannot provide
 
 Independent judgement; a second machine; detection of blind spots shared between the builder and the reviewer.
+
+## E2 self-review (16 Oct)
+
+| # | Finding | Disposition |
+|---|---|---|
+| 15 | The E2 rules target attack *classes* known from the E1 red team; heldout2 instances are new, but the classes are not held-out | Stated in every E2 result; red team v2 written after the freeze |
+| 16 | Approval-gated preventions grew from 120 to 210 on heldout2: E2 shifts reliance onto human rejection | Reported separately |
+| 17 | Provenance labelling does not stop the poisoned write (A12/R5); it only taints readers | Counted as "mitigated", not "prevented" |
+| 18 | Substring grounding lets short numbers match (X3) | Recorded as an evasion; fix deferred to E3 |
+| 19 | The rate rule alerts but does not restrict reads (A11, 30/30 succeed) | Recorded |
+| 20 | The E1 red-team harness ignores provenance labels, so it reports R5 under E2 as "evaded" | Explained in the red-team output, STATUS and traceability |
+| 21 | Benign friction rose: clean completions went from 215 to 207 on heldout2 | Reported; 0 denials |

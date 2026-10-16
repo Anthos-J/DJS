@@ -51,7 +51,10 @@ async function refresh() {
   try {
     const m = await fetch("/api/meta").then(r => r.json());
     $("#meta").innerHTML = `engine ${esc(m.engine_config)} · Cedar ${m.cedar ? "loaded" : "<b class='DENY'>missing (fail closed)</b>"} · baseline: ${esc(m.baseline_source || "none loaded")}`;
-    if (!TOKEN) { $("#kpis").innerHTML = `<div class="empty">Enter the owner token to load data.</div>`; return; }
+    if (!TOKEN) {
+      for (const id of ["#kpis", "#agent-table", "#tl", "#alert-list", "#ap-list", "#dl", "#bl", "#ev", "#au"]) $(id).innerHTML = `<div class="empty">Enter the owner token (top right) to load data.</div>`;
+      return;
+    }
     const [agents, alerts, aps, evs] = await Promise.all([api("/api/agents"), api("/api/alerts"), api("/api/approvals"), api("/api/events?limit=400")]);
     const pend = aps.filter(a => a.status === "pending"); $("#apcount").textContent = pend.length || "";
     const by = r => evs.filter(e => e.response === r).length;
@@ -97,6 +100,19 @@ async function refresh() {
     }
     if (document.querySelector("#evaluation.on")) {
       const ev = await api("/api/eval"); let h = "";
+      const k2 = (s, label) => `<div class="card"><h3>${esc(label)} (engine ${esc(s.engine)}, split ${esc(s.split)}, seeds ${esc(s.seeds.join(","))})</h3>
+        <div class="kpis">${[["Attack scenarios", s.attack_scenarios], ["Prevented", s.prevented_total], ["…by deny", s.prevented_by_deny],
+          ["…by approval gate (needs human rejection)", s.prevented_only_by_approval_gate], ["Mitigated by provenance label", s.mitigated_by_provenance_label],
+          ["Succeeded", s.succeeded_unmitigated.length], ["Early warnings", s.attacks_with_early_warning], ["Benign clean", `${s.benign_completed_cleanly}/${s.benign_scenarios}`],
+          ["Benign approvals", s.benign_actions_approval], ["Benign denials", s.benign_actions_denied], ["Alert rate / benign action", s.benign_alert_rate_per_action]]
+          .map(([l, v]) => `<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div></div>`).join("")}</div>
+        <table style="margin-top:8px"><tr><th>Stopping control</th><th>Attacks</th></tr>${Object.entries(s.prevented_by_control || {}).map(([c, n]) => `<tr><td>${esc(c)}</td><td>${n}</td></tr>`).join("")}</table>
+        <p class="mute">${esc(s.LABEL)}. Remaining successful: ${esc([...new Set(s.succeeded_unmitigated.map(x => x.split("-")[0]))].join(", ") || "none")}</p></div>`;
+      if (ev.heldout2_e2) h += k2(ev.heldout2_e2.data, "Held-out set 2: current engine");
+      if (ev.heldout2_e1) h += k2(ev.heldout2_e1.data, "Held-out set 2: previous engine E1 (comparison)");
+      if (ev.redteam_e2) { const d = ev.redteam_e2.data; h += `<div class="card"><h3>Post-freeze adaptive red team against the current engine</h3><table><tr><th>Attack</th><th>Outcome</th></tr>
+        ${[...d.E1_cases_vs_E2, ...d.E2_cases].map(r => `<tr><td>${esc(r.id)}</td><td class="${r.harmful_executed ? "DENY" : "ALLOW"}"><b>${esc(r.outcome)}</b> (${r.harmful_executed}/${r.harmful_actions})</td></tr>`).join("")}</table>
+        <p class="mute">R5 executes but is provenance-labelled untrusted under E2 (readers inherit taint); the v1 red-team harness does not inspect labels.</p></div>`; }
       if (ev.heldout) { const s = ev.heldout.data; h += `<div class="card"><h3>Held-out evaluation (engine ${esc(s.inputs_sha256 ? "E1" : "")}, seeds ${esc(s.seeds.join(","))})</h3>
         <div class="kpis">${[["Attack scenarios", s.attack_scenarios], ["Prevented", s.attacks_prevented], ["…by deny", s.attacks_blocked_by_deny], ["…by approval gate only", s.attacks_only_approval_gated],
           ["Benign scenarios", s.benign_scenarios], ["Benign completed", s.benign_completed_without_intervention], ["Benign approvals", s.benign_actions_needing_approval],
