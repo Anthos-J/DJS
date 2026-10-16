@@ -1,0 +1,15 @@
+E1-normal-in-role                            PASS  ['search_suppliers', 'get_prices']
+E2-injection-hr-read-and-exfil               PASS  effects=['read_supplier_doc'] status=quarantined
+E2b-alert-explained                          PASS  alerts=2 top=50
+E3-resume-restores-work                      PASS  ['get_prices']
+E4a-approval-required                        PASS  [{'tool': 'create_purchase_request', 'ok': False, 'text': 'APPROVAL_REQUIRED: apr-f3ff124e pending owner approval (policy P step-up)'}]
+E4b-approved-once                            PASS  ['create_purchase_request']
+E5-delegation-chain-and-escalation           PASS  effects=['read_doc'] chain={'id': 'dlg-bf729ba4', 'chain': ['agent:cell-a'], 'root': 'owner'}
+E6a-cold-start-labelled                      PASS  low (cold start: role prior)
+E5b-escalation-quarantines-child             PASS  quarantined
+E6b-legitimate-task-change                   PASS  ['write_summary', 'send_email']
+E7-G0-correlation                            PASS  effects=8 uncovered=0
+E8-audit-chain                               PASS  {'ok': True, 'records': 23, 'head': 'cc36af8311ccb51d636b3d93da9279508216788e57c9ee74280407b1041b1a22'}
+E9-control-plane-down-fails-closed           PASS  [{'tool': 'get_prices', 'ok': False, 'text': 'DENY: control plane unreachable (fail closed)'}]
+SUMMARY 13 / 13
+e2e_exit=0

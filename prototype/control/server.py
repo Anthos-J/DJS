@@ -12,7 +12,13 @@ from starlette.applications import Starlette
 from starlette.responses import JSONResponse, FileResponse
 from starlette.routing import Route, Mount
 from starlette.staticfiles import StaticFiles
-from mandate.engine import Engine
+ENGINE_VERSION = os.environ.get("MANDATE_ENGINE", "E2")   # E3 is opt-in; default stays the validated E2 engine
+if ENGINE_VERSION == "E3":
+    from mandate.engine_e3 import Engine
+elif ENGINE_VERSION == "E2":
+    from mandate.engine import Engine
+else:
+    raise SystemExit(f"unknown MANDATE_ENGINE {ENGINE_VERSION!r}")
 
 ROOT = Path(__file__).resolve().parent.parent
 PEP_TOKEN = os.environ.get("MANDATE_PEP_TOKEN", "demo-pep-token")
