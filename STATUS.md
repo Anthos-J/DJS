@@ -487,3 +487,21 @@ Parity: 0 mismatches. Deny-all control: 57. **Caveat:** P2 was designed after se
 ### Blocked tests
 
 - **S6-T9 (live provider)** and **S4b (LLM-in-the-loop):** BLOCKED until you explicitly approve provider access and supply the configuration. Not attempted.
+
+---
+
+## Handoff (16 Oct 2026): prepared for independent validation; no security status changed
+
+There is no second computer available yet. Read-only audit: `handoff/AUDIT.md`. Guide: `REVIEWER_GUIDE.md`. Commands and sign-off: `CLEAN_MACHINE_CHECKLIST.md` (audited against the latest scripts and runs). No test was rerun, no evidence was modified, and Docker data was untouched. Nothing is SECURITY-TESTED.
+
+### Open entry gates and what closes each
+
+| Gate | Open items | Second machine | Independent reviewer | Engineering |
+|---|---|---|---|---|
+| EG-2 Confinement | Ledger 15–21 → SECURITY-TESTED | **yes** (S3) | **yes** | none required. Optional: an IPv6 bypass test needs an IPv6-capable environment |
+| EG-3 PEP interception | Ledger 5, 7 → SECURITY-TESTED | **yes** (S1) | **yes** | none required. AM12 (telemetry-off stripping) is a design decision, not a gate item |
+| EG-4 Credential binding | Ledger 23, 24 → SECURITY-TESTED | **yes** (S7) | **yes** | none |
+| EG-6 Egress | Ledger 26–28 → SECURITY-TESTED (29 is already INTEGRATION-VERIFIED with v2) | **yes** (S5 v2) | **yes** | none required. Known limits: TLS-record byte counting; ~20 s lingering cut connections |
+| EG-7 Model route | Ledger 30, 31 → SECURITY-TESTED | **yes** (S6) | **yes** | none required. T9 live provider is optional and BLOCKED pending an owner decision |
+
+Met: EG-1, EG-5, EG-8 (emulation), EG-9 (local, scripted). **The full build stays gated** (playbook §8) until EG-2, EG-3, EG-4, EG-6 and EG-7 close.

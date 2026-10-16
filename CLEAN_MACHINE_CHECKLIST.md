@@ -6,6 +6,8 @@
 
 Source commit for the rerun: the commit that contains this file. Record the hash in the sign-off.
 
+**Audited 16 Oct 2026 (handoff):** every command below exists at that commit, and every expected result equals the latest recorded run on the original machine. See `REVIEWER_GUIDE.md` and `handoff/AUDIT.md`.
+
 ## 0. Machine prerequisites (record every value)
 
 | Item | Requirement | Why |
@@ -13,6 +15,8 @@ Source commit for the rerun: the commit that contains this file. Record the hash
 | Machine | A different physical or virtual machine; Docker freshly installed or reset (no images from the original runs) | "Clean environment" |
 | Platform | **Preferred:** Windows 11 + Docker Desktop 4.95.0 / Engine 29.8.2 (WSL2), the same as the original, to *reproduce*. **Alternative:** Linux + Docker Engine ≥ 29: this produces **new platform-specific evidence**, not a reproduction. S3 behaviour (gateway mode, host-namespace services) is platform-specific | S3 claims are per platform |
 | Shell | Git Bash (Windows) or bash (Linux). On Linux: `export PATH="$PWD/validation/tools:$PATH"` (the `cygpath` shim) | Run scripts call `cygpath -w` |
+| Python bytecode | `export PYTHONDONTWRITEBYTECODE=1` before running anything | 15 `.pyc` files are tracked in git; without this they show as modified |
+| No second computer? | A **fresh VM** (Hyper-V / VirtualBox / cloud) with its own Docker install is a clean *environment*, but **not** independent hardware. Record this in the sign-off. Whether it is acceptable is the reviewer's decision | — |
 | Host Python | ≥ 3.10 on PATH as `python`, standard library only | Drivers and `cell_policy.py` run on the host |
 | Network | Internet for image builds and pulls only. Tests are local; no test contacts the internet or a real metadata/provider endpoint | — |
 | Disk | ≥ 15 GB free | Images and pcaps |
@@ -28,8 +32,13 @@ git clone <repo> && cd <repo>/validation && git checkout <commit>
 git log --oneline -1
 ```
 ```bash
-git tag -v s3-am11-local-repro || git show s3-am11-local-repro --stat | head -5
+git show s3-am11-local-repro --no-patch
 ```
+(The tag is annotated but **unsigned**; `git tag -v` will fail.) Then verify the evidence manifest, which is line-ending independent:
+```bash
+python tools/verify_manifest.py
+```
+Expected: `match_at_tag=297 mismatch_at_tag=0`, with 3 files changed since the tag (README.md, cell_policy.py, runs/LATEST). Do **not** use `sha256sum -c S3-isolation/EVIDENCE_MANIFEST.sha256` on a fresh clone: it hashed the original machine's working copy (CRLF/mixed line endings), so about 100 text files will falsely mismatch. Its original-machine result is in `handoff/manifest_check_original_machine.txt`.
 ```bash
 docker pull nicolaka/netshoot@sha256:b09d9b21381f47a79b3cbcb30da25266dc17186ea00ae65e99fdc51396f48e70
 ```
@@ -45,11 +54,16 @@ docker build -t mandate-spike-py312:wave2 images/spike-py312 > CLEAN_RERUN_build
 
 **Expected:** the build succeeds. The Cedar CLI hash check passes (`deb3a834…`, published). The cvc5 hash check passes (`1a1cda20…`). **The cvc5 pin is trust-on-first-use, not a published hash: the reviewer should decide whether to independently obtain and compare the cvc5 1.3.1 Linux static zip.**
 
-Then the mitmproxy image. `build.sh` checks the spike image ID. **On a new machine the ID will differ**, because image IDs are build-specific, so it will refuse to build. Record the new ID and build directly:
+Then the mitmproxy and AgentDojo images. Both `images/mitm/build.sh` and `images/agentdojo/build.sh` check the original spike image ID. **On a new machine the ID will differ**, because image IDs are build-specific, so they will refuse to build. Record the new IDs and build directly:
 ```bash
 docker build -t mandate-mitm:wave3 images/mitm
 ```
-**Expected:** mitmproxy 12.2.3, Python 3.12.15. Record both image IDs.
+```bash
+docker build -t mandate-agentdojo:wave5 images/agentdojo
+```
+**Expected:** mitmproxy 12.2.3 / Python 3.12.15; agentdojo 0.1.35. Record all three image IDs.
+
+Transitive Python dependencies are recorded (`pip freeze`) but **not hash-pinned**, so a later build may resolve newer transitive packages. Compare the `pip freeze` output with `images/*/image_manifest.txt` and `*/runs/*/pip_freeze.txt`, and record any differences.
 
 ## 2. Spikes, in this order
 
@@ -58,11 +72,13 @@ Run each command from `validation/<spike>/`. Record the exit code and the run di
 | # | Spike | Command | Expected result | Evidence produced (in the printed run dir) |
 |---|---|---|---|---|
 | 1 | S3 regression + canonical | `bash harness/regression.sh` | `REGRESSION: 0 failing assertion(s)`. R1 24/24 mutations; R2 typo and no-isolated refused (exit 3, 0 containers); **R3: the original topology still FAILS T3**, with T3e/T3f/T3g (platform-dependent: on Linux Engine this may differ, so record the actual result); R4 canonical 0 FAIL / 0 HARNESS-ERROR; R5 drift detected | `runs/*-regression/regression_summary.txt`, `R1-checker/…`, `*-baseline-regression/`, `*-canonical/` (results.jsonl, pcap/, pcap_analysis.json, cell_policy_*.json, host_vm_interfaces.txt, net_*.json) |
-| 2 | S1 in containers | `bash harness/run_container.sh clean1` (in `S1-pep/`) | All pass/fail checks PASS: T1–T4, T4-sweep, T6, T7 legacy/auto, T8, T8b-200, T10-rule. Recorded: T5 strip variants (`strip_rc_teloff` removes client keys; `strip_rc` leaks `traceparent`; `strip_msg` strips nothing), T9, T11 | `runs/*-container-clean1/results.jsonl`, backend_requests.jsonl, pep_*.jsonl, writes.log, pip_freeze.txt |
+| 2 | S1 in containers | `bash harness/run_container.sh clean1` (in `S1-pep/`) | **12 PASS + 12 RECORDED**, 0 FAIL. Pass/fail checks: T1–T4, T4-sweep, T6, T7 legacy/auto, T8, T8b-200, T10-rule. Recorded: T5 strip variants (`strip_rc_teloff` removes client keys; `strip_rc` leaks `traceparent`; `strip_msg` strips nothing), T9, T11 | `runs/*-container-clean1/results.jsonl`, backend_requests.jsonl, pep_*.jsonl, writes.log, pip_freeze.txt |
 | 3 | S7 credential binding | `bash driver/run_s7.sh clean1` (in `S7-binding/`) | AM11 gate exits 0/0. **38/38 PASS** | `runs/*-clean1/results.jsonl`, pep_log.jsonl, backend_requests.jsonl, nginx_logs.txt, pki_public.json (public data only) |
 | 4 | S5 v2 egress | `EGRESS_ADDON=egress_addon_v2.py bash driver/run_s5.sh clean1` (in `S5-egress/`) | AM11 gate 0/0. **27/27 PASS**, `verdict_no_dns_for_denied: PASS`. T7b: server receives 4 × 700,000 complete + 1 incomplete; T7c: 2 × 1,000,000 + 1 incomplete | `runs/*-clean1/results.jsonl`, allowed-srv.jsonl, denied-srv.jsonl (**only `outside` contacts**), egress_log.jsonl, pcap/, dns_analysis.json |
 | 4b | S5 control (expected to FAIL) | `EGRESS_ADDON=egress_addon_v2.py FORCE_SHOW_IGNORED_HOSTS=false bash driver/run_s5.sh clean-ctl` | **T7b/T7c/T7d FAIL**, and the server receives 3,500,000 bytes per test. This shows the observer detects leaks | same layout |
 | 5 | S6 model route | `bash driver/run_s6.sh clean1` (in `S6-model/`) | AM11 gate 0/0. **33 PASS + 1 BLOCKED (T9)**, including T1e/T1f (Content-Length fix) | `runs/*-clean1/results.jsonl`, provider_log.jsonl (**0 requests with forbidden markers; only the injected key**), model_proxy_log.jsonl |
+
+Optional: S2 (EG-5 is already met at LOCALLY REPRODUCED) `bash harness/run_container.sh clean1` in `S2-cedar/`: all pass/fail checks PASS, differential 9,216/9,216, 0 mismatches.
 
 Optional (not gate-relevant, but useful): S8 `S8_DRIVER=s8_driver_v2.py bash driver/run_s8.sh clean1` should give 27/27, and S4a `bash harness/run_s4a_v2.sh clean1` should give decision hashes `e69d6d61…` (baseline) and `acb29d3e…` (candidate). Both require `images/agentdojo` built.
 

@@ -1,0 +1,7 @@
+# sha256sum -c S3-isolation/EVIDENCE_MANIFEST.sha256 on the ORIGINAL machine's working copy, 2026-10-16T05:14:57Z, HEAD 2d4b4a09e5aeb7d8bc08cc75a8e6450cc7dfc5a1
+# Expected FAILED: the 3 files changed in later commits (config/README.md, harness/cell_policy.py: 0175cd8; runs/LATEST: later regression run).
+S3-isolation/config/README.md: FAILED
+S3-isolation/harness/cell_policy.py: FAILED
+S3-isolation/runs/LATEST: FAILED
+sha256sum: WARNING: 3 computed checksums did NOT match
+OK lines: 294 of 297

@@ -1,1 +1,1 @@
-- 16 Oct (Wave 6): S4a emulator defect fixed; candidate P2 measured (not adopted); S8 extended; CLEAN_MACHINE_CHECKLIST.md written (not executed).
+- 16 Oct (handoff): audit, reviewer guide, checklist corrections, blob-based manifest verifier. No reruns. Gates unchanged.
