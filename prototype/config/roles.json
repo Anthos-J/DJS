@@ -1,0 +1,61 @@
+{
+ "_about": "MANDATE prototype role catalogue (declared mandates). A tool's resource sensitivity: 0 public, 1 internal, 2 personal/financial, 3 restricted (HR salary). source=untrusted means the output can carry third-party content (indirect prompt injection vector). Destinations: 'internal' or an external host pattern.",
+ "tools": {
+  "search_suppliers":        {"class": "read",  "resource": "supplier_catalog", "sensitivity": 0, "source": "trusted"},
+  "get_prices":              {"class": "read",  "resource": "price_list", "sensitivity": 1, "source": "trusted"},
+  "read_supplier_doc":       {"class": "read",  "resource": "supplier_docs", "sensitivity": 1, "source": "untrusted"},
+  "create_purchase_request": {"class": "write", "resource": "purchase_requests", "sensitivity": 1, "consequential": ["supplier", "amount"], "impact": 2},
+  "send_email":              {"class": "send",  "resource": "email", "sensitivity": 1, "consequential": ["to"], "impact": 2},
+  "read_hr_record":          {"class": "read",  "resource": "hr_salary", "sensitivity": 3, "source": "trusted"},
+  "update_hr_record":        {"class": "write", "resource": "hr_salary", "sensitivity": 3, "consequential": ["employee"], "impact": 3},
+  "read_inbox":              {"class": "read",  "resource": "mailbox", "sensitivity": 1, "source": "untrusted"},
+  "web_search":              {"class": "fetch", "resource": "web", "sensitivity": 0, "source": "untrusted", "consequential": ["url"], "impact": 1, "ground_by_allowlist": true},
+  "read_doc":                {"class": "read",  "resource": "wiki", "sensitivity": 1, "source": "trusted"},
+  "write_summary":           {"class": "write", "resource": "wiki", "sensitivity": 1, "consequential": [], "impact": 1},
+  "read_logs":               {"class": "read",  "resource": "logs", "sensitivity": 1, "source": "untrusted"},
+  "query_metrics":           {"class": "read",  "resource": "metrics", "sensitivity": 0, "source": "trusted"},
+  "restart_service":         {"class": "write", "resource": "services", "sensitivity": 1, "consequential": ["service"], "impact": 2},
+  "deploy_release":          {"class": "write", "resource": "services", "sensitivity": 2, "consequential": ["service", "version"], "impact": 3},
+  "upload_file":             {"class": "send",  "resource": "files", "sensitivity": 2, "consequential": ["url"], "impact": 3},
+  "delegate_task":           {"class": "delegate", "resource": "agents", "sensitivity": 1, "consequential": ["child", "scopes"], "impact": 2}
+ },
+ "roles": {
+  "procurement": {
+   "description": "Checks supplier prices and creates purchase requests.",
+   "tools": ["search_suppliers", "get_prices", "read_supplier_doc", "create_purchase_request", "send_email", "delegate_task"],
+   "max_sensitivity": 1,
+   "destinations": ["internal", "*.supplier.example"],
+   "may_delegate_to": ["research"],
+   "tasks": {
+    "price_check": ["search_suppliers", "get_prices"],
+    "purchase": ["search_suppliers", "get_prices", "create_purchase_request", "send_email"],
+    "supplier_review": ["read_supplier_doc", "get_prices", "search_suppliers"],
+    "market_research": ["delegate_task", "search_suppliers"]
+   }
+  },
+  "hr_assistant": {
+   "description": "Answers HR questions and maintains employee records internally.",
+   "tools": ["read_hr_record", "update_hr_record", "read_inbox", "send_email"],
+   "max_sensitivity": 3,
+   "destinations": ["internal"],
+   "may_delegate_to": [],
+   "tasks": {"records": ["read_hr_record", "update_hr_record"], "inbox": ["read_inbox", "send_email", "read_hr_record"]}
+  },
+  "research": {
+   "description": "Searches public web sources and writes internal summaries.",
+   "tools": ["web_search", "read_doc", "write_summary", "send_email"],
+   "max_sensitivity": 1,
+   "destinations": ["internal", "*.public.example"],
+   "may_delegate_to": [],
+   "tasks": {"research": ["web_search", "read_doc", "write_summary"], "report": ["read_doc", "write_summary", "send_email"]}
+  },
+  "devops": {
+   "description": "Monitors services and performs routine operations.",
+   "tools": ["read_logs", "query_metrics", "restart_service", "deploy_release"],
+   "max_sensitivity": 2,
+   "destinations": ["internal"],
+   "may_delegate_to": [],
+   "tasks": {"monitor": ["read_logs", "query_metrics"], "operate": ["read_logs", "query_metrics", "restart_service"], "release": ["query_metrics", "deploy_release", "read_logs"]}
+  }
+ }
+}

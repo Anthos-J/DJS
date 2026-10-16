@@ -1,0 +1,1 @@
+"""MANDATE prototype package."""

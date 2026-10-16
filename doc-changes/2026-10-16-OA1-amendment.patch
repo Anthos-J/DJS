@@ -1,0 +1,19 @@
+--- a/04_Phase4_Prebuild_Validation_Playbook.md
++++ b/04_Phase4_Prebuild_Validation_Playbook.md
+@@ -102,6 +102,7 @@
+ 5. **Failures are recorded, never silently retried.** A flaky result is a FAIL until it is explained.
+ 6. **Simulation ≠ enforcement.** In-process decision emulation (S4) can never raise a *mediation* claim.
+ 7. **Two-person verdicts** for SECURITY-TESTED claims: one person runs the test, another reviews the artifacts.
++   *Amendment OA-1 (16 Oct 2026, owner-authorized; see `validation/WORKFLOW_AMENDMENT_OA1.md`): rule 7 still defines SECURITY-TESTED, but it no longer blocks the internal prototype-development workflow. Gates may close at OWNER-ACCEPTED (PROTOTYPE) after automated self-validation and explicit owner acceptance of residual risks. This is not an independent review.*
+ 
+ ### 3.3 Artifact layout (retain in git)
+ 
+@@ -513,6 +514,8 @@
+ - TLS-interception mode (S5-T9).
+ - SPIRE, Tessera, ContextForge evaluation, CAEP, native A2A, performance optimization.
+ 
++**OA-1 (owner-authorized, 16 Oct 2026).** For the internal prototype build, EG-2/3/4/6/7 may be satisfied at OWNER-ACCEPTED (PROTOTYPE) as defined in `validation/WORKFLOW_AMENDMENT_OA1.md`. Their security status remains SECURITY VALIDATION INCOMPLETE until a second-machine rerun and an independent review.
++
+ **Gate rule.** If EG-2 fails, **do not** compensate with a more elaborate diagram. Re-scope the claims to Mode G in the v3 claim matrix first, then decide whether to build.
+ 
+ ---
