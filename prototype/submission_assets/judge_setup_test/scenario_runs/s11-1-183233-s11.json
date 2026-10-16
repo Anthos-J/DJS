@@ -1,0 +1,75 @@
+{
+ "id": "s11",
+ "title": "Audit log removed: control plane refuses to start, PEP fails closed",
+ "started": 1792155736.3778555,
+ "steps": [
+  {
+   "t": 1792155736.37786,
+   "kind": "note",
+   "what": "DESTRUCTIVE (demo volume only): deletes /data/audit.jsonl inside the prototype's control_data Docker volume. Project evidence is not touched."
+  },
+  {
+   "t": 1792155740.2158263,
+   "kind": "infra",
+   "what": "control stopped; audit log removed from the demo volume",
+   "exit": 0,
+   "stderr": " Container mandate-control-run-ee3cbe0a35cd Creating \n Container mandate-control-run-ee3cbe0a35cd Created \n"
+  },
+  {
+   "t": 1792155747.8809927,
+   "kind": "evidence",
+   "what": "control-plane log tail",
+   "log": [
+    "control-1  | MANDATE control plane REFUSED TO START (fail closed): audit history missing or replaced: checkpoint expects record 52 with head cb4fd82cc691, audit has 0 records"
+   ]
+  },
+  {
+   "t": 1792155753.1737165,
+   "kind": "agent",
+   "what": "agent call while the control plane refuses to start",
+   "cell": "agent_a",
+   "calls": [
+    [
+     "get_prices",
+     {
+      "item": "valves"
+     }
+    ]
+   ],
+   "pep_results": [
+    {
+     "tool": "get_prices",
+     "ok": false,
+     "text": "DENY: control plane unreachable (fail closed)"
+    }
+   ],
+   "exception": null,
+   "tool_server_effects": []
+  },
+  {
+   "t": 1792155753.1737425,
+   "kind": "note",
+   "what": "Next: Recovery page -> 'Start in owner recovery mode', or Reset demo."
+  }
+ ],
+ "checks": [
+  {
+   "what": "control plane REFUSED to start with missing history",
+   "ok": true,
+   "observed": true
+  },
+  {
+   "what": "PEP denied (fail closed) and nothing executed",
+   "ok": true,
+   "observed": [
+    {
+     "tool": "get_prices",
+     "ok": false,
+     "text": "DENY: control plane unreachable (fail closed)"
+    }
+   ]
+  }
+ ],
+ "verdict": "PASS",
+ "finished": 1792155753.17376
+}

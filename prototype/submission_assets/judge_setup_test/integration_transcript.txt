@@ -1,0 +1,24 @@
+test_console_actions_need_csrf_header (__main__.T01Surface.test_console_actions_need_csrf_header) ... ok
+test_diagnostics (__main__.T01Surface.test_diagnostics) ... ok
+test_health_reports_real_engine (__main__.T01Surface.test_health_reports_real_engine) ... ok
+test_path_traversal_blocked (__main__.T01Surface.test_path_traversal_blocked) ... ok
+test_results_from_recorded_evidence (__main__.T01Surface.test_results_from_recorded_evidence) ... ok
+test_ui_served (__main__.T01Surface.test_ui_served) ... ok
+test_unknown_scenario (__main__.T01Surface.test_unknown_scenario) ... ok
+test_control_plane_requires_owner_token (__main__.T02AuthAndValidation.test_control_plane_requires_owner_token) ... ok
+test_hr_task_without_scope_refused_by_server (__main__.T02AuthAndValidation.test_hr_task_without_scope_refused_by_server) ... ok
+test_resolving_unknown_or_resolved_approval_fails (__main__.T02AuthAndValidation.test_resolving_unknown_or_resolved_approval_fails) ... ok
+test_status_change_requires_reason (__main__.T02AuthAndValidation.test_status_change_requires_reason) ... ok
+test_s01_to_s09 (__main__.T03Journeys.test_s01_to_s09) ... ok
+test_s05_approval_executes_exactly_once (__main__.T03Journeys.test_s05_approval_executes_exactly_once) ... ok
+test_s10_persistence (__main__.T03Journeys.test_s10_persistence) ... ok
+test_s12_control_down_and_service_unavailable (__main__.T03Journeys.test_s12_control_down_and_service_unavailable) ... ok
+test_proxy_reports_503_when_control_down (__main__.T04Unavailable.test_proxy_reports_503_when_control_down) ... ok
+test_s11_then_recovery_then_ack (__main__.T05AuditLossAndRecovery.test_s11_then_recovery_then_ack) ... ok
+test_reset_returns_to_baseline (__main__.T06Reset.test_reset_returns_to_baseline) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 166.454s
+
+OK
+RESULTS C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\prototype\console\tests\runs\20261016T183321\results.json

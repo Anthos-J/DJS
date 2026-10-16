@@ -50,7 +50,7 @@ services:
     labels: {mandate.role: control-plane}
     command: ["python", "/proto/control/server.py"]
     environment: {MANDATE_PEP_TOKEN: "${MANDATE_PEP_TOKEN:-demo-pep-token}", MANDATE_OWNER_TOKEN: "${MANDATE_OWNER_TOKEN:-demo-owner-token}",
-                  MANDATE_POLICY_DIR: /s2cfg, MANDATE_AUDIT: /data/audit.jsonl, MANDATE_ENGINE: "${MANDATE_ENGINE:-E2}", MANDATE_STATE_ANCHOR: /anchor/anchor.json, PYTHONDONTWRITEBYTECODE: "1"}
+                  MANDATE_POLICY_DIR: /s2cfg, MANDATE_AUDIT: /data/audit.jsonl, MANDATE_ENGINE: "${MANDATE_ENGINE:-E2}", MANDATE_STATE_ANCHOR: /anchor/anchor.json, MANDATE_RECOVERY: "${MANDATE_RECOVERY:-0}", PYTHONDONTWRITEBYTECODE: "1"}
     volumes: [".:/proto:ro", "../S2-cedar/config:/s2cfg:ro", "control_data:/data", "control_anchor:/anchor"]
     networks: [pepnet, mgmtnet]
     ports: ["127.0.0.1:8800:8800"]

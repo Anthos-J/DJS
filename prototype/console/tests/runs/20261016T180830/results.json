@@ -1,0 +1,13 @@
+{
+ "total": 18,
+ "passed": 17,
+ "failures": [
+  "test_reset_returns_to_baseline (__main__.T06Reset.test_reset_returns_to_baseline)"
+ ],
+ "errors": [],
+ "details": [
+  "Traceback (most recent call last):\n  File \"C:\\Users\\SEBIN\\Desktop\\DJ SANGHVI\\validation\\prototype\\console\\tests\\test_console_integration.py\", line 159, in test_reset_returns_to_baseline\n    st, r = action(\"/console/reset\"); self.assertEqual(st, 200); self.assertTrue(r[\"ok\"], r)\n                                                                 ~~~~~~~~~~~~~~~^^^^^^^^^^^^\nAssertionError: False is not true : {'ok': False, 'launcher_exit': 1, 'launcher': [], 'seeded': True, 'stderr': '<3>WSL (47849 - Relay) ERROR: CreateProcessCommon:800: execvpe(/bin/bash) failed: No such file or directory\\n'}\n"
+ ],
+ "started": 1792154178.1596346,
+ "finished": 1792154310.821009
+}

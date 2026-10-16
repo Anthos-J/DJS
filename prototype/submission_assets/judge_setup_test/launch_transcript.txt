@@ -1,0 +1,16 @@
+prototype containers and demo volumes removed
+== MANDATE demo launcher (engine E4.2.1)
+-- preflight
+   ok: docker, python, images, ports
+-- deploy (AM11 static gate -> up -> AM11 runtime gate; fail closed)
+   static_check_exit=0
+   up_exit=0
+   runtime_check_exit=0
+   RUN=e2e/runs/20261016T183007-console
+-- verify engine and readiness
+   control plane ready, engine E4.2.1
+   seed 200 agents=['agent:cell-a', 'agent:cell-b']
+-- console
+
+READY  ->  open http://127.0.0.1:8090
+Stop   ->  bash demo/stop.sh

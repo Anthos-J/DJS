@@ -79,7 +79,11 @@ async def decide(req):
 async def agents(req):
     if req.method == "POST":
         b = await req.json()
-        return J(ENGINE.register_agent(b["agent_id"], b["role"], owner=b.get("owner", "owner"), task=b.get("task"), instruction=b.get("instruction", "")))
+        scope = {k: b[k] for k in ("subjects", "requester") if b.get(k) is not None}   # UI-P1: structured HR scope on registration
+        try:
+            return J(ENGINE.register_agent(b["agent_id"], b["role"], owner=b.get("owner", "owner"), task=b.get("task"), instruction=b.get("instruction", ""), **scope))
+        except (ValueError, KeyError) as e:
+            return J({"error": str(e)}, 400)
     out = []
     for a in ENGINE.agents.values():
         bv = ENGINE.baseline_view(a["agent_id"])
@@ -192,7 +196,16 @@ async def seed(req):
 
 
 async def meta(req):
-    return J({"service": "mandate-control", "engine_config": ENGINE.cfg["version"], "cedar": ENGINE.P is not None,
+    st = getattr(ENGINE, "store", None)    # UI-P1: runtime mode, recovery and persistence status for the console
+    v = ENGINE.audit.verify()
+    return J({"service": "mandate-control", "engine": ENGINE_VERSION, "engine_config": ENGINE.cfg["version"], "cedar": ENGINE.P is not None,
+              "recovery": bool(getattr(ENGINE, "recovery", False)), "recovery_reason": getattr(ENGINE, "recovery_reason", None),
+              "persistence": {"state_dir": bool(st), "anchor": bool(st and st.anchor), "signed": bool(st and st.key),
+                              "findings": list(st.findings) if st else []},
+              "audit": {"ok": v["ok"], "records": len(ENGINE.audit.records)},
+              "counts": {"agents": len(ENGINE.agents), "pending_approvals": sum(1 for a in ENGINE.approvals.values() if a["status"] == "pending"),
+                         "quarantined": sum(1 for a in ENGINE.agents.values() if a["status"] == "quarantined"),
+                         "alerts": len(ENGINE.alerts), "decisions": len(ENGINE.events)},
               "baseline_source": SIMULATED["baseline_source"], "time": time.time(),
               "notes": ["Risk score is an ordinal 0-100 index of documented factors, not a probability.",
                         "Demo tokens; no production authentication.", "Agents in the demo are scripted (no LLM)."]})

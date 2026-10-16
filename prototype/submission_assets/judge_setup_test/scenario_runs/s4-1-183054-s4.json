@@ -1,0 +1,70 @@
+{
+ "id": "s4",
+ "title": "Owner resumes the agent with a reason",
+ "started": 1792155649.2551115,
+ "steps": [
+  {
+   "t": 1792155649.3445826,
+   "kind": "owner",
+   "what": "owner resumes agent A with a reason",
+   "request": "/api/agents/agent:cell-a/status",
+   "status": 200,
+   "response": {
+    "agent_id": "agent:cell-a",
+    "role": "procurement",
+    "status": "active",
+    "task": "price_check",
+    "task_instruction": "check valve prices from umbrella",
+    "subjects": [],
+    "requester": null,
+    "owner": "owner",
+    "created": 1792155631.1721773,
+    "history_n": 62
+   }
+  },
+  {
+   "t": 1792155654.678467,
+   "kind": "agent",
+   "what": "agent A resumes normal work",
+   "cell": "agent_a",
+   "calls": [
+    [
+     "get_prices",
+     {
+      "item": "valves"
+     }
+    ]
+   ],
+   "pep_results": [
+    {
+     "tool": "get_prices",
+     "ok": true,
+     "text": "{\"umbrella\": 41.5, \"stark\": 44.0}"
+    }
+   ],
+   "exception": null,
+   "tool_server_effects": [
+    {
+     "tool": "get_prices",
+     "decision_id": "dec-27289faa88"
+    }
+   ]
+  }
+ ],
+ "checks": [
+  {
+   "what": "owner resume accepted (reason recorded)",
+   "ok": true,
+   "observed": "active"
+  },
+  {
+   "what": "in-role call executes again",
+   "ok": true,
+   "observed": [
+    "get_prices"
+   ]
+  }
+ ],
+ "verdict": "PASS",
+ "finished": 1792155654.6786273
+}

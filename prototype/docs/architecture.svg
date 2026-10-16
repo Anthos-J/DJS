@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 520" font-family="Segoe UI, Arial, sans-serif" font-size="13">
+  <rect width="980" height="520" fill="#ffffff"/>
+  <text x="24" y="34" font-size="18" font-weight="700" fill="#141821">MANDATE prototype: runtime enforcement path (local Docker Desktop)</text>
+  <text x="24" y="54" fill="#5d6574">Every tool call from an agent cell passes the PEP; the PEP asks the control plane; effects happen only on ALLOW. Agents are scripted; tools are mocks.</text>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6 z" fill="#2f6fed"/></marker></defs>
+  <g stroke="#2f6fed" stroke-width="1.6" fill="none" marker-end="url(#a)">
+    <path d="M188 150 H238"/><path d="M378 150 H428"/><path d="M568 150 H618"/><path d="M688 190 V268"/><path d="M758 150 H808"/>
+    <path d="M190 410 H600" stroke-dasharray="5 4"/><path d="M670 410 V320" stroke-dasharray="5 4"/>
+  </g>
+  <g fill="#f5f8ff" stroke="#9db7f5">
+    <rect x="28" y="100" width="160" height="100" rx="10"/><rect x="238" y="100" width="140" height="100" rx="10"/>
+    <rect x="428" y="100" width="140" height="100" rx="10"/><rect x="618" y="100" width="140" height="90" rx="10"/>
+    <rect x="808" y="100" width="150" height="100" rx="10"/><rect x="590" y="270" width="200" height="120" rx="10" fill="#fff7e8" stroke="#e6b25c"/>
+    <rect x="28" y="360" width="162" height="100" rx="10" fill="#eef8f1" stroke="#7cc49b"/><rect x="820" y="270" width="140" height="120" rx="10" fill="#f6f6f8" stroke="#c4c9d2"/>
+  </g>
+  <g fill="#141821">
+    <text x="40" y="124" font-weight="700">Agent cells A / B</text><text x="40" y="144">scripted agents (no LLM)</text><text x="40" y="162">AM11: internal-only,</text><text x="40" y="180">no egress, no IPv6 route</text>
+    <text x="250" y="124" font-weight="700">Sidecar (per cell)</text><text x="250" y="144">adds bound JWT</text><text x="250" y="162">mTLS client cert</text><text x="250" y="180">(S7 binding)</text>
+    <text x="440" y="124" font-weight="700">mTLS terminator</text><text x="440" y="144">verifies cert ↔ token</text><text x="440" y="162">identity = cell</text>
+    <text x="630" y="124" font-weight="700">PEP</text><text x="630" y="144">asks control plane</text><text x="630" y="162">for every call;</text><text x="630" y="180">fails closed</text>
+    <text x="820" y="124" font-weight="700">Mock tool server</text><text x="820" y="144">executes only on ALLOW</text><text x="820" y="162">effect log = observer</text><text x="820" y="180">(outbound simulated)</text>
+    <text x="602" y="294" font-weight="700">Control plane (engine E4.2.1)</text><text x="602" y="314">Cedar policy P + mandate engine</text><text x="602" y="332">ALLOW / APPROVAL / DENY,</text><text x="602" y="350">quarantine, budgets</text><text x="602" y="368">hash-chained audit + checkpoint</text>
+    <text x="40" y="384" font-weight="700">Judge console :8090</text><text x="40" y="404">UI + /api proxy (owner)</text><text x="40" y="422">live scenarios via</text><text x="40" y="440">docker compose exec</text>
+    <text x="832" y="294" font-weight="700">Volumes</text><text x="832" y="314">control_data:</text><text x="832" y="332">audit, state</text><text x="832" y="350">control_anchor:</text><text x="832" y="368">anchor</text>
+  </g>
+  <text x="300" y="402" fill="#5d6574">owner API (approvals, status, scope, recovery)</text>
+  <text x="24" y="496" fill="#5d6574">Deploy: demo/launch.sh → AM11 static check → docker compose up → AM11 runtime check → engine check (E4.2.1) → seed → console.</text>
+</svg>
