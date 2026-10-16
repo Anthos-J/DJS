@@ -1,0 +1,78 @@
+[
+    {
+        "Name": "s3iso_cellnet_a",
+        "Id": "e6b630b8bf464fe71db5a0d79b1be6df9aeba89a6983bd069e901f0da0330287",
+        "Created": "2026-10-16T06:07:13.603860234Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.18.0.0/16",
+                    "Gateway": "172.18.0.1"
+                }
+            ]
+        },
+        "Internal": true,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {
+            "com.docker.network.enable_ipv4": "true",
+            "com.docker.network.enable_ipv6": "false"
+        },
+        "Labels": {
+            "com.docker.compose.config-hash": "42afde3dced653ace9dfcb4a30b8bd4b816e6416bd1d510d51783597d173bb8d",
+            "com.docker.compose.network": "cellnet_a",
+            "com.docker.compose.project": "s3iso",
+            "com.docker.compose.version": "5.6.0"
+        },
+        "Containers": {
+            "26f0c3ce7b6a2a1f462d4a3e8a5114202fae2e9703cb28f7c86f10d5c2d6ac85": {
+                "Name": "s3iso-privctl_a-1",
+                "EndpointID": "0df26c8283d5d218997b1647807df8d2a95ed2d55ccef2c23a33c2558d5b7739",
+                "MacAddress": "b6:15:cb:28:79:83",
+                "IPv4Address": "172.18.0.4/16",
+                "IPv6Address": ""
+            },
+            "91ad2a1dd763d0c308caae1e7084fa54f89b21cd261c2a922d491983b1aced54": {
+                "Name": "s3iso-gateway-1",
+                "EndpointID": "42fa4748e68b5787eb981b798ef762862cc80009e37ed02180d6fbcdee31b43d",
+                "MacAddress": "c2:4c:1e:89:e3:e2",
+                "IPv4Address": "172.18.0.3/16",
+                "IPv6Address": ""
+            },
+            "c7241ff65ec991bf3745cad6037c51aa68fc9c3ba60c81aad9e0b4d544fcb542": {
+                "Name": "s3iso-neighbour_a2-1",
+                "EndpointID": "cb8755215e11387da7c2aa21664cebd4f640f7e9b529e19d3c9b56d5c7a3d156",
+                "MacAddress": "46:78:02:4c:cf:ca",
+                "IPv4Address": "172.18.0.2/16",
+                "IPv6Address": ""
+            },
+            "dd86a94f0917d8f9f75cd90fd5065fd3e0be5f2f816d452bbe583c61ef8a6f40": {
+                "Name": "s3iso-sidecar_a-1",
+                "EndpointID": "cdeabe6e3b3979c1e17eec3da07a6c5764590d9215338c34619c5638a94915f8",
+                "MacAddress": "ae:95:a1:27:0b:45",
+                "IPv4Address": "172.18.0.5/16",
+                "IPv6Address": ""
+            }
+        },
+        "Status": {
+            "IPAM": {
+                "Subnets": {
+                    "172.18.0.0/16": {
+                        "IPsInUse": 7,
+                        "DynamicIPsAvailable": 65529
+                    }
+                }
+            }
+        }
+    }
+]

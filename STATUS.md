@@ -505,3 +505,50 @@ There is no second computer available yet. Read-only audit: `handoff/AUDIT.md`. 
 | EG-7 Model route | Ledger 30, 31 → SECURITY-TESTED | **yes** (S6) | **yes** | none required. T9 live provider is optional and BLOCKED pending an owner decision |
 
 Met: EG-1, EG-5, EG-8 (emulation), EG-9 (local, scripted). **The full build stays gated** (playbook §8) until EG-2, EG-3, EG-4, EG-6 and EG-7 close.
+
+---
+
+## OA-1 (16 Oct 2026): owner-authorized workflow; MANDATE prototype implemented
+
+**Workflow change:** `WORKFLOW_AMENDMENT_OA1.md`, playbook patch `doc-changes/2026-10-16-OA1-amendment.patch`.
+- A separate human reviewer **no longer blocks** internal prototype development.
+- Gates may close at **OWNER-ACCEPTED (PROTOTYPE)** after automated self-validation (conditions 1–6) plus explicit owner acceptance (condition 7, `OWNER_ACCEPTANCE.md`, **pending**).
+- SECURITY-TESTED keeps its playbook meaning; **no claim holds it**.
+- Statuses now used: LOCALLY REPRODUCED · INTEGRATION-VERIFIED · AUTOMATED SELF-VALIDATED · OWNER-ACCEPTED (PROTOTYPE) · SECURITY VALIDATION INCOMPLETE.
+
+### Prototype (`prototype/`; see `PRB_TRACEABILITY.md`)
+
+**Built:**
+- drift engine;
+- hash-chained audit;
+- control plane and dashboard;
+- PEP integration on AM11 cells with S7 binding;
+- mock tool server;
+- scripted agents;
+- held-out evaluation, red team and E2E.
+
+| Check | Result | Evidence |
+|---|---|---|
+| Unit tests | 13/13 | `prototype/tests/test_engine.py` (pinned spike image) |
+| Engine E1 frozen before held-out | commit `f7e5eb5`; `prototype/eval/FROZEN_E1.sha256` | — |
+| Held-out eval (seeds 101–105, disjoint pools), 2 runs | deterministic `31a43c07…`. Attacks: **300/300 prevented** (180 deny / **120 approval-gated only**); **0/300 alerted before the harmful step**. Benign: 130/150 uninterrupted, **0 denials**, 38/900 actions needing approval (4.2%) | `prototype/eval/runs/*heldout-run{1,2}` |
+| Post-freeze adaptive red team vs E1 | **2/6 evaded** (R5 wiki poisoning after a web read; R6 repeated in-task restarts). R1/R3/R4 were stopped only by novelty | `prototype/eval/runs/*-redteam-E1` |
+| E2E through the real PEP | **13/13**. Includes: the PDF scenario (HR read denied with a valid credential, exfil denied, agent quarantined, tool server saw 0 HR reads / 0 exfil mails); resume; one-time approval; delegation chain and escalation; cold-start label; legitimate task change; correlated G0 (8/8); audit chain; control-plane-down fail-closed | `prototype/e2e/runs/20261016T113333-e2e` |
+| Failed / errored runs kept | e2e `113125` (server bug), `113231` (E6b ordering), demo `113442` (syntax), red-team import error | NOTE files |
+
+**Changed validated component:** `S3-isolation/harness/cell_policy.py` gained the role `control-plane` (forbidden on cell networks), with a new mutation case (25/25). **OA-1 reruns on this machine (16 Oct):** S3 regression `S3-isolation/runs/20261016T113706-regression` 0 failing (25/25 mutations; baseline T3 failure reproduced again); S1 `S1-pep/runs/20261016T114046-container-oa1` 12 PASS + 12 RECORDED; S7 `S7-binding/runs/20261016T114107-oa1` 38/38; S5 v2 `S5-egress/runs/20261016T114251-oa1` 27/27 + DNS PASS; S6 `S6-model/runs/20261016T114509-oa1` 33 PASS + T9 BLOCKED.
+
+### Gate state under OA-1
+
+| Gate | Evidence level | OA-1 state | Security state |
+|---|---|---|---|
+| EG-1 | met | — | — |
+| EG-2 Confinement | LOCALLY REPRODUCED; S3 regression rerun | **AUTOMATED SELF-VALIDATED**: conditions 1–6 met (rerun, observers, controls, versions, integrity, self-review) | SECURITY VALIDATION INCOMPLETE |
+| EG-3 PEP interception | 1–4, 8 INTEGRATION-VERIFIED; 5, 7, 9 LOCALLY REPRODUCED | **AUTOMATED SELF-VALIDATED** | SECURITY VALIDATION INCOMPLETE |
+| EG-4 Credential binding | 22, 25 INTEGRATION-VERIFIED; 23, 24 LOCALLY REPRODUCED; also exercised in the prototype E2E | **AUTOMATED SELF-VALIDATED** | SECURITY VALIDATION INCOMPLETE |
+| EG-5 | met | — | — |
+| EG-6 Egress | 26–28 LOCALLY REPRODUCED, 29 INTEGRATION-VERIFIED (v2) | **AUTOMATED SELF-VALIDATED** | SECURITY VALIDATION INCOMPLETE. Not used by the prototype |
+| EG-7 Model route | 30, 31 LOCALLY REPRODUCED (mock) | **AUTOMATED SELF-VALIDATED** | SECURITY VALIDATION INCOMPLETE. T9 BLOCKED. Not used by the prototype |
+| EG-8, EG-9 | met | — | — |
+
+**None of these gates is OWNER-ACCEPTED (PROTOTYPE) until the owner completes `OWNER_ACCEPTANCE.md`.**

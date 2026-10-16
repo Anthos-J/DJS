@@ -57,6 +57,8 @@ CASES = [
     ("agent-no-new-privileges-removed", lambda d: delp(d, ["services", "agent_a", "security_opt"]), "no-new-privileges"),
     ("agent-privileged", lambda d: setp(d, ["services", "agent_b", "privileged"], True), "privileged not allowed"),
     ("unlabelled-extra-service", lambda d: setp(d, ["services", "stray"], {"image": "x", "networks": {"edge": None}}), "service stray: missing/unknown"),
+    ("control-plane-on-cell-network (added with the prototype)",
+     lambda d: setp(d, ["services", "ctl"], {"image": "x", "labels": {"mandate.role": "control-plane"}, "networks": {"cellnet_a": None}}), "forbidden members ['ctl']"),
 ]
 
 rows, ok = [], True

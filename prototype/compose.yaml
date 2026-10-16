@@ -1,0 +1,103 @@
+# MANDATE prototype: S3 (AM11 cells) + S7 (mTLS-bound credentials) + S1 PEP + drift engine control plane + dashboard.
+# Cell A: procurement agent  (identity agent:cell-a)   Cell B: research agent (identity agent:cell-b)
+# agent -> sidecar (cert + JWT) -> terminator (mTLS) -> PEP (binding + control decision, fail closed) -> tool server (mock)
+# Control plane (engine, API, UI) is on pepnet (for the PEP) and mgmtnet; UI published on 127.0.0.1:8800 only.
+# Deployed only through run_prototype.sh (AM11 static + runtime gate).
+name: mandate
+
+x-mandate-cell-network: &mandate_cell_network
+  driver: bridge
+  internal: true
+  enable_ipv6: false
+  driver_opts:
+    com.docker.network.bridge.gateway_mode_ipv4: isolated
+    com.docker.network.bridge.gateway_mode_ipv6: isolated
+
+x-agent: &agent
+  image: ${SPIKE_IMAGE}
+  command: ["sleep", "infinity"]
+  cap_drop: [ALL]
+  read_only: true
+  security_opt: ["no-new-privileges:true"]
+  tmpfs: ["/tmp"]
+  volumes: ["./pep:/p:ro"]
+
+x-sidecar: &sidecar
+  image: ${NGINX_IMAGE}
+  entrypoint: ["nginx", "-g", "daemon off;", "-c", "/etc/nginx-s7/nginx.conf"]
+  depends_on: [terminator]
+
+networks:
+  cellnet_a: {<<: *mandate_cell_network, labels: {mandate.role: execution-cell, mandate.cell: a}}
+  cellnet_b: {<<: *mandate_cell_network, labels: {mandate.role: execution-cell, mandate.cell: b}}
+  pepnet: {internal: true}
+  toolnet: {internal: true}
+  mgmtnet: {}          # owner UI access only (port bound to 127.0.0.1)
+
+volumes: {sec_side_a: {}, sec_side_b: {}, sec_side_c: {}, sec_term: {}, sec_pep: {}, sec_harness: {}, pep_log: {}, tool_log: {}, control_data: {}}
+
+services:
+  pki:
+    image: ${SPIKE_IMAGE}
+    network_mode: none
+    labels: {mandate.role: test-fixture, mandate.oneshot: "true"}
+    command: ["python", "/s7h/pki.py", "/out"]
+    volumes: ["../S7-binding/harness:/s7h:ro", "${RUN_DIR}:/out", "sec_side_a:/vol/side_a", "sec_side_b:/vol/side_b", "sec_side_c:/vol/side_c",
+              "sec_term:/vol/term", "sec_pep:/vol/pep", "sec_harness:/vol/harness"]
+
+  control:
+    image: ${SPIKE_IMAGE}
+    labels: {mandate.role: control-plane}
+    command: ["python", "/proto/control/server.py"]
+    environment: {MANDATE_PEP_TOKEN: "${MANDATE_PEP_TOKEN:-demo-pep-token}", MANDATE_OWNER_TOKEN: "${MANDATE_OWNER_TOKEN:-demo-owner-token}",
+                  MANDATE_POLICY_DIR: /s2cfg, MANDATE_AUDIT: /data/audit.jsonl, PYTHONDONTWRITEBYTECODE: "1"}
+    volumes: [".:/proto:ro", "../S2-cedar/config:/s2cfg:ro", "control_data:/data"]
+    networks: [pepnet, mgmtnet]
+    ports: ["127.0.0.1:8800:8800"]
+
+  backend:
+    image: ${SPIKE_IMAGE}
+    labels: {mandate.role: tool-server}
+    command: ["python", "/p/backend_proto.py"]
+    volumes: ["./pep:/p:ro", "tool_log:/log"]
+    networks: [toolnet]
+    depends_on: {pki: {condition: service_completed_successfully}}
+
+  pep:
+    image: ${SPIKE_IMAGE}
+    labels: {mandate.role: pep}
+    command: ["python", "/p/pep_proto.py"]
+    environment: {MANDATE_PEP_TOKEN: "${MANDATE_PEP_TOKEN:-demo-pep-token}", CONTROL_URL: "http://control:8800/api/decide"}
+    volumes: ["./pep:/p:ro", "../S7-binding/harness:/s7h:ro", "sec_pep:/secrets:ro", "pep_log:/log"]
+    networks: [pepnet, toolnet]
+    depends_on: [backend, control]
+
+  terminator:
+    image: ${NGINX_IMAGE}
+    labels: {mandate.role: gateway}
+    entrypoint: ["nginx", "-g", "daemon off;", "-c", "/etc/nginx-s7/nginx.conf"]
+    volumes: ["../S7-binding/config/nginx-terminator.conf:/etc/nginx-s7/nginx.conf:ro", "sec_term:/secrets:ro"]
+    networks: [cellnet_a, cellnet_b, pepnet]
+    depends_on: [pep]
+
+  sidecar_a:
+    <<: *sidecar
+    labels: {mandate.role: cell-netns-owner, mandate.cell: a}
+    volumes: ["../S7-binding/config/nginx-sidecar.conf:/etc/nginx-s7/nginx.conf:ro", "sec_side_a:/secrets:ro"]
+    networks: [cellnet_a]
+  agent_a:
+    <<: *agent
+    labels: {mandate.role: agent, mandate.cell: a}
+    network_mode: "service:sidecar_a"
+    depends_on: [sidecar_a]
+
+  sidecar_b:
+    <<: *sidecar
+    labels: {mandate.role: cell-netns-owner, mandate.cell: b}
+    volumes: ["../S7-binding/config/nginx-sidecar.conf:/etc/nginx-s7/nginx.conf:ro", "sec_side_b:/secrets:ro"]
+    networks: [cellnet_b]
+  agent_b:
+    <<: *agent
+    labels: {mandate.role: agent, mandate.cell: b}
+    network_mode: "service:sidecar_b"
+    depends_on: [sidecar_b]

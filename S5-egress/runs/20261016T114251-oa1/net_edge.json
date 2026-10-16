@@ -1,0 +1,78 @@
+[
+    {
+        "Name": "s5egress_edge",
+        "Id": "7313f3b7c08c9bb23becfe9149c1748f999fda019356c4f3436f7253afe2aec7",
+        "Created": "2026-10-16T06:12:52.848747406Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.23.0.0/16",
+                    "Gateway": "172.23.0.1"
+                }
+            ]
+        },
+        "Internal": true,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {
+            "com.docker.network.enable_ipv4": "true",
+            "com.docker.network.enable_ipv6": "false"
+        },
+        "Labels": {
+            "com.docker.compose.config-hash": "045adc447fc247d3c9a51db242786cf7238663dcd5249dbe63b7f8f865daa731",
+            "com.docker.compose.network": "edge",
+            "com.docker.compose.project": "s5egress",
+            "com.docker.compose.version": "5.6.0"
+        },
+        "Containers": {
+            "365aed734033a12424c2eba1a897a880447dc680bb023ace6ae340832e1ab066": {
+                "Name": "s5egress-egress-1",
+                "EndpointID": "571fea6e34e60d989e18b4a148bda40e0f397b7a3adf2f11a47bdb2e4710bd55",
+                "MacAddress": "d2:64:c6:55:91:0d",
+                "IPv4Address": "172.23.0.5/16",
+                "IPv6Address": ""
+            },
+            "b20b6b4cf592c84237b3561c110ec362a260d30a1bc799b82841253e84a3dea5": {
+                "Name": "s5egress-allowed-srv-1",
+                "EndpointID": "3beaf6bdf7233d1b1963fd95a33b786b89f88f94cf60c430f540ec6412d2f787",
+                "MacAddress": "5a:52:29:17:0b:73",
+                "IPv4Address": "172.23.0.4/16",
+                "IPv6Address": ""
+            },
+            "b34c44f1d1edc4348b4b74e3b4fb727162afa28fd0ffd31888f72eeceae1ceed": {
+                "Name": "s5egress-outside-1",
+                "EndpointID": "9e03f11e16004c39b66d74a156402d95f781bd8c7c2450d1168e303d16dde9bc",
+                "MacAddress": "86:e9:d3:1b:1c:bf",
+                "IPv4Address": "172.23.0.2/16",
+                "IPv6Address": ""
+            },
+            "e873f7fe52b0ce5444d87bab9209dd0206a2d74ae963309c28ea26232a3d8923": {
+                "Name": "s5egress-denied-srv-1",
+                "EndpointID": "04ec8abe7dada6d202810a9b96fa09655b63c5f68a686733489a5030845cb309",
+                "MacAddress": "56:60:57:5c:a6:ea",
+                "IPv4Address": "172.23.0.3/16",
+                "IPv6Address": ""
+            }
+        },
+        "Status": {
+            "IPAM": {
+                "Subnets": {
+                    "172.23.0.0/16": {
+                        "IPsInUse": 7,
+                        "DynamicIPsAvailable": 65529
+                    }
+                }
+            }
+        }
+    }
+]

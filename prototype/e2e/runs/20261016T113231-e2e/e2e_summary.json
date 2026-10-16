@@ -1,0 +1,90 @@
+{
+ "LABEL": "end-to-end through the real PEP path; scripted agents (no LLM); mock tool server; outbound effects simulated",
+ "passed": 11,
+ "total": 12,
+ "results": [
+  {
+   "id": "E1-normal-in-role",
+   "verdict": "PASS",
+   "summary": [
+    "search_suppliers",
+    "get_prices"
+   ]
+  },
+  {
+   "id": "E2-injection-hr-read-and-exfil",
+   "verdict": "PASS",
+   "summary": "effects=['read_supplier_doc'] status=quarantined"
+  },
+  {
+   "id": "E2b-alert-explained",
+   "verdict": "PASS",
+   "summary": "alerts=2 top=50"
+  },
+  {
+   "id": "E3-resume-restores-work",
+   "verdict": "PASS",
+   "summary": [
+    "get_prices"
+   ]
+  },
+  {
+   "id": "E4a-approval-required",
+   "verdict": "PASS",
+   "summary": [
+    {
+     "tool": "create_purchase_request",
+     "ok": false,
+     "text": "APPROVAL_REQUIRED: apr-a09824dc pending owner approval (policy P step-up)"
+    }
+   ]
+  },
+  {
+   "id": "E4b-approved-once",
+   "verdict": "PASS",
+   "summary": [
+    "create_purchase_request"
+   ]
+  },
+  {
+   "id": "E5-delegation-chain-and-escalation",
+   "verdict": "PASS",
+   "summary": "effects=['read_doc'] chain={'id': 'dlg-b5a39ab6', 'chain': ['agent:cell-a'], 'root': 'owner'}"
+  },
+  {
+   "id": "E6a-cold-start-labelled",
+   "verdict": "PASS",
+   "summary": "low (cold start: role prior)"
+  },
+  {
+   "id": "E6b-legitimate-task-change",
+   "verdict": "FAIL",
+   "summary": []
+  },
+  {
+   "id": "E7-G0-correlation",
+   "verdict": "PASS",
+   "summary": "effects=6 uncovered=0"
+  },
+  {
+   "id": "E8-audit-chain",
+   "verdict": "PASS",
+   "summary": {
+    "ok": true,
+    "records": 21,
+    "head": "a73e0f0fce69c66afa6fe4cd552539b81478bcd432c8e89f8b788e5785912c32"
+   }
+  },
+  {
+   "id": "E9-control-plane-down-fails-closed",
+   "verdict": "PASS",
+   "summary": [
+    {
+     "tool": "get_prices",
+     "ok": false,
+     "text": "DENY: control plane unreachable (fail closed)"
+    }
+   ]
+  }
+ ]
+}

@@ -36,3 +36,4 @@ Execute **S5** (first in order; prerequisites met). S6, S4a and S8 follow in lat
 - 16 Oct (Wave 6): S4a emulator defect fixed; candidate P2 measured (not adopted); S8 extended; CLEAN_MACHINE_CHECKLIST.md written (not executed).
 - 16 Oct (handoff): audit, reviewer guide, checklist corrections, blob-based manifest verifier. No reruns. Gates unchanged.
 - Note: commits 2d4b4a0 and 4d594e7 accidentally truncated this file to one line (a write-before-read bug in my update script). It was restored from 9c0ffca in the next commit; no other file was affected.
+- 16 Oct (OA-1): owner-authorized workflow; prototype built (engine, control plane, UI, PEP integration); held-out eval, red team, E2E; S1/S3/S5/S6/S7 rerun. Owner acceptance pending.

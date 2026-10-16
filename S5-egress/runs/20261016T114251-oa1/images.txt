@@ -1,0 +1,8 @@
+mitm_image=sha256:0ac91aba32972d3456d699c57184897811d79479cfbfd24c1eb98dc3e1be8cdf
+netshoot=nicolaka/netshoot@sha256:b09d9b21381f47a79b3cbcb30da25266dc17186ea00ae65e99fdc51396f48e70
+mandate-mitm:wave3
+mandate-mitm:wave3
+nicolaka/netshoot@sha256:b09d9b21381f47a79b3cbcb30da25266dc17186ea00ae65e99fdc51396f48e70
+mandate-mitm:wave3
+mandate-mitm:wave3
+mandate-mitm:wave3

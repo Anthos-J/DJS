@@ -1,0 +1,1 @@
+HARNESS/IMPLEMENTATION ERROR: control/server.py passed status= to Starlette JSONResponse (expects status_code=); /api/seed returned 500 and the e2e driver stopped before any scenario. Fixed; re-run.

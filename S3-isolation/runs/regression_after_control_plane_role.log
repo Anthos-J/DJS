@@ -1,0 +1,11 @@
+MUTATION SUMMARY: 25/25 PASS
+PASS  R1  checker mutation suite (exit 0)
+PASS  R2-typo  deploy refused (exit 3) for the expected reason [unexpected driver_opt 'com.docker.network.bridge.gatway_mode_ipv4'], nothing created (containers=0)
+PASS  R2-no-isolated  deploy refused (exit 3) for the expected reason [gateway_mode_ipv4 = None], nothing created (containers=0)
+PASS  R3a  baseline reproduces exactly the T3 failure set (T3e T3f T3g), no harness errors
+PASS  R3b  runtime checker flags the baseline (exit 3; host-bridge IPv4 + missing isolated mode)
+PASS  R4a  canonical profile passes the AM11 gate (static + runtime)
+PASS  R4b  canonical: 0 FAIL, 0 HARNESS-ERROR, T5 approved gateway path PASS
+PASS  R5  runtime checker detects a foreign member on a cell network
+REGRESSION: 0 failing assertion(s)
+RUN=runs/20261016T113706-regression

@@ -1,0 +1,4 @@
+{"phase": "startup", "fastmcp": "4.1.0", "telemetry_mode": "native", "FWD": "false", "ORDER": "pep_only", "STRIP_META": "message", "t": 1792131051.7818115}
+{"phase": "pre", "name": "echo", "args": {}, "t": 1792131061.580604}
+{"phase": "strip", "how": "message", "t": 1792131061.5806773}
+{"phase": "post", "name": "echo", "t": 1792131061.6090622}

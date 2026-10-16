@@ -16,7 +16,7 @@ import json, os, subprocess, sys
 ISO = "isolated"
 GW4, GW6 = "com.docker.network.bridge.gateway_mode_ipv4", "com.docker.network.bridge.gateway_mode_ipv6"
 ALLOWED_CELL_OPTS = {GW4, GW6}  # unknown keys are rejected: Docker silently accepts misspelled option keys
-ROLES = {"cell-netns-owner", "agent", "gateway", "test-fixture", "pep", "tool-server"}  # pep / tool-server: never on a cell network
+ROLES = {"cell-netns-owner", "agent", "gateway", "test-fixture", "pep", "tool-server", "control-plane"}  # pep / tool-server / control-plane: never on a cell network
 NETSHOOT = "nicolaka/netshoot@sha256:b09d9b21381f47a79b3cbcb30da25266dc17186ea00ae65e99fdc51396f48e70"
 
 

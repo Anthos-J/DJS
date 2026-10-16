@@ -1,0 +1,43 @@
+{
+ "mode": "runtime",
+ "compliant": true,
+ "violations": [],
+ "facts": {
+  "networks": {
+   "s6model_cellnet_m": {
+    "id": "563789b825b69fa696f437331c51be62d85acdc0b22639e35865ad614ae3e31b",
+    "driver": "bridge",
+    "internal": true,
+    "enable_ipv6": false,
+    "options": {
+     "com.docker.network.bridge.gateway_mode_ipv4": "isolated",
+     "com.docker.network.bridge.gateway_mode_ipv6": "isolated",
+     "com.docker.network.enable_ipv4": "true"
+    },
+    "ipam": [
+     {
+      "Subnet": "172.23.0.0/16"
+     }
+    ],
+    "host_bridge": "br-563789b825b6",
+    "host_bridge_ipv4": [],
+    "members": [
+     "cellside(cell-netns-owner)",
+     "model-proxy(gateway)"
+    ]
+   }
+  },
+  "host_vm_ipv4_addrs": [
+   "1: lo    inet 127.0.0.1/8 scope host lo\\       valid_lft forever preferred_lft forever",
+   "2: services1    inet 192.168.65.6/32 scope global services1\\       valid_lft forever preferred_lft forever",
+   "3: eth0    inet 192.168.65.3/24 brd 192.168.65.255 scope global eth0\\       valid_lft forever preferred_lft forever",
+   "4: docker0    inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0\\       valid_lft forever preferred_lft forever",
+   "264: br-42e746c705ff    inet 172.22.0.1/16 brd 172.22.255.255 scope global br-42e746c705ff\\       valid_lft forever preferred_lft forever",
+   "171: br-08fc0df28ef3    inet 172.20.0.1/16 brd 172.20.255.255 scope global br-08fc0df28ef3\\       valid_lft forever preferred_lft forever",
+   "172: br-c44727315c7a    inet 172.21.0.1/16 brd 172.21.255.255 scope global br-c44727315c7a\\       valid_lft forever preferred_lft forever"
+  ],
+  "cell_networks": [
+   "s6model_cellnet_m"
+  ]
+ }
+}

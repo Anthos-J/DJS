@@ -103,3 +103,6 @@ Every run must first show `static_check_exit=0`, `up_exit=0` and `runtime_check_
 ## 7. Out of scope for this review
 
 S4a and S8 (in-process emulation and local integration; their gates EG-8 and EG-9 are already met at their required levels), live-provider tests (BLOCKED pending an owner decision), and the full-stack build (gated on this review).
+
+---
+**OA-1 note (16 Oct):** an independent reviewer is no longer a blocker for internal prototype development (`WORKFLOW_AMENDMENT_OA1.md`). The AI self-review in `handoff/AI_SELF_REVIEW.md` is **not** a substitute for this guide's review. Prototype requirement status: `PRB_TRACEABILITY.md`.

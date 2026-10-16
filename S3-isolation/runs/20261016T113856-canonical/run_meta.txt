@@ -1,0 +1,3 @@
+compose=compose.cell.yaml label=canonical mode=enforce
+engine=29.8.2
+Fri Oct 16 06:08:57 UTC 2026

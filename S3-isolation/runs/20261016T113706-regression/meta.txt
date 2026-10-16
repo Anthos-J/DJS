@@ -1,0 +1,15 @@
+Fri Oct 16 06:07:06 UTC 2026
+f7e5eb59c6aa2edfaf789e4cb70163a65ac5aca4
+ M config/README.md
+ M harness/cell_policy.py
+ M harness/test_cell_policy.py
+?? runs/20261016T113706-regression/
+?? runs/regression_after_control_plane_role.log
+?? ../prototype/compose.yaml
+?? ../prototype/control/
+?? ../prototype/e2e/
+?? ../prototype/eval/redteam.py
+?? ../prototype/eval/runs/
+?? ../prototype/pep/
+?? ../prototype/run_prototype.sh
+engine=29.8.2

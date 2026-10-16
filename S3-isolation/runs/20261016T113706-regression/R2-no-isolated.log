@@ -1,0 +1,2 @@
+static_check_exit=3
+REFUSED: static AM11 policy check failed (exit 3); nothing deployed

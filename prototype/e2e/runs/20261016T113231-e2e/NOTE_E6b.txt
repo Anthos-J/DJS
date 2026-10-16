@@ -1,0 +1,1 @@
+E6b FAILED as a test-ordering defect: agent:cell-b had been (correctly) auto-quarantined by its E5 escalation attempt and was never resumed, so the legitimate task change in E6b ran against a quarantined agent. Driver now asserts the quarantine (E5b) and has the owner resume the agent before E6b. 11/12 otherwise PASS.

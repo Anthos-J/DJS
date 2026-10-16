@@ -1,0 +1,20 @@
+{
+ "mode": "static",
+ "compliant": false,
+ "violations": [
+  "cell network cellnet_a: com.docker.network.bridge.gateway_mode_ipv4 = None, required 'isolated'",
+  "cell network cellnet_a: com.docker.network.bridge.gateway_mode_ipv6 = None, required 'isolated'",
+  "cell network cellnet_b: com.docker.network.bridge.gateway_mode_ipv4 = None, required 'isolated'",
+  "cell network cellnet_b: com.docker.network.bridge.gateway_mode_ipv6 = None, required 'isolated'"
+ ],
+ "facts": {
+  "cell_networks": [
+   "cellnet_a",
+   "cellnet_b"
+  ],
+  "unconstrained_networks": [
+   "ctlnet",
+   "edge"
+  ]
+ }
+}

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MANDATE Console</title>
+<link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="logo">◆</span> MANDATE <span class="sub">identity-drift control plane</span></div>
+  <div class="meta" id="meta">connecting…</div>
+  <label class="tok">Owner token <input id="token" type="password" autocomplete="off" placeholder="demo-owner-token"></label>
+</header>
+<div class="banner">Prototype. Demo agents are scripted, with no LLM. The risk score is an ordinal index of documented factors, <b>not a probability</b>. Enforcement shown here is real only for traffic that passes through the MANDATE PEP. Simulated items are labelled.</div>
+<nav class="tabs" id="tabs">
+  <button data-tab="overview" class="on">Overview</button><button data-tab="agents">Agents</button><button data-tab="timeline">Timeline</button>
+  <button data-tab="alerts">Alerts</button><button data-tab="approvals">Approvals <span id="apcount" class="pill"></span></button>
+  <button data-tab="delegation">Delegation</button><button data-tab="baselines">Baselines &amp; drift</button>
+  <button data-tab="evaluation">Evaluation</button><button data-tab="audit">Audit</button>
+</nav>
+<main>
+  <section id="overview" class="tab on"><div class="kpis" id="kpis"></div><h3>Latest alerts</h3><div id="ov-alerts"></div></section>
+  <section id="agents" class="tab"><div id="agent-table"></div></section>
+  <section id="timeline" class="tab"><div class="row"><label>Agent <select id="tl-agent"><option value="">all</option></select></label></div><div id="tl"></div></section>
+  <section id="alerts" class="tab"><div id="alert-list"></div></section>
+  <section id="approvals" class="tab"><div id="ap-list"></div></section>
+  <section id="delegation" class="tab"><div id="dl"></div></section>
+  <section id="baselines" class="tab"><div class="row"><label>Agent <select id="bl-agent"></select></label></div><div id="bl"></div></section>
+  <section id="evaluation" class="tab"><div id="ev"></div></section>
+  <section id="audit" class="tab"><div id="au"></div></section>
+</main>
+<dialog id="dlg"><form method="dialog" id="dlgform"><h3 id="dlgtitle"></h3><div id="dlgbody"></div>
+  <label>Reason (required) <textarea id="dlgreason" required></textarea></label>
+  <menu><button value="cancel" formnovalidate>Cancel</button><button id="dlgok" value="ok">Confirm</button></menu></form></dialog>
+<script src="/static/app.js"></script>
+</body>
+</html>

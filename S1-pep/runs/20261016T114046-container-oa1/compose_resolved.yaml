@@ -1,0 +1,306 @@
+name: s1pep
+services:
+  backend:
+    command:
+      - python
+      - /harness/backend.py
+    environment:
+      BACKEND: http://backend:9000/mcp
+      DATA: /data
+      HOST: 0.0.0.0
+      PORT: "9000"
+    image: mandate-spike-py312:wave2
+    networks:
+      s1net: null
+    volumes:
+      - type: volume
+        source: s1data
+        target: /data
+        volume: {}
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S1-pep\harness
+        target: /harness
+        read_only: true
+        bind: {}
+  client:
+    command:
+      - sleep
+      - infinity
+    environment:
+      BACKEND: http://backend:9000/mcp
+      DATA: /data
+      HOST: 0.0.0.0
+      URL_BACKEND: http://backend:9000/mcp
+      URL_DEFAULT: http://pep_default:8000/mcp
+      URL_PEP_INNER: http://pep_inner:8000/mcp
+      URL_PEP_INNER_ONREQUEST: http://pep_inner_onrequest:8000/mcp
+      URL_PEP_OUTER: http://pep_outer:8000/mcp
+      URL_PEP_OUTER_ONREQUEST: http://pep_outer_onrequest:8000/mcp
+      URL_STRICT: http://pep_strict:8000/mcp
+      URL_STRIP_MSG: http://pep_strip_msg:8000/mcp
+      URL_STRIP_RC: http://pep_strip_rc:8000/mcp
+      URL_STRIP_RC_TELOFF: http://pep_strip_rc_teloff:8000/mcp
+    image: mandate-spike-py312:wave2
+    networks:
+      s1net: null
+    volumes:
+      - type: volume
+        source: s1data
+        target: /data
+        volume: {}
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S1-pep\harness
+        target: /harness
+        read_only: true
+        bind: {}
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S1-pep\runs\20261016T114046-container-oa1
+        target: /out
+        bind: {}
+  pep_default:
+    command:
+      - python
+      - /harness/pep.py
+    environment:
+      BACKEND: http://backend:9000/mcp
+      DATA: /data
+      FWD: default
+      HOST: 0.0.0.0
+      ORDER: pep_only
+      PEP_NAME: default
+      PORT: "8000"
+    image: mandate-spike-py312:wave2
+    networks:
+      s1net: null
+    volumes:
+      - type: volume
+        source: s1data
+        target: /data
+        volume: {}
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S1-pep\harness
+        target: /harness
+        read_only: true
+        bind: {}
+  pep_inner:
+    command:
+      - python
+      - /harness/pep.py
+    environment:
+      BACKEND: http://backend:9000/mcp
+      DATA: /data
+      FWD: "false"
+      HOST: 0.0.0.0
+      ORDER: pep_inner
+      PEP_NAME: pep_inner
+      PORT: "8000"
+    image: mandate-spike-py312:wave2
+    networks:
+      s1net: null
+    volumes:
+      - type: volume
+        source: s1data
+        target: /data
+        volume: {}
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S1-pep\harness
+        target: /harness
+        read_only: true
+        bind: {}
+  pep_inner_onrequest:
+    command:
+      - python
+      - /harness/pep.py
+    environment:
+      BACKEND: http://backend:9000/mcp
+      DATA: /data
+      FWD: "false"
+      HOST: 0.0.0.0
+      ORDER: pep_inner_onrequest
+      PEP_NAME: pep_inner_onrequest
+      PORT: "8000"
+    image: mandate-spike-py312:wave2
+    networks:
+      s1net: null
+    volumes:
+      - type: volume
+        source: s1data
+        target: /data
+        volume: {}
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S1-pep\harness
+        target: /harness
+        read_only: true
+        bind: {}
+  pep_outer:
+    command:
+      - python
+      - /harness/pep.py
+    environment:
+      BACKEND: http://backend:9000/mcp
+      DATA: /data
+      FWD: "false"
+      HOST: 0.0.0.0
+      ORDER: pep_outer
+      PEP_NAME: pep_outer
+      PORT: "8000"
+    image: mandate-spike-py312:wave2
+    networks:
+      s1net: null
+    volumes:
+      - type: volume
+        source: s1data
+        target: /data
+        volume: {}
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S1-pep\harness
+        target: /harness
+        read_only: true
+        bind: {}
+  pep_outer_onrequest:
+    command:
+      - python
+      - /harness/pep.py
+    environment:
+      BACKEND: http://backend:9000/mcp
+      DATA: /data
+      FWD: "false"
+      HOST: 0.0.0.0
+      ORDER: pep_outer_onrequest
+      PEP_NAME: pep_outer_onrequest
+      PORT: "8000"
+    image: mandate-spike-py312:wave2
+    networks:
+      s1net: null
+    volumes:
+      - type: volume
+        source: s1data
+        target: /data
+        volume: {}
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S1-pep\harness
+        target: /harness
+        read_only: true
+        bind: {}
+  pep_strict:
+    command:
+      - python
+      - /harness/pep.py
+    environment:
+      BACKEND: http://backend:9000/mcp
+      DATA: /data
+      FWD: "false"
+      HOST: 0.0.0.0
+      ORDER: pep_only
+      PEP_NAME: strict
+      PORT: "8000"
+    image: mandate-spike-py312:wave2
+    networks:
+      s1net: null
+    volumes:
+      - type: volume
+        source: s1data
+        target: /data
+        volume: {}
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S1-pep\harness
+        target: /harness
+        read_only: true
+        bind: {}
+  pep_strip_msg:
+    command:
+      - python
+      - /harness/pep.py
+    environment:
+      BACKEND: http://backend:9000/mcp
+      DATA: /data
+      FWD: "false"
+      HOST: 0.0.0.0
+      ORDER: pep_only
+      PEP_NAME: strip_msg
+      PORT: "8000"
+      STRIP_META: message
+    image: mandate-spike-py312:wave2
+    networks:
+      s1net: null
+    volumes:
+      - type: volume
+        source: s1data
+        target: /data
+        volume: {}
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S1-pep\harness
+        target: /harness
+        read_only: true
+        bind: {}
+  pep_strip_rc:
+    command:
+      - python
+      - /harness/pep.py
+    environment:
+      BACKEND: http://backend:9000/mcp
+      DATA: /data
+      FWD: "false"
+      HOST: 0.0.0.0
+      ORDER: pep_only
+      PEP_NAME: strip_rc
+      PORT: "8000"
+      STRIP_META: request_context
+    image: mandate-spike-py312:wave2
+    networks:
+      s1net: null
+    volumes:
+      - type: volume
+        source: s1data
+        target: /data
+        volume: {}
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S1-pep\harness
+        target: /harness
+        read_only: true
+        bind: {}
+  pep_strip_rc_teloff:
+    command:
+      - python
+      - /harness/pep.py
+    environment:
+      BACKEND: http://backend:9000/mcp
+      DATA: /data
+      FASTMCP_TELEMETRY_MODE: 'off'
+      FWD: "false"
+      HOST: 0.0.0.0
+      ORDER: pep_only
+      PEP_NAME: strip_rc_teloff
+      PORT: "8000"
+      STRIP_META: request_context
+    image: mandate-spike-py312:wave2
+    networks:
+      s1net: null
+    volumes:
+      - type: volume
+        source: s1data
+        target: /data
+        volume: {}
+      - type: bind
+        source: C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\S1-pep\harness
+        target: /harness
+        read_only: true
+        bind: {}
+networks:
+  s1net:
+    name: s1pep_s1net
+    internal: true
+volumes:
+  s1data:
+    name: s1pep_s1data
+x-py:
+  environment:
+    BACKEND: http://backend:9000/mcp
+    DATA: /data
+    HOST: 0.0.0.0
+  image: mandate-spike-py312:wave2
+  networks:
+    - s1net
+  volumes:
+    - s1data:/data
+    - ../harness:/harness:ro

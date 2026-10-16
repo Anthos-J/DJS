@@ -127,3 +127,6 @@ Only when a row is complete **and** the reviewer verdict is positive may the cor
 | S6 | 30, 31 |
 
 The gates that then close are EG-2, EG-3, EG-4, EG-6 and EG-7, subject to their other conditions.
+
+---
+**OA-1 note (16 Oct):** this checklist is still the path to SECURITY-TESTED (second machine + independent human review). Under OA-1 it no longer blocks owner-authorized prototype development; see `WORKFLOW_AMENDMENT_OA1.md`.
