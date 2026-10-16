@@ -1,6 +1,6 @@
 {
- "_about": "Risk-factor weights and thresholds (version E1). Frozen before the held-out evaluation; SHA-256 recorded with every evaluation run. The score is an ORDINAL 0-100 index of documented factors, not a calibrated probability of compromise.",
- "version": "E1",
+ "_about": "Risk-factor weights and thresholds, version E2 (E1 is preserved at git tag engine-E1). Frozen before the E2 held-out evaluation. The score is an ORDINAL 0-100 index of documented factors, not a calibrated probability.",
+ "version": "E2",
  "points": {
   "out_of_role": 45,
   "sensitivity_ceiling": 45,
@@ -17,9 +17,15 @@
   "distribution_drift": 15,
   "repeated_anomalies": 10,
   "impact_per_level": 5,
-  "sensitivity_per_level": 5
+  "sensitivity_per_level": 5,
+  "effect_budget": 30,
+  "tainted_sensitive_flow": 30,
+  "untrusted_provenance_write": 0
  },
- "bands": {"medium": 35, "high": 65},
+ "bands": {
+  "medium": 35,
+  "high": 65
+ },
  "cold_start_min_events": 30,
  "rarity_floor_prob": 0.02,
  "rate_window_s": 60,
@@ -30,5 +36,7 @@
  "repeat_count": 3,
  "quarantine_drift_accumulator": 120,
  "accumulator_decay": 0.85,
- "baseline_update_max_risk": 20
+ "baseline_update_max_risk": 20,
+ "drift_alert_window": 10,
+ "drift_alert_points": 40
 }

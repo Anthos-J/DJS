@@ -26,7 +26,8 @@ except Exception:  # the engine refuses effectful actions if Cedar is unavailabl
 ROOT = Path(__file__).resolve().parent.parent
 # factors that indicate DEVIATION from learned / declared behaviour; only these feed the drift accumulator and the
 # repeated-anomaly window (policy step-ups awaiting approval and in-mandate impact/sensitivity do not).
-DEVIATION = {"task_scope_deviation", "novel_tool", "novel_destination", "rarity", "rate_spike", "distribution_drift"}
+LEARNED_DEVIATION = {"novel_tool", "novel_destination", "rarity", "rate_spike", "distribution_drift"}   # deviation from learned behaviour
+DEVIATION = {"task_scope_deviation", "novel_tool", "novel_destination", "rarity", "rate_spike", "distribution_drift"}  # drift_alert itself scores 0
 
 
 def _js(p, q):
@@ -72,6 +73,9 @@ class Engine:
         self.times = defaultdict(lambda: deque(maxlen=500))
         self.accum = defaultdict(float)
         self.session = defaultdict(lambda: {"conf": 0, "integ": 2, "trusted_text": ""})
+        self.effects = defaultdict(lambda: deque(maxlen=500))         # E2: executed effects (ts, tool, args_hash) for budgets
+        self.dev_window = defaultdict(lambda: deque(maxlen=self.cfg.get("drift_alert_window", 10)))  # E2: deviation points per action
+        self.store_labels = {}                                         # E2: provenance labels of objects in trusted stores
         self.audit = AuditLog(audit_path)
         pdir = Path(policy_dir or ROOT.parent / "S2-cedar" / "config")
         self.P = PolicySet.from_str((pdir / "policies_P.cedar").read_text()) if HAVE_CEDAR else None
@@ -95,7 +99,7 @@ class Engine:
                 raise ValueError(f"task {task} not defined for role {a['role']}")
             old = a["task"]; a["task"], a["task_instruction"] = task, instruction
             self.session[agent_id] = {"conf": 0, "integ": 2, "trusted_text": ""}
-            self.recent[agent_id].clear()
+            self.recent[agent_id].clear(); self.dev_window[agent_id].clear()   # a declared task change is not drift
             self.audit.append({"kind": "task_changed", "agent": agent_id, "from": old, "to": task, "by": by})
 
     def change_role(self, agent_id, role, by="owner"):
@@ -103,7 +107,7 @@ class Engine:
             a = self.agents[agent_id]; old = a["role"]; a["role"] = role; a["task"] = None
             self.agent_base[agent_id] = {"tool": Counter(), "dest": Counter(), "n": 0, "rates": []}   # history no longer representative
             self.ref_tool.pop(agent_id, None)
-            self.recent[agent_id].clear(); self.accum[agent_id] = 0.0
+            self.recent[agent_id].clear(); self.accum[agent_id] = 0.0; self.dev_window[agent_id].clear()
             self.audit.append({"kind": "role_changed", "agent": agent_id, "from": old, "to": role, "by": by})
 
     def set_status(self, agent_id, status, reason, by="owner"):
@@ -255,7 +259,7 @@ class Engine:
             hard = ("DENY", "destination not in mandate")
 
         sess = self.session[aid]
-        cedar = None
+        cedar = None; stepups = []; provenance = False
         if hard is None and consequential:
             cons = [x for k in tdef.get("consequential", []) for x in _vals(args.get(k))]
             text = (a.get("task_instruction") or "").lower() + " " + sess["trusted_text"]
@@ -275,6 +279,24 @@ class Engine:
                 hard = ("DENY", "policy P denied")
             elif cedar == "APPROVAL_REQUIRED":
                 F("policy_step_up", pts["policy_step_up"], "policy P (G2/G3) requires approval")
+            # E2 effect budget: availability / duplication attacks repeat an allowed effect
+            win = tdef.get("budget_window_s")
+            if win and hard is None:
+                h = hashlib.sha256(json.dumps([tool, args], sort_keys=True).encode()).hexdigest()
+                same = [e for e in self.effects[aid] if e[1] == tool and now - e[0] <= win]
+                ident = [e for e in same if e[2] == h]
+                if tdef.get("max_per_window") is not None and len(same) >= tdef["max_per_window"]:
+                    F("effect_budget", pts["effect_budget"], f"'{tool}' already executed {len(same)}x in {win}s (budget {tdef['max_per_window']})"); stepups.append("effect_budget")
+                elif tdef.get("max_identical_per_window") is not None and len(ident) >= tdef["max_identical_per_window"]:
+                    F("effect_budget", pts["effect_budget"], f"identical '{tool}' already executed {len(ident)}x in {win}s (budget {tdef['max_identical_per_window']})"); stepups.append("effect_budget")
+            # E2 tainted sensitive flow: sensitive data read in a session that also read untrusted content, now flowing out
+            if hard is None and tdef["class"] in ("send", "write", "fetch") and sess["conf"] >= 2 and sess["integ"] == 0:
+                F("tainted_sensitive_flow", pts["tainted_sensitive_flow"], f"session holds sensitivity-{sess['conf']} data and untrusted influence; '{tool}' would move it")
+                stepups.append("tainted_sensitive_flow")
+            # E2 provenance: writes into a trusted store under untrusted influence are labelled untrusted (readers inherit taint)
+            if hard is None and tdef.get("trusted_store") and sess["integ"] == 0:
+                F("untrusted_provenance_write", pts["untrusted_provenance_write"], f"'{tool}' writes untrusted-influenced content into a trusted store; object will be labelled untrusted")
+                provenance = True
 
         # ---- behavioural assessment (only ever makes the response stricter) ----
         ab, rb = self.agent_base[aid], self.role_base[role]
@@ -296,8 +318,11 @@ class Engine:
             if tdef["sensitivity"] >= 2:
                 F("sensitivity", pts["sensitivity_per_level"] * tdef["sensitivity"], f"resource sensitivity {tdef['sensitivity']}")
         ts = self.times[aid]
-        recent_n = sum(1 for t in ts if now - t <= cfg["rate_window_s"])
-        if len(ab["rates"]) >= 5:
+        recent_n = sum(1 for t in ts if now - t <= cfg["rate_window_s"]) + 1   # including this action
+        rmax = rdef.get("max_rate_per_min")
+        if rmax is not None and recent_n > rmax * cfg["rate_window_s"] / 60:
+            F("rate_spike", pts["rate_spike"], f"{recent_n} actions in {cfg['rate_window_s']}s exceeds the declared role ceiling {rmax}/min")
+        elif len(ab["rates"]) >= 5:
             mu = sum(ab["rates"]) / len(ab["rates"]); sd = math.sqrt(sum((r - mu) ** 2 for r in ab["rates"]) / len(ab["rates"])) or 1.0
             if (recent_n - mu) / sd > cfg["rate_z"]:
                 F("rate_spike", pts["rate_spike"], f"{recent_n} actions/{cfg['rate_window_s']}s vs baseline {mu:.1f}+-{sd:.1f}")
@@ -310,6 +335,16 @@ class Engine:
         if sum(self.recent_anom[aid]) >= cfg["repeat_count"]:
             F("repeated_anomalies", pts["repeated_anomalies"], f"{sum(self.recent_anom[aid])} anomalous actions in last {cfg['repeat_window']}")
 
+        # E2 drift alert rule: deviation points over the last N actions (window cleared by declared task/role changes)
+        dev_now = sum(f["points"] for f in factors if f["factor"] in DEVIATION)
+        learned_now = sum(f["points"] for f in factors if f["factor"] in LEARNED_DEVIATION)
+        win_sum = sum(d for d, _ in self.dev_window[aid]) + dev_now
+        win_learned = sum(l for _, l in self.dev_window[aid]) + learned_now
+        # role-aware rule: drift needs deviation from the declared task AND from learned behaviour (an agent repeating what it
+        # has always done is not drifting, even outside the current task label)
+        drift_state = win_sum >= cfg.get("drift_alert_points", 10 ** 9) and win_learned > 0
+        if drift_state:
+            F("drift_alert", 0, f"{win_sum} deviation points in the last {cfg.get('drift_alert_window')} actions >= {cfg.get('drift_alert_points')}")
         score = min(100, sum(f["points"] for f in factors))
         band = "HIGH" if score >= cfg["bands"]["high"] else "MEDIUM" if score >= cfg["bands"]["medium"] else "LOW"
 
@@ -319,9 +354,11 @@ class Engine:
             response, reason = hard
             if hard[1] in ("out-of-role action", "sensitivity ceiling", "authority escalation beyond delegated scope", "destination not in mandate", "invalid delegation") and (consequential or (tdef and tdef["sensitivity"] >= 2) or sum(self.recent_anom[aid]) >= 1):
                 quarantine = True
-        elif cedar == "APPROVAL_REQUIRED" or (consequential and band != "LOW") or (a["status"] == "restricted" and consequential):
+        elif cedar == "APPROVAL_REQUIRED" or stepups or (consequential and (band != "LOW" or drift_state)) or (a["status"] == "restricted" and consequential):
             response, reason = "APPROVAL_REQUIRED", ("policy P step-up" if cedar == "APPROVAL_REQUIRED" else
-                                                     "agent restricted" if a["status"] == "restricted" else f"risk {band}")
+                                                     f"step-up: {stepups[0]}" if stepups else
+                                                     "agent restricted" if a["status"] == "restricted" else
+                                                     "drift alert" if drift_state and band == "LOW" else f"risk {band}")
         else:
             response, reason = "ALLOW", "within mandate" + (f" (risk {band}: monitored)" if band != "LOW" else "")
         if response == "APPROVAL_REQUIRED":
@@ -338,8 +375,24 @@ class Engine:
             quarantine = True; reason += f"; drift accumulator {self.accum[aid]:.0f} >= {cfg['quarantine_drift_accumulator']}"
             if response == "ALLOW" and consequential:
                 response = "DENY"
+        if hard:
+            control = "deterministic"
+        elif response == "ALLOW":
+            control = "approval_grant" if owner_approved else "none"
+        elif cedar == "APPROVAL_REQUIRED":
+            control = "policy_P"
+        elif stepups:
+            control = stepups[0]
+        elif a["status"] == "restricted":
+            control = "restricted"
+        else:
+            control = "behavioural"
+        if quarantine and not hard:
+            control = "behavioural_quarantine"
         return self._finish(ev, now, a, response, factors, reason, factors, quarantine, score=score, band=band, cold=cold,
-                            expected=expected, dlg=dlg, anomalous=anomalous, cedar=cedar)
+                            expected=expected, dlg=dlg, anomalous=anomalous, cedar=cedar, control=control, drift_state=drift_state,
+                            dev_now=0 if owner_approved else dev_now, provenance=provenance, owner_approved=owner_approved,
+                            learned_now=0 if owner_approved else learned_now)
 
     def _matching_approval(self, aid, tool, args, approval_id):
         h = hashlib.sha256(json.dumps([aid, tool, args], sort_keys=True).encode()).hexdigest()
@@ -349,14 +402,15 @@ class Engine:
         return None
 
     def _finish(self, ev, now, a, response, _f, reason, factors, quarantine, score=100, band="HIGH", cold=True, expected=None, dlg=None,
-                anomalous=True, cedar=None):
+                anomalous=True, cedar=None, control="deterministic", drift_state=False, dev_now=0, provenance=False, owner_approved=False,
+                learned_now=0):
         aid, tool = ev["agent_id"], ev["tool"]; args = dict(ev.get("args") or {})
         did = "dec-" + uuid.uuid4().hex[:10]
         rec = {"decision_id": did, "ts": now, "agent_id": aid, "role": a and a["role"], "task": a and a["task"], "tool": tool, "args": args,
                "destination": ev.get("destination") or "internal", "delegation": dlg and {"id": dlg["id"], "chain": dlg["chain"], "root": dlg["root"]},
                "response": response, "reason": reason, "risk_score": score, "risk_band": band,
                "confidence": "low (cold start: role prior)" if cold else "normal", "factors": factors, "expected_authority": expected,
-               "cedar": cedar, "observed_by": ev.get("observed_by", "engine")}
+               "cedar": cedar, "observed_by": ev.get("observed_by", "engine"), "control": control, "drift_alert": drift_state}
         if a is not None:
             if response == "APPROVAL_REQUIRED":
                 ap_id = "apr-" + uuid.uuid4().hex[:8]
@@ -371,23 +425,34 @@ class Engine:
                 self.set_status(aid, "restricted", f"automatic: {reason}", by="engine")
                 rec["agent_status_change"] = "restricted"
             self.recent_anom[aid].append(1 if anomalous else 0)
+            self.dev_window[aid].append((dev_now, learned_now))
             self.times[aid].append(now)
             self.recent[aid].append({"tool": tool, "ts": now})
             tdef = self.tools.get(tool)
             if response == "ALLOW" and tdef:
                 s = self.session[aid]
+                self.effects[aid].append((now, tool, hashlib.sha256(json.dumps([tool, args], sort_keys=True).encode()).hexdigest()))
+                key = args.get("title") or args.get("page")
+                if tdef.get("trusted_store") and key is not None:
+                    self.store_labels[(tdef["resource"], str(key))] = "untrusted" if provenance else "trusted"
+                    rec["provenance_label"] = self.store_labels[(tdef["resource"], str(key))]
+                if tdef.get("reads_store") and self.store_labels.get((tdef["reads_store"], str(key))) == "untrusted":
+                    s["integ"] = 0; rec["provenance_label"] = "untrusted (inherited)"
                 if tdef["class"] in ("read", "fetch"):
                     s["conf"] = max(s["conf"], tdef["sensitivity"])
                     if tdef.get("source") == "untrusted":
                         s["integ"] = 0
                     else:
                         s["trusted_text"] += " " + json.dumps(ev.get("output", ""))[:2000].lower()
-                if score <= self.cfg["baseline_update_max_risk"] and not anomalous:   # anti-poisoning: learn only from clean actions
+                if score <= self.cfg["baseline_update_max_risk"] and not anomalous and not owner_approved:   # anti-poisoning: never learn from approved/risky actions
                     b = self.agent_base[aid]; b["tool"][tool] += 1; b["dest"][rec["destination"]] += 1; b["n"] += 1
                     a["history_n"] = b["n"]
-        if band != "LOW" or response != "ALLOW":
+        if owner_approved:
+            self.audit.append({"kind": "approved_action_not_learned", "decision_id": did, "agent": aid, "tool": tool})
+        if band != "LOW" or response != "ALLOW" or drift_state:
             alert = {"alert_id": "alr-" + uuid.uuid4().hex[:8], "decision_id": did, "ts": now, "agent_id": aid, "tool": tool,
-                     "severity": band, "risk_score": score, "response": response, "reason": reason, "factors": factors,
+                     "severity": band if (band != "LOW" or not drift_state) else "DRIFT", "risk_score": score, "response": response,
+                     "reason": reason, "factors": factors, "control": control,
                      "confidence": rec["confidence"], "expected_authority": expected, "status": "open"}
             self.alerts.append(alert); rec["alert_id"] = alert["alert_id"]
         self.events.append(rec)
