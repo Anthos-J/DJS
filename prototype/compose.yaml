@@ -34,7 +34,7 @@ networks:
   toolnet: {internal: true}
   mgmtnet: {}          # owner UI access only (port bound to 127.0.0.1)
 
-volumes: {sec_side_a: {}, sec_side_b: {}, sec_side_c: {}, sec_term: {}, sec_pep: {}, sec_harness: {}, pep_log: {}, tool_log: {}, control_data: {}}
+volumes: {sec_side_a: {}, sec_side_b: {}, sec_side_c: {}, sec_term: {}, sec_pep: {}, sec_harness: {}, pep_log: {}, tool_log: {}, control_data: {}, control_anchor: {}}
 
 services:
   pki:
@@ -50,8 +50,8 @@ services:
     labels: {mandate.role: control-plane}
     command: ["python", "/proto/control/server.py"]
     environment: {MANDATE_PEP_TOKEN: "${MANDATE_PEP_TOKEN:-demo-pep-token}", MANDATE_OWNER_TOKEN: "${MANDATE_OWNER_TOKEN:-demo-owner-token}",
-                  MANDATE_POLICY_DIR: /s2cfg, MANDATE_AUDIT: /data/audit.jsonl, MANDATE_ENGINE: "${MANDATE_ENGINE:-E2}", PYTHONDONTWRITEBYTECODE: "1"}
-    volumes: [".:/proto:ro", "../S2-cedar/config:/s2cfg:ro", "control_data:/data"]
+                  MANDATE_POLICY_DIR: /s2cfg, MANDATE_AUDIT: /data/audit.jsonl, MANDATE_ENGINE: "${MANDATE_ENGINE:-E2}", MANDATE_STATE_ANCHOR: /anchor/anchor.json, PYTHONDONTWRITEBYTECODE: "1"}
+    volumes: [".:/proto:ro", "../S2-cedar/config:/s2cfg:ro", "control_data:/data", "control_anchor:/anchor"]
     networks: [pepnet, mgmtnet]
     ports: ["127.0.0.1:8800:8800"]
 

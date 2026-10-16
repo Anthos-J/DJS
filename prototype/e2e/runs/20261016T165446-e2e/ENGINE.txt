@@ -1,0 +1,1 @@
+MANDATE_ENGINE=E4.2 (pre-freeze candidate)

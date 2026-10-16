@@ -64,7 +64,7 @@ async function refresh() {
     $("#ov-alerts").innerHTML = alerts.slice(0, 5).map(alertCard).join("") || `<div class="empty">No alerts.</div>`;
     $("#agent-table").innerHTML = `<table><tr><th>Agent identity</th><th>Role / mandate</th><th>Task</th><th>Status</th><th>History</th><th>Drift</th><th>Alerts</th><th>Actions</th></tr>${agents.map(a => `<tr>
       <td class="mono">${esc(a.agent_id)}<div class="mute">owner ${esc(a.owner)}</div></td><td><b>${esc(a.role)}</b><div class="mute">${esc(a.mandate.description)}</div><div>${a.mandate.tools.map(t => chip(t)).join("")}</div></td>
-      <td>${esc(a.task || "—")}<div class="mute">${esc(a.task_instruction || "")}</div></td><td class="${esc(a.status)}"><b>${esc(a.status)}</b></td>
+      <td>${esc(a.task || "—")}<div class="mute">${esc(a.task_instruction || "")}</div>${(a.subjects || []).length ? `<div class="mute">HR scope: ${esc(a.subjects.join(", "))}</div>` : ""}</td><td class="${esc(a.status)}"><b>${esc(a.status)}</b></td>
       <td>${a.history_n} events ${a.cold_start ? chip("cold start: role prior", "MEDIUM") : ""}</td><td>JS ${a.drift_js}<div class="bar" title="accumulator"><i style="width:${Math.min(100, a.accumulator / 1.2)}%"></i></div></td>
       <td>${a.open_alerts}</td><td>${a.status !== "quarantined" ? `<button class="act bad" onclick="setStatus('${esc(a.agent_id)}','quarantined')">Quarantine</button>` : ""}
       ${a.status === "active" ? `<button class="act" onclick="setStatus('${esc(a.agent_id)}','restricted')">Restrict</button>` : ""}

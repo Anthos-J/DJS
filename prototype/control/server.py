@@ -13,7 +13,9 @@ from starlette.responses import JSONResponse, FileResponse
 from starlette.routing import Route, Mount
 from starlette.staticfiles import StaticFiles
 ENGINE_VERSION = os.environ.get("MANDATE_ENGINE", "E2")   # E3 is opt-in; default stays the validated E2 engine
-if ENGINE_VERSION == "E4.1":
+if ENGINE_VERSION == "E4.2":
+    from mandate.engine_e42 import Engine
+elif ENGINE_VERSION == "E4.1":
     from mandate.engine_e41 import Engine
 elif ENGINE_VERSION == "E4":
     from mandate.engine_e4 import Engine
@@ -29,7 +31,18 @@ PEP_TOKEN = os.environ.get("MANDATE_PEP_TOKEN", "demo-pep-token")
 OWNER_TOKEN = os.environ.get("MANDATE_OWNER_TOKEN", "demo-owner-token")
 AUDIT = os.environ.get("MANDATE_AUDIT", "/data/audit.jsonl")
 os.makedirs(os.path.dirname(AUDIT), exist_ok=True)
-ENGINE = Engine(policy_dir=os.environ.get("MANDATE_POLICY_DIR"), audit_path=AUDIT)
+if ENGINE_VERSION == "E4.2":   # durable, single-writer security state; a refused start exits (the PEP then fails closed)
+    from mandate.state_e42 import StateError
+    try:
+        ENGINE = Engine(policy_dir=os.environ.get("MANDATE_POLICY_DIR"), audit_path=AUDIT,
+                        state_dir=os.environ.get("MANDATE_STATE_DIR", os.path.join(os.path.dirname(AUDIT), "state")),
+                        state_key=os.environ.get("MANDATE_STATE_KEY"), anchor_path=os.environ.get("MANDATE_STATE_ANCHOR"),
+                        recovery=os.environ.get("MANDATE_RECOVERY") == "1")
+    except StateError as e:
+        print(f"MANDATE control plane REFUSED TO START (fail closed): {e}", file=sys.stderr, flush=True)
+        raise SystemExit(3)
+else:
+    ENGINE = Engine(policy_dir=os.environ.get("MANDATE_POLICY_DIR"), audit_path=AUDIT)
 SIMULATED = {"baseline_source": None}
 
 
@@ -94,6 +107,15 @@ async def agent_task(req):
     except ValueError as e:
         return J({"error": str(e)}, 400)
     return J(ENGINE.agents[aid])
+
+
+@need_owner
+async def recovery_ack(req):
+    b = await req.json() if (await req.body()) else {}
+    if not hasattr(ENGINE, "ack_recovery"):
+        return J({"error": "engine has no recovery mode"}, 400)
+    ENGINE.ack_recovery(by="owner-ui", note=str(b.get("note", "")))
+    return J({"recovery": ENGINE.recovery})
 
 
 @need_owner
@@ -184,7 +206,7 @@ app = Starlette(routes=[
     Route("/api/agents/{aid}/task", agent_task, methods=["POST"]), Route("/api/agents/{aid}/baseline", baseline),
     Route("/api/events", events), Route("/api/alerts", alerts), Route("/api/approvals", approvals),
     Route("/api/approvals/{apid}", approvals, methods=["POST"]), Route("/api/delegations", delegations, methods=["GET", "POST"]),
-    Route("/api/audit", audit), Route("/api/eval", evaluation), Route("/api/seed", seed, methods=["POST"]),
+    Route("/api/audit", audit), Route("/api/recovery/ack", recovery_ack, methods=["POST"]), Route("/api/eval", evaluation), Route("/api/seed", seed, methods=["POST"]),
     Mount("/static", StaticFiles(directory=str(ROOT / "control" / "static")), name="static")])
 
 if __name__ == "__main__":
