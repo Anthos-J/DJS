@@ -12,6 +12,8 @@ Audited commit: `2d4b4a09e5aeb7d8bc08cc75a8e6450cc7dfc5a1`. The working tree was
 | `sha256sum -c S3-isolation/EVIDENCE_MANIFEST.sha256` (original machine) | 294/297 OK. The 3 FAILED files are those changed in later recorded commits. Output: `manifest_check_original_machine.txt` |
 | The same manifest vs git blobs at tag `s3-am11-local-repro` | 196 match as stored (LF); 92 match only in CRLF form; 9 have mixed line endings. The manifest hashed Windows working-copy bytes, so it **cannot be verified on a fresh clone**. Added the companion `S3-isolation/EVIDENCE_MANIFEST.blob.sha256` (from tag blobs) and `tools/verify_manifest.py`: **297/297 match**. The original manifest is unchanged |
 
+**Found after commit `4d594e7`:** `PLAN_remaining.md` had been truncated to one line since `2d4b4a0` (write-before-read in my update script). It was restored from `9c0ffca` with the progress lines re-added. STATUS, the VERDICTs and the checklist only grew (checked line counts).
+
 **Checklist corrections made:**
 - unsigned tag (`git tag -v` cannot be used);
 - `images/agentdojo/build.sh` has the same base-ID lock as `images/mitm/build.sh`;
