@@ -1,0 +1,4 @@
+Leakage check (2026-10-16): engine/config files searched for scenario/evaluator identifiers (harmful, family, scenario, split names, family ids C*/D*, h5 pool names).
+Files: mandate/engine_e421.py mandate/state_e42.py config/roles_e421.json config/engine_config_e421.json
+NO MATCHES
+Note: 'kind' occurs only as audit-record kind fields.

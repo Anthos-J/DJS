@@ -1,0 +1,17 @@
+probe server IPv6: fd00:6d:1::2
+== positive control (container on the IPv6 probe network)
+probe_srv CONNECTED v6-ok
+public_v6 BLOCKED ConnectionRefusedError
+if_inet6 ['fd00006d000100000000000000000003']
+v6_default_route True
+== negative test: cell agent_a
+probe_srv BLOCKED OSError
+public_v6 BLOCKED OSError
+if_inet6 []
+v6_default_route False
+== negative test: cell agent_b
+probe_srv BLOCKED OSError
+public_v6 BLOCKED OSError
+if_inet6 []
+v6_default_route False
+RESULT=PASS (positive control connected over IPv6; cells blocked)

@@ -90,3 +90,7 @@ The full requirement → code → test → evidence map for E4 is in `prototype/
 | R6: repeated restarts | 1 of 5 | 1 of 5 | **PARTIAL**: first restart executes (L5) | red team R6 |
 
 Every row is still SECURITY VALIDATION INCOMPLETE.
+
+## E4.2 / E4.2.1 addendum (16 Oct 2026)
+
+The requirement → implementation → test → evidence matrix is `prototype/E42_TRACEABILITY.md`. The per-item status (FIXED AND VERIFIED / PARTIALLY MITIGATED / DOCUMENTED LIMITATION / EXTERNAL VALIDATION PENDING) is in `prototype/FINAL_STATUS_REPORT.md` §4. The E2 and E4 tables above are kept as historical. Every row is still SECURITY VALIDATION INCOMPLETE.

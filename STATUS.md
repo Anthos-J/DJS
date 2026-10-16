@@ -639,3 +639,15 @@ E1, E2 and E3 are untouched. Acceptance criteria were fixed before the freeze (`
 - **E2E with E4.1:** 14/14 (`e2e/runs/20261016T154555-e2e`). **E2E with the default E2:** 13/13. AM11 gates exit 0.
 - **Decision:** READY FOR HACKATHON DEMONSTRATION (prototype). Not SECURITY-TESTED. The prototype is now frozen.
 - **Runbook:** `prototype/DEMO_RUNBOOK.md`. **Slides:** `prototype/E4_RESULTS_SLIDES.md`.
+
+## E4.2 cycle (16 Oct 2026): final engineering cycle. Report: `prototype/FINAL_STATUS_REPORT.md`
+
+- E1–E4.1 are unchanged.
+- **E4.2** (`engine-E4.2`, `f2d57fe`) was frozen after dev-only tuning (`E42_DEV_LOG.md`).
+- The post-freeze red team found **V1** (fair-share erosion by principals joining one after another) and **V4** (corroboration by another service). Both were fixed as **E4.2.1** (`engine-E4.2.1`, `7002aa1`), frozen before fresh seeds 951–955.
+- **Final evaluation** (new h5 pools and families, effect-classified, ×2 identical):
+  - attacks (1,260): DENIED 690, APPROVAL_PENDING 540, EXECUTED_LABELLED 0, SUCCEEDED 30 (C4, below-budget, inherent);
+  - legitimate work (840): CLEAN 713, APPROVAL_FRICTION 127, DENIED_LEGIT 0, quarantined 0;
+  - benign alert rate 0.094 (E4.1: 0.738).
+- **E2E with E4.2.1:** 17/17. **E2E with the default E2:** 13/13. AM11 exits 0. IPv6 check PASS (ULA positive control). Dependency lock: 69 hashed pins.
+- **Decision:** acceptance criteria F1–F9 PASS. Engineering is frozen.
