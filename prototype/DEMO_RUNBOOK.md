@@ -15,7 +15,7 @@
    ```bash
    docker run --rm --network none -v "$(cygpath -w "$(pwd)"):/v" -w /v/prototype mandate-spike-py312:wave2 python -m unittest tests.test_engine_e421
    ```
-5. Full live path with E4.1. This runs the AM11 static gate, starts the stack, runs the AM11 runtime gate, then the E2E through the real PEP (17 checks), and leaves the dashboard running:
+5. Full live path with E4.2.1. This runs the AM11 static gate, starts the stack, runs the AM11 runtime gate, then the E2E through the real PEP (17 checks), and leaves the dashboard running:
    ```bash
    cd prototype && MANDATE_ENGINE=E4.2.1 bash run_prototype.sh e2e
    ```
