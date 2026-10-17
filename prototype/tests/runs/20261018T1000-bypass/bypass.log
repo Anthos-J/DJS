@@ -1,0 +1,9 @@
+== positive control (throwaway container, default Docker network)
+host gateway as seen from Docker: 192.168.65.254
+{"tcp_host.docker.internal": "CONNECTED HOST-LISTENER-OK", "tcp_host_gateway_ip": "CONNECTED HOST-LISTENER-OK", "dns_lookup_example.com": "RESOLVED 104.20.23.154", "udp_dns_to_8.8.8.8": "ANSWERED 61 bytes", "tcp_internet_1.1.1.1:443": "BLOCKED TimeoutError", "skip_pep_tool_server_backend:9000": "BLOCKED gaierror", "skip_pep_direct_pep:8000": "BLOCKED gaierror", "skip_pep_control:8800": "BLOCKED gaierror", "terminator:8443_no_client_cert": "BLOCKED gaierror"}
+== cell agent_a
+{"tcp_host.docker.internal": "BLOCKED gaierror", "tcp_host_gateway_ip": "BLOCKED OSError", "dns_lookup_example.com": "BLOCKED gaierror", "udp_dns_to_8.8.8.8": "BLOCKED OSError", "tcp_internet_1.1.1.1:443": "BLOCKED OSError", "skip_pep_tool_server_backend:9000": "BLOCKED gaierror", "skip_pep_direct_pep:8000": "BLOCKED gaierror", "skip_pep_control:8800": "BLOCKED gaierror", "terminator:8443_no_client_cert": "CONNECTED HTTP/1.1 400 Bad Request\r\nServer: nginx/"}
+== cell agent_b
+{"tcp_host.docker.internal": "BLOCKED gaierror", "tcp_host_gateway_ip": "BLOCKED OSError", "dns_lookup_example.com": "BLOCKED gaierror", "udp_dns_to_8.8.8.8": "BLOCKED OSError", "tcp_internet_1.1.1.1:443": "BLOCKED OSError", "skip_pep_tool_server_backend:9000": "BLOCKED gaierror", "skip_pep_direct_pep:8000": "BLOCKED gaierror", "skip_pep_control:8800": "BLOCKED gaierror", "terminator:8443_no_client_cert": "CONNECTED HTTP/1.1 400 Bad Request\r\nServer: nginx/"}
+host listener connections received: 2 (expected: only from the positive control)
+RESULT=PASS (positive control reached the host; every bypass route from both cells blocked)
