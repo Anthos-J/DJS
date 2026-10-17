@@ -3,44 +3,38 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MANDATE Console</title>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 2 4 7v8c0 7.5 5.1 13.4 12 15 6.9-1.6 12-7.5 12-15V7z' fill='%232f6fed'/%3E%3C/svg%3E">
+<title>MANDATE · the permission layer for AI agents</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='3' y='3' width='26' height='26' rx='7' fill='%2314171f'/%3E%3Cpath d='M9 22V10l7 7 7-7v12' stroke='%23f6f1e7' stroke-width='3' fill='none' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-<div class="app">
-  <aside class="side">
-    <div class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2 4 7v8c0 7.5 5.1 13.4 12 15 6.9-1.6 12-7.5 12-15V7z"/></svg>
-      <div><b>MANDATE</b><span>Agent runtime governance</span></div></div>
-    <nav id="nav">
-      <a href="#/overview" data-r="overview">Overview</a>
-      <a href="#/demo" data-r="demo">Live scenarios</a>
-      <a href="#/llm" data-r="llm">Live LLM agent</a>
-      <a href="#/simulate" data-r="simulate">Policy simulator</a>
-      <a href="#/graph" data-r="graph">Attack graph</a>
-      <a href="#/agents" data-r="agents">Agents &amp; authority</a>
-      <a href="#/approvals" data-r="approvals">Approvals <span class="count" id="nav-ap"></span></a>
-      <a href="#/investigate" data-r="investigate">Investigations</a>
-      <a href="#/audit" data-r="audit">Audit explorer</a>
-      <a href="#/recovery" data-r="recovery">Recovery</a>
-      <a href="#/results" data-r="results">Evaluation results</a>
-      <a href="#/diagnostics" data-r="diagnostics">Diagnostics</a>
-    </nav>
-    <div class="side-foot">Prototype. Scripted agents (no LLM), mock tool server, simulated outbound effects. Not SECURITY-TESTED; not independently reviewed.</div>
-  </aside>
-  <div class="main">
-    <header class="top">
-      <h1 id="title">Overview</h1>
-      <div class="status" id="status"><span class="pill muted">connecting…</span></div>
-      <label class="tok" id="tokwrap" hidden>Owner token <input id="token" type="password" autocomplete="off"></label>
-    </header>
-    <div id="banner" class="banner" hidden></div>
-    <main id="view" aria-live="polite"></main>
-  </div>
-</div>
+<header class="bar">
+  <a class="mark" href="#/" aria-label="MANDATE home">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="3" y="3" width="26" height="26" rx="7"/><path d="M9 22V10l7 7 7-7v12"/></svg>
+    <span><b>MANDATE</b><i>the permission layer for AI agents</i></span>
+  </a>
+  <nav class="areas" id="areas" aria-label="Main">
+    <a href="#/" data-area="home">Home</a>
+    <a href="#/demo" data-area="see">See it work</a>
+    <a href="#/agents" data-area="operate">Operate <span class="count" id="nav-ap"></span></a>
+    <a href="#/results" data-area="proof">Proof</a>
+  </nav>
+  <div class="live" id="live" aria-live="polite"><span class="dot"></span><span>connecting…</span></div>
+  <label class="tok" id="tokwrap" hidden>Owner token <input id="token" type="password" autocomplete="off"></label>
+</header>
+<nav class="sub" id="sub" aria-label="Section"></nav>
+<!-- route names kept for continuity: #/simulate #/graph #/llm #/demo #/agents #/approvals #/investigate #/audit #/recovery #/results #/diagnostics #/limits -->
+<div id="banner" class="banner" hidden></div>
+<main id="view" aria-live="polite"></main>
+<footer class="foot">
+  <span>MANDATE prototype · engine E4.2.1</span>
+  <span>Scripted demo agents (an optional live LLM can be enabled) · mock tool server · outbound effects simulated</span>
+  <span>Not SECURITY-TESTED · not independently reviewed · <a href="#/limits">known limits</a></span>
+</footer>
+<div id="tip" class="tip" role="tooltip" hidden></div>
 <dialog id="dlg"><form method="dialog" id="dlgform">
   <h3 id="dlgtitle"></h3><div id="dlgbody"></div>
-  <label id="dlgreasonwrap">Reason (required) <textarea id="dlgreason"></textarea></label>
+  <label id="dlgreasonwrap" class="f">Reason (recorded in the audit trail)<textarea id="dlgreason"></textarea></label>
   <p class="err" id="dlgerr"></p>
   <menu><button value="cancel" formnovalidate class="ghost">Cancel</button><button id="dlgok" value="ok" class="primary">Confirm</button></menu>
 </form></dialog>

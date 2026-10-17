@@ -370,7 +370,9 @@ def diagnostics():
         d[f"am11_{k}"] = json.loads(f.read_text()) if f and f.exists() else None
     t = latest("tests/runs/*regression-E421/results.txt")
     d["tests"] = {"file": str(t.relative_to(ROOT)), "lines": t.read_text().splitlines()} if t else None
-    e = latest("e2e/runs/*-e2e/e2e_summary.json")
+    runs = sorted(glob.glob(str(ROOT / "e2e/runs/*-e2e/e2e_summary.json")))   # prefer the latest run on the submission engine
+    sub = [f for f in runs if "E4.2.1" in ((Path(f).parent / "ENGINE.txt").read_text(errors="replace") if (Path(f).parent / "ENGINE.txt").exists() else "")]
+    e = Path((sub or runs)[-1]) if (sub or runs) else None
     d["last_e2e"] = {"file": str(e.relative_to(ROOT)), **{k: v for k, v in json.loads(e.read_text()).items() if k in ("passed", "total")},
                      "engine": (e.parent / "ENGINE.txt").read_text().strip() if (e.parent / "ENGINE.txt").exists() else None} if e else None
     ct = latest("console/tests/runs/*/results.json")

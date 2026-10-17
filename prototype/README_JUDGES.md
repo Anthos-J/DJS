@@ -44,20 +44,28 @@ The console holds the **demo** owner token for you (`MANDATE_CONSOLE_DEMO_TOKEN=
 
 ## What to look at (about 10 minutes)
 
-1. **Overview**: live control-plane health, engine, agents, pending approvals, recent decisions and alerts, plus the recorded evaluation headline.
-2. **Live scenarios**: click **Run** on journeys 1–9, then 10–12. Each run shows its steps, the PEP results, the control-plane decisions and the tool-server effects, and ends with PASS or FAIL checks. Expected results are in `DEMO_SCRIPT.md`.
-3. **Approvals**: approve or reject held actions with a note. The outcome column shows whether the approved action executed (at most once).
-4. **Agents & authority**: quarantine, restrict or resume with a reason; assign tasks. HR tasks need a declared subject, and the server refuses them otherwise.
-5. **Investigations**: any decision with its factors, evidence, expected authority, stopping control and resulting action.
-6. **Audit explorer**: the verified hash chain, with filters by type, agent, decision, time and text.
-7. **Recovery**: after journey 11 (audit log removed, so the control plane refuses to start), start owner recovery mode and acknowledge it.
-8. **Evaluation results**: recorded outcomes with denominators, the engine comparison, scenario families (C4 still succeeds), the red team and limitations.
-9. **Diagnostics**: services, engine configuration, AM11 results, recorded tests, and an on-demand evidence-integrity check.
-10. **Policy simulator**: type any tool call (or pick a preset such as *Exfiltrate salaries*) and see what the live engine would decide, with factors. This is a dry run: nothing executes and nothing is recorded.
-11. **Attack graph**: a live map of every agent → tool → destination path, coloured by outcome. Click a red path to investigate it.
-12. **Evidence pack**: in Investigations, *Export verifiable evidence pack*, then verify it offline with `python console/verify_evidence_pack.py <file>`. Edit any byte and it fails.
+The console has four areas. Plain-language explanations come first, and the technical evidence is always one click away.
 
-**Reset to baseline:** Live scenarios → *Reset demo* (redeploys through the AM11 gates and reseeds, about 1 minute), or run `bash demo/stop.sh && bash demo/launch.sh`.
+1. **Home** answers what MANDATE is, how it works (ask → check → decide) and why it matters. It shows the latest live checkpoint decision, the current state (agents, approvals, audit), a plain-language feed of decisions, and the honest headline results.
+2. **See it work**
+   - **Guided scenarios**: 12 live stories in four chapters (Everyday work, Attacks stopped, Humans in control, When things go wrong). Each run shows the steps, MANDATE's decision in words, the checks verified at the tool server, and *what this proves*.
+   - **Try an attack**: pick a preset such as *Steal salaries by email*, or write your own, and the real engine says what it would decide. It's a dry run: nothing executes or is recorded.
+   - **Live AI agent** (optional): a real model under MANDATE. It needs your own key; see below.
+3. **Operate**
+   - **Agents & mandates**: who may do what. Quarantine, restrict or resume (with a reason), and assign tasks, including declared HR scope.
+   - **Approvals**: held actions waiting for you. Approve once or reject; the outcome shows whether it ran.
+   - **Decisions**: every decision, explained, with a verifiable evidence-pack export.
+   - **Attack map**: every agent → action → destination path, coloured by outcome.
+4. **Proof**
+   - **Results**: what we measured, with denominators.
+   - **Audit trail**: the hash chain, verified, with filters.
+   - **Known limits**: the full register.
+   - **Recovery**: the three recovery states.
+   - **System health**: services, engine and recorded checks.
+
+Hover any dotted-underlined term (*mandate*, *checkpoint*, *quarantine*…) for a definition. The ◐ button switches light and dark mode. The status pill at the top right is live, and clicking it opens System health.
+
+**Reset to baseline:** See it work → Guided scenarios → *Reset demo* (redeploys through the AM11 gates and reseeds, about 1 minute), or run `bash demo/stop.sh && bash demo/launch.sh`.
 
 ## Optional: live LLM agent
 
