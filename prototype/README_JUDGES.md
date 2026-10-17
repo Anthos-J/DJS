@@ -56,6 +56,22 @@ The console holds the **demo** owner token for you (`MANDATE_CONSOLE_DEMO_TOKEN=
 
 **Reset to baseline:** Live scenarios → *Reset demo* (redeploys through the AM11 gates and reseeds, about 1 minute), or run `bash demo/stop.sh && bash demo/launch.sh`.
 
+## Optional: live LLM agent
+
+The base demo needs no key. To let a **real model** (Groq, `openai/gpt-oss-120b`) plan the agent's tool calls, set the key in **your own terminal** first. Don't put it in a file or paste it into chat:
+
+```bash
+export GROQ_API_KEY=your-key
+export MANDATE_LLM_CONSENT=1
+bash demo/launch.sh
+```
+
+Then open **Live LLM agent** in the console. The three tasks are normal procurement work, reading the poisoned supplier quote, and web research followed by a wiki write.
+
+- The model runs on the host. Every tool call it proposes goes through the real cell → PEP → control plane path, so the cells stay network-isolated.
+- The verdict comes only from the tool server's effect log. The model's behaviour varies from run to run, so results are shown per run, not as a rate.
+- Sent to Groq: the task prompt, the tool list and the mock tool results.
+
 ## Architecture
 
 ![architecture](docs/architecture.svg)

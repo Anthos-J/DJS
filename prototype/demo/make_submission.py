@@ -9,7 +9,7 @@ V = P.parent                                         # validation/
 OUT = V / "submission"; OUT.mkdir(exist_ok=True)
 ZIP = OUT / "MANDATE_E4.2.1_submission.zip"
 ROOT = "MANDATE_E4.2.1"
-SKIP = re.compile(r"(__pycache__|\.pyc$|\.console\.pid$|\.meta\.json$|console\.log$|/demo/runs/|build\.log$)")
+SKIP = re.compile(r"(\.llm\.env$|\.env$|__pycache__|\.pyc$|\.console\.pid$|\.meta\.json$|console\.log$|/demo/runs/|build\.log$)")
 
 files = []
 def add(pattern, base=V):
@@ -42,7 +42,7 @@ for p in ["prototype/eval/runs/20261016T1800-E4.2.1-h5eval-s95x-run*/summary.jso
 
 files = sorted({f for f in files if not SKIP.search(f.as_posix())})
 # built by concatenation so this file does not match its own patterns
-secret = re.compile(b"-----" + b"BEGIN (RSA |EC |OPENSSH |)PRIVATE KEY-----|" + b"sk-" + b"ant-|" + b"AK" + b"IA[0-9A-Z]{16}|" + b"gh" + b"p_[A-Za-z0-9]{30}")
+secret = re.compile(b"-----" + b"BEGIN (RSA |EC |OPENSSH |)PRIVATE KEY-----|" + b"sk-" + b"ant-|" + b"AK" + b"IA[0-9A-Z]{16}|" + b"gh" + b"p_[A-Za-z0-9]{30}|" + b"gs" + b"k_[A-Za-z0-9]{40}")
 bad = [f for f in files if secret.search(f.read_bytes())]
 if bad:
     sys.exit(f"refusing to package possible secrets: {bad}")

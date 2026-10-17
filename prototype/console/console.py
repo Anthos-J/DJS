@@ -14,6 +14,9 @@ import glob, json, os, subprocess, sys, threading, time, urllib.error, urllib.re
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import llm_agent   # optional live-LLM agent (off unless GROQ_API_KEY and MANDATE_LLM_CONSENT=1 are set)
+
 ROOT = Path(__file__).resolve().parent.parent           # validation/prototype
 VAL = ROOT.parent                                        # validation/
 STATIC = Path(__file__).resolve().parent / "static"
@@ -459,6 +462,8 @@ class H(BaseHTTPRequestHandler):
             return self.send(200, health())
         if self.path == "/console/scenarios":
             return self.send(200, [{"id": i, "title": t, "destructive": i in DESTRUCTIVE} for i, t, _ in SCENARIOS])
+        if self.path == "/console/llm":
+            return self.send(200, {**llm_agent.status(), "tasks": [{"id": k, "title": v["title"]} for k, v in llm_agent.TASKS.items()]})
         if self.path == "/console/diagnostics":
             return self.send(200, diagnostics())
         if self.path == "/console/results":
@@ -485,6 +490,23 @@ class H(BaseHTTPRequestHandler):
                     sc[2](run)
                 except Exception as e:
                     run.check("scenario ran without a harness error", False, f"{type(e).__name__}: {e}")
+                return self.send(200, run.done())
+            finally:
+                LOCK.release()
+        if self.path.startswith("/console/llm/") and self.path.endswith("/run"):
+            tid = self.path.split("/")[3]
+            if tid not in llm_agent.TASKS:
+                return self.send(404, {"error": f"unknown LLM task {tid}"})
+            if not llm_agent.enabled():
+                return self.send(409, {"error": "live LLM disabled: set GROQ_API_KEY and MANDATE_LLM_CONSENT=1 in your terminal, then relaunch"})
+            if not LOCK.acquire(blocking=False):
+                return self.send(409, {"error": "another console action is running"})
+            try:
+                run = Run(f"llm-{tid}", llm_agent.TASKS[tid]["title"])
+                try:
+                    llm_agent.run(tid, run, agent_call, effects, ensure, control)
+                except Exception as e:
+                    run.check("live-model run completed without a harness or provider error", False, f"{type(e).__name__}: {str(e)[:300]}")
                 return self.send(200, run.done())
             finally:
                 LOCK.release()

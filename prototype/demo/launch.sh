@@ -47,6 +47,7 @@ eng=$("$PY" -c "import json; print(json.load(open('demo/.meta.json'))['engine'])
 echo "   control plane ready, engine $eng"
 "$PY" console/console.py --seed | sed 's/^/   /' || fail "seeding the demo baseline failed"
 
+if [ -n "${GROQ_API_KEY:-}" ] && [ "${MANDATE_LLM_CONSENT:-}" = "1" ]; then echo "   optional live LLM agent: ENABLED (key from your environment)"; else echo "   optional live LLM agent: disabled (see README_JUDGES.md)"; fi
 echo "-- console"
 nohup "$PY" console/console.py > demo/console.log 2>&1 &
 echo $! > demo/.console.pid

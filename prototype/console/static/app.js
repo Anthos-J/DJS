@@ -77,7 +77,7 @@ async function refreshStatus() {
 
 // ---------------------------------------------------------------- routing
 const VIEWS = {};
-const TITLES = { overview: "Security overview", demo: "Live scenarios", agents: "Agents & authority", approvals: "Approval center", investigate: "Threat & incident investigation",
+const TITLES = { overview: "Security overview", demo: "Live scenarios", llm: "Live LLM agent (optional)", agents: "Agents & authority", approvals: "Approval center", investigate: "Threat & incident investigation",
   audit: "Audit explorer", recovery: "Owner recovery", results: "Evaluation results", diagnostics: "System diagnostics" };
 async function route() {
   const r = (location.hash.replace(/^#\//, "").split("?")[0]) || "overview";
@@ -172,10 +172,32 @@ function runHtml(r) {
     <ul class="checks">${r.checks.map(c => `<li>${pill(c.ok ? "PASS" : "FAIL", c.ok ? "ok" : "bad")} ${esc(c.what)} <span class="faint mono">${esc(JSON.stringify(c.observed)).slice(0, 160)}</span></li>`).join("")}</ul>
     <h3 style="margin-top:12px">Steps</h3><div class="steps">${r.steps.map(s => `<div class="step ${esc(s.kind)}"><div class="k">${esc(s.kind)}</div><div>${esc(s.what)}</div>
       ${s.pep_results ? `<div class="row" style="margin-top:4px">${s.pep_results.map(p => `${pill(`${p.tool}: ${p.ok ? "executed" : (p.text || "").split(":")[0]}`, p.ok ? "ok" : (String(p.text).startsWith("APPROVAL") ? "warn" : "bad"))}`).join("")}</div>` : ""}
+      ${s.tool_calls && s.tool_calls.length ? `<div class="faint">model proposed: ${esc(s.tool_calls.map(c => c.name).join(", "))}</div>` : ""}${s.content ? `<div class="faint">model said: ${esc(s.content.slice(0, 240))}</div>` : ""}${s.answer ? `<div>${esc(s.answer)}</div>` : ""}
       ${s.tool_server_effects ? `<div class="faint">tool-server effects: ${s.tool_server_effects.length ? esc(s.tool_server_effects.map(e => e.tool).join(", ")) : "none"}</div>` : ""}
       ${s.decisions ? `<div class="tbl"><table>${s.decisions.map(d => `<tr><td>${esc(d.tool)}</td><td>${pill(d.response, RESP[d.response])}</td><td class="mute">${esc(d.control)}</td><td class="faint">${esc(d.reason)}</td></tr>`).join("")}</table></div>` : ""}
       <details><summary>raw</summary><pre>${esc(JSON.stringify(s, null, 1))}</pre></details></div>`).join("")}</div>`;
 }
+
+// ---------------------------------------------------------------- 2b. optional live LLM agent
+VIEWS.llm = async el => {
+  clearInterval(S.timer);
+  let st; try { st = await http("/console/llm"); } catch (e) { el.innerHTML = errBox(e, "LLM status"); return; }
+  el.innerHTML = `
+    <div class="note${st.enabled ? "" : " w"}"><b>${st.enabled ? "Live model enabled" : "Live model disabled"}</b>: ${esc(st.provider)} / <span class="mono">${esc(st.model)}</span>.
+      ${st.enabled ? "A real model plans the agent's tool calls; every call still passes the real PEP, and the verdict is judged from the tool server's effect log. Model behaviour varies from run to run." :
+      `Optional. To enable it, set it in your own terminal: <span class="mono">export GROQ_API_KEY=…</span> and <span class="mono">export MANDATE_LLM_CONSENT=1</span>, then run <span class="mono">bash demo/launch.sh</span>. The key is read from the environment only and is never stored or shown.`}</div>
+    <p class="lead">Sent to the provider: the task prompt, the tool list and the mock tool results (demo data). The agent cells stay network-isolated; the model runs on the host.</p>
+    <div class="grid g2" style="margin-top:12px">
+      <div class="card"><div class="tbl"><table><tr><th>Task</th><th></th></tr>
+        ${st.tasks.map(t => `<tr><td>${esc(t.title)}</td><td><button class="sm" data-llm="${esc(t.id)}" ${st.enabled ? "" : "disabled"}>Run live</button></td></tr>`).join("")}</table></div></div>
+      <div class="card" id="llmout">${S.lastLlm ? runHtml(S.lastLlm) : empty("Run a task to see the model's turns, each PEP decision and the tool-server evidence.")}</div>
+    </div>`;
+  el.querySelectorAll("[data-llm]").forEach(b => b.onclick = async () => {
+    S.busy = true; $("#llmout").innerHTML = loading("Live model running (up to a minute)…"); el.querySelectorAll("button").forEach(x => x.disabled = true);
+    try { S.lastLlm = await consoleAction(`/console/llm/${b.dataset.llm}/run`); } catch (e) { $("#llmout").innerHTML = errBox(e, "Live run"); S.busy = false; return; }
+    S.busy = false; VIEWS.llm(el);
+  });
+};
 
 // ---------------------------------------------------------------- 3. agents & authority
 VIEWS.agents = async el => {
