@@ -1,0 +1,193 @@
+{
+ "format": "mandate-behaviour-model/2",
+ "representation": "action",
+ "data": "AgentDojo v1.2.2 ground-truth sequences",
+ "seed": 20261018,
+ "data_sha256": "00c3c36b8a04821b19b54fcb2a7228229d7f265120b95e552f4a9ffc73e33c99",
+ "cv_summary": {
+  "unseen_tool_rule": {
+   "detection_rate_on_hijacked": 0.0569,
+   "false_alarm_rate_on_heldout_benign": 0.0103,
+   "auc_mean": 0.5357,
+   "auc_std_across_folds": 0.0619,
+   "hijacked_n": 949,
+   "benign_n": 97
+  },
+  "markov_bigram": {
+   "detection_rate_on_hijacked": 0.2013,
+   "false_alarm_rate_on_heldout_benign": 0.0412,
+   "auc_mean": 0.7397,
+   "auc_std_across_folds": 0.1227,
+   "hijacked_n": 949,
+   "benign_n": 97
+  },
+  "isolation_forest": {
+   "detection_rate_on_hijacked": 0.156,
+   "false_alarm_rate_on_heldout_benign": 0.1237,
+   "auc_mean": 0.6377,
+   "auc_std_across_folds": 0.14,
+   "hijacked_n": 949,
+   "benign_n": 97
+  },
+  "gru": {
+   "detection_rate_on_hijacked": 0.2255,
+   "false_alarm_rate_on_heldout_benign": 0.134,
+   "auc_mean": 0.7327,
+   "auc_std_across_folds": 0.1258,
+   "hijacked_n": 949,
+   "benign_n": 97
+  }
+ },
+ "chosen": "markov_bigram",
+ "suites": {
+  "banking": {
+   "markov": {
+    "vocab": [
+     "</s>",
+     "<s>",
+     "<unk>",
+     "read:1:untrusted",
+     "read:2:untrusted",
+     "send:?:?"
+    ],
+    "counts": {
+     "<s>": {
+      "read:1:untrusted": 4,
+      "read:2:untrusted": 11,
+      "send:?:?": 1
+     },
+     "read:1:untrusted": {
+      "send:?:?": 2,
+      "read:2:untrusted": 2
+     },
+     "send:?:?": {
+      "</s>": 12,
+      "read:2:untrusted": 2
+     },
+     "read:2:untrusted": {
+      "</s>": 4,
+      "send:?:?": 11
+     }
+    },
+    "alpha": 0.5
+   },
+   "threshold_p95": 2.5933727954454655
+  },
+  "slack": {
+   "markov": {
+    "vocab": [
+     "</s>",
+     "<s>",
+     "<unk>",
+     "read:0:untrusted",
+     "read:1:trusted",
+     "read:1:untrusted",
+     "send:?:?"
+    ],
+    "counts": {
+     "<s>": {
+      "read:0:untrusted": 5,
+      "read:1:untrusted": 7,
+      "read:1:trusted": 9
+     },
+     "read:0:untrusted": {
+      "</s>": 1,
+      "send:?:?": 12,
+      "read:0:untrusted": 5
+     },
+     "read:1:untrusted": {
+      "read:0:untrusted": 7,
+      "send:?:?": 4,
+      "read:1:untrusted": 6
+     },
+     "send:?:?": {
+      "</s>": 20,
+      "send:?:?": 11,
+      "read:1:trusted": 2,
+      "read:0:untrusted": 1
+     },
+     "read:1:trusted": {
+      "read:1:trusted": 18,
+      "send:?:?": 7,
+      "read:1:untrusted": 4
+     }
+    },
+    "alpha": 0.5
+   },
+   "threshold_p95": 3.6635616461296463
+  },
+  "travel": {
+   "markov": {
+    "vocab": [
+     "</s>",
+     "<s>",
+     "<unk>",
+     "read:0:trusted",
+     "read:0:untrusted",
+     "send:?:?"
+    ],
+    "counts": {
+     "<s>": {
+      "read:0:untrusted": 2,
+      "read:0:trusted": 18
+     },
+     "read:0:untrusted": {
+      "send:?:?": 1,
+      "read:0:trusted": 27,
+      "read:0:untrusted": 2,
+      "</s>": 3
+     },
+     "send:?:?": {
+      "</s>": 6
+     },
+     "read:0:trusted": {
+      "read:0:trusted": 40,
+      "send:?:?": 5,
+      "read:0:untrusted": 29,
+      "</s>": 11
+     }
+    },
+    "alpha": 0.5
+   },
+   "threshold_p95": 3.1287890813125205
+  },
+  "workspace": {
+   "markov": {
+    "vocab": [
+     "</s>",
+     "<s>",
+     "<unk>",
+     "read:0:trusted",
+     "read:1:trusted",
+     "read:1:untrusted",
+     "send:?:?"
+    ],
+    "counts": {
+     "<s>": {
+      "read:1:untrusted": 38,
+      "read:0:trusted": 2
+     },
+     "read:1:untrusted": {
+      "</s>": 18,
+      "send:?:?": 23,
+      "read:1:untrusted": 11,
+      "read:1:trusted": 1
+     },
+     "read:0:trusted": {
+      "read:1:untrusted": 2
+     },
+     "send:?:?": {
+      "</s>": 22,
+      "send:?:?": 4,
+      "read:1:untrusted": 2
+     },
+     "read:1:trusted": {
+      "send:?:?": 1
+     }
+    },
+    "alpha": 0.5
+   },
+   "threshold_p95": 3.8501476017100584
+  }
+ }
+}

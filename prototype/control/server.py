@@ -13,7 +13,9 @@ from starlette.responses import JSONResponse, FileResponse
 from starlette.routing import Route, Mount
 from starlette.staticfiles import StaticFiles
 ENGINE_VERSION = os.environ.get("MANDATE_ENGINE", "E2")   # E3 is opt-in; default stays the validated E2 engine
-if ENGINE_VERSION == "E4.2.1":
+if ENGINE_VERSION == "E4.3":
+    from mandate.engine_e43 import Engine
+elif ENGINE_VERSION == "E4.2.1":
     from mandate.engine_e421 import Engine
 elif ENGINE_VERSION == "E4.2":
     from mandate.engine_e42 import Engine
@@ -33,7 +35,7 @@ PEP_TOKEN = os.environ.get("MANDATE_PEP_TOKEN", "demo-pep-token")
 OWNER_TOKEN = os.environ.get("MANDATE_OWNER_TOKEN", "demo-owner-token")
 AUDIT = os.environ.get("MANDATE_AUDIT", "/data/audit.jsonl")
 os.makedirs(os.path.dirname(AUDIT), exist_ok=True)
-if ENGINE_VERSION in ("E4.2", "E4.2.1"):   # durable, single-writer security state; a refused start exits (the PEP then fails closed)
+if ENGINE_VERSION in ("E4.2", "E4.2.1", "E4.3"):   # durable, single-writer security state; a refused start exits (the PEP then fails closed)
     from mandate.state_e42 import StateError
     try:
         ENGINE = Engine(policy_dir=os.environ.get("MANDATE_POLICY_DIR"), audit_path=AUDIT,

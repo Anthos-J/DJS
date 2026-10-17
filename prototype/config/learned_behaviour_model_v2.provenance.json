@@ -1,0 +1,7 @@
+{
+ "source_zip": "mandate_behaviour_model (1).zip",
+ "zip_sha256": "659b4e66af77fcfeed518d85f9dca4cef685bbd23128f3fa2422f438bd3e9ab4",
+ "model_sha256": "37f3a27fb7425ddca58d0e4f8c37214debf40262df89da1c9a8b1b3615e56944",
+ "trained_by": "owner, on Google Colab, with ml/behaviour_model/MANDATE_behaviour_model.ipynb",
+ "data": "AgentDojo v1.2.2 ground-truth sequences (action-type representation)"
+}
