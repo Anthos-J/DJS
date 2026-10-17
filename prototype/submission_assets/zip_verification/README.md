@@ -6,3 +6,9 @@
   2. `bash demo/launch.sh` from the extracted `prototype/` reached READY (AM11 gates exit 0, engine E4.2.1);
   3. `python console/tests/test_console_integration.py` from the extracted copy: **18/18 OK** (`integration_from_extracted_zip.txt`, `results.json`).
 - Same machine as development. This is not a second-machine or clean-machine reproduction.
+
+## Rebuild after the optional live-LLM agent (17 Oct 2026)
+
+- New ZIP sha256 `0085d75caa47ce770d0c205a61ba21e413bac4cb29d6c7701946377b8ee790e9` (213 files). Adds `console/llm_agent.py`, the Live LLM page and `submission_assets/live_llm_runs/`.
+- Extracted copy: MANIFEST_OK. No file in the ZIP contains a Groq key (scanned).
+- Base demo (no key) re-verified 18/18 on the repository stack before the rebuild (`console/tests/runs/20261017T222711`). The extracted-copy launch from 16 Oct was not repeated, because it would stop the live console running in your terminal.
