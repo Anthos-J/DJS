@@ -210,9 +210,9 @@ training_args_kwargs = {
     "report_to": "none",
 }
 
-# Only enable fp16 if CUDA device is present
-if torch.cuda.is_available() and "fp16" in sig:
-    training_args_kwargs["fp16"] = True
+# DeBERTa-v3 disentangled attention causes numerical underflow with FP16 GradScaler; use FP32 for stability
+if "fp16" in sig:
+    training_args_kwargs["fp16"] = False
 
 # Evaluation strategy parameter name (eval_strategy in >=4.41, evaluation_strategy in older versions)
 if "eval_strategy" in sig:
