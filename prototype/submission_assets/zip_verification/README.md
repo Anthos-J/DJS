@@ -17,3 +17,8 @@
 
 - ZIP sha256 `14d71012fff38e1088cabc0f5ce77fa12941392c2369b75512e2e8e2069acef6` (219 files). Extracted copy: MANIFEST_OK. Contains `console/verify_evidence_pack.py` and `UI_RELEASE_P2.md`. No Groq key in any file.
 - Base demo verified 21/21 on the repository stack (`console/tests/runs/20261017T225310`), with E2E 17/17 and 13/13.
+
+## Rebuild for UI release P3 (18 Oct 2026)
+
+- ZIP sha256 `1caa5e70bd3d7a23c337b4ec06daa4a358cc4b37e931e51857b757c3ddb8a3b2` (227 files). Extracted copy: MANIFEST_OK. Contains the redesigned console and `UI_RELEASE_P3.md`. No Groq key in any file.
+- Live suite on the repository stack: 21/21.
