@@ -50,7 +50,7 @@ cells.append(cell([
 cells.append(cell("""\
 # ── Cell 1: Install dependencies ──
 !pip install -q transformers datasets accelerate sentencepiece protobuf \\
-    scikit-learn matplotlib onnx onnxruntime optimum[onnxruntime] seaborn
+    scikit-learn matplotlib onnx onnxruntime seaborn
 print("✅ Dependencies installed")
 """))
 
@@ -388,29 +388,55 @@ print(f"DeBERTa F1 improvement over keyword baseline: +{delta_f1:.4f} ({delta_f1
 # Cell 10: export to ONNX
 # ══════════════════════════════════════════════════════════════════
 cells.append(cell("""\
-# ── Cell 10: Export to ONNX ──
+# ── Cell 10: Export to ONNX (direct torch export, no optimum needed) ──
+import torch, os, shutil
 from pathlib import Path
-import shutil
+import onnxruntime as ort
+import numpy as np
 
-# Save the best model first
+# Save the best model and tokenizer
 best_model_dir = "./deberta-injection-best"
 trainer.save_model(best_model_dir)
 tokenizer.save_pretrained(best_model_dir)
 
-# Export to ONNX using optimum
-from optimum.onnxruntime import ORTModelForSequenceClassification
-
-ort_model = ORTModelForSequenceClassification.from_pretrained(best_model_dir, export=True)
+# Prepare output directory
 onnx_dir = "./deberta-injection-onnx"
-ort_model.save_pretrained(onnx_dir)
+os.makedirs(onnx_dir, exist_ok=True)
+
+# Move model to CPU for export
+model.eval()
+model.cpu()
+
+# Create dummy inputs matching the tokenizer output
+dummy = tokenizer("test input", return_tensors="pt", max_length=512,
+                  padding="max_length", truncation=True)
+dummy_input = {k: v for k, v in dummy.items()
+               if k in ('input_ids', 'attention_mask', 'token_type_ids')}
+input_names = list(dummy_input.keys())
+
+# Export to ONNX
+onnx_path = os.path.join(onnx_dir, "model.onnx")
+torch.onnx.export(
+    model,
+    tuple(dummy_input.values()),
+    onnx_path,
+    input_names=input_names,
+    output_names=["logits"],
+    dynamic_axes={n: {0: "batch", 1: "seq"} for n in input_names + ["logits"]},
+    opset_version=14,
+    do_constant_folding=True,
+)
+
+# Copy tokenizer files and config to onnx_dir
 tokenizer.save_pretrained(onnx_dir)
+shutil.copy2(os.path.join(best_model_dir, "config.json"), onnx_dir)
 
-# Verify the ONNX model works
-from optimum.onnxruntime import ORTModelForSequenceClassification as ORT
-from transformers import pipeline
+onnx_file = Path(onnx_path)
+print(f"✅ ONNX model exported to {onnx_dir}/")
+print(f"   ONNX file size: {onnx_file.stat().st_size / 1024 / 1024:.1f} MB")
 
-ort_model_reload = ORT.from_pretrained(onnx_dir)
-ort_pipe = pipeline("text-classification", model=ort_model_reload, tokenizer=tokenizer)
+# Verify: run inference with onnxruntime directly
+sess = ort.InferenceSession(onnx_path, providers=["CPUExecutionProvider"])
 
 test_texts = [
     "Please provide a summary of the quarterly sales figures.",
@@ -420,19 +446,21 @@ test_texts = [
     "The supplier offers 40 valves at $12.50 each with 2% volume discount.",
 ]
 
-print("=" * 60)
-print("ONNX MODEL VERIFICATION (inference test)")
+LABEL_MAP = {0: "LEGIT", 1: "INJECTION"}
+print("\\n" + "=" * 60)
+print("ONNX MODEL VERIFICATION (onnxruntime inference)")
 print("=" * 60)
 for text in test_texts:
-    result = ort_pipe(text[:512])[0]
-    emoji = "🛡️" if result["label"] == "INJECTION" else "✅"
-    print(f"  {emoji} [{result['label']:>9}] (conf={result['score']:.3f}) {text[:80]}")
-
-print(f"\\n✅ ONNX model exported to {onnx_dir}/")
-
-# Check file sizes
-onnx_file = Path(onnx_dir) / "model.onnx"
-print(f"   ONNX file size: {onnx_file.stat().st_size / 1024 / 1024:.1f} MB")
+    enc = tokenizer(text, return_tensors="np", max_length=512,
+                    truncation=True, padding="max_length")
+    feed = {k: v.astype(np.int64) for k, v in enc.items() if k in input_names}
+    logits = sess.run(None, feed)[0]
+    probs = np.exp(logits) / np.exp(logits).sum(axis=-1, keepdims=True)
+    pred = int(np.argmax(probs, axis=-1)[0])
+    conf = float(probs[0][pred])
+    label = LABEL_MAP[pred]
+    emoji = "🛡️" if label == "INJECTION" else "✅"
+    print(f"  {emoji} [{label:>9}] (conf={conf:.3f}) {text[:80]}")
 """))
 
 # ══════════════════════════════════════════════════════════════════
