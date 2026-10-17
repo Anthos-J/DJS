@@ -12,3 +12,8 @@
 - New ZIP sha256 `0085d75caa47ce770d0c205a61ba21e413bac4cb29d6c7701946377b8ee790e9` (213 files). Adds `console/llm_agent.py`, the Live LLM page and `submission_assets/live_llm_runs/`.
 - Extracted copy: MANIFEST_OK. No file in the ZIP contains a Groq key (scanned).
 - Base demo (no key) re-verified 18/18 on the repository stack before the rebuild (`console/tests/runs/20261017T222711`). The extracted-copy launch from 16 Oct was not repeated, because it would stop the live console running in your terminal.
+
+## Rebuild for UI release P2 (17 Oct 2026)
+
+- ZIP sha256 `14d71012fff38e1088cabc0f5ce77fa12941392c2369b75512e2e8e2069acef6` (219 files). Extracted copy: MANIFEST_OK. Contains `console/verify_evidence_pack.py` and `UI_RELEASE_P2.md`. No Groq key in any file.
+- Base demo verified 21/21 on the repository stack (`console/tests/runs/20261017T225310`), with E2E 17/17 and 13/13.
