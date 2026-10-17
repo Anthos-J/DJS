@@ -33,8 +33,8 @@ cells.append(cell([
     "**Goal**: Train a binary classifier that detects hidden prompt-injection attacks",
     "inside documents that an AI agent reads (supplier quotes, web pages, emails).",
     "",
-    "**Dataset**: `deepset/prompt-injections` — a public, externally-authored dataset",
-    "from Hugging Face (CC-BY-4.0). We did NOT author any of the training data.",
+    "**Data**: public, externally authored Hugging Face datasets only: `deepset/prompt-injections`, `xTRam1/safe-guard-prompt-injection`,",
+    "Enron e-mails (`SetFit/enron_spam`) as normal documents, and the same e-mails with a dataset injection inserted. Cross-source test: CNN articles + Lakera injections. We did NOT author any of the data.",
     "",
     "**Model**: `microsoft/deberta-v3-small` (44M params) — small enough for Colab,",
     "strong enough for production-grade text classification.",
@@ -68,26 +68,86 @@ print("=" * 60)
 # Cell 2: load and prepare data
 # ══════════════════════════════════════════════════════════════════
 cells.append(cell("""\
-# ── Cell 2: Load dataset from Hugging Face ──
-from datasets import load_dataset
+# ── Cell 2: Build the training data (documents, not just chat prompts) ──
+# Run 2 showed that a model trained only on deepset/prompt-injections learns "a question is safe, anything else is an
+# injection": it flagged ordinary invoices and supplier quotes. MANDATE scans DOCUMENTS, so the normal class must
+# contain documents too. Every text below comes from public, externally authored Hugging Face datasets; the MANDATE
+# team wrote none of it. The only processing is inserting an existing dataset injection into an existing document.
+import random, hashlib, json
 from collections import Counter
-import hashlib, json
+from datasets import load_dataset, Dataset, DatasetDict
 
-# Primary dataset: deepset/prompt-injections (well-curated public dataset)
-ds = load_dataset("deepset/prompt-injections")
+SEED = 20261018; rng = random.Random(SEED)
+DOC_CHARS = 1200          # documents are cut to ~300 tokens so the inserted text is never truncated away
+report = {}
 
-train_labels = Counter(ds['train']['label'])
-test_labels = Counter(ds['test']['label'])
+def rows(ds, col, lab):   # lab: function row -> 0/1
+    return [{"text": str(r[col]).strip(), "label": int(lab(r))} for r in ds if r.get(col) and str(r[col]).strip()]
+
+def insert(doc, inj):     # put the injection at a line/sentence boundary inside the kept part of the document
+    doc = doc[:DOC_CHARS]
+    cuts = [i + 1 for i, ch in enumerate(doc[:DOC_CHARS - 50]) if ch in ".\\n"] or [len(doc)]
+    k = rng.choice(cuts)
+    return (doc[:k] + " " + inj + " " + doc[k:]).strip()
+
+# 1. short prompts: deepset/prompt-injections (CC-BY-4.0) and xTRam1/safe-guard-prompt-injection
+dp = load_dataset("deepset/prompt-injections")
+sg = load_dataset("xTRam1/safe-guard-prompt-injection")
+dp_tr, dp_te = rows(dp["train"], "text", lambda r: r["label"]), rows(dp["test"], "text", lambda r: r["label"])
+sg_tr, sg_te = rows(sg["train"], "text", lambda r: r["label"]), rows(sg["test"], "text", lambda r: r["label"])
+rng.shuffle(sg_tr); rng.shuffle(sg_te)
+inj_train = [r["text"] for r in dp_tr + sg_tr if r["label"] == 1]          # injection strings allowed in TRAINING
+inj_test  = [r["text"] for r in dp_te + sg_te if r["label"] == 1]          # injection strings used only in TESTS
+
+# 2. documents: Enron e-mails (SetFit/enron_spam). Both ordinary mail and spam count as NOT injection:
+#    pushy or commanding text is not, by itself, an instruction aimed at an AI agent.
+en = load_dataset("SetFit/enron_spam")
+en_tr = [t[:DOC_CHARS] for t in en["train"]["text"] if t and len(t) > 80]; rng.shuffle(en_tr)
+en_te = [t[:DOC_CHARS] for t in en["test"]["text"] if t and len(t) > 80]; rng.shuffle(en_te)
+
+# paired documents: the SAME e-mail appears clean (0) and with an injection inserted (1)
+N_DOC = 2000
+docs = en_tr[:N_DOC]
+train_rows = (dp_tr + sg_tr[:3000]
+              + [{"text": d, "label": 0} for d in docs]
+              + [{"text": insert(d, rng.choice(inj_train)), "label": 1} for d in docs])
+rng.shuffle(train_rows)
+
+# 3. held-out tests (never trained on, never used to pick settings)
+N_T = 300
+t_docs = en_te[:N_T]
+tests = {
+    "deepset_test (original benchmark)": dp_te,
+    "enron_documents (unseen mails + unseen injections)":
+        [{"text": d, "label": 0} for d in t_docs] + [{"text": insert(d, rng.choice(inj_test)), "label": 1} for d in t_docs],
+}
+# cross-source test: CNN news articles and Lakera Gandalf injections, BOTH sources entirely absent from training
+try:
+    cnn = [r["article"][:DOC_CHARS] for r in load_dataset("abisee/cnn_dailymail", "3.0.0", split="validation", streaming=True).take(N_T)]
+    lak = [r["text"] for r in load_dataset("Lakera/gandalf_ignore_instructions", split="test")]
+    tests["cross_source (CNN articles + Lakera injections)"] = (
+        [{"text": d, "label": 0} for d in cnn] + [{"text": insert(d, lak[i % len(lak)]), "label": 1} for i, d in enumerate(cnn)])
+except Exception as e:
+    report["cross_source"] = f"UNAVAILABLE: {type(e).__name__}: {str(e)[:120]}"; print("SKIP cross-source test:", report["cross_source"])
+
+# leakage check: drop any test text that also appears in training
+H = lambda t: hashlib.sha1(t.strip().lower().encode()).hexdigest()
+train_h = {H(r["text"]) for r in train_rows}
+for k in list(tests):
+    before = len(tests[k]); tests[k] = [r for r in tests[k] if H(r["text"]) not in train_h]
+    report[f"leakage_removed::{k}"] = before - len(tests[k])
+
+ds = DatasetDict({"train": Dataset.from_list(train_rows), "test": Dataset.from_list(dp_te)})
+extra_tests = {k: Dataset.from_list(v) for k, v in tests.items()}
+train_labels, test_labels = Counter(ds["train"]["label"]), Counter(ds["test"]["label"])
 
 print("=" * 60)
-print(f"Loaded deepset/prompt-injections:")
-print(f"  Train: {len(ds['train'])} samples -> {dict(train_labels)}")
-print(f"  Test:  {len(ds['test'])} samples -> {dict(test_labels)}")
-print(f"  Columns: {ds['train'].column_names}")
-
-# Fingerprint for provenance
-h = hashlib.sha256(json.dumps(sorted(ds['train']['text'][:100])).encode()).hexdigest()[:16]
-print(f"  Dataset fingerprint (first 100 train texts): {h}")
+print("TRAIN:", len(ds["train"]), dict(train_labels), f"(incl. {N_DOC} clean + {N_DOC} injected e-mails)")
+for k, v in extra_tests.items():
+    print(f"TEST  {k}: {len(v)} rows {dict(Counter(v['label']))}")
+print("leakage removed:", {k: v for k, v in report.items() if k.startswith("leakage")})
+h = hashlib.sha256(json.dumps(sorted(r["text"] for r in train_rows[:200])).encode()).hexdigest()[:16]
+print("train fingerprint:", h)
 print("=" * 60)
 """))
 
@@ -142,7 +202,7 @@ from transformers import AutoTokenizer
 MODEL_ID = "microsoft/deberta-v3-small"
 tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
 
-MAX_LEN = 512
+MAX_LEN = 384
 
 def tokenize_fn(examples):
     tokenized = tokenizer(examples["text"], truncation=True, max_length=MAX_LEN, padding="max_length")
@@ -150,6 +210,11 @@ def tokenize_fn(examples):
     tokenized["labels"] = examples["label"]
     return tokenized
 
+# Validation split carved from TRAIN only (stratified). It picks the checkpoint; the test split is scored exactly once, at the end.
+from datasets import DatasetDict
+_sp = ds["train"].class_encode_column("label").train_test_split(test_size=0.15, seed=42, stratify_by_column="label")
+ds = DatasetDict({"train": _sp["train"], "validation": _sp["test"], "test": ds["test"]})
+print("split sizes:", {k: len(v) for k, v in ds.items()})
 tok_ds = ds.map(tokenize_fn, batched=True)
 keep_cols = [c for c in ["input_ids", "attention_mask", "labels", "label"] if c in tok_ds["train"].column_names]
 tok_ds.set_format("torch", columns=keep_cols)
@@ -177,12 +242,17 @@ from transformers import (
 )
 from sklearn.metrics import precision_recall_fscore_support, accuracy_score
 
+# FIX: force float32 weights. Transformers v5 loads checkpoints in their stored dtype by default; training DeBERTa-v3
+# in pure float16 without a loss scaler collapsed the previous run to "INJECTION" for every input.
+import torch
+
 model = AutoModelForSequenceClassification.from_pretrained(
     MODEL_ID,
     num_labels=2,
     id2label={0: "LEGIT", 1: "INJECTION"},
     label2id={"LEGIT": 0, "INJECTION": 1},
 )
+model = model.float()   # float32 on every transformers version
 print(f"✅ Model loaded: {sum(p.numel() for p in model.parameters()):,} parameters")
 
 def compute_metrics(eval_pred):
@@ -200,11 +270,11 @@ training_args_kwargs = {
     "learning_rate": 2e-5,
     "per_device_train_batch_size": 16,
     "per_device_eval_batch_size": 32,
-    "num_train_epochs": 5,
+    "num_train_epochs": 3,
     "weight_decay": 0.01,
     "load_best_model_at_end": True,
-    "metric_for_best_model": "f1",
-    "greater_is_better": True,
+    "metric_for_best_model": "eval_loss",
+    "greater_is_better": False,
     "logging_steps": 10,
     "seed": 42,
     "report_to": "none",
@@ -240,7 +310,7 @@ trainer_kwargs = {
     "model": model,
     "args": training_args,
     "train_dataset": tok_ds["train"],
-    "eval_dataset": tok_ds["test"],
+    "eval_dataset": tok_ds["validation"],
     "compute_metrics": compute_metrics,
     "callbacks": [EarlyStoppingCallback(early_stopping_patience=2)],
 }
@@ -279,6 +349,16 @@ print(f"\\n{'=' * 60}")
 print(f"✅ Training complete in {elapsed/60:.1f} minutes")
 print(f"   Final train loss: {result.training_loss:.4f}")
 print(f"{'=' * 60}")
+assert next(model.parameters()).dtype == torch.float32, "weights are not float32"
+
+# COLLAPSE GUARD: a usable detector must predict BOTH classes on validation and beat the majority-class baseline.
+_v = trainer.predict(tok_ds["validation"]); _vp = np.argmax(_v.predictions, -1); _vy = _v.label_ids
+_acc = float((_vp == _vy).mean()); _maj = float(max(_vy.mean(), 1 - _vy.mean()))
+print(f"validation: predicted-class counts {np.bincount(_vp, minlength=2).tolist()} | accuracy {_acc:.3f} vs majority baseline {_maj:.3f}")
+if len(set(_vp.tolist())) < 2 or _acc < _maj + 0.10:
+    raise RuntimeError("Model collapsed (predicts one class / no better than majority). Do NOT export. Re-run from Cell 5, "
+                       "or set learning_rate to 1e-5 in Cell 5 and re-run.")
+print("✅ collapse guard passed")
 """))
 
 # ══════════════════════════════════════════════════════════════════
@@ -376,10 +456,32 @@ plt.savefig("confusion_matrix.png", dpi=150, bbox_inches="tight")
 plt.show()
 print("✅ Saved confusion_matrix.png")
 
+# ── Document-style held-out tests. Threshold is chosen on VALIDATION only (false-alarm rate <= 1%), then frozen. ──
+def _probs(d):
+    o = trainer.predict(d.map(tokenize_fn, batched=True).with_format("torch", columns=["input_ids", "attention_mask", "labels"]))
+    e = np.exp(o.predictions - o.predictions.max(-1, keepdims=True)); return (e / e.sum(-1, keepdims=True))[:, 1], o.label_ids
+vp, vy = _probs(ds["validation"])
+THRESH = 0.5
+for c in np.round(np.arange(0.50, 0.995, 0.01), 2):
+    if ((vp >= c) & (vy == 0)).sum() / max(1, (vy == 0).sum()) <= 0.01:
+        THRESH = float(c); break
+print(f"decision threshold (validation false-alarm rate <= 1%): {THRESH}")
+doc_results = {}
+for k, d in extra_tests.items():
+    p_, y_ = _probs(d); pr_ = (p_ >= THRESH).astype(int)
+    tn_, fp_, fn_, tp_ = confusion_matrix(y_, pr_, labels=[0, 1]).ravel()
+    doc_results[k] = {"n": int(len(y_)), "recall": round(float(tp_ / max(1, tp_ + fn_)), 4), "false_alarm_rate": round(float(fp_ / max(1, fp_ + tn_)), 4),
+                      "precision": round(float(tp_ / max(1, tp_ + fp_)), 4), "tp": int(tp_), "fp": int(fp_), "tn": int(tn_), "fn": int(fn_)}
+    print(f"{k}: {doc_results[k]}")
+
 # Save metrics to JSON for MANDATE provenance
 provenance = {
     "model": MODEL_ID,
-    "dataset": "deepset/prompt-injections",
+    "dataset": "deepset/prompt-injections + xTRam1/safe-guard-prompt-injection + SetFit/enron_spam (paired clean/injected); cross-source test: abisee/cnn_dailymail + Lakera/gandalf_ignore_instructions",
+    "threshold": THRESH,
+    "document_tests": doc_results,
+    "data_report": report,
+    "test_note": "test_* fields = deepset test split at argmax; document_tests use the validation-chosen threshold",
     "test_accuracy": round(acc, 4),
     "test_precision": round(prec, 4),
     "test_recall": round(rec, 4),

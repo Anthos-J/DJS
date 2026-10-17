@@ -1,0 +1,3 @@
+{"t": 1792279537.5246706, "tool": "search_suppliers", "decision_id": "dec-fe421599c9", "item": "valves"}
+{"t": 1792279537.6920493, "tool": "get_prices", "decision_id": "dec-8be6bf79c0", "item": "valves"}
+{"t": 1792279540.2999828, "tool": "read_supplier_doc", "decision_id": "dec-012245f934", "doc": "umbrella-quote.pdf"}

@@ -1,0 +1,58 @@
+{
+  "model": "microsoft/deberta-v3-small",
+  "dataset": "deepset/prompt-injections + xTRam1/safe-guard-prompt-injection + SetFit/enron_spam (paired clean/injected); cross-source test: abisee/cnn_dailymail + Lakera/gandalf_ignore_instructions",
+  "threshold": 0.5,
+  "document_tests": {
+    "deepset_test (original benchmark)": {
+      "n": 115,
+      "recall": 0.7458,
+      "false_alarm_rate": 0.0179,
+      "precision": 0.9778,
+      "tp": 44,
+      "fp": 1,
+      "tn": 55,
+      "fn": 15
+    },
+    "enron_documents (unseen mails + unseen injections)": {
+      "n": 593,
+      "recall": 0.98,
+      "false_alarm_rate": 0.0034,
+      "precision": 0.9966,
+      "tp": 294,
+      "fp": 1,
+      "tn": 292,
+      "fn": 6
+    },
+    "cross_source (CNN articles + Lakera injections)": {
+      "n": 600,
+      "recall": 0.7633,
+      "false_alarm_rate": 0.0,
+      "precision": 1.0,
+      "tp": 229,
+      "fp": 0,
+      "tn": 300,
+      "fn": 71
+    }
+  },
+  "data_report": "              precision    recall  f1-score   support\n\n       LEGIT     0.7746    0.9821    0.8661        56\n   INJECTION     0.9778    0.7333    0.8381        60\n\n    accuracy                         0.8534       116\n   macro avg     0.8762    0.8577    0.8521       116\nweighted avg     0.8797    0.8534    0.8516       116\n",
+  "test_note": "test_* fields = deepset test split at argmax; document_tests use the validation-chosen threshold",
+  "test_accuracy": 0.8534,
+  "test_precision": 0.9778,
+  "test_recall": 0.7333,
+  "test_f1": 0.8381,
+  "confusion_matrix": [
+    [
+      55,
+      1
+    ],
+    [
+      16,
+      44
+    ]
+  ],
+  "num_train": 6414,
+  "num_test": 116,
+  "epochs": 3,
+  "max_length": 384,
+  "learning_rate": 2e-05
+}

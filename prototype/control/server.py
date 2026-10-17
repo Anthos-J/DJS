@@ -77,6 +77,16 @@ async def decide(req):
     return J(ENGINE.decide(ev))
 
 
+async def observe(req):
+    """PEP-only: what an allowed read returned (post-execution content scan)."""
+    if req.headers.get("x-pep-token") != PEP_TOKEN:
+        return J({"error": "PEP token required"}, 401)
+    if not hasattr(ENGINE, "observe_content"):
+        return J({"scanned": False})
+    ev = await req.json()
+    return J(ENGINE.observe_content(ev.get("agent_id"), ev.get("tool"), ev.get("decision_id"), ev.get("text", "")))
+
+
 @need_owner
 async def agents(req):
     if req.method == "POST":
@@ -250,7 +260,7 @@ async def index(req):
 
 
 app = Starlette(routes=[
-    Route("/", index), Route("/api/meta", meta), Route("/api/decide", decide, methods=["POST"]),
+    Route("/", index), Route("/api/meta", meta), Route("/api/decide", decide, methods=["POST"]), Route("/api/observe", observe, methods=["POST"]),
     Route("/api/agents", agents, methods=["GET", "POST"]), Route("/api/agents/{aid}/status", agent_status, methods=["POST"]),
     Route("/api/agents/{aid}/task", agent_task, methods=["POST"]), Route("/api/agents/{aid}/baseline", baseline),
     Route("/api/events", events), Route("/api/alerts", alerts), Route("/api/approvals", approvals),

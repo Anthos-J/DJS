@@ -97,7 +97,7 @@ class ContentScanner:
     def enabled(self):
         return self._loaded
 
-    def scan(self, text, max_length=512):
+    def scan(self, text, max_length=384):   # the model was trained at 384 tokens
         """Score a text for prompt injection.
 
         Returns:
@@ -110,8 +110,7 @@ class ContentScanner:
         try:
             # Tokenize
             if hasattr(self.tokenizer, '__call__'):
-                enc = self.tokenizer(text, truncation=True, max_length=max_length,
-                                     padding="max_length", return_tensors="np")
+                enc = self.tokenizer(text, truncation=True, max_length=max_length, return_tensors="np")
                 input_ids = enc["input_ids"]
                 attention_mask = enc["attention_mask"]
                 # DeBERTa-v3 uses token_type_ids
@@ -203,7 +202,7 @@ class _MinimalTokenizer:
     def encode(self, text, max_length=512):
         import numpy as np
         self.tok.enable_truncation(max_length=max_length)
-        self.tok.enable_padding(length=max_length)
+        self.tok.no_padding()
         enc = self.tok.encode(text)
         return (
             np.array(enc.ids, dtype=np.int64),

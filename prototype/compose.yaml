@@ -46,7 +46,7 @@ services:
               "sec_term:/vol/term", "sec_pep:/vol/pep", "sec_harness:/vol/harness"]
 
   control:
-    image: ${SPIKE_IMAGE}
+    image: ${CONTROL_IMAGE:-${SPIKE_IMAGE}}   # E4.3: spike image + ONNX runtime for the injection detector (control/image/Dockerfile)
     labels: {mandate.role: control-plane}
     command: ["python", "/proto/control/server.py"]
     environment: {MANDATE_PEP_TOKEN: "${MANDATE_PEP_TOKEN:-demo-pep-token}", MANDATE_OWNER_TOKEN: "${MANDATE_OWNER_TOKEN:-demo-owner-token}",

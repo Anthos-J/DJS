@@ -1,0 +1,40 @@
+{
+ "source_zip": "mandate_injection_detector (1).zip",
+ "zip_sha256": "95c87f88a495645fef3e7efbd78244bc15f368b695cf8b37fd2e0e50082bf6a5",
+ "model_onnx_sha256": "c69d502df27acbfac888a43cf77092da332de80af670c42bbe74b7a9c6fdae1c",
+ "trained_by": "owner, on Google Colab (T4), with ml/injection_detector/MANDATE_injection_detector.ipynb (run 3)",
+ "note": "model.onnx is not in git (568 MB); restore it from the zip above and check this hash",
+ "metrics": {
+  "deepset_test (original benchmark)": {
+   "n": 115,
+   "recall": 0.7458,
+   "false_alarm_rate": 0.0179,
+   "precision": 0.9778,
+   "tp": 44,
+   "fp": 1,
+   "tn": 55,
+   "fn": 15
+  },
+  "enron_documents (unseen mails + unseen injections)": {
+   "n": 593,
+   "recall": 0.98,
+   "false_alarm_rate": 0.0034,
+   "precision": 0.9966,
+   "tp": 294,
+   "fp": 1,
+   "tn": 292,
+   "fn": 6
+  },
+  "cross_source (CNN articles + Lakera injections)": {
+   "n": 600,
+   "recall": 0.7633,
+   "false_alarm_rate": 0.0,
+   "precision": 1.0,
+   "tp": 229,
+   "fp": 0,
+   "tn": 300,
+   "fn": 71
+  }
+ },
+ "threshold": 0.5
+}

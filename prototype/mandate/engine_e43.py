@@ -1,12 +1,16 @@
 """MANDATE behavioural-drift engine, version E4.3 (E4.2.1 is preserved unchanged in mandate/engine_e421.py, tag engine-E4.2.1).
 E4.3 adds TWO learned components on top of E4.2.1's deterministic rules:
   1. Markov bigram model of action-type sequences, trained by the owner on the public AgentDojo v1.2.2 benchmark
-     (config/learned_behaviour_model_v2.json). AUC 0.74, 20% hijack detection, 4% false alarms.
-  2. Prompt-injection content scanner: a fine-tuned DeBERTa-v3-small ONNX model (config/injection_model/) trained on
-     the public deepset/prompt-injections dataset. Every document an agent reads (supplier quotes, web pages, emails)
-     is scanned; a detected injection adds 'content_injection_detected' risk points, taints the session, and escalates.
+     (config/learned_behaviour_model_v2.json). AUC 0.74, 20% hijack detection, 4% false alarms (on held-out AgentDojo tasks).
+     ALERT-ONLY in E4.3: 'learned_sequence_anomaly' is recorded with 0 points (decision record, audit, any alert); it never
+     changes a decision. On MANDATE's own dev scenarios it added friction and no detection, so it does not score.
+  2. Prompt-injection content scanner: a DeBERTa-v3-small ONNX model (config/injection_model/) fine-tuned by the owner
+     on public Hugging Face data (deepset/prompt-injections, xTRam1/safe-guard-prompt-injection, Enron e-mails clean and
+     with a dataset injection inserted). The PEP reports what each READ returned, after the tool runs and before the agent
+     sees it (observe_content). If the model flags it, the session is marked untrusted, exactly as if the source had been
+     declared untrusted, so the existing taint rules hold any later consequential action. It never blocks the read itself.
      The scanner is OPTIONAL: if the ONNX model is not present, the engine runs without it.
-Both learned components can only make decisions STRICTER; hard rules decide first.
+Neither learned component can make a decision more permissive; hard rules decide first.
 
 E4.2.1 description follows.
 MANDATE behavioural-drift engine, version E4.2.1 (E4.2 is preserved unchanged in mandate/engine_e42.py, tag engine-E4.2).
@@ -79,6 +83,7 @@ from pathlib import Path
 from .audit import AuditLog
 from .state_e42 import StateStore, StateError
 from .content_scanner import ContentScanner
+_SCANNERS = {}
 
 try:
     from cedarpy import is_authorized, Decision, PolicySet, Schema
@@ -89,8 +94,8 @@ except Exception:  # the engine refuses effectful actions if Cedar is unavailabl
 ROOT = Path(__file__).resolve().parent.parent
 # factors that indicate DEVIATION from learned / declared behaviour; only these feed the drift accumulator and the
 # repeated-anomaly window (policy step-ups awaiting approval and in-mandate impact/sensitivity do not).
-LEARNED_DEVIATION = {"novel_tool", "novel_destination", "rarity", "rate_spike", "distribution_drift", "content_injection_detected"}   # deviation from learned behaviour
-DEVIATION = {"task_scope_deviation", "novel_tool", "novel_destination", "rarity", "rate_spike", "distribution_drift", "content_injection_detected"}  # drift_alert itself scores 0
+LEARNED_DEVIATION = {"novel_tool", "novel_destination", "rarity", "rate_spike", "distribution_drift"}   # deviation from learned behaviour
+DEVIATION = {"task_scope_deviation", "novel_tool", "novel_destination", "rarity", "rate_spike", "distribution_drift"}  # drift_alert itself scores 0
 
 
 def _js(p, q):
@@ -273,7 +278,10 @@ class Engine:
             return None
         p = ROOT / model_dir
         threshold = self.cfg.get("injection_threshold", 0.5)
-        scanner = ContentScanner(str(p), threshold=threshold)
+        key = (str(p), threshold)
+        if key not in _SCANNERS:   # one loaded model per process (568 MB); engines share it read-only
+            _SCANNERS[key] = ContentScanner(str(p), threshold=threshold)
+        scanner = _SCANNERS[key]
         return scanner if scanner.enabled else None
 
     def scan_content(self, text):
@@ -281,6 +289,38 @@ class Engine:
         if self.injection_scanner is None:
             return None
         return self.injection_scanner.scan_document(text)
+
+    def observe_content(self, agent_id, tool, decision_id, text):
+        """Post-execution: the PEP reports what an ALLOWED read returned. Scan it; if flagged, taint the session.
+        Stricter-only: it can mark a session untrusted, never trusted. Every scan is audited (score included)."""
+        tdef = self.tools.get(tool)
+        if (self.injection_scanner is None or tdef is None or tdef["class"] not in ("read", "fetch") or not text
+                or tool not in self.cfg.get("injection_scan_tools", ())):   # documents only; the model was trained on prose, not records
+            return {"scanned": False}
+        r = self.injection_scanner.scan_document(str(text)) or {}
+        flagged = bool(r.get("injection"))
+        with self.lock:
+            sess = self.session[agent_id]
+            was = sess["integ"]
+            if flagged:
+                sess["integ"] = 0; sess["corroborated"] = set()
+            rec = {"kind": "content_scan", "decision_id": decision_id, "agent_id": agent_id, "tool": tool, "score": r.get("score"),
+                   "threshold": self.injection_scanner.threshold, "flagged": flagged, "session_tainted_now": flagged and was != 0,
+                   "text_sha256": hashlib.sha256(str(text).encode()).hexdigest(), "ts": time.time()}
+            self.audit.append(rec)
+            a = self.agents.get(agent_id)
+            if flagged and a is not None:
+                rdef = self.roles[a["role"]]
+                expected = {"role": a["role"], "mandate_tools": rdef["tools"], "max_sensitivity": rdef["max_sensitivity"],
+                            "destinations": rdef["destinations"], "task": a["task"], "task_tools": rdef["tasks"].get(a["task"], rdef["tools"])}
+                self.alerts.append({"alert_id": "alr-" + uuid.uuid4().hex[:8], "decision_id": decision_id, "ts": rec["ts"], "agent_id": agent_id,
+                                    "tool": tool, "severity": "HIGH" if was != 0 else "MEDIUM", "risk_score": 0, "response": "SESSION_TAINTED",
+                                    "confidence": "n/a (content scan)", "expected_authority": expected,
+                                    "reason": f"injection detector (owner-trained) flagged what '{tool}' returned (score {r.get('score')}); "
+                                              "session marked untrusted, later consequential actions face the taint rules",
+                                    "factors": [{"factor": "content_injection_detected", "points": 0, "evidence": f"post-read scan score {r.get('score')}"}],
+                                    "control": "taint", "status": "open", "actionable": True})
+        return {"scanned": True, "flagged": flagged, "score": r.get("score")}
 
     # ---- E4.2 durable state ----
     def _snapshot(self):
@@ -674,23 +714,6 @@ class Engine:
             F("recovery_mode", pts["recovery_mode"], f"control plane started in owner recovery mode ({self.recovery_reason}); every read and effect needs approval")
             stepups.append("recovery_mode")
 
-        # ---- E4.3 content-injection scan (only for read/fetch; only makes decisions stricter) ----
-        if self.injection_scanner is not None and tdef is not None and hard is None and tdef["class"] in ("read", "fetch"):
-            content = ev.get("content") or ev.get("output") or ""
-            if content and len(str(content)) > 20:
-                scan_result = self.injection_scanner.scan_document(str(content))
-                if scan_result and scan_result.get("injection"):
-                    inj_pts = pts.get("content_injection_detected", 40)
-                    F("content_injection_detected", inj_pts,
-                      f"DeBERTa injection detector flagged content (score={scan_result['score']:.3f}, "
-                      f"threshold={self.injection_scanner.threshold}); session integrity set to untrusted")
-                    sess["integ"] = 0   # taint the session: the agent just read injected content
-                    stepups.append("content_injection")
-                elif scan_result and scan_result.get("score", 0) > 0.3:
-                    # borderline: log but don't act
-                    F("content_injection_warning", 0,
-                      f"DeBERTa injection detector: borderline score {scan_result['score']:.3f} (below threshold {self.injection_scanner.threshold})")
-
         # ---- behavioural assessment (only ever makes the response stricter) ----
         if self.lm is not None and tdef is not None and hard is None:
             prev, cur = sess.get("last_action", "<s>"), self._action(tdef)
@@ -916,5 +939,5 @@ def _persisting(fn):
     return w
 
 
-for _n in ("decide", "register_agent", "assign_task", "change_role", "set_status", "delegate", "resolve_approval", "learn", "ack_recovery"):
+for _n in ("decide", "observe_content", "register_agent", "assign_task", "change_role", "set_status", "delegate", "resolve_approval", "learn", "ack_recovery"):
     setattr(Engine, _n, _persisting(getattr(Engine, _n)))

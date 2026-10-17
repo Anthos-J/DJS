@@ -33,8 +33,7 @@
     "dataset_fair_share": 30,
     "uncorroborated_trigger": 30,
     "recovery_mode": 40,
-    "learned_sequence_anomaly": 15,
-    "content_injection_detected": 40
+    "learned_sequence_anomaly": 0
   },
   "bands": {
     "medium": 35,
@@ -62,5 +61,14 @@
   "alert_aggregation_s": 3600,
   "learned_model": "config/learned_behaviour_model_v2.json",
   "injection_model": "config/injection_model",
-  "injection_threshold": 0.5
+  "injection_threshold": 0.5,
+  "injection_scan_tools": [
+    "read_supplier_doc",
+    "read_inbox",
+    "web_search",
+    "read_doc",
+    "read_logs"
+  ],
+  "injection_scan_tools_note": "tools that return free-text documents (the detector's training domain); structured records (prices, HR record, metrics, catalogue) are not scanned",
+  "learned_model_note": "alert-only: the factor is recorded with 0 points in every decision, the audit chain and any alert; it never changes a decision (it added friction without added detection on h5dev and held E2E E11)"
 }

@@ -19,6 +19,15 @@ TOKEN = os.environ.get("MANDATE_PEP_TOKEN", "demo-pep-token")
 PEP_ONLY = {"_delegation", "_approval"}   # PEP-level arguments; never forwarded to tool servers
 
 
+OBSERVE = CONTROL.rsplit("/api/", 1)[0] + "/api/observe"
+
+
+def report_content(ev):
+    req = urllib.request.Request(OBSERVE, data=json.dumps(ev).encode(), headers={"Content-Type": "application/json", "X-PEP-Token": TOKEN})
+    with urllib.request.urlopen(req, timeout=10) as r:
+        return json.loads(r.read())
+
+
 def ask_control(ev):
     req = urllib.request.Request(CONTROL, data=json.dumps(ev).encode(), headers={"Content-Type": "application/json", "X-PEP-Token": TOKEN})
     with urllib.request.urlopen(req, timeout=5) as r:
@@ -53,7 +62,16 @@ class ControlPEP(Middleware):
                 object.__setattr__(rc, "meta", {**(dict(rc.meta) if rc.meta else {}), "mandate_decision_id": d["decision_id"]})
         except Exception as e:
             pb.log({"phase": "correlation-failed", "err": repr(e)})
-        return await call_next(context)
+        result = await call_next(context)
+        text = " ".join(getattr(x, "text", "") or "" for x in (getattr(result, "content", None) or []))
+        try:   # post-execution content scan, before the agent sees the result
+            s = await asyncio.to_thread(report_content, {"agent_id": ident, "tool": name, "decision_id": d.get("decision_id"), "text": text[:20000]})
+        except Exception as e:
+            pb.log({"phase": "observe-unreachable", "tool": name, "identity": ident, "err": repr(e)[:200]})
+            raise ToolError("DENY: content could not be checked (fail closed)")
+        if s.get("scanned"):
+            pb.log({"phase": "content-scan", "rid": d.get("decision_id"), "tool": name, "flagged": s.get("flagged"), "score": s.get("score")})
+        return result
 
 
 proxy = create_proxy(ProxyClient(StreamableHttpTransport(os.environ["BACKEND"]), forward_incoming_headers=False), name="pep-proto")

@@ -1,3 +1,4 @@
+# E4.2.1 rule suite run against engine E4.3 (proves E4.3 changes no E4.2.1 behaviour).
 """E4.2.1 tests (engine_e421): all E4.2 tests plus V1/V4 regressions. Originally: E4.2 tests (engine_e42): every E4.1 test (two adjusted where E4.2 is stricter by design: L8 scope, R5 gate)
 plus focused E4.2 bypass tests. Originally: E4.1 tests (engine_e41): all E4 tests plus the Z4 regression. Originally: E4 tests (engine_e4): E3 tests carried over (two adjusted where E4 is stricter by design) plus E4 cases.
 E3 tests Mature histories throughout, so tool novelty cannot be the control that fires."""
