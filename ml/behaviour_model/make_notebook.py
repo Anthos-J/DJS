@@ -38,12 +38,15 @@ print("sha256 of data:", hashlib.sha256(open("agentdojo_sequences.jsonl", "rb").
 """)
 md("""
 ## 1 · Representation
-Each sequence becomes a list of **tool names** with a start and end marker. Arguments are not used, because tool order and
-choice are what MANDATE observes and compares with the role. Each suite is modelled separately, like a role.
+Each tool call becomes an **action type**: `kind:sensitivity:content-trust`, for example `read:2:trusted` or `send:1:trusted`.
+These are the properties AgentDojo's tools were annotated with (frozen before any run) and the same properties MANDATE
+declares for its own tools, so a model trained here can score MANDATE's agents. Tool *names* would not transfer.
+Set `REPR = "tool"` to compare with raw tool names. Arguments are not used. Each suite is modelled separately, like a role.
 """)
 code("""
 BOS, EOS = "<s>", "</s>"
-seq = lambda r: [BOS] + [c["tool"] for c in r["calls"]] + [EOS]
+REPR = "action"   # "action" (transfers to MANDATE's tools) or "tool" (raw AgentDojo tool names, for comparison)
+seq = lambda r: [BOS] + [c[REPR] for c in r["calls"]] + [EOS]
 suites = sorted({r["suite"] for r in rows})
 def folds(suite, k=5):
     tasks = sorted({r["user_task"] for r in rows if r["suite"] == suite}); random.Random(SEED).shuffle(tasks)
@@ -166,7 +169,7 @@ code("""
 import zipfile
 best = max(["markov_bigram", "isolation_forest", "gru"], key=lambda n: (summary[n]["auc_mean"], -summary[n]["false_alarm_rate_on_heldout_benign"]))
 print("best learned model by AUC:", best, "| baseline for comparison:", summary["unseen_tool_rule"])
-export = {"format": "mandate-behaviour-model/1", "data": "AgentDojo v1.2.2 ground-truth sequences", "seed": SEED,
+export = {"format": "mandate-behaviour-model/2", "representation": REPR, "data": "AgentDojo v1.2.2 ground-truth sequences", "seed": SEED,
           "data_sha256": hashlib.sha256(open("agentdojo_sequences.jsonl", "rb").read()).hexdigest(),
           "cv_summary": summary, "chosen": best, "suites": {}}
 for suite in suites:

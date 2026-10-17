@@ -4,11 +4,14 @@ MANDATE's behaviour model. No LLM, no network. One JSON line per sequence:
 Injected sequence = the user task's ground truth with the injection task's ground-truth calls inserted after the first
 call that reads injectable content (or appended), mirroring how an injection hijacks an agent mid-task."""
 import copy, json, sys
+ANN = json.load(open(sys.argv[2]))["suites"]   # S4a frozen annotations (committed ab9108a, before any AgentDojo run)
 from agentdojo.task_suite.load_suites import get_suite
 
-def ser(c):
+def ser(c, suite):
+    an = ANN[suite].get(c.function, {})
     a = {k: (v if isinstance(v, (str, int, float, bool)) or v is None else str(v)) for k, v in dict(c.args).items()}
-    return {"tool": c.function, "args": a}
+    # 'action' = the tool abstracted to the properties MANDATE also has for its own tools: kind / sensitivity / content trust
+    return {"tool": c.function, "args": a, "action": f"{an.get('kind', '?')}:{an.get('conf', '?')}:{an.get('integ_source', '?')}"}
 
 out = open(sys.argv[1], "w")
 n = {"benign": 0, "injected": 0}
@@ -16,10 +19,10 @@ for sname in ["workspace", "travel", "banking", "slack"]:
     suite = get_suite("v1.2.2", sname)
     env = suite.load_and_inject_default_environment(suite.get_injection_vector_defaults())
     for uid, ut in suite.user_tasks.items():
-        cu = [ser(c) for c in ut.ground_truth(copy.deepcopy(env))]
+        cu = [ser(c, sname) for c in ut.ground_truth(copy.deepcopy(env))]
         out.write(json.dumps({"suite": sname, "user_task": uid, "injection_task": None, "label": 0, "calls": cu}) + "\n"); n["benign"] += 1
         for iid, it in suite.injection_tasks.items():
-            ci = [ser(c) for c in it.ground_truth(copy.deepcopy(env))]
+            ci = [ser(c, sname) for c in it.ground_truth(copy.deepcopy(env))]
             k = 1 if cu else 0
             out.write(json.dumps({"suite": sname, "user_task": uid, "injection_task": iid, "label": 1, "calls": cu[:k] + ci + cu[k:]}) + "\n"); n["injected"] += 1
 print(json.dumps(n))

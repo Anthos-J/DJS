@@ -4,7 +4,7 @@
 | File | What it is |
 |---|---|
 | `MANDATE_behaviour_model.ipynb` | The Colab notebook. Upload it to Colab and run every cell top to bottom. |
-| `agentdojo_sequences.jsonl` | Training and test data (upload it to Colab too). sha256 `84afdc39…15de`. |
+| `agentdojo_sequences.jsonl` | Training and test data (upload it to Colab too). sha256 `00c3c36b…3c99` (v2: each call also carries its action type). |
 | `export_agentdojo.py` | How the data was exported from AgentDojo v1.2.2 (ETH Zurich), offline, with no LLM. |
 | `make_notebook.py` | Generates the notebook (so its contents are reviewable as code). |
 
@@ -15,13 +15,15 @@
 4. The last cell downloads `mandate_behaviour_model.zip`. Put it in this folder and tell Claude.
 
 ## What to expect (a local quick check with a short training run; your full run will differ a little)
-The data is small: 97 benign tasks across 4 suites, and 949 hijacked variants. Tested on user tasks the model never saw:
+Representation: **action types** (`kind:sensitivity:content-trust`, for example `read:2:untrusted`) from the frozen AgentDojo tool annotations. These are the same properties MANDATE declares for its own tools, so the model applies to MANDATE's agents. Tool names would not transfer.
 
 | Model | Hijacked runs flagged | Legit runs wrongly flagged | AUC |
 |---|---|---|---|
-| Unseen-tool rule (baseline) | 6% | 2% | 0.59 |
-| Markov bigram | 27% | 18% | 0.70 |
-| Isolation Forest | 11% | 11% | 0.60 |
-| GRU | 17% | 9% | 0.71 |
+| Unseen-action rule (baseline) | 6% | 1% | 0.54 |
+| Markov bigram | 20% | 4% | 0.74 |
+| Isolation Forest | 16% | 12% | 0.64 |
+| GRU | 24% | 11% | 0.74 |
 
-**The honest reading.** On tasks it has never seen, a sequence model is a *weak* signal: it beats the simple rule, but it misses most hijacks. That is why MANDATE uses it only to make decisions stricter, never on its own, and why the hard mandate rules do the heavy lifting. Present it in the deck exactly like that.
+**The honest reading.** On tasks it has never seen, the learned model catches about 1 in 5 hijacked runs while rarely flagging legitimate ones. That makes it a supporting signal, not a detector you'd trust alone. MANDATE uses it only to make decisions stricter; the hard mandate rules do the heavy lifting.
+
+The first trained model (tool-name representation, 18 Oct) is superseded: it could not score MANDATE's tools.
