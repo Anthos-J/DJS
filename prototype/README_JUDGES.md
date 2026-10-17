@@ -53,6 +53,9 @@ The console holds the **demo** owner token for you (`MANDATE_CONSOLE_DEMO_TOKEN=
 7. **Recovery**: after journey 11 (audit log removed, so the control plane refuses to start), start owner recovery mode and acknowledge it.
 8. **Evaluation results**: recorded outcomes with denominators, the engine comparison, scenario families (C4 still succeeds), the red team and limitations.
 9. **Diagnostics**: services, engine configuration, AM11 results, recorded tests, and an on-demand evidence-integrity check.
+10. **Policy simulator**: type any tool call (or pick a preset such as *Exfiltrate salaries*) and see what the live engine would decide, with factors. This is a dry run: nothing executes and nothing is recorded.
+11. **Attack graph**: a live map of every agent → tool → destination path, coloured by outcome. Click a red path to investigate it.
+12. **Evidence pack**: in Investigations, *Export verifiable evidence pack*, then verify it offline with `python console/verify_evidence_pack.py <file>`. Edit any byte and it fails.
 
 **Reset to baseline:** Live scenarios → *Reset demo* (redeploys through the AM11 gates and reseeds, about 1 minute), or run `bash demo/stop.sh && bash demo/launch.sh`.
 

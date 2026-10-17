@@ -4,3 +4,4 @@ demo/console.log
 demo/runs/
 e2e/runs/*-console/
 .llm.env
+demo/evidence_packs/

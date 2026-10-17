@@ -1,4 +1,5 @@
 :root {
+  --edge-ok: #2e9e63; --edge-warn: #d18a1a; --edge-bad: #d0453a;
   --bg: #f5f6f8; --panel: #ffffff; --panel-2: #f9fafb; --line: #e3e6eb; --text: #141821; --mute: #5d6574; --faint: #8a93a3;
   --accent: #2f6fed; --accent-soft: #e8f0fe; --ok: #127a46; --ok-soft: #e4f4ea; --warn: #9a5b00; --warn-soft: #fdf1dc;
   --bad: #b42318; --bad-soft: #fde8e6; --info: #1f5f8b; --info-soft: #e5f1f9; --side: #10141c; --side-text: #c9d0dc;
@@ -110,3 +111,11 @@ menu { display: flex; justify-content: flex-end; gap: 8px; padding: 0; margin: 1
 .kpi .v.bad { background: none; }
 @media (max-width: 1100px) { .g2 { grid-template-columns: 1fr; } }
 [hidden] { display: none !important; }
+
+.graph { width: 100%; height: auto; display: block; }
+.graph .node rect { fill: var(--panel-2); stroke: var(--line); }
+.graph .node text { fill: var(--text); font-size: 12px; }
+.graph .node.agent rect { stroke: var(--accent); } .graph .node.q rect { stroke: var(--bad); stroke-width: 2; }
+.graph .col { fill: var(--faint); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+.graph path { fill: none; } .graph path:hover { stroke-width: 6 !important; cursor: pointer; }
+.preset { font-size: 12.5px; }

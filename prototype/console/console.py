@@ -15,6 +15,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import verify_evidence_pack   # offline verifier, also used to self-check every exported pack
 import llm_agent   # optional live-LLM agent (off unless GROQ_API_KEY and MANDATE_LLM_CONSENT=1 are set)
 
 ROOT = Path(__file__).resolve().parent.parent           # validation/prototype
@@ -418,6 +419,33 @@ def results():
             "historical": hist, "families": fs.get("families", {}), "metric_definitions": fs.get("metric_definitions"), "redteam": red, "limitations": lim}
 
 
+def evidence_pack(decision_id):
+    """UI-P2: export one decision with its alert, approvals, tool-server effects and the audit chain up to it."""
+    import hashlib
+    st, ev = control("/api/events?limit=100000")
+    d = next((e for e in (ev if st == 200 else []) if e.get("decision_id") == decision_id), None)
+    if d is None:
+        return 404, {"error": f"decision {decision_id} not found in the live control plane"}
+    _, au = control("/api/audit?limit=100000")
+    recs = au.get("records", []); k = next((i for i, r in enumerate(recs) if r["entry"].get("decision_id") == decision_id and r["entry"].get("kind") == "decision"), None)
+    if k is None:
+        return 409, {"error": "decision has no audit record yet"}
+    _, al = control("/api/alerts"); _, aps = control("/api/approvals")
+    body = {"format": "mandate-evidence-pack/1", "exported_at": time.time(), "engine": (control("/api/meta")[1] or {}).get("engine"),
+            "label": "Prototype evidence: scripted or LLM agent, mock tool server, simulated outbound effects. Not signed.",
+            "decision": d, "alert": next((a for a in al if a.get("decision_id") == decision_id), None) if isinstance(al, list) else None,
+            "approvals": [a for a in aps if a.get("decision_id") == decision_id] if isinstance(aps, list) else [],
+            "tool_server_effects": [e for e in effects() if e.get("decision_id") == decision_id],
+            "audit": {"records": recs[:k + 1], "audit_head": recs[k]["hash"], "live_head_at_export": recs[-1]["hash"] if recs else None,
+                      "live_chain_ok": au.get("verify", {}).get("ok")},
+            "verify_with": "python console/verify_evidence_pack.py <this file>"}
+    body["pack_sha256"] = verify_evidence_pack.h(body)
+    out = ROOT / "demo" / "evidence_packs"; out.mkdir(parents=True, exist_ok=True)
+    f = out / f"{decision_id}.json"; f.write_text(json.dumps(body, indent=1, default=str), encoding="utf-8")
+    body["_saved_as"] = str(f.relative_to(ROOT)); body["_self_check"] = [{"check": n, "ok": g, "detail": x} for n, g, x in verify_evidence_pack.verify(json.loads(f.read_text(encoding="utf-8")))]
+    return 200, body
+
+
 # ------------------------------------------------------------------ HTTP
 class H(BaseHTTPRequestHandler):
     server_version = "MANDATE-console"
@@ -462,6 +490,9 @@ class H(BaseHTTPRequestHandler):
             return self.send(200, health())
         if self.path == "/console/scenarios":
             return self.send(200, [{"id": i, "title": t, "destructive": i in DESTRUCTIVE} for i, t, _ in SCENARIOS])
+        if self.path.startswith("/console/evidence/"):
+            st, body = evidence_pack(self.path.split("/")[3].split("?")[0])
+            return self.send(st, body)
         if self.path == "/console/llm":
             return self.send(200, {**llm_agent.status(), "tasks": [{"id": k, "title": v["title"]} for k, v in llm_agent.TASKS.items()]})
         if self.path == "/console/diagnostics":

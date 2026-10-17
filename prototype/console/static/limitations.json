@@ -65,7 +65,7 @@
    "id": "L9",
    "item": "Scripted agents, mock tools, AI-authored scenarios",
    "status": "EXTERNAL VALIDATION PENDING",
-   "evidence": "No live LLM provider; no independent human red team."
+   "evidence": "Optional live-LLM agent tried on 3 tasks (single runs, all PASS, Groq gpt-oss-120b); no independent human red team; scenarios AI-authored."
   },
   {
    "id": "L10",

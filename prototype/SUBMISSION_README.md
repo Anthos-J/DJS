@@ -1,4 +1,4 @@
-# MANDATE: hackathon submission (engine E4.2.1, UI release P1)
+# MANDATE: hackathon submission (engine E4.2.1, UI releases P1 + P2)
 
 **Start here:**
 - `prototype/README_JUDGES.md`: quick start, architecture, troubleshooting.
@@ -40,7 +40,7 @@ bash demo/stop.sh
 **Not established:**
 - independent human security review;
 - second-machine reproduction;
-- a live LLM provider;
+- live-LLM behaviour at scale (only three single runs with a real model, Groq `openai/gpt-oss-120b`, all PASS; see `prototype/submission_assets/live_llm_runs/`);
 - public IPv6;
 - the Antigravity audit.
 

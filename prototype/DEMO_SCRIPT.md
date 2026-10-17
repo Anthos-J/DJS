@@ -24,6 +24,9 @@ Use the same terms as the PPT. Every claim below is backed by a live check in th
 | 12 | Live scenarios → **Reset demo**, then Run **12** | Control plane stopped → call denied "unreachable", no effect | Fail-closed |
 | 13 | **Audit explorer** | Verified hash chain; filter by `status_changed` or `approval_resolved` | Tamper-evident record of what the control plane saw. It does not prove anything about traffic outside the PEP |
 | 14 | **Evaluation results** | Final E4.2.1: 1,260 attack scenarios, **30 succeeded (C4)**; 840 legitimate, **0 denied, 127 needed approval**; benign alert rate 0.094 | Engine-level, AI-generated scenarios. **Not a real-world prevention rate** |
+| 15 | **Policy simulator**: let a judge pick a preset or type an attack | Verdict, factors and stopping control; *SIMULATION: nothing executed*, live state unchanged | Judges can test their own ideas against the real engine safely |
+| 16 | **Attack graph** | Red paths for the denied HR read and exfiltration, a dashed delegation arc, the quarantined agent outlined | The whole incident at a glance, from real decisions |
+| 17 | Investigations → DENY row → **Export verifiable evidence pack** → run the offline verifier, edit the file, run it again | VERIFIED, then FAILED after the edit | Tamper-evident evidence an auditor can check without MANDATE (not signed) |
 
 **Closing statement (keep it):**
-> This is a working prototype, verified on one machine with scripted agents and mock tools. One attack family, below-budget reading (C4), still succeeds. It has not had independent human review, a second-machine reproduction or a live LLM test. The full limitation register is in the console.
+> This is a working prototype, verified on one machine with scripted agents and mock tools. One attack family, below-budget reading (C4), still succeeds. It has not had independent human review or a second-machine reproduction. The optional live-LLM agent was tried on three tasks: single runs, not rates. The full limitation register is in the console.

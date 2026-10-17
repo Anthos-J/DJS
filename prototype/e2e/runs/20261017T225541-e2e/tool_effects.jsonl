@@ -1,0 +1,8 @@
+{"t": 1792257961.768308, "tool": "search_suppliers", "decision_id": "dec-d70d9106c0", "item": "valves"}
+{"t": 1792257961.8664908, "tool": "get_prices", "decision_id": "dec-53badb67d7", "item": "valves"}
+{"t": 1792257964.2961972, "tool": "read_supplier_doc", "decision_id": "dec-ab34fd556e", "doc": "umbrella-quote.pdf"}
+{"t": 1792257966.8955967, "tool": "get_prices", "decision_id": "dec-bbf565bd82", "item": "valves"}
+{"t": 1792257971.988172, "tool": "create_purchase_request", "decision_id": "dec-3485f238cc", "supplier": "umbrella", "amount": 900.0}
+{"t": 1792257974.5971334, "tool": "read_doc", "decision_id": "dec-da1a4018a7", "page": "valves"}
+{"t": 1792257977.227631, "tool": "write_summary", "decision_id": "dec-1259d0cda8", "title": "valves"}
+{"t": 1792257977.3171556, "tool": "send_email", "decision_id": "dec-7d51490ac8", "to": "procurement-team", "destination": "internal", "simulated_delivery": true}

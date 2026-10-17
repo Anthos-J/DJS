@@ -4,7 +4,7 @@ Callers:
   * the owner / operator UI (header X-Owner-Token)  -> registry, status, approvals, delegation, task/role changes
   * read-only views (agents, timeline, alerts, baselines, delegations, evaluation, audit) need the owner token too.
 Tokens are DEMO values from the environment (MANDATE_PEP_TOKEN / MANDATE_OWNER_TOKEN); not production auth."""
-import glob, json, os, sys, time
+import copy, glob, json, os, sys, threading, time
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import uvicorn
@@ -124,6 +124,38 @@ async def recovery_ack(req):
     return J({"recovery": ENGINE.recovery})
 
 
+SKIP_COPY = {"lock", "audit", "store", "P", "S", "clock", "events", "alerts"}
+
+
+def sandbox():
+    """UI-P2 what-if: a throwaway copy of the live engine state. It has no store (nothing persisted), an in-memory
+    audit (the real chain is untouched), and no PEP or tool server behind it, so nothing can execute."""
+    from mandate.audit import AuditLog
+    with ENGINE.lock:
+        sim = copy.copy(ENGINE)
+        for k, v in vars(ENGINE).items():
+            if k not in SKIP_COPY:
+                setattr(sim, k, copy.deepcopy(v))
+    sim.lock, sim.audit, sim.events, sim.alerts = threading.RLock(), AuditLog(None), [], []
+    if hasattr(sim, "store"):
+        sim.store = None
+    return sim
+
+
+@need_owner
+async def simulate(req):
+    b = await req.json()
+    if not isinstance(b, dict) or not b.get("agent_id") or not b.get("tool"):
+        return J({"error": "agent_id and tool are required"}, 400)
+    before = (len(ENGINE.events), len(ENGINE.audit.records), len(ENGINE.approvals))
+    rec = sandbox().decide({"agent_id": b["agent_id"], "tool": b["tool"], "args": b.get("args") or {}, "destination": b.get("destination") or "internal"})
+    after = (len(ENGINE.events), len(ENGINE.audit.records), len(ENGINE.approvals))
+    return J({"simulation": True, "executed": False, "live_state_unchanged": before == after,
+              "note": "Dry run on a copy of the live state: not sent to the PEP or the tool server, not written to the audit, no approval created.",
+              "decision": {k: rec.get(k) for k in ("response", "reason", "control", "risk_score", "risk_band", "confidence", "factors", "expected_authority",
+                                                   "agent_status_change", "cedar", "provenance_label")}})
+
+
 @need_owner
 async def baseline(req):
     return J(ENGINE.baseline_view(req.path_params["aid"]))
@@ -221,7 +253,7 @@ app = Starlette(routes=[
     Route("/api/agents/{aid}/task", agent_task, methods=["POST"]), Route("/api/agents/{aid}/baseline", baseline),
     Route("/api/events", events), Route("/api/alerts", alerts), Route("/api/approvals", approvals),
     Route("/api/approvals/{apid}", approvals, methods=["POST"]), Route("/api/delegations", delegations, methods=["GET", "POST"]),
-    Route("/api/audit", audit), Route("/api/recovery/ack", recovery_ack, methods=["POST"]), Route("/api/eval", evaluation), Route("/api/seed", seed, methods=["POST"]),
+    Route("/api/audit", audit), Route("/api/simulate", simulate, methods=["POST"]), Route("/api/recovery/ack", recovery_ack, methods=["POST"]), Route("/api/eval", evaluation), Route("/api/seed", seed, methods=["POST"]),
     Mount("/static", StaticFiles(directory=str(ROOT / "control" / "static")), name="static")])
 
 if __name__ == "__main__":

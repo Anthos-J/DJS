@@ -154,6 +154,44 @@ class T05AuditLossAndRecovery(unittest.TestCase):
         self.assertEqual(scenario("s1")["verdict"], "PASS")
 
 
+class T07NewFeatures(unittest.TestCase):
+    """UI-P2: what-if simulator, evidence pack, attack graph data."""
+    def _counts(self):
+        m = call("/api/meta")[1]; return (m["counts"]["decisions"], m["counts"]["pending_approvals"], m["counts"]["quarantined"], m["audit"]["records"])
+
+    def test_simulator_is_a_true_dry_run(self):
+        before = self._counts()
+        st, r = call("/api/simulate", {"agent_id": "agent:cell-b", "tool": "send_email", "args": {"to": "x@collect.example"}, "destination": "collect.example"})
+        self.assertEqual(st, 200); self.assertEqual(r["decision"]["response"], "DENY"); self.assertFalse(r["executed"]); self.assertTrue(r["live_state_unchanged"])
+        st, r = call("/api/simulate", {"agent_id": "agent:cell-b", "tool": "read_doc", "args": {"page": "valves"}})
+        self.assertEqual(r["decision"]["response"], "ALLOW")
+        self.assertEqual(self._counts(), before)                       # nothing recorded, held or quarantined
+        self.assertEqual(call("/api/simulate", {})[0], 400)
+        self.assertEqual(call("/api/simulate", {"agent_id": "a", "tool": "t"}, base=CTRL)[0], 401)
+
+    def test_evidence_pack_verifies_and_detects_tampering(self):
+        sys.path.insert(0, str(ROOT / "console")); import verify_evidence_pack as v
+        scenario("s2")
+        ev = call("/api/events?agent=agent:cell-a")[1]
+        did = next(e["decision_id"] for e in reversed(ev) if e["tool"] == "read_hr_record" and e["response"] == "DENY")
+        st, p = call(f"/console/evidence/{did}"); self.assertEqual(st, 200)
+        self.assertTrue(all(c["ok"] for c in p["_self_check"]))
+        pack = json.loads((ROOT / p["_saved_as"]).read_text(encoding="utf-8"))
+        self.assertTrue(all(g for _, g, _ in v.verify(pack))); self.assertEqual(pack["tool_server_effects"], [])
+        pack["audit"]["records"][-1]["entry"]["response"] = "ALLOW"; pack["decision"]["response"] = "ALLOW"
+        self.assertFalse(all(g for _, g, _ in v.verify(pack)))
+        self.assertEqual(call("/console/evidence/dec-nope")[0], 404)
+        call("/api/agents/agent:cell-a/status", {"status": "active", "reason": "test cleanup"})
+
+    def test_ui_pages_served(self):
+        body = call("/")[1]
+        for r in ("#/simulate", "#/graph", "#/llm"):
+            self.assertIn(r, body)
+        js = call("/app.js")[1]
+        for v in ("VIEWS.simulate", "VIEWS.graph", "Export verifiable evidence pack"):
+            self.assertIn(v, js)
+
+
 class T06Reset(unittest.TestCase):
     def test_reset_returns_to_baseline(self):
         st, r = action("/console/reset"); self.assertEqual(st, 200); self.assertTrue(r["ok"], r)

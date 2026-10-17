@@ -49,3 +49,8 @@ Sources: `E42_ACCEPTANCE_CRITERIA.md` (criteria, fixed before the freeze) and `F
 | Date | |
 
 External-validation gates stay **OPEN** whatever is decided here: independent review, second machine, live LLM, public IPv6 and the Antigravity audit.
+
+## Addendum (17 Oct 2026, AI-prepared; does not change the criteria)
+
+- Live LLM: an optional, opt-in live-model agent now exists. Three single runs with Groq `openai/gpt-oss-120b` all passed (`submission_assets/live_llm_runs/`). In the poisoned-quote run the model ignored the injection itself, so enforcement was not exercised in that run. This is not a rate.
+- UI release P2 added the policy simulator, the attack graph and verifiable evidence packs (`UI_RELEASE_P2.md`). Engine unchanged.

