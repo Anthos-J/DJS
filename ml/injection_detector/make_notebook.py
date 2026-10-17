@@ -233,15 +233,25 @@ elif "warmup_steps" in sig:
 safe_args = {k: v for k, v in training_args_kwargs.items() if k in sig}
 training_args = TrainingArguments(**safe_args)
 
-trainer = Trainer(
-    model=model,
-    args=training_args,
-    train_dataset=tok_ds["train"],
-    eval_dataset=tok_ds["test"],
-    tokenizer=tokenizer,
-    compute_metrics=compute_metrics,
-    callbacks=[EarlyStoppingCallback(early_stopping_patience=2)],
-)
+# Inspect signature of Trainer to handle 'processing_class' vs 'tokenizer' (Transformers >=4.46 change)
+trainer_sig = inspect.signature(Trainer.__init__).parameters
+
+trainer_kwargs = {
+    "model": model,
+    "args": training_args,
+    "train_dataset": tok_ds["train"],
+    "eval_dataset": tok_ds["test"],
+    "compute_metrics": compute_metrics,
+    "callbacks": [EarlyStoppingCallback(early_stopping_patience=2)],
+}
+
+if "processing_class" in trainer_sig:
+    trainer_kwargs["processing_class"] = tokenizer
+elif "tokenizer" in trainer_sig:
+    trainer_kwargs["tokenizer"] = tokenizer
+
+safe_trainer_args = {k: v for k, v in trainer_kwargs.items() if k in trainer_sig}
+trainer = Trainer(**safe_trainer_args)
 
 print("✅ Trainer configured successfully")
 print(f"   Epochs:        {training_args.num_train_epochs}")
