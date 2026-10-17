@@ -50,7 +50,7 @@ cells.append(cell([
 cells.append(cell("""\
 # ── Cell 1: Install dependencies and verify environment ──
 !pip install -q --upgrade transformers datasets accelerate sentencepiece protobuf \\
-    scikit-learn matplotlib onnx onnxruntime seaborn
+    scikit-learn matplotlib onnx onnxruntime onnxscript seaborn
 
 import torch
 print("=" * 60)
@@ -444,10 +444,19 @@ print(f"DeBERTa F1 improvement over keyword baseline: +{delta_f1:.4f} ({delta_f1
 # ══════════════════════════════════════════════════════════════════
 cells.append(cell("""\
 # ── Cell 10: Export to ONNX (clean PyTorch export, zero external exporter dependencies) ──
-import torch, os, shutil
+import torch, os, shutil, inspect
 from pathlib import Path
 import onnxruntime as ort
 import numpy as np
+
+# 0. Ensure onnxscript is available (required by PyTorch >=2.5 internal ONNX exporter)
+try:
+    import onnxscript
+except ImportError:
+    import subprocess, sys
+    print("Installing onnxscript for PyTorch ONNX exporter...")
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "-q", "onnxscript"])
+    import onnxscript
 
 # 1. Save the best model and tokenizer
 best_model_dir = "./deberta-injection-best"
@@ -475,22 +484,31 @@ dummy_tokens = tokenizer("test prompt for onnx export", return_tensors="pt",
                          max_length=512, padding="max_length", truncation=True)
 dummy_args = (dummy_tokens["input_ids"], dummy_tokens["attention_mask"])
 
-# 5. Export to ONNX
+# 5. Export to ONNX (using stable tracer with dynamic_axes)
 onnx_path = os.path.join(onnx_dir, "model.onnx")
 print("Exporting ONNX model (opset 14)...")
-torch.onnx.export(
-    export_model,
-    dummy_args,
-    onnx_path,
-    input_names=["input_ids", "attention_mask"],
-    output_names=["logits"],
-    dynamic_axes={
+
+export_kwargs = {
+    "input_names": ["input_ids", "attention_mask"],
+    "output_names": ["logits"],
+    "dynamic_axes": {
         "input_ids": {0: "batch_size", 1: "sequence_length"},
         "attention_mask": {0: "batch_size", 1: "sequence_length"},
         "logits": {0: "batch_size"},
     },
-    opset_version=14,
-    do_constant_folding=True,
+    "opset_version": 14,
+    "do_constant_folding": True,
+}
+
+export_sig = inspect.signature(torch.onnx.export).parameters
+if "dynamo" in export_sig:
+    export_kwargs["dynamo"] = False
+
+torch.onnx.export(
+    export_model,
+    dummy_args,
+    onnx_path,
+    **export_kwargs,
 )
 
 # 6. Save tokenizer and config alongside model.onnx
