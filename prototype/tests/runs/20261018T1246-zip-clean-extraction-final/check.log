@@ -1,0 +1,12 @@
+clean extraction dir: C:/Users/SEBIN/AppData/Local/Temp/tmp.CRjRtvOhiI
+1 checksum OK  MANDATE_E4.3_submission.zip
+1 checksum OK  MANDATE_E4.3_injection_model.zip
+2 MANIFEST.sha256: all files match (389 entries)
+3 secrets scan: none found | model.onnx inside code ZIP: False | .env/.llm.env files: []
+working in extracted tree: /tmp/tmp.CRjRtvOhiI/MANDATE_E4.3/prototype
+4 launch E4.3 without model: exit 5 (REFUSED: E4)
+5 restore corrupted archive: exit 2, installed=no (REFUSED: model.onnx sha256 8ecf493b916ca64de875e85e1070592e269a2fe114eccd30a79d59764b85335)
+6 restore real archive: exit 0 (OK: model.onnx installed and verified (sha256 c69d502df27acbfac888a43cf77092da332de80af670c42bbe74b7a9c6fdae1c))
+6 --check: installed model matches the frozen hash
+7 injection_detector_enabled=1 SUMMARY 17 / 17 
+extraction left at C:/Users/SEBIN/AppData/Local/Temp/tmp.CRjRtvOhiI (temporary)

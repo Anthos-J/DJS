@@ -1,0 +1,3 @@
+OK: model.onnx installed and verified (sha256 c69d502df27acbfac888a43cf77092da332de80af670c42bbe74b7a9c6fdae1c)
+expected c69d502df27acbfac888a43cf77092da332de80af670c42bbe74b7a9c6fdae1c
+installed c69d502df27acbfac888a43cf77092da332de80af670c42bbe74b7a9c6fdae1c
