@@ -1,0 +1,2 @@
+REFUSED: E4.3 needs config/injection_model/model.onnx with sha256 c69d502df27acbfac888a43cf77092da332de80af670c42bbe74b7a9c6fdae1c (found: missing).
+         Restore it: python ../tools/restore_injection_model.py <model archive>   (see MODEL_RESTORE.md)

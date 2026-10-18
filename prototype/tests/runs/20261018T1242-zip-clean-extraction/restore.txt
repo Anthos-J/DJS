@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\tools\restore_injection_model.py", line 69, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\tools\restore_injection_model.py", line 45, in main
+    z = zipfile.ZipFile(sys.argv[1])
+  File "C:\Users\SEBIN\AppData\Local\Programs\Python\Python314\Lib\zipfile\__init__.py", line 1440, in __init__
+    self.fp = io.open(file, filemode)
+              ~~~~~~~^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/c/Users/SEBIN/Desktop/DJ SANGHVI/validation/prototype/../submission/MANDATE_E4.3_injection_model.zip'
+expected c69d502df27acbfac888a43cf77092da332de80af670c42bbe74b7a9c6fdae1c
+installed c69d502df27acbfac888a43cf77092da332de80af670c42bbe74b7a9c6fdae1c

@@ -1,0 +1,20 @@
+clean extraction dir: /tmp/tmp.OuFAUmoQGJ
+1 checksum FAIL MANDATE_E4.3_submission.zip
+1 checksum FAIL MANDATE_E4.3_injection_model.zip
+2 MANIFEST.sha256: MISMATCH
+4 launch E4.3 without model: exit 127 ()
+5 restore corrupted archive: exit 1, installed=no (Traceback (most recent call last):
+  File "C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\t)
+6 restore real archive: exit 1 (Traceback (most recent call last):
+  File "C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\tools\restore_injection_model.py", line 69, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\SEBIN\Desktop\DJ SANGHVI\validation\tools\restore_injection_model.py", line 45, in main
+    z = zipfile.ZipFile(sys.argv[1])
+  File "C:\Users\SEBIN\AppData\Local\Programs\Python\Python314\Lib\zipfile\__init__.py", line 1440, in __init__
+    self.fp = io.open(file, filemode)
+              ~~~~~~~^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/c/Users/SEBIN/Desktop/DJ SANGHVI/validation/prototype/../submission/MANDATE_E4.3_injection_model.zip')
+6 --check: installed model matches the frozen hash
+7 
+extraction left at /tmp/tmp.OuFAUmoQGJ (temporary)
