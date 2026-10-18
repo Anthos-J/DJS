@@ -1,6 +1,36 @@
-# MANDATE: consolidated final status report (E4.2 cycle, 16 Oct 2026)
+# MANDATE: consolidated final status report
 
-**Final frozen candidate:** `engine-E4.2.1` (`7002aa1`). Live server: `MANDATE_ENGINE=E4.2.1`.
+## R-E4.3 (18 Oct 2026): current release
+
+**Frozen engine:** `engine-E4.3` (`5ddb610`, `FROZEN_E43.sha256`). The launcher and console default to E4.3. `MANDATE_ENGINE=E4.2.1` (or E4.2, E4.1) still selects an earlier validated engine. Details: `RELEASE_E43.md`. Model storage: `MODEL_RESTORE.md`.
+
+| Check | Result | Evidence |
+|---|---|---|
+| E4.3 unit tests (control image, `--network none`) | 34/34 E4.3 + 60/60 E4.2.1 rules on E4.3 | `tests/runs/*-regression-E43/results.txt` |
+| Historical suites on their own engines | 13 / 9 / 22 / 33 / 35 / 58 / 60 OK; cross-engine 19/22 and 39/44, as recorded for E4.2.1 | same |
+| Live E2E | 17/17 on E4.3 and 17/17 on E4.2.1. Earlier failing E4.3 runs are kept: `20261018T045519`, `…045627`, `…045849` | `e2e/runs/20261018T050257-e2e`, `…050015-e2e`, plus the post-integration re-runs `e2e/runs/20261018T123114-e2e` (E4.3) and `…123245-e2e` (E4.2.1), both 17/17. Console integration 21/21 (`console/tests/runs/20261018T123051`); the first attempt, 19/21 (simulator HTTP 500 and a story-11 timing check), is kept at `…122648` |
+| Fresh evaluation, seeds 961–965, ×2 | E4.3 = E4.2.1: 30/1,260 attacks succeeded (C4); 0 legitimate denied, 124/840 needed approval; repeat runs identical | `eval/runs/20261018T0510-*-h5eval-s96x-run{1,2}` |
+| Why identical | The scenarios contain no document text (the detector never runs), and the sequence model scores 0 points | `RELEASE_E43.md` §2 |
+| Detector held-out tests (separate) | Injections caught / false alarms: deepset 44/59 / 1/56; unseen e-mails 294/300 / 1/293; unseen source 229/300 / 0/300 | `config/injection_model.provenance.json` |
+| Live LLM (separate; Groq `openai/gpt-oss-120b`) | 14/15 runs PASS (1 provider HTTP 400); 47 model calls; 4/4 fault checks with zero effects | `e2e/runs/20261018T121446-llm-live/`; post-integration re-run `e2e/runs/20261018T123437-llm-live/`: 5/5 PASS, 16 calls, 4/4 faults with zero effects |
+| Detector as the deciding control | Live runs: not decisive (the model's web fetch already tainted the session). Scripted counterfactual A: E4.2.1 allows the poisoned wiki write, E4.3 holds it | `tests/runs/*-detector-counterfactual/output.txt` |
+| Model integrity | `model.onnx` sha256 `c69d502d…ae1c` in three places: frozen manifest, installed file, the owner's Colab zip. Restore verified from a clean directory | `MODEL_RESTORE.md`, zip verification in `submission_assets/zip_verification/` |
+
+**Claims not made:** no independent review, no clean-machine reproduction, not SECURITY-TESTED, no perfect prevention, no claim that the detector reduces attack success in general.
+
+**New limitations D1–D6** are in `RELEASE_E43.md` §6 and the console's Known limits. Briefly:
+- structured records are not scanned;
+- about 24% of injections from an unseen source are missed;
+- a scoring exception fails open for that one document;
+- the scenario evaluation does not exercise the detector;
+- the live-LLM sample is small;
+- two training datasets have undeclared licences.
+
+---
+
+## E4.2 cycle (16 Oct 2026): kept as history
+
+**Final frozen candidate of that cycle:** `engine-E4.2.1` (`7002aa1`). It is the previous release and is still selectable with `MANDATE_ENGINE=E4.2.1`.
 
 This report covers AI adversarial self-review on one Windows 11 + Docker Desktop machine, with scripted agents, a mock tool server and simulated outbound effects. It is not an independent human review, not SECURITY-TESTED and not production-ready. It does not claim zero vulnerabilities.
 
@@ -72,7 +102,7 @@ E1 (`engine-E1`) through E4.1 (`engine-E4.1`, `496924c`) are unchanged, with the
 | L6 | 0.84 alerts per benign action | **FIXED AND VERIFIED** (against F7) | Benign alert rate is 0.094 (E4.1 on the same seeds: 0.738). Within benign scenarios: 1,045 alerts over 45,210 benign actions (2.3%). Every event remains in the audit. Aggregation means one alert can stand for many repeated drift events. |
 | L7 | Unnecessary approvals for legitimate work | **PARTIALLY MITIGATED** | 0 legitimate denials. B1/B3 friction (37 of 60) is pre-existing and was not reduced (cold start and tainted flows). New friction comes only from the documented R5 and R6 trade-offs and owner recovery mode. |
 | L8 | Structured HR scope usability and reliability | **PARTIALLY MITIGATED** | The engine and API reject HR tasks without a valid declared subject (`test_hr_task_requires_declared_scope`); the UI displays the scope. The owner UI has no task-assignment form (API only), which belongs to the UI redesign phase. |
-| L9 | Scripted agents, mock tools, AI-authored scenarios | **EXTERNAL VALIDATION PENDING** | No model-provider key is available (checked by count only; none used; no external cost). Independent human-authored scenarios and red team are not available. Effect-based classification and the leakage check (`tests/runs/20261016T1930-leakage.txt`) reduce, but do not remove, the authorship bias. |
+| L9 | Scripted agents, mock tools, AI-authored scenarios | **EXTERNAL VALIDATION PENDING** | *(Updated in R-E4.3: an optional live-LLM agent now exists. It is a controlled 15-run demonstration with Groq, reported separately; see `RELEASE_E43.md` §4.)* When this table was written, no model-provider key was available. Independent human-authored scenarios and red team are not available. Effect-based classification and the leakage check (`tests/runs/20261016T1930-leakage.txt`) reduce, but do not remove, the authorship bias. |
 | L10 | Aliasing coverage in held-out evaluation | **FIXED AND VERIFIED** | C2 family (APPROVAL_PENDING 30/30) and D2 (CLEAN). V1 and V4 are covered by unit tests and the red team only (E4.2 and E4.2.1 decide identically on h5eval). |
 | L11 | Fresh seeds without new pools | **PARTIALLY MITIGATED** | h5 pools contain no names from h1–h4, plus new C/D templates. The final E4.2.1 seeds (951–955) reuse the h5eval pools first used to evaluate E4.2. E4.2.1 changes came from the red team, not from eval results. |
 | L12 | Volatile approvals, status, baselines | **FIXED AND VERIFIED** | Checkpoint restore (unit test), C5 DENIED 30/30, E12. Residual: in-session taint (`integ`) and drift windows are not persisted, so a control-plane restart clears a session's untrusted-influence flag. Agents cannot trigger restarts. Documented, low. |

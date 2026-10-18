@@ -8,6 +8,8 @@ A working prototype for the problem statement "Identity Drift Detection in Auton
 
 Requirement-by-requirement status: `../PRB_TRACEABILITY.md`.
 
+> **Current release: engine E4.3** (`engine-E4.3`). Start with `README_JUDGES.md` (quick start), `RELEASE_E43.md` (what E4.3 adds and what was measured) and `MODEL_RESTORE.md` (the injection model). The sections below describe the original E1/E2 build and are kept as history. E2 is still the control plane's own default engine; the launcher always selects one explicitly.
+
 ## Components
 
 | Path | What |

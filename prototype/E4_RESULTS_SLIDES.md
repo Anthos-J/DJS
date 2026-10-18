@@ -1,3 +1,10 @@
+> **R-E4.3 (current) figures for slides:** see `RELEASE_E43.md`. Keep three things apart:
+> - **Scenario evaluation** (seeds 961–965): E4.3 = E4.2.1. There were 30/1,260 attack successes, all C4; 0 legitimate actions denied; 124/840 needed approval.
+> - **The detector's own tests:** in unseen e-mails 98.0% of injections caught with 0.3% false alarms; from an unseen source 76.3% caught with 0% false alarms.
+> - **The live-LLM demonstration:** 15 runs, 14 PASS. The detector flagged every injected document; the downstream holds would also have happened on E4.2.1.
+>
+> The figures below are the E4.1-era version, kept as history.
+
 # PPT-ready measured results (copy per slide)
 
 **Footer for every results slide:** Engine-level evaluation on AI-generated scenarios with scripted agents and mock tools. AI self-review, single machine. Not SECURITY-TESTED, not independent review, not real-world attack rates.

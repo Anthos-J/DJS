@@ -8,8 +8,10 @@ MANDATE is a runtime-governance prototype for AI agents. Every tool call an agen
 
 The control plane also detects behavioural drift. It answers **ALLOW**, **APPROVAL_REQUIRED** (held until the owner approves) or **DENY**, and can quarantine an agent. Tool effects happen only on ALLOW.
 
+**Engine E4.3** (release R-E4.3, `RELEASE_E43.md`) is E4.2.1's rules plus an owner-trained prompt-injection detector. The detector scans each document an agent reads, after the read is allowed and before the agent sees it. A flagged document marks the session untrusted. It scans documents only: structured records (prices, HR record, metrics) are not scanned. E4.3 also adds an AgentDojo sequence model that is alert-only (0 points).
+
 **What this is and is not.** It is a local prototype:
-- agents are scripted (no LLM);
+- the demo agents are scripted; an optional live-LLM agent (Groq) runs only if you enable it;
 - the tool server is a mock, and outbound effects are simulated;
 - all testing is AI self-review on one machine.
 
@@ -18,7 +20,12 @@ It is not production-ready, not SECURITY-TESTED and not independently reviewed. 
 ## Requirements (validated environment)
 
 - Windows 11, Docker Desktop (validated 29.8.2), Git Bash, Python ≥ 3.10 on the host (validated with 3.12 and 3.14). Nothing else is installed on the host.
-- Docker image `mandate-spike-py312:wave2` (see *Building the image*). The pinned nginx image is pulled automatically.
+- Docker image `mandate-spike-py312:wave2` (see *Building the image*). The pinned nginx image is pulled automatically. E4.3's control-plane image `mandate-control-e43:1` is built automatically from `control/image/Dockerfile` (pinned onnxruntime, tokenizers and numpy; needs PyPI once).
+- **The injection model** (`config/injection_model/model.onnx`, 568 MB, not in git). It is delivered as `MANDATE_E4.3_injection_model.zip`. Restore it once from `validation/`:
+  ```bash
+  python tools/restore_injection_model.py MANDATE_E4.3_injection_model.zip
+  ```
+  It is verified against the frozen hash. Without it, E4.3 refuses to start; earlier engines start without it. See `MODEL_RESTORE.md`.
 - No cloud account, LLM key or external credential is needed.
 
 ## Start (one command)
@@ -30,7 +37,7 @@ bash demo/launch.sh
 Run it from `validation/prototype` in Git Bash. It does the following:
 1. preflight: Docker, Python, images, port;
 2. deploy with the AM11 cell-isolation gates (static check → `docker compose up` → runtime check; it refuses if a gate fails);
-3. confirm that the control plane reports engine **E4.2.1** (selected explicitly; the repository default is E2);
+3. confirm that the control plane reports engine **E4.3** and that the injection detector is loaded. To run the previous validated engine instead: `MANDATE_ENGINE=E4.2.1 bash demo/launch.sh`. The control plane's own default is still E2, which is never used by the launcher;
 4. seed the declared demo agents;
 5. start the console.
 
@@ -77,7 +84,14 @@ export MANDATE_LLM_CONSENT=1
 bash demo/launch.sh
 ```
 
-Then open **Live LLM agent** in the console. The three tasks are normal procurement work, reading the poisoned supplier quote, and web research followed by a wiki write.
+Then open **Live LLM agent** in the console. The five tasks are:
+- normal procurement work;
+- reading the poisoned supplier quote;
+- web research followed by a wiki write;
+- reading a tampered page on the trusted internal wiki;
+- reading a benign page that sounds like instructions.
+
+The recorded controlled run is 15 runs, 47 model calls, and four no-cost fault checks; see `e2e/runs/20261018T121446-llm-live/` and `RELEASE_E43.md` §4. It is reported separately from the scripted-agent evaluation.
 
 - The model runs on the host. Every tool call it proposes goes through the real cell → PEP → control plane path, so the cells stay network-isolated.
 - The verdict comes only from the tool server's effect log. The model's behaviour varies from run to run, so results are shown per run, not as a rate.
@@ -89,10 +103,10 @@ Then open **Live LLM agent** in the console. The three tasks are normal procurem
 
 | Component | Where | Role |
 |---|---|---|
-| Agent cells A/B | `compose.yaml` (`agent_a`, `agent_b`), `pep/agent_proto.py` | Scripted agents in AM11-isolated network namespaces. |
+| Agent cells A/B | `compose.yaml` (`agent_a`, `agent_b`), `pep/agent_proto.py` | Agents in AM11-isolated network namespaces (scripted, or driven by the optional live LLM via `console/llm_agent.py`). |
 | Sidecar + mTLS terminator | `../S7-binding` configs | Bind each call to the cell's identity (certificate + token). |
-| PEP | `pep/pep_proto.py` | Asks the control plane for every call; fails closed. |
-| Control plane | `control/server.py`, engine `mandate/engine_e421.py`, state `mandate/state_e42.py`, policy `../S2-cedar/config` | Decisions, approvals, quarantine, hash-chained audit, durable checkpoint, recovery. |
+| PEP | `pep/pep_proto.py` | Asks the control plane for every call; fails closed. After an allowed read it sends the returned text to `/api/observe` before the agent sees it; if that fails, the result is withheld (DENY). |
+| Control plane | `control/server.py`, engine `mandate/engine_e43.py` (E4.2.1 still in `engine_e421.py`), detector `mandate/content_scanner.py` + `config/injection_model/`, state `mandate/state_e42.py`, policy `../S2-cedar/config` | Decisions, post-read content scan, approvals, quarantine, hash-chained audit, durable checkpoint, recovery. |
 | Mock tool server | `pep/backend_proto.py` | Executes on ALLOW only. Its effect log is the independent observer. |
 | Judge console | `console/console.py`, `console/static/` | UI, owner-API proxy, live scenarios, reset, recovery, diagnostics, results. |
 
@@ -100,8 +114,10 @@ Then open **Live LLM agent** in the console. The three tasks are normal procurem
 
 | What | Command | Recorded result |
 |---|---|---|
-| Engine regression | `docker run --rm --network none -v "$(cygpath -w "$(pwd)/.."):/v" -w /v/prototype mandate-spike-py312:wave2 python -m unittest tests.test_engine_e421` | 60/60 (`tests/runs/`) |
-| Live E2E | `MANDATE_ENGINE=E4.2.1 bash run_prototype.sh e2e` | 17/17 (`e2e/runs/`) |
+| Engine tests (E4.3) | `docker run --rm --network none -v "$(cygpath -w "$(pwd)/.."):/v:ro" -w /v/prototype mandate-control-e43:1 python -m unittest tests.test_engine_e43 tests.test_e421_rules_on_e43` | 34 + 60 (`tests/runs/*-regression-E43/`) |
+| Historical suites | same image, `tests.test_engine` … `tests.test_engine_e421` | 13 / 9 / 22 / 33 / 35 / 58 / 60, all OK |
+| Live E2E | `MANDATE_ENGINE=E4.3 bash run_prototype.sh e2e` (or `E4.2.1`) | 17/17 on each (`e2e/runs/`) |
+| Live LLM (optional, costs API calls) | `python e2e/llm_live_driver.py <dir> 3` with the key and consent set | `e2e/runs/20261018T121446-llm-live/` |
 | Console integration (live) | `python console/tests/test_console_integration.py` (with the demo running) | `console/tests/runs/` |
 | Evidence integrity | `python ../tools/verify_evidence.py verify` | 0 changed / 0 missing |
 
@@ -121,6 +137,8 @@ The build fetches pinned Cedar and cvc5 binaries, and Python packages from PyPI.
 | `image mandate-spike-py312:wave2 missing` | Build it (above). |
 | `deployment refused` / `AM11 runtime gate did not pass` | Look at `e2e/runs/<latest>-console/deploy.log` and `cell_policy_runtime.json`. Run `bash demo/stop.sh`, then launch again. |
 | `control plane reports engine 'E2'` | Another stack is running without the launcher. Run `bash demo/stop.sh`, then `bash demo/launch.sh`. |
+| `REFUSED: E4.3 needs config/injection_model/model.onnx …` | Restore the model: `python ../tools/restore_injection_model.py MANDATE_E4.3_injection_model.zip` (see `MODEL_RESTORE.md`), or launch an earlier engine with `MANDATE_ENGINE=E4.2.1`. |
+| `TORN DOWN: E4.3 control plane did not load the injection detector` | The control image lacks onnxruntime, or the model files are incomplete. Delete the image with `docker image rm mandate-control-e43:1` so it rebuilds, and check the model with `python ../tools/restore_injection_model.py - --check`. |
 | Red banner *Control plane unreachable* | Expected right after journey 11 or 12. For 11, open **Recovery** or **Reset demo**. Otherwise see `docker compose -f compose.yaml logs control`. |
 | Port 8090 in use | Stop the other program, or set `MANDATE_CONSOLE_PORT` and start `python console/console.py` yourself. |
 | Scenario shows FAIL with a precondition note | Earlier runs left a different state (for example, after recovery). Use **Reset demo**. |

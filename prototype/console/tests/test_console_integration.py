@@ -52,8 +52,10 @@ class T01Surface(unittest.TestCase):
 
     def test_health_reports_real_engine(self):
         st, h = call("/console/health")
-        self.assertEqual(st, 200); self.assertTrue(h["control"]["reachable"]); self.assertEqual(h["control"]["meta"]["engine"], "E4.2.1")
-        self.assertTrue(h["engine_ok"]); self.assertEqual(h["container_env"].get("MANDATE_ENGINE"), "E4.2.1")
+        self.assertEqual(st, 200); self.assertTrue(h["control"]["reachable"]); self.assertEqual(h["control"]["meta"]["engine"], "E4.3")
+        self.assertTrue(h["engine_ok"]); self.assertEqual(h["container_env"].get("MANDATE_ENGINE"), "E4.3")
+        self.assertTrue(h["control"]["meta"]["injection_detector"]["enabled"])
+        self.assertEqual(h["control"]["meta"]["learned_sequence_model"]["points"], 0)
 
     def test_console_actions_need_csrf_header(self):
         self.assertEqual(call("/console/reset", {})[0], 403)
@@ -64,9 +66,10 @@ class T01Surface(unittest.TestCase):
     def test_results_from_recorded_evidence(self):
         st, r = call("/console/results")
         self.assertEqual(st, 200)
-        fin = next(c for c in r["comparison"] if c["engine"].startswith("E4.2.1"))
+        fin = next(c for c in r["comparison"] if c["engine"].endswith("(final)")); self.assertTrue(fin["engine"].startswith("E4.3"))
         self.assertEqual(fin["attack_scenarios"], 1260); self.assertEqual(fin["attack_outcomes"].get("SUCCEEDED"), 30)
-        self.assertEqual(fin["benign_outcomes"].get("APPROVAL_FRICTION"), 127); self.assertTrue(r["final_repeat_hash_equal"])
+        self.assertEqual(fin["benign_outcomes"].get("APPROVAL_FRICTION"), 124); self.assertTrue(r["final_repeat_hash_equal"])
+        self.assertTrue(r["e43_equals_e421_same_seeds"]); self.assertIn("cross_source (CNN articles + Lakera injections)", r["detector"]["tests"])
         self.assertIn("C4 below-budget cumulative reading of unrelated items", r["families"])
         self.assertTrue(any(l["id"].startswith("L1") for l in r["limitations"]["items"]))
 
@@ -197,7 +200,7 @@ class T06Reset(unittest.TestCase):
         st, r = action("/console/reset"); self.assertEqual(st, 200); self.assertTrue(r["ok"], r)
         st, ags = call("/api/agents"); self.assertEqual({a["agent_id"] for a in ags}, {"agent:cell-a", "agent:cell-b"})
         self.assertTrue(all(a["status"] == "active" for a in ags))
-        st, m = call("/api/meta"); self.assertFalse(m["recovery"]); self.assertEqual(m["engine"], "E4.2.1"); self.assertEqual(m["counts"]["pending_approvals"], 0)
+        st, m = call("/api/meta"); self.assertFalse(m["recovery"]); self.assertEqual(m["engine"], "E4.3"); self.assertEqual(m["counts"]["pending_approvals"], 0)
 
 
 if __name__ == "__main__":

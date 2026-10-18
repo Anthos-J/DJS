@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # MANDATE judge demo: one-command start (Windows 11 + Docker Desktop + Git Bash).
-#   bash demo/launch.sh        -> preflight -> deploy with AM11 gates (engine E4.2.1, explicitly) -> verify engine -> seed -> console
+#   bash demo/launch.sh        -> preflight -> deploy with AM11 gates (engine E4.3) -> verify engine + detector -> seed -> console
+#   MANDATE_ENGINE=E4.2.1 bash demo/launch.sh   -> the previous validated engine (also E4.2, E4.1); never the server default E2
 #   bash demo/stop.sh          -> stop the console and remove the demo containers and volumes
 # Console: http://127.0.0.1:8090   (control-plane API: http://127.0.0.1:8800)
 set -u
@@ -9,7 +10,8 @@ for d in "/c/Program Files/Docker/Docker/resources/bin" "/c/Users/$USERNAME/AppD
   [ -d "$d" ] && export PATH="$d:$PATH"
 done
 export MSYS_NO_PATHCONV=1 PYTHONIOENCODING=utf-8 PYTHONDONTWRITEBYTECODE=1
-export MANDATE_ENGINE=E4.2.1 MANDATE_RECOVERY=0 MANDATE_CONSOLE_DEMO_TOKEN=1   # submission engine is explicit, never the default (E2)
+export MANDATE_ENGINE="${MANDATE_ENGINE:-E4.3}" MANDATE_RECOVERY=0 MANDATE_CONSOLE_DEMO_TOKEN=1   # submission engine is explicit, never the server default (E2)
+case "$MANDATE_ENGINE" in E4.3|E4.2.1|E4.2|E4.1) ;; *) echo "unsupported MANDATE_ENGINE=$MANDATE_ENGINE (use E4.3, E4.2.1, E4.2 or E4.1)"; exit 1;; esac
 export SPIKE_IMAGE=mandate-spike-py312:wave2
 export NGINX_IMAGE=nginx@sha256:5616878291a2eed594aee8db4dade5878cf7edcb475e59193904b198d9b830de
 PY=python; command -v python >/dev/null 2>&1 || PY=python3
@@ -36,14 +38,19 @@ echo "   ok: docker, python, images, ports"
 echo "-- deploy (AM11 static gate -> up -> AM11 runtime gate; fail closed)"
 out=$(bash run_prototype.sh console 2>&1); rc=$?
 echo "$out" | grep -E "exit|REFUSED|TORN|RUN=" | sed 's/^/   /'
-[ $rc -eq 0 ] || fail "deployment refused (exit $rc); the AM11 gates or docker compose failed"
+[ $rc -eq 0 ] || fail "deployment refused (exit $rc); the AM11 gates, the E4.3 model check or docker compose failed"
 echo "$out" | grep -q "runtime_check_exit=0" || fail "AM11 runtime gate did not pass"
 
 echo "-- verify engine and readiness"
 for i in $(seq 1 40); do curl -sf http://127.0.0.1:8800/api/meta -o demo/.meta.json 2>/dev/null && break; sleep 1; done
 [ -s demo/.meta.json ] || fail "control plane did not become ready (docker compose -f compose.yaml logs control)"
 eng=$("$PY" -c "import json; print(json.load(open('demo/.meta.json'))['engine'])")
-[ "$eng" = "E4.2.1" ] || fail "control plane reports engine '$eng', expected E4.2.1"
+[ "$eng" = "$MANDATE_ENGINE" ] || fail "control plane reports engine '$eng', expected $MANDATE_ENGINE"
+if [ "$MANDATE_ENGINE" = "E4.3" ]; then
+  det=$("$PY" -c "import json; print(json.load(open('demo/.meta.json')).get('injection_detector',{}).get('enabled'))")
+  [ "$det" = "True" ] || fail "E4.3 is running without its injection detector"
+  echo "   injection detector loaded (documents only; structured records are not scanned)"
+fi
 echo "   control plane ready, engine $eng"
 "$PY" console/console.py --seed | sed 's/^/   /' || fail "seeding the demo baseline failed"
 

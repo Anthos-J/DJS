@@ -1,0 +1,30 @@
+[
+ {
+  "name": "provider unavailable (connection refused)",
+  "expect": "run aborts with an error; no tool call is made",
+  "raised": "URLError: <urlopen error [WinError 10061] No connection could be made because the target machine actively refused it>",
+  "tool_server_effects": [],
+  "key_not_echoed": true
+ },
+ {
+  "name": "provider timeout",
+  "expect": "run aborts with an error; no tool call is made",
+  "raised": "TimeoutError: simulated provider timeout",
+  "tool_server_effects": [],
+  "key_not_echoed": true
+ },
+ {
+  "name": "invalid API key (HTTP 401 from the provider)",
+  "expect": "run aborts; the key is not echoed",
+  "raised": "RuntimeError: provider HTTP 401: {\"error\":{\"message\":\"Invalid API Key\",\"type\":\"invalid_request_error\",\"code\":\"invalid_api_key\"}}\n",
+  "tool_server_effects": [],
+  "key_not_echoed": true
+ },
+ {
+  "name": "malformed model output (bad JSON args, unknown tool, out-of-mandate send)",
+  "expect": "each call goes through the PEP and is denied; no effects",
+  "raised": null,
+  "tool_server_effects": [],
+  "key_not_echoed": true
+ }
+]

@@ -136,7 +136,8 @@ async def recovery_ack(req):
     return J({"recovery": ENGINE.recovery})
 
 
-SKIP_COPY = {"lock", "audit", "store", "P", "S", "clock", "events", "alerts"}
+SKIP_COPY = {"lock", "audit", "store", "P", "S", "clock", "events", "alerts",
+             "injection_scanner", "lm"}   # R-E4.3: read-only model objects are shared, not copied (an ONNX session cannot be deep-copied)
 
 
 def sandbox():
@@ -250,9 +251,31 @@ async def meta(req):
               "counts": {"agents": len(ENGINE.agents), "pending_approvals": sum(1 for a in ENGINE.approvals.values() if a["status"] == "pending"),
                          "quarantined": sum(1 for a in ENGINE.agents.values() if a["status"] == "quarantined"),
                          "alerts": len(ENGINE.alerts), "decisions": len(ENGINE.events)},
+              "injection_detector": _detector_status(), "learned_sequence_model": _sequence_status(),
               "baseline_source": SIMULATED["baseline_source"], "time": time.time(),
               "notes": ["Risk score is an ordinal 0-100 index of documented factors, not a probability.",
-                        "Demo tokens; no production authentication.", "Agents in the demo are scripted (no LLM)."]})
+                        "Demo tokens; no production authentication.",
+                        "Demo agents are scripted; an optional live-LLM agent (Groq) runs only when the owner enables it."]})
+
+
+def _detector_status():
+    """Release R-E4.3: what the engine actually loaded (read-only; no decision logic here)."""
+    s = getattr(ENGINE, "injection_scanner", None)
+    if not hasattr(ENGINE, "injection_scanner"):
+        return {"present_in_engine": False}
+    prov = (getattr(s, "provenance", None) or {}) if s else {}
+    return {"present_in_engine": True, "enabled": s is not None, "threshold": getattr(s, "threshold", None),
+            "scan_tools": list(ENGINE.cfg.get("injection_scan_tools", [])),
+            "not_scanned": "structured records (prices, HR record, metrics, supplier catalogue) are outside the detector's scope",
+            "model": prov.get("model"), "trained_by": "owner (Colab)", "when": "after an allowed document read, before the agent sees it"}
+
+
+def _sequence_status():
+    lm = getattr(ENGINE, "lm", None)
+    if not hasattr(ENGINE, "lm"):
+        return {"present_in_engine": False}
+    return {"present_in_engine": True, "loaded": lm is not None, "points": ENGINE.cfg["points"].get("learned_sequence_anomaly"),
+            "mode": "alert-only (0 points: recorded, never changes a decision)"}
 
 
 async def index(req):

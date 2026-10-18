@@ -11,7 +11,12 @@ export SPIKE_IMAGE=mandate-spike-py312:wave2
 if [ "${MANDATE_ENGINE:-}" = "E4.3" ]; then   # E4.3's injection detector needs onnxruntime in the control plane only
   export CONTROL_IMAGE=mandate-control-e43:1
   docker image inspect "$CONTROL_IMAGE" >/dev/null 2>&1 || docker build -q -t "$CONTROL_IMAGE" control/image >/dev/null
-  [ -f config/injection_model/model.onnx ] || echo "NOTE: config/injection_model/model.onnx missing; E4.3 runs without the injection detector"
+  want=$(grep ' \*config/injection_model/model.onnx$' FROZEN_E43.sha256 | cut -d' ' -f1)
+  have=$( [ -f config/injection_model/model.onnx ] && sha256sum config/injection_model/model.onnx | cut -d' ' -f1)
+  if [ -z "$want" ] || [ "$have" != "$want" ]; then
+    echo "REFUSED: E4.3 needs config/injection_model/model.onnx with sha256 $want (found: ${have:-missing})."
+    echo "         Restore it: python ../tools/restore_injection_model.py <model archive>   (see MODEL_RESTORE.md)"; exit 5
+  fi
 fi
 export NGINX_IMAGE=nginx@sha256:5616878291a2eed594aee8db4dade5878cf7edcb475e59193904b198d9b830de
 export RUN_DIR="$(cygpath -w "$(pwd)/$R")"
@@ -26,6 +31,12 @@ $CHK runtime mandate > "$R/cell_policy_runtime.json"; rc=$?; echo "runtime_check
 [ $rc -eq 0 ] || { $DC down -v --remove-orphans >/dev/null 2>&1; echo "TORN DOWN: AM11 runtime check failed"; exit 4; }
 { docker image inspect "$SPIKE_IMAGE" --format 'spike_image={{.Id}}'; echo "nginx_image=$NGINX_IMAGE"; [ -n "${CONTROL_IMAGE:-}" ] && docker image inspect "$CONTROL_IMAGE" --format 'control_image={{.Id}}'; } > "$R/images.txt"
 for i in $(seq 1 30); do curl -sf http://127.0.0.1:8800/api/meta >/dev/null 2>&1 && break; sleep 1; done
+echo "${MANDATE_ENGINE:-E2}" > "$R/ENGINE.txt"
+if [ "${MANDATE_ENGINE:-}" = "E4.3" ]; then
+  det=$(curl -sf http://127.0.0.1:8800/api/meta | python -c "import json,sys; d=json.load(sys.stdin).get('injection_detector',{}); print(int(bool(d.get('enabled'))))" 2>/dev/null)
+  echo "injection_detector_enabled=${det:-0}" | tee -a "$R/deploy.log"
+  [ "${det:-0}" = "1" ] || { $DC down -v --remove-orphans >/dev/null 2>&1; echo "TORN DOWN: E4.3 control plane did not load the injection detector"; exit 6; }
+fi
 if [ "${1:-}" = "demo" ]; then
   MANDATE_DEMO=1 python e2e/e2e_driver.py "$R" > "$R/e2e_console.log" 2>&1; grep -E "SUMMARY" "$R/e2e_console.log"
 fi

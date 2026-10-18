@@ -1,4 +1,6 @@
-# Known-limitations register (final, engine E4.1)
+# Known-limitations register (engine E4.1; kept as history)
+
+> **Current register:** the console's *Known limits* page (`console/static/limitations.json`) and `FINAL_STATUS_REPORT.md` §4. The E4.3 additions D1–D6 are in `RELEASE_E43.md` §6. Several items below were later fixed (L3, L4, L5, L6, L12); see the status report.
 
 Severity is the AI's own assessment for a hackathon prototype. No limitation has been independently reviewed.
 

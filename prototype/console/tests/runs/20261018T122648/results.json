@@ -1,0 +1,15 @@
+{
+ "total": 21,
+ "passed": 19,
+ "failures": [
+  "test_s11_then_recovery_then_ack (__main__.T05AuditLossAndRecovery.test_s11_then_recovery_then_ack)",
+  "test_simulator_is_a_true_dry_run (__main__.T07NewFeatures.test_simulator_is_a_true_dry_run)"
+ ],
+ "errors": [],
+ "details": [
+  "Traceback (most recent call last):\n  File \"C:\\Users\\SEBIN\\Desktop\\DJ SANGHVI\\validation\\prototype\\console\\tests\\test_console_integration.py\", line 149, in test_s11_then_recovery_then_ack\n    r = scenario(\"s11\"); self.assertEqual(r[\"verdict\"], \"PASS\", r[\"checks\"])\n                         ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'FAIL' != 'PASS'\n- FAIL\n+ PASS\n : [{'what': 'control plane REFUSED to start with missing history', 'ok': False, 'observed': False}, {'what': 'PEP denied (fail closed) and nothing executed', 'ok': True, 'observed': [{'tool': 'get_prices', 'ok': False, 'text': 'DENY: control plane unreachable (fail closed)'}]}]\n",
+  "Traceback (most recent call last):\n  File \"C:\\Users\\SEBIN\\Desktop\\DJ SANGHVI\\validation\\prototype\\console\\tests\\test_console_integration.py\", line 168, in test_simulator_is_a_true_dry_run\n    self.assertEqual(st, 200); self.assertEqual(r[\"decision\"][\"response\"], \"DENY\"); self.assertFalse(r[\"executed\"]); self.assertTrue(r[\"live_state_unchanged\"])\n    ~~~~~~~~~~~~~~~~^^^^^^^^^\nAssertionError: 500 != 200\n"
+ ],
+ "started": 1792306475.302509,
+ "finished": 1792306608.368888
+}

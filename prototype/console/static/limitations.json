@@ -1,5 +1,5 @@
 {
- "source": "FINAL_STATUS_REPORT.md section 4 (E4.2.1); transcribed for display",
+ "source": "FINAL_STATUS_REPORT.md section 4 (E4.2.1) plus RELEASE_E43.md section 6 (E4.3); transcribed for display",
  "items": [
   {
    "id": "L1 / X1 / C4",
@@ -65,7 +65,7 @@
    "id": "L9",
    "item": "Scripted agents, mock tools, AI-authored scenarios",
    "status": "EXTERNAL VALIDATION PENDING",
-   "evidence": "Optional live-LLM agent tried on 3 tasks (single runs, all PASS, Groq gpt-oss-120b); no independent human red team; scenarios AI-authored."
+   "evidence": "Scripted demo agents, a mock tool server and AI-authored scenarios. An optional live-LLM agent (Groq) exists since R-E4.3. Its controlled demonstration was 15 runs, reported separately (RELEASE_E43.md section 4). No independent human-authored scenarios or red team."
   },
   {
    "id": "L10",
@@ -114,6 +114,42 @@
    "item": "Referenced audit document",
    "status": "EXTERNAL VALIDATION PENDING",
    "evidence": "Not present in the repository; not incorporated."
+  },
+  {
+   "id": "D1",
+   "item": "E4.3 detector does not scan structured records",
+   "status": "DOCUMENTED LIMITATION",
+   "evidence": "Scans read_supplier_doc, read_inbox, web_search, read_doc and read_logs only. Prices, the HR record, metrics and the catalogue are not scanned (the model flagged an HR JSON record as an injection: E2E 20261018T045627). An injection inside a JSON field would not be detected."
+  },
+  {
+   "id": "D2",
+   "item": "Detector misses and false alarms",
+   "status": "MEASURED",
+   "evidence": "Held-out: 98.0% caught and 0.3% false alarms in unseen e-mails; 76.3% caught and 0% false alarms from an unseen source; 74.6% caught and 1.8% false alarms on deepset. Test injections were inserted into dataset documents, not found in the wild."
+  },
+  {
+   "id": "D3",
+   "item": "Scoring exception fails open for that document",
+   "status": "DOCUMENTED LIMITATION",
+   "evidence": "In frozen content_scanner.py, an exception while scoring one document is logged and the document is treated as not flagged. A missing or wrong model refuses the start, and an unreachable control plane makes the PEP deny. Changing this needs a new engine version."
+  },
+  {
+   "id": "D4",
+   "item": "Scenario evaluation does not exercise the detector",
+   "status": "DOCUMENTED LIMITATION",
+   "evidence": "E4.3 = E4.2.1 on seeds 961-965 because the scenarios contain no document text and the sequence model scores 0 points. The detector is evidenced separately: its own test sets, a scripted counterfactual and the live-LLM demonstration."
+  },
+  {
+   "id": "D5",
+   "item": "Small live-LLM sample",
+   "status": "EXTERNAL VALIDATION PENDING",
+   "evidence": "15 runs, one provider and one model, non-deterministic. The model ignored the supplier-quote injection (no prevention shown there). On the tampered wiki it followed the injection and its e-mail was held, but E4.2.1 would also have held it."
+  },
+  {
+   "id": "D6",
+   "item": "Training-data licences",
+   "status": "OWNER DECISION",
+   "evidence": "xTRam1/safe-guard-prompt-injection and SetFit/enron_spam declare no licence on Hugging Face. The model is delivered beside the submission for evaluation, not published (MODEL_RESTORE.md)."
   }
  ]
 }

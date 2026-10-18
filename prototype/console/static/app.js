@@ -162,7 +162,7 @@ VIEWS.home = async el => {
     let ev = [], res = null;
     try { ev = await api("/api/events?limit=40"); } catch (e) { /* shown below */ }
     try { res = await http("/console/results"); } catch (e) { /* optional */ }
-    const fin = res && res.comparison.find(c => c.engine.startsWith("E4.2.1"));
+    const fin = res && res.comparison.find(c => c.engine.endsWith("(final)"));
     const latest = ev.slice().reverse().find(e => e.response !== "ALLOW") || ev[ev.length - 1];
     el.innerHTML = `
       <section class="hero">
@@ -257,9 +257,9 @@ VIEWS.demo = async el => {
   el.querySelectorAll("[data-run]").forEach(b => b.onclick = () => run(b.dataset.run));
   $("#runall").onclick = async () => { for (const s of list.filter(x => !x.destructive)) await run(s.id); };
   $("#reset").onclick = async () => {
-    if (!(await ask("Reset the demo?", "<p>Redeploys MANDATE from scratch (isolation checks, then start, then checks again) on engine E4.2.1, and reloads the two demo agents. Takes about a minute. Recorded evidence is not touched.</p>", { reason: false, ok: "Reset" }))) return;
+    if (!(await ask("Reset the demo?", "<p>Redeploys MANDATE from scratch (isolation checks, then start, then checks again) on engine " + esc((S.health && S.health.engine_required) || "E4.3") + ", and reloads the two demo agents. Takes about a minute. Recorded evidence is not touched.</p>", { reason: false, ok: "Reset" }))) return;
     S.busy = true; S.lastRun = null; $("#runout").innerHTML = loading("Redeploying (about a minute)…");
-    try { const r = await act("/console/reset"); $("#runout").innerHTML = r.ok ? empty("Back to a clean start", `<div class="ink2">Isolation checks passed, engine E4.2.1, demo agents loaded.</div>`) : errBox({ message: (r.launcher || []).join(" · ") || r.stderr }, "Reset"); }
+    try { const r = await act("/console/reset"); $("#runout").innerHTML = r.ok ? empty("Back to a clean start", `<div class="ink2">Isolation checks passed, engine ${esc((S.health && S.health.engine_required) || "E4.3")}, demo agents loaded.</div>`) : errBox({ message: (r.launcher || []).join(" · ") || r.stderr }, "Reset"); }
     catch (e) { $("#runout").innerHTML = errBox(e, "Reset"); }
     S.busy = false; refreshStatus();
   };
@@ -531,7 +531,7 @@ VIEWS.graph = async el => {
 VIEWS.results = async el => {
   el.innerHTML = loading();
   let r; try { r = await http("/console/results"); } catch (e) { el.innerHTML = errBox(e, "Loading results"); return; }
-  const n = (o, k) => o[k] || 0, fin = r.comparison.find(c => c.engine.startsWith("E4.2.1")) || r.comparison[r.comparison.length - 1];
+  const n = (o, k) => o[k] || 0, fin = r.comparison.find(c => c.engine.endsWith("(final)")) || r.comparison[r.comparison.length - 1];
   const bar = (o, total, keys) => `<div class="bars">${keys.map(([k, c]) => `<span style="width:${100 * n(o, k) / total}%;background:var(--${c})" title="${k}: ${n(o, k)}"></span>`).join("")}</div>`;
   const AK = [["DENIED", "allow"], ["APPROVAL_PENDING", "held"], ["EXECUTED_LABELLED", "info"], ["SUCCEEDED", "block"]];
   const famOut = { DENIED: "allow", APPROVAL_PENDING: "held", CLEAN: "allow", APPROVAL_FRICTION: "held", SUCCEEDED: "block", DENIED_LEGIT: "block", EXECUTED_LABELLED: "info", INCONCLUSIVE: "block" };
@@ -552,7 +552,12 @@ VIEWS.results = async el => {
       <div class="card tbl"><table><tr><th>Engine</th><th>Test seeds</th><th>Blocked</th><th>Held</th><th>Ran, labelled</th><th>Got through</th><th>Legit: done / approval / blocked</th><th>Alert noise</th></tr>
         ${r.comparison.map(c => `<tr><td><b>${esc(c.engine)}</b></td><td class="ink3">${esc(c.seeds)}</td><td>${n(c.attack_outcomes, "DENIED")}</td><td>${n(c.attack_outcomes, "APPROVAL_PENDING")}</td><td>${n(c.attack_outcomes, "EXECUTED_LABELLED")}</td><td style="color:${n(c.attack_outcomes, "SUCCEEDED") ? "var(--block)" : "inherit"}"><b>${n(c.attack_outcomes, "SUCCEEDED")}</b></td>
           <td>${n(c.benign_outcomes, "CLEAN")} / ${n(c.benign_outcomes, "APPROVAL_FRICTION")} / ${n(c.benign_outcomes, "DENIED_LEGIT")}</td><td>${(c.benign_alert_rate * 100).toFixed(1)}%</td></tr>`).join("")}</table>
-        <p class="ink3 small" style="margin-top:10px">The final run was repeated and produced identical decisions: ${r.final_repeat_hash_equal ? "yes" : "no"}. That shows reproducibility, not independent authorship.</p></div></section>
+        <p class="ink3 small" style="margin-top:10px">The final run was repeated and produced identical decisions: ${r.final_repeat_hash_equal ? "yes" : "no"}. That shows reproducibility, not independent authorship.</p>
+        <p class="ink3 small" style="margin-top:6px">E4.3 and E4.2.1 on the same seeds: ${r.e43_equals_e421_same_seeds ? "identical outcomes" : "different outcomes"}. Expected: these scenarios contain no document text, so E4.3's injection detector never runs here, and its sequence model scores 0 points (alert-only). This table says nothing about the detector.</p></div></section>
+    ${r.detector && r.detector.tests ? `<section class="sect"><span class="eyebrow">E4.3 injection detector: its own held-out tests (separate from the table above)</span>
+      <div class="card tbl"><table><tr><th>Test set</th><th>Rows</th><th>Injections caught</th><th>False alarms on clean text</th></tr>
+        ${Object.entries(r.detector.tests).map(([k, v]) => `<tr><td>${esc(k)}</td><td>${v.n}</td><td>${v.tp} of ${v.tp + v.fn} (${(v.recall * 100).toFixed(1)}%)</td><td>${v.fp} of ${v.fp + v.tn} (${(v.false_alarm_rate * 100).toFixed(1)}%)</td></tr>`).join("")}</table>
+        <p class="ink3 small" style="margin-top:10px">Threshold ${esc(r.detector.threshold)}, chosen on validation data before testing. Injected test documents were made by inserting public dataset injections into public e-mails and news articles; the "cross_source" sources were never seen in training. Scope: documents only; structured records (prices, HR record, metrics) are not scanned. These numbers describe the detector on these datasets, not a reduction in attack success.</p></div></section>` : ""}
     <section class="sect"><span class="eyebrow">Every scenario family (final engine, 30 situations each)</span>
       <div class="card tbl" style="max-height:540px;overflow:auto"><table><tr><th>Family</th><th>Outcome</th></tr>
         ${Object.entries(r.families).sort((x, y) => x[0].localeCompare(y[0], undefined, { numeric: true })).map(([k, v]) => `<tr><td>${esc(k)}</td><td><div class="row">${Object.entries(v).map(([o, c]) => `<span class="tag ${famOut[o] || ""}"><span class="d"></span>${c} ${esc(famWord[o] || o)}</span>`).join("")}</div></td></tr>`).join("")}</table></div></section>
@@ -650,7 +655,9 @@ VIEWS.diagnostics = async el => {
           : empty("Docker isn't reachable", `<div class="ink2">${esc(h.docker_error || "")}<br>Start Docker Desktop, then run <span class="mono">bash demo/launch.sh</span>.</div>`)}</div>
         <div class="card"><h3>Engine</h3><dl class="kv"><dt>Required</dt><dd>${esc(h.engine_required)}</dd><dt>Running</dt><dd>${S.meta ? esc(S.meta.engine) : "unreachable"}</dd>
           <dt>Match</dt><dd>${h.engine_ok === true ? `<span class="tag allow"><span class="d"></span>yes</span>` : h.engine_ok === false ? `<span class="tag block"><span class="d"></span>no</span>` : "unknown"}</dd>
-          <dt>Policy engine</dt><dd>${S.meta ? (S.meta.cedar ? "Cedar policy P loaded" : "Cedar unavailable") : "—"}</dd><dt>Demo token</dt><dd>${h.console_demo_token ? "held by the console (local demo only)" : "you enter it"}</dd></dl>
+          <dt>Policy engine</dt><dd>${S.meta ? (S.meta.cedar ? "Cedar policy P loaded" : "Cedar unavailable") : "—"}</dd>
+          <dt>Injection detector</dt><dd>${!S.meta ? "—" : !(S.meta.injection_detector || {}).present_in_engine ? "not part of this engine" : S.meta.injection_detector.enabled ? `loaded · threshold ${esc(S.meta.injection_detector.threshold)} · scans ${esc(S.meta.injection_detector.scan_tools.join(", "))} <div class="ink3 small">Not scanned: structured records (prices, HR record, metrics, catalogue)</div>` : `<span class="tag block"><span class="d"></span>NOT loaded</span>`}</dd>
+          <dt>Sequence model</dt><dd>${!S.meta ? "—" : !(S.meta.learned_sequence_model || {}).present_in_engine ? "not part of this engine" : esc(S.meta.learned_sequence_model.mode)}</dd><dt>Demo token</dt><dd>${h.console_demo_token ? "held by the console (local demo only)" : "you enter it"}</dd></dl>
           <hr class="rule"><h3>Recorded checks</h3><dl class="kv">
           <dt>Isolation gates</dt><dd>${d.last_deploy ? esc(d.last_deploy.log.filter(l => /exit/.test(l)).join(" · ")) : "no record"}</dd>
           <dt>Live end-to-end</dt><dd>${d.last_e2e ? `<b>${d.last_e2e.passed}/${d.last_e2e.total}</b> <span class="ink3">${esc(d.last_e2e.engine || "")}</span>` : "—"}</dd>

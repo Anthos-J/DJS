@@ -25,7 +25,7 @@ CONTROL = os.environ.get("MANDATE_CONTROL_URL", "http://127.0.0.1:8800")
 PORT = int(os.environ.get("MANDATE_CONSOLE_PORT", "8090"))
 DEMO_TOKEN = os.environ.get("MANDATE_OWNER_TOKEN", "demo-owner-token")
 INJECT = os.environ.get("MANDATE_CONSOLE_DEMO_TOKEN") == "1"
-ENGINE_REQUIRED = os.environ.get("MANDATE_ENGINE", "E4.2.1")
+ENGINE_REQUIRED = os.environ.get("MANDATE_ENGINE", "E4.3")   # release R-E4.3; set MANDATE_ENGINE for an earlier validated engine
 DC = ["docker", "compose", "-f", str(ROOT / "compose.yaml")]
 ENV = {**os.environ, "MSYS_NO_PATHCONV": "1", "SPIKE_IMAGE": os.environ.get("SPIKE_IMAGE", "mandate-spike-py312:wave2"),
        "NGINX_IMAGE": os.environ.get("NGINX_IMAGE", "nginx@sha256:5616878291a2eed594aee8db4dade5878cf7edcb475e59193904b198d9b830de"),
@@ -288,8 +288,11 @@ def s11(run):
     run.step("note", "DESTRUCTIVE (demo volume only): deletes /data/audit.jsonl inside the prototype's control_data Docker volume. Project evidence is not touched.")
     sh(DC + ["stop", "control"]); rc, _, err = sh(DC + ["run", "--rm", "--no-deps", "--entrypoint", "rm", "control", "-f", "/data/audit.jsonl"])
     run.step("infra", "control stopped; audit log removed from the demo volume", exit=rc, stderr=err[-200:])
-    sh(DC + ["start", "control"]); time.sleep(6)
-    _, logs, lerr = sh(DC + ["logs", "--tail", "40", "control"]); refused = "REFUSED TO START" in (logs + lerr)
+    sh(DC + ["start", "control"])
+    for _ in range(40):   # R-E4.3: E4.3 loads its 568 MB detector before the state preflight, so the refusal can take >6 s
+        time.sleep(1); _, logs, lerr = sh(DC + ["logs", "--tail", "40", "control"]); refused = "REFUSED TO START" in (logs + lerr)
+        if refused:
+            break
     run.step("evidence", "control-plane log tail", log=[l for l in (logs + lerr).splitlines() if "REFUSED" in l][-2:])
     o, ef = run.agent("agent_a", [["get_prices", {"item": "valves"}]], "agent call while the control plane refuses to start")
     run.check("control plane REFUSED to start with missing history", refused, refused)
@@ -368,10 +371,10 @@ def diagnostics():
     for k in ("static", "runtime"):
         f = (dep.parent / f"cell_policy_{k}.json") if dep else None
         d[f"am11_{k}"] = json.loads(f.read_text()) if f and f.exists() else None
-    t = latest("tests/runs/*regression-E421/results.txt")
+    t = latest("tests/runs/*regression-E43/results.txt") or latest("tests/runs/*regression-E421/results.txt")
     d["tests"] = {"file": str(t.relative_to(ROOT)), "lines": t.read_text().splitlines()} if t else None
     runs = sorted(glob.glob(str(ROOT / "e2e/runs/*-e2e/e2e_summary.json")))   # prefer the latest run on the submission engine
-    sub = [f for f in runs if "E4.2.1" in ((Path(f).parent / "ENGINE.txt").read_text(errors="replace") if (Path(f).parent / "ENGINE.txt").exists() else "")]
+    sub = [f for f in runs if ((Path(f).parent / "ENGINE.txt").read_text(errors="replace").strip() if (Path(f).parent / "ENGINE.txt").exists() else "") == ENGINE_REQUIRED]
     e = Path((sub or runs)[-1]) if (sub or runs) else None
     d["last_e2e"] = {"file": str(e.relative_to(ROOT)), **{k: v for k, v in json.loads(e.read_text()).items() if k in ("passed", "total")},
                      "engine": (e.parent / "ENGINE.txt").read_text().strip() if (e.parent / "ENGINE.txt").exists() else None} if e else None
@@ -391,10 +394,12 @@ def results():
     def js(p):
         f = ROOT / p
         return json.loads(f.read_text()) if f.exists() else None
-    final = "eval/runs/20261016T1800-E4.2.1-h5eval-s95x-run1/summary.json"
+    final = "eval/runs/20261018T0510-E4.3-h5eval-s96x-run1/summary.json"
     runs = [("E4.1", "seeds 901-905", "eval/runs/20261016T1700-E4.1-h5eval-run1/summary.json"),
             ("E4.2", "seeds 901-905", "eval/runs/20261016T1700-E4.2-h5eval-run1/summary.json"),
-            ("E4.2.1 (final)", "seeds 951-955", final)]
+            ("E4.2.1", "seeds 951-955", "eval/runs/20261016T1800-E4.2.1-h5eval-s95x-run1/summary.json"),
+            ("E4.2.1", "seeds 961-965", "eval/runs/20261018T0510-E4.2.1-h5eval-s96x-run1/summary.json"),
+            ("E4.3 (final)", "seeds 961-965", final)]
     cmp = []
     for eng, seeds, p in runs:
         s = js(p)
@@ -404,7 +409,7 @@ def results():
                         "benign_quarantined": s["benign_quarantined_scenarios"], "benign_alert_rate": s["benign_alert_rate"],
                         "benign_actionable_alert_rate": s["benign_actionable_alert_rate"], "benign_actions": s["benign_actions"],
                         "decision_hash": s["decision_hash"], "label": s["LABEL"]})
-    r2 = js("eval/runs/20261016T1800-E4.2.1-h5eval-s95x-run2/summary.json")
+    r2 = js("eval/runs/20261018T0510-E4.3-h5eval-s96x-run2/summary.json")
     hist = []
     for eng, p in (("E2", "eval/runs/20261016T1500-E2-h3eval-run1/outcome_audit.json"), ("E3", "eval/runs/20261016T1500-E3-h3eval-run1/outcome_audit.json"),
                    ("E3", "eval/runs/20261016T1700-E3-h4eval-run1/outcome_audit.json"), ("E4", "eval/runs/20261016T1700-E4-h4eval-run1/outcome_audit.json")):
@@ -417,7 +422,13 @@ def results():
     for k, v in (rt.get("previous_cases_vs_E4.2.1") or {}).items():
         red += [{"id": c["id"], "outcome": c["outcome"], "executed": c["harmful_executed"], "of": c["harmful_actions"], "set": k} for c in v]
     lim = json.loads((STATIC / "limitations.json").read_text(encoding="utf-8"))
+    det = js("config/injection_model.provenance.json") or {}
+    e421 = js("eval/runs/20261018T0510-E4.2.1-h5eval-s96x-run1/summary.json") or {}
     return {"comparison": cmp, "final_repeat_hash_equal": bool(r2 and r2["decision_hash"] == (js(final) or {}).get("decision_hash")),
+            "e43_equals_e421_same_seeds": bool(e421 and e421.get("attack_outcomes") == (js(final) or {}).get("attack_outcomes")
+                                               and e421.get("benign_outcomes") == (js(final) or {}).get("benign_outcomes")),
+            "detector": {"tests": det.get("metrics"), "threshold": det.get("threshold"), "model_sha256": det.get("model_onnx_sha256"),
+                         "source": "owner-trained detector, held-out tests run by the training notebook (config/injection_model.provenance.json)"},
             "historical": hist, "families": fs.get("families", {}), "metric_definitions": fs.get("metric_definitions"), "redteam": red, "limitations": lim}
 
 

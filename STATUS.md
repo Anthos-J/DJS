@@ -664,3 +664,17 @@ E1, E2 and E3 are untouched. Acceptance criteria were fixed before the freeze (`
   - console integration 18/18, including the clean-state judge setup and the extracted submission ZIP.
 - **Submission ZIP:** `validation/submission/MANDATE_E4.2.1_submission.zip`, kept out of git; its sha256 is in `submission_assets/zip_verification/README.md`.
 - **Owner sign-off:** PENDING (`OWNER_REVIEW_CHECKLIST_E421.md`). External-validation gates remain open.
+
+
+## R-E4.3 release (18 Oct 2026)
+
+- `engine-E4.3` (`5ddb610`) frozen; fresh evaluation committed in `78dbb71`.
+- Release integration (no engine, detector, threshold or scoring change):
+  - launcher and console default to E4.3; earlier engines are selectable with `MANDATE_ENGINE`;
+  - `/api/meta` reports detector and sequence-model status, and the console shows it;
+  - model-hash and detector-loaded deployment gates;
+  - model restore tool;
+  - live-LLM tasks l4 and l5 with two mock-wiki fixtures;
+  - controlled live-LLM driver;
+  - packaging as a code ZIP plus a separate verified model archive.
+- Results and evidence: `prototype/FINAL_STATUS_REPORT.md` (R-E4.3 section), `prototype/RELEASE_E43.md`, `prototype/E43_TRACEABILITY.md`, `prototype/MODEL_RESTORE.md`.

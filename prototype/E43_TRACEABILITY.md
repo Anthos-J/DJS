@@ -1,0 +1,15 @@
+# E4.3 traceability: requirement → implementation → test → raw evidence
+
+**Engine:** `engine-E4.3` (`5ddb610`, `FROZEN_E43.sha256`). Everything E4.2.1 traced in `E42_TRACEABILITY.md` still holds: the 60-test E4.2.1 rule suite passes unchanged on E4.3. Evidence paths are under `validation/prototype/`. AI self-review on one machine; not independent; not SECURITY-TESTED.
+
+| Requirement / finding | Implementation | Tests | Raw evidence |
+|---|---|---|---|
+| Detect hidden instructions in documents an agent reads (problem statement: indirect prompt injection) | `mandate/content_scanner.py` (ONNX DeBERTa-v3-small, owner-trained); `Engine.observe_content` in `mandate/engine_e43.py`; `/api/observe` in `control/server.py`; post-read report in `pep/pep_proto.py` | `TestContentScan` (6), `TestRealModel` (2) in `tests/test_engine_e43.py` | `config/injection_model.provenance.json` (held-out tests); PEP log `content-scan` entries in `e2e/runs/20261018T050257-e2e/pep_log.jsonl` |
+| A flagged document makes later consequential actions stricter, never looser | the session is marked untrusted; the existing E4.2.1 taint rules apply | `test_flagged_read_makes_later_trusted_store_write_stricter`, `test_scan_never_untaints` | `tests/runs/*-detector-counterfactual/output.txt` (A: E4.2.1 ALLOW → E4.3 held) |
+| Scan before the agent sees the content; fail closed if the scan cannot be reported | the PEP awaits `/api/observe` before returning the result; on failure it returns DENY | (code path; E9 covers the control plane being down) | PEP log ordering in `e2e/runs/20261018T121446-llm-live/l4-rep2.json` (scan logged, then the agent's next call) |
+| Scope: documents only | `injection_scan_tools` in `config/engine_config_e43.json` | `test_structured_records_are_not_scanned`, `test_only_reads_are_scanned` | the HR-JSON false alarm that motivated it: `e2e/runs/20261018T045627-e2e/pep_log.jsonl` |
+| E4.3 never runs without its detector | `run_prototype.sh` model-hash gate (exit 5) and detector-loaded gate (exit 6); `demo/launch.sh` check; `tools/restore_injection_model.py` | clean-extraction gate tests in `submission_assets/zip_verification/` | same |
+| Learned behaviour model (AgentDojo) | `_surprisal` / `learned_sequence_anomaly` in `engine_e43.py`, **0 points** | `test_learned_sequence_anomaly_is_alert_only`, `test_surprisal_computation`, `test_action_representation` | `ml/behaviour_model/README.md` (owner-trained; AUC 0.74 on held-out AgentDojo tasks) |
+| No E4.2.1 behaviour change | E4.3 is E4.2.1 plus the two additions above | `tests/test_e421_rules_on_e43.py` (60) | `tests/runs/*-regression-E43/results.txt`; h5eval s96x E4.3 = E4.2.1 |
+| UI reports the real engine and detector | `/api/meta` → `injection_detector`, `learned_sequence_model`; console System health | console integration test `test_health_reports_real_engine` | `console/tests/runs/` |
+| Live model cannot bypass the PEP | the model runs on the host; tools are reachable only via cell → sidecar → mTLS → PEP; AM11 isolation | `tests/bypass_from_cell.sh` | `tests/runs/20261018T1000-bypass/`; `e2e/runs/20261018T121446-llm-live/` (every effect carries a PEP decision id) |

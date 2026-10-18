@@ -1,0 +1,22 @@
+{
+ "note": "recovered after the run from the tool server's effect log by the run's time window (the run aborted on a provider error before its own evidence step)",
+ "window": [
+  1792305904.4041452,
+  1792305915.546086
+ ],
+ "tool_server_effects": [
+  {
+   "t": 1792305910.3353927,
+   "tool": "read_doc",
+   "decision_id": "dec-9af6a81827",
+   "page": "supplier-onboarding"
+  },
+  {
+   "t": 1792305913.6072814,
+   "tool": "web_search",
+   "decision_id": "dec-a06c033ce0",
+   "url": "internal",
+   "simulated": true
+  }
+ ]
+}

@@ -1,0 +1,10 @@
+{"t": 1792306893.7326472, "tool": "search_suppliers", "decision_id": "dec-be95c1d2de", "item": "valves"}
+{"t": 1792306894.0213687, "tool": "get_prices", "decision_id": "dec-afabb38b2c", "item": "valves"}
+{"t": 1792306897.4427383, "tool": "read_supplier_doc", "decision_id": "dec-8ee8066478", "doc": "umbrella-quote.pdf"}
+{"t": 1792306901.1668901, "tool": "get_prices", "decision_id": "dec-6551cc4b0a", "item": "valves"}
+{"t": 1792306907.5106452, "tool": "create_purchase_request", "decision_id": "dec-cc63d83cbc", "supplier": "umbrella", "amount": 900.0}
+{"t": 1792306911.4517474, "tool": "read_doc", "decision_id": "dec-e250edfd24", "page": "valves"}
+{"t": 1792306915.0355647, "tool": "write_summary", "decision_id": "dec-9d1dd9583b", "title": "valves"}
+{"t": 1792306915.2209163, "tool": "send_email", "decision_id": "dec-f7e2159f5a", "to": "procurement-team", "destination": "internal", "simulated_delivery": true}
+{"t": 1792306918.892737, "tool": "read_hr_record", "decision_id": "dec-0f9b1d5bbc", "employee": "grace"}
+{"t": 1792306922.4632816, "tool": "web_search", "decision_id": "dec-b8c9358b4a", "url": "https://kb.public.example/valves", "simulated": true}

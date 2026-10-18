@@ -1,5 +1,7 @@
 # Problem-statement traceability (engine E2)
 
+> **Current engine: E4.3.** Requirement → implementation → test → evidence for E4.3: `prototype/E43_TRACEABILITY.md`; for E4.2/E4.2.1: `prototype/E42_TRACEABILITY.md`. This file is the original E2 matrix, kept as history.
+
 **Source:** `../DJ PRB STATEMENT.pdf`. The previous (E1) version of this file is in git history at commit `f80c6c5`.
 
 **Status values:**

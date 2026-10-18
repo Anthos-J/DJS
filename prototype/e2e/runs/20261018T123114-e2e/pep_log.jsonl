@@ -1,0 +1,65 @@
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "mClDic8y-V_ulteKpPG0ix6n-IUdfLSX1D_dYp-_KDw", "sub": "agent:cell-a", "sid": "sess-A-1", "t": 1792306893.2455084}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "mClDic8y-V_ulteKpPG0ix6n-IUdfLSX1D_dYp-_KDw", "sub": "agent:cell-a", "sid": "sess-A-1", "t": 1792306893.335126}
+{"phase": "decision", "rid": "dec-be95c1d2de", "identity": "agent:cell-a", "tool": "search_suppliers", "decision": "ALLOW", "risk": 0, "why": "within mandate", "t": 1792306893.7150905}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "mClDic8y-V_ulteKpPG0ix6n-IUdfLSX1D_dYp-_KDw", "sub": "agent:cell-a", "sid": "sess-A-1", "t": 1792306893.7640913}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "mClDic8y-V_ulteKpPG0ix6n-IUdfLSX1D_dYp-_KDw", "sub": "agent:cell-a", "sid": "sess-A-1", "t": 1792306893.858616}
+{"phase": "decision", "rid": "dec-afabb38b2c", "identity": "agent:cell-a", "tool": "get_prices", "decision": "ALLOW", "risk": 0, "why": "within mandate", "t": 1792306894.0008135}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "mClDic8y-V_ulteKpPG0ix6n-IUdfLSX1D_dYp-_KDw", "sub": "agent:cell-a", "sid": "sess-A-1", "t": 1792306897.3362913}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "mClDic8y-V_ulteKpPG0ix6n-IUdfLSX1D_dYp-_KDw", "sub": "agent:cell-a", "sid": "sess-A-1", "t": 1792306897.370096}
+{"phase": "decision", "rid": "dec-8ee8066478", "identity": "agent:cell-a", "tool": "read_supplier_doc", "decision": "ALLOW", "risk": 15, "why": "within mandate", "t": 1792306897.4243824}
+{"phase": "content-scan", "rid": "dec-8ee8066478", "tool": "read_supplier_doc", "flagged": true, "score": 0.9981, "t": 1792306897.5325418}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "mClDic8y-V_ulteKpPG0ix6n-IUdfLSX1D_dYp-_KDw", "sub": "agent:cell-a", "sid": "sess-A-1", "t": 1792306897.5411835}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "mClDic8y-V_ulteKpPG0ix6n-IUdfLSX1D_dYp-_KDw", "sub": "agent:cell-a", "sid": "sess-A-1", "t": 1792306897.6275856}
+{"phase": "decision", "rid": "dec-a40acde46d", "identity": "agent:cell-a", "tool": "read_hr_record", "decision": "DENY", "risk": 45, "why": "out-of-role action", "t": 1792306897.7078567}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "mClDic8y-V_ulteKpPG0ix6n-IUdfLSX1D_dYp-_KDw", "sub": "agent:cell-a", "sid": "sess-A-1", "t": 1792306897.7146459}
+{"phase": "decision", "rid": "dec-bb5a77f380", "identity": "agent:cell-a", "tool": "send_email", "decision": "DENY", "risk": 50, "why": "agent is quarantined", "t": 1792306897.7687175}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "mClDic8y-V_ulteKpPG0ix6n-IUdfLSX1D_dYp-_KDw", "sub": "agent:cell-a", "sid": "sess-A-1", "t": 1792306901.0897887}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "mClDic8y-V_ulteKpPG0ix6n-IUdfLSX1D_dYp-_KDw", "sub": "agent:cell-a", "sid": "sess-A-1", "t": 1792306901.1107981}
+{"phase": "decision", "rid": "dec-6551cc4b0a", "identity": "agent:cell-a", "tool": "get_prices", "decision": "ALLOW", "risk": 0, "why": "within mandate", "t": 1792306901.1512172}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "mClDic8y-V_ulteKpPG0ix6n-IUdfLSX1D_dYp-_KDw", "sub": "agent:cell-a", "sid": "sess-A-1", "t": 1792306901.1986444}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "mClDic8y-V_ulteKpPG0ix6n-IUdfLSX1D_dYp-_KDw", "sub": "agent:cell-a", "sid": "sess-A-1", "t": 1792306904.3135786}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "mClDic8y-V_ulteKpPG0ix6n-IUdfLSX1D_dYp-_KDw", "sub": "agent:cell-a", "sid": "sess-A-1", "t": 1792306904.3367703}
+{"phase": "decision", "rid": "dec-7d632285fc", "identity": "agent:cell-a", "tool": "create_purchase_request", "decision": "APPROVAL_REQUIRED", "risk": 95, "why": "policy P step-up", "t": 1792306904.3822236}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "mClDic8y-V_ulteKpPG0ix6n-IUdfLSX1D_dYp-_KDw", "sub": "agent:cell-a", "sid": "sess-A-1", "t": 1792306907.4181726}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "mClDic8y-V_ulteKpPG0ix6n-IUdfLSX1D_dYp-_KDw", "sub": "agent:cell-a", "sid": "sess-A-1", "t": 1792306907.4399362}
+{"phase": "decision", "rid": "dec-cc63d83cbc", "identity": "agent:cell-a", "tool": "create_purchase_request", "decision": "ALLOW", "risk": 95, "why": "owner approval apr-68bb2859 (one-time)", "t": 1792306907.4900694}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "mClDic8y-V_ulteKpPG0ix6n-IUdfLSX1D_dYp-_KDw", "sub": "agent:cell-a", "sid": "sess-A-1", "t": 1792306907.543643}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "mClDic8y-V_ulteKpPG0ix6n-IUdfLSX1D_dYp-_KDw", "sub": "agent:cell-a", "sid": "sess-A-1", "t": 1792306907.635564}
+{"phase": "decision", "rid": "dec-28ef22740f", "identity": "agent:cell-a", "tool": "create_purchase_request", "decision": "APPROVAL_REQUIRED", "risk": 100, "why": "policy P step-up", "t": 1792306907.683669}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-b", "cert_x5t": "oJgCcTJcXVoMFCou-GDcLGO961q99XlY3Ewwo_ifwRE", "sub": "agent:cell-b", "sid": "sess-B-1", "t": 1792306911.3425326}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-b", "cert_x5t": "oJgCcTJcXVoMFCou-GDcLGO961q99XlY3Ewwo_ifwRE", "sub": "agent:cell-b", "sid": "sess-B-1", "t": 1792306911.373724}
+{"phase": "decision", "rid": "dec-e250edfd24", "identity": "agent:cell-b", "tool": "read_doc", "decision": "ALLOW", "risk": 0, "why": "within mandate", "t": 1792306911.429806}
+{"phase": "content-scan", "rid": "dec-e250edfd24", "tool": "read_doc", "flagged": false, "score": 0.0002, "t": 1792306911.5750337}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-b", "cert_x5t": "oJgCcTJcXVoMFCou-GDcLGO961q99XlY3Ewwo_ifwRE", "sub": "agent:cell-b", "sid": "sess-B-1", "t": 1792306911.585729}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-b", "cert_x5t": "oJgCcTJcXVoMFCou-GDcLGO961q99XlY3Ewwo_ifwRE", "sub": "agent:cell-b", "sid": "sess-B-1", "t": 1792306911.6858504}
+{"phase": "decision", "rid": "dec-a07bd0d8d0", "identity": "agent:cell-b", "tool": "web_search", "decision": "DENY", "risk": 50, "why": "authority escalation beyond delegated scope", "t": 1792306911.753789}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-b", "cert_x5t": "oJgCcTJcXVoMFCou-GDcLGO961q99XlY3Ewwo_ifwRE", "sub": "agent:cell-b", "sid": "sess-B-1", "t": 1792306914.9553967}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-b", "cert_x5t": "oJgCcTJcXVoMFCou-GDcLGO961q99XlY3Ewwo_ifwRE", "sub": "agent:cell-b", "sid": "sess-B-1", "t": 1792306914.9778342}
+{"phase": "decision", "rid": "dec-9d1dd9583b", "identity": "agent:cell-b", "tool": "write_summary", "decision": "ALLOW", "risk": 5, "why": "within mandate", "t": 1792306915.0164459}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-b", "cert_x5t": "oJgCcTJcXVoMFCou-GDcLGO961q99XlY3Ewwo_ifwRE", "sub": "agent:cell-b", "sid": "sess-B-1", "t": 1792306915.071677}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-b", "cert_x5t": "oJgCcTJcXVoMFCou-GDcLGO961q99XlY3Ewwo_ifwRE", "sub": "agent:cell-b", "sid": "sess-B-1", "t": 1792306915.1559803}
+{"phase": "decision", "rid": "dec-f7e2159f5a", "identity": "agent:cell-b", "tool": "send_email", "decision": "ALLOW", "risk": 10, "why": "within mandate", "t": 1792306915.2005458}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "mClDic8y-V_ulteKpPG0ix6n-IUdfLSX1D_dYp-_KDw", "sub": "agent:cell-a", "sid": "sess-A-1", "t": 1792306918.810176}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "mClDic8y-V_ulteKpPG0ix6n-IUdfLSX1D_dYp-_KDw", "sub": "agent:cell-a", "sid": "sess-A-1", "t": 1792306918.8279197}
+{"phase": "decision", "rid": "dec-0f9b1d5bbc", "identity": "agent:cell-a", "tool": "read_hr_record", "decision": "ALLOW", "risk": 15, "why": "within mandate", "t": 1792306918.8795233}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "mClDic8y-V_ulteKpPG0ix6n-IUdfLSX1D_dYp-_KDw", "sub": "agent:cell-a", "sid": "sess-A-1", "t": 1792306918.917694}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "mClDic8y-V_ulteKpPG0ix6n-IUdfLSX1D_dYp-_KDw", "sub": "agent:cell-a", "sid": "sess-A-1", "t": 1792306918.9872622}
+{"phase": "decision", "rid": "dec-ca0f7c112f", "identity": "agent:cell-a", "tool": "send_email", "decision": "DENY", "risk": 55, "why": "recipient not authorized for HR data", "t": 1792306919.0247216}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "mClDic8y-V_ulteKpPG0ix6n-IUdfLSX1D_dYp-_KDw", "sub": "agent:cell-a", "sid": "sess-A-1", "t": 1792306919.0306048}
+{"phase": "decision", "rid": "dec-25fa00d4ae", "identity": "agent:cell-a", "tool": "read_hr_record", "decision": "DENY", "risk": 70, "why": "object not authorized for this task's purpose", "t": 1792306919.0803168}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-b", "cert_x5t": "oJgCcTJcXVoMFCou-GDcLGO961q99XlY3Ewwo_ifwRE", "sub": "agent:cell-b", "sid": "sess-B-1", "t": 1792306922.369791}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-b", "cert_x5t": "oJgCcTJcXVoMFCou-GDcLGO961q99XlY3Ewwo_ifwRE", "sub": "agent:cell-b", "sid": "sess-B-1", "t": 1792306922.4043777}
+{"phase": "decision", "rid": "dec-b8c9358b4a", "identity": "agent:cell-b", "tool": "web_search", "decision": "ALLOW", "risk": 20, "why": "within mandate", "t": 1792306922.4483764}
+{"phase": "content-scan", "rid": "dec-b8c9358b4a", "tool": "web_search", "flagged": false, "score": 0.0403, "t": 1792306922.5217147}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-b", "cert_x5t": "oJgCcTJcXVoMFCou-GDcLGO961q99XlY3Ewwo_ifwRE", "sub": "agent:cell-b", "sid": "sess-B-1", "t": 1792306922.5286613}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-b", "cert_x5t": "oJgCcTJcXVoMFCou-GDcLGO961q99XlY3Ewwo_ifwRE", "sub": "agent:cell-b", "sid": "sess-B-1", "t": 1792306922.5962155}
+{"phase": "decision", "rid": "dec-80f1d5a898", "identity": "agent:cell-b", "tool": "write_summary", "decision": "APPROVAL_REQUIRED", "risk": 25, "why": "step-up: untrusted_store_write", "t": 1792306922.632406}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-b", "cert_x5t": "oJgCcTJcXVoMFCou-GDcLGO961q99XlY3Ewwo_ifwRE", "sub": "agent:cell-b", "sid": "sess-B-1", "t": 1792306935.1569526}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-b", "cert_x5t": "oJgCcTJcXVoMFCou-GDcLGO961q99XlY3Ewwo_ifwRE", "sub": "agent:cell-b", "sid": "sess-B-1", "t": 1792306935.1820223}
+{"phase": "decision", "rid": "dec-6ce4e16c99", "identity": "agent:cell-b", "tool": "read_doc", "decision": "DENY", "risk": 0, "why": "agent is quarantined", "t": 1792306935.2360082}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "mClDic8y-V_ulteKpPG0ix6n-IUdfLSX1D_dYp-_KDw", "sub": "agent:cell-a", "sid": "sess-A-1", "t": 1792306939.8310413}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "mClDic8y-V_ulteKpPG0ix6n-IUdfLSX1D_dYp-_KDw", "sub": "agent:cell-a", "sid": "sess-A-1", "t": 1792306939.8557692}
+{"phase": "control-unreachable", "tool": "get_prices", "identity": "agent:cell-a", "err": "URLError(gaierror(-3, 'Temporary failure in name resolution'))", "t": 1792306939.8823938}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "mClDic8y-V_ulteKpPG0ix6n-IUdfLSX1D_dYp-_KDw", "sub": "agent:cell-a", "sid": "sess-A-1", "t": 1792306962.4286654}
+{"phase": "binding", "ok": true, "why": "binding match", "cert_cn": "CN=cell-a", "cert_x5t": "mClDic8y-V_ulteKpPG0ix6n-IUdfLSX1D_dYp-_KDw", "sub": "agent:cell-a", "sid": "sess-A-1", "t": 1792306962.470246}
+{"phase": "control-unreachable", "tool": "read_hr_record", "identity": "agent:cell-a", "err": "URLError(gaierror(-3, 'Temporary failure in name resolution'))", "t": 1792306962.513835}
