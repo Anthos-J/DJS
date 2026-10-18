@@ -10,13 +10,14 @@ export PATH="/c/Users/SEBIN/AppData/Local/Programs/DockerDesktop/resources/bin:$
 log() { echo "$*" | tee -a "$LOG"; }
 X="$(cygpath -m "$(mktemp -d)")"; log "clean extraction dir: $X"
 cd "$SUB" || { log "cannot cd to $SUB"; exit 1; }
-for z in MANDATE_E4.3_submission.zip MANDATE_E4.3_injection_model.zip; do
+SZ="${SUBMISSION_ZIP:-MANDATE_E4.3.1_submission.zip}"; SR="${SZ%_submission.zip}"
+for z in "$SZ" MANDATE_E4.3_injection_model.zip; do
   if sha256sum -c "$z.sha256" >/dev/null 2>&1; then log "1 checksum OK  $z"; else log "1 checksum FAIL $z"; fi
 done
-python -I -c "import zipfile,sys; zipfile.ZipFile(sys.argv[1]).extractall(sys.argv[2])" MANDATE_E4.3_submission.zip "$X"
-R="$X/MANDATE_E4.3"
+python -I -c "import zipfile,sys; zipfile.ZipFile(sys.argv[1]).extractall(sys.argv[2])" "$SZ" "$X"
+R="$X/$SR"
 ( cd "$R" && sha256sum -c MANIFEST.sha256 --quiet >/dev/null 2>&1 ) && log "2 MANIFEST.sha256: all files match ($(wc -l < "$R/MANIFEST.sha256") entries)" || log "2 MANIFEST.sha256: MISMATCH"
-python -I - "$SUB/MANDATE_E4.3_submission.zip" <<'PY' | tee -a "$LOG"
+python -I - "$SUB/$SZ" <<'PY' | tee -a "$LOG"
 import os, re, sys, zipfile
 z = zipfile.ZipFile(sys.argv[1]); names = z.namelist()
 key = os.environ.get("GROQ_API_KEY", "")
@@ -28,7 +29,7 @@ PY
 cd "$R/prototype" || { log "ABORT: extraction missing at $R"; exit 1; }
 log "working in extracted tree: $(pwd)"
 export SPIKE_IMAGE=mandate-spike-py312:wave2 NGINX_IMAGE=nginx@sha256:5616878291a2eed594aee8db4dade5878cf7edcb475e59193904b198d9b830de
-MANDATE_ENGINE=E4.3 bash run_prototype.sh e2e > "$OUT/no_model_launch.txt" 2>&1; rc=$?
+MANDATE_ENGINE=E4.3.1 bash run_prototype.sh e2e > "$OUT/no_model_launch.txt" 2>&1; rc=$?
 log "4 launch E4.3 without model: exit $rc ($(grep -o 'REFUSED[^.]*' "$OUT/no_model_launch.txt" | head -1))"
 python -I - "$SUB/MANDATE_E4.3_injection_model.zip" "$OUT/corrupt.zip" <<'PY'
 import sys, zipfile
@@ -46,7 +47,7 @@ rm -f "$OUT/corrupt.zip"
 python -I ../tools/restore_injection_model.py "$SUB/MANDATE_E4.3_injection_model.zip" > "$OUT/restore.txt" 2>&1; rc=$?
 log "6 restore real archive: exit $rc ($(cat "$OUT/restore.txt"))"
 python -I ../tools/restore_injection_model.py - --check >> "$OUT/restore.txt" 2>&1 && log "6 --check: installed model matches the frozen hash"
-MANDATE_ENGINE=E4.3 bash run_prototype.sh e2e > "$OUT/e2e_from_zip.txt" 2>&1
+MANDATE_ENGINE=E4.3.1 bash run_prototype.sh e2e > "$OUT/e2e_from_zip.txt" 2>&1
 log "7 $(grep -E 'injection_detector_enabled|SUMMARY' "$OUT/e2e_from_zip.txt" | tr '\n' ' ')"
 cp -r "$(grep -o 'RUN=.*' "$OUT/e2e_from_zip.txt" | cut -d= -f2)" "$OUT/e2e_run_from_zip" 2>/dev/null
 docker compose -f compose.yaml down -v --remove-orphans >/dev/null 2>&1

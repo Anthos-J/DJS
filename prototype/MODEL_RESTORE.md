@@ -34,7 +34,7 @@ python tools/restore_injection_model.py - --check
 - So E4.3 never runs silently without document scanning.
 - Earlier engines (`MANDATE_ENGINE=E4.2.1`, and so on) do not use the model and start without it.
 
-**Residual (frozen code, not changed in this release):** if the model is loaded but scoring one document throws an exception at runtime, `content_scanner.py` logs it and treats that document as not flagged. That is fail-open for that one document. The PEP still fails closed if the control plane cannot be reached for the scan. Changing the exception behaviour would change detector behaviour, so it would need a new engine version and a new evaluation.
+**Fixed in E4.3.1:** a document that cannot be scored is treated as untrusted. This covers an exception, too-long text, PEP truncation and a missing detector (`RELEASE_E431.md`). **E4.3 residual (frozen code):** if the model is loaded but scoring one document throws an exception at runtime, `content_scanner.py` logs it and treats that document as not flagged. That is fail-open for that one document. The PEP still fails closed if the control plane cannot be reached for the scan. Changing the exception behaviour would change detector behaviour, so it would need a new engine version and a new evaluation.
 
 ## Source and licences
 

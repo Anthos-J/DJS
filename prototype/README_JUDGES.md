@@ -8,7 +8,19 @@ MANDATE is a runtime-governance prototype for AI agents. Every tool call an agen
 
 The control plane also detects behavioural drift. It answers **ALLOW**, **APPROVAL_REQUIRED** (held until the owner approves) or **DENY**, and can quarantine an agent. Tool effects happen only on ALLOW.
 
-**Engine E4.3** (release R-E4.3, `RELEASE_E43.md`) is E4.2.1's rules plus an owner-trained prompt-injection detector. The detector scans each document an agent reads, after the read is allowed and before the agent sees it. A flagged document marks the session untrusted. It scans documents only: structured records (prices, HR record, metrics) are not scanned. E4.3 also adds an AgentDojo sequence model that is alert-only (0 points).
+**New: bring your own task.** Open **Your task** in the console:
+- describe what an agent should do;
+- pick the agent and its job;
+- add your own sanitized text documents;
+- dry-run it, run it through the real checkpoint, or let the live AI agent do it.
+
+You see every allowed, held and blocked action, why, and what the tool server actually recorded. Guide: `docs/WORKBENCH.md`.
+
+**Engine E4.3.1** (release R-E4.3.1, `RELEASE_E431.md`) is E4.3 with two detector fixes and workspace-document tools:
+- the scanner covers every token of a document;
+- a document it cannot verify counts as untrusted.
+
+**E4.3** (release R-E4.3, `RELEASE_E43.md`) is E4.2.1's rules plus an owner-trained prompt-injection detector. The detector scans each document an agent reads, after the read is allowed and before the agent sees it. A flagged document marks the session untrusted. It scans documents only: structured records (prices, HR record, metrics) are not scanned. E4.3 also adds an AgentDojo sequence model that is alert-only (0 points).
 
 **What this is and is not.** It is a local prototype:
 - the demo agents are scripted; an optional live-LLM agent (Groq) runs only if you enable it;
@@ -37,7 +49,7 @@ bash demo/launch.sh
 Run it from `validation/prototype` in Git Bash. It does the following:
 1. preflight: Docker, Python, images, port;
 2. deploy with the AM11 cell-isolation gates (static check → `docker compose up` → runtime check; it refuses if a gate fails);
-3. confirm that the control plane reports engine **E4.3** and that the injection detector is loaded. To run the previous validated engine instead: `MANDATE_ENGINE=E4.2.1 bash demo/launch.sh`. The control plane's own default is still E2, which is never used by the launcher;
+3. confirm that the control plane reports engine **E4.3.1** and that the injection detector is loaded. To run an earlier validated engine instead: `MANDATE_ENGINE=E4.3 bash demo/launch.sh` (or `E4.2.1`). The control plane's own default is still E2, which is never used by the launcher;
 4. seed the declared demo agents;
 5. start the console.
 
@@ -51,7 +63,9 @@ The console holds the **demo** owner token for you (`MANDATE_CONSOLE_DEMO_TOKEN=
 
 ## What to look at (about 10 minutes)
 
-The console has four areas. Plain-language explanations come first, and the technical evidence is always one click away.
+The console has five areas. Plain-language explanations come first, and the technical evidence is always one click away.
+
+0. **Your task**: bring your own task and documents (see `docs/WORKBENCH.md`). Every action goes through the real checkpoint, except in Dry run, which executes nothing.
 
 1. **Home** answers what MANDATE is, how it works (ask → check → decide) and why it matters. It shows the latest live checkpoint decision, the current state (agents, approvals, audit), a plain-language feed of decisions, and the honest headline results.
 2. **See it work**

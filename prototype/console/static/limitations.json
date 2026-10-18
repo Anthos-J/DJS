@@ -1,5 +1,5 @@
 {
- "source": "FINAL_STATUS_REPORT.md section 4 (E4.2.1) plus RELEASE_E43.md section 6 (E4.3); transcribed for display",
+ "source": "FINAL_STATUS_REPORT.md section 4 (E4.2.1) plus RELEASE_E43.md section 6 (E4.3); transcribed for display; RELEASE_E431.md section 4 (E4.3.1 workbench)",
  "items": [
   {
    "id": "L1 / X1 / C4",
@@ -130,8 +130,8 @@
   {
    "id": "D3",
    "item": "Scoring exception fails open for that document",
-   "status": "DOCUMENTED LIMITATION",
-   "evidence": "In frozen content_scanner.py, an exception while scoring one document is logged and the document is treated as not flagged. A missing or wrong model refuses the start, and an unreachable control plane makes the PEP deny. Changing this needs a new engine version."
+   "status": "FIXED IN E4.3.1",
+   "evidence": "E4.3 treated a scoring exception as not flagged. E4.3.1 treats any unverifiable document as untrusted (error, too long, truncated, detector missing): tests TestFailClosed."
   },
   {
    "id": "D4",
@@ -150,6 +150,48 @@
    "item": "Training-data licences",
    "status": "OWNER DECISION",
    "evidence": "xTRam1/safe-guard-prompt-injection and SetFit/enron_spam declare no licence on Hugging Face. The model is delivered beside the submission for evaluation, not published (MODEL_RESTORE.md)."
+  },
+  {
+   "id": "F-01",
+   "item": "E4.3 detector could miss text after token 384",
+   "status": "FIXED IN E4.3.1",
+   "evidence": "Reproduced with the real model for 1,095-1,875-character documents; the E4.3.1 token-window scanner catches it (TestRealModelV2)."
+  },
+  {
+   "id": "W1",
+   "item": "Benign instruction-like documents can be flagged",
+   "status": "MEASURED",
+   "evidence": "The synthetic security_notice.txt ('Ignore this message if you have already completed it...') scores 0.87. That is a false positive, and the threshold was not changed."
+  },
+  {
+   "id": "W2",
+   "item": "Workbench documents: plain text only",
+   "status": "DOCUMENTED LIMITATION",
+   "evidence": ".txt .md .csv .json .log, 100 KB each, 10 files; no PDF or Office parsing."
+  },
+  {
+   "id": "W3",
+   "item": "Fixed agent profiles and tasks",
+   "status": "BY DESIGN",
+   "evidence": "Two agents and six tasks from the role catalogue. Users cannot create roles: the catalogue is the authority."
+  },
+  {
+   "id": "W5",
+   "item": "Live AI sends task and document text to Groq",
+   "status": "DISCLOSED",
+   "evidence": "Opt-in, with a disclosure checkbox; the key stays in the environment."
+  },
+  {
+   "id": "W6",
+   "item": "Approved actions run once; the AI does not resume",
+   "status": "DOCUMENTED LIMITATION",
+   "evidence": "The run has finished by the time an approval is given."
+  },
+  {
+   "id": "W8",
+   "item": "A workbench run resets the demo agent to active",
+   "status": "DOCUMENTED",
+   "evidence": "Owner actions (status, role, task), audited. This can lift an earlier quarantine of that demo agent."
   }
  ]
 }

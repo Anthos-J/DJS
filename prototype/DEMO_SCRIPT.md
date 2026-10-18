@@ -4,12 +4,14 @@ Use the same terms as the PPT. Every claim below is backed by a live check in th
 
 **Before judges arrive:**
 1. Run `bash demo/launch.sh`.
-2. Open http://127.0.0.1:8090 and confirm the header shows *control plane up*, *engine E4.3* and *audit chain OK*. In System health, *Injection detector* should read *loaded*.
+2. Open http://127.0.0.1:8090 and confirm the header shows *control plane up*, *engine E4.3.1* and *audit chain OK*. In System health, *Injection detector* should read *loaded*.
 3. Guided scenarios → **Reset demo** if anything was run earlier.
 
 | # | Click | Judges should observe | Claim supported (and its limit) |
 |---|---|---|---|
-| 0 | **Home** | Live health, engine E4.3, two declared agents, empty queues | Status comes from the running control plane, not from the page |
+| 0 | **Home** | Live health, engine E4.3.1, two declared agents, empty queues | Status comes from the running control plane, not from the page |
+| 0b | **Your task** → example *Review stark_quote_poisoned.txt…* → **Run my steps** → *Run through the checkpoint*. Then **Approve once and run it** with a reason | Reads allowed; the poisoned quote is *hidden instructions detected*; the wiki write is **held**; after approval it runs once and the tool server records it | Judges can bring their own task and documents. The checkpoint, not the prompt, decides. The benign security notice is also flagged (a known false positive, W1) |
+| 0c | **Your task** → add a step *read HR records* → run | **Blocked** (out of role); the agent is quarantined | An instruction or plan can't widen a mandate |
 | 1 | See it work → Guided scenarios → Run story **1** | PASS: both calls executed; the tool server shows exactly 2 effects | Normal in-role work is not blocked |
 | 2 | Run story **2** | PASS: document read allowed; HR read **DENIED** with a valid credential; exfiltration **DENIED**; tool server saw only the read; agent **QUARANTINED** | The problem-statement attack is stopped at the PEP (scripted agent, mock tools) |
 | 3 | Run story **3**, then **Operate → Decisions** → click the Blocked row | Risk score, factors with evidence, expected authority, stopping control | Explanations are real engine output. The score is ordinal, not a probability |

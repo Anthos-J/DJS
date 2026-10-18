@@ -1,10 +1,10 @@
-# MANDATE prototype: reproducible setup and live demo checklist (engine E4.3, release R-E4.3; the E4.2.1 version of this runbook is in git history)
+# MANDATE prototype: reproducible setup and live demo checklist (engine E4.3.1, release R-E4.3.1; earlier versions of this runbook are in git history)
 
 ## Setup (Windows 11 + Docker Desktop, as validated; one machine)
 1. Prerequisites: Docker Desktop running, Git Bash, Python 3.12 on the host (driver). Images are built locally. No cloud service or real credential is needed. A live model provider is optional (step 8).
 2. Get the exact code:
    ```bash
-   git checkout engine-E4.3
+   git checkout engine-E4.3.1
    ```
    Restore the model from `validation/`. It is verified against `FROZEN_E43.sha256`; see `MODEL_RESTORE.md`:
    ```bash
@@ -21,7 +21,7 @@
    ```
 5. Full live path with E4.3. This runs the model-hash gate and the AM11 static gate, starts the stack, runs the AM11 runtime gate and the detector-loaded gate, then the E2E through the real PEP (17 checks), and leaves the dashboard running:
    ```bash
-   cd prototype && MANDATE_ENGINE=E4.3 bash run_prototype.sh e2e
+   cd prototype && MANDATE_ENGINE=E4.3.1 bash run_prototype.sh e2e
    ```
    `MANDATE_ENGINE=E4.2.1` runs the previous engine. The control plane's own default is still E2.
 6. Dashboard-only demo (keeps state, skips the fail-closed restart):
@@ -49,6 +49,7 @@
 - [ ] E4 HR fix: a colleague named in the instruction gets **no mail at the mail service**; the colleague's record read is DENIED (E10).
 - [ ] E4.2: poisoned wiki write held, no write at the tool server (E11); quarantine survives a control-plane restart (E12); deleted audit log means the control plane refuses to start and the PEP denies (E13).
 - [ ] Fail-closed: control plane stopped means DENY, nothing executed (E9).
+- [ ] Workbench: run the workbench E2E with the demo running (`python e2e/workbench_e2e.py e2e/runs/<ts>-workbench`). Expected: all PASS; the live-AI checks run only if the console was launched with the key and consent set.
 - [ ] E4.3: the poisoned supplier document is flagged by the detector (PEP log `content-scan`, score 0.998) before the agent receives it. Say plainly that the supplier source was already untrusted, and that structured records are not scanned.
 - [ ] Optional live LLM: tampered wiki page (task l4). The detector flags it, and the model's later external e-mail is held. Say that E4.2.1 would also have held that e-mail, because of the model's web fetch; the case only the detector catches is the scripted counterfactual A in `RELEASE_E43.md` §4.
 - [ ] Evaluation tab: show the measured table (final engine E4.3, seeds 961–965) and say plainly it is engine-level on generated scenarios, and that E4.3 = E4.2.1 there because the scenarios carry no document text. Show the detector's own test table separately.

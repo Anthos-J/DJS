@@ -1,6 +1,23 @@
 # MANDATE: consolidated final status report
 
-## R-E4.3 (18 Oct 2026): current release
+## R-E4.3.1 (18 Oct 2026): current release
+
+**Engine:** `engine-E4.3.1` (`908d084`, `FROZEN_E431.sha256`), the default. It fixes detector flaws F-01 (token truncation) and F-02/D3 (fail-open on scoring error) and adds workspace-document tools for the new **"Your task" workbench**. Details, tests and limitations W1–W8: `RELEASE_E431.md`. User guide: `docs/WORKBENCH.md`.
+
+| Check | Result |
+|---|---|
+| Unit suites | E4.3.1 26 + 60 rules; E4.3 34 + 60; E1–E4.2.1 all OK; workbench unit 12/12 |
+| Live E2E | 17/17 on E4.3.1 and E4.3 |
+| Workbench E2E (live, including Groq) | 26/26 (earlier 20/23 and 24/25 kept: test design, not product defects) |
+| Console integration | 21/21 |
+| Fresh evaluation, seeds 971–975 | E4.3.1 ×2 = E4.3, identical decision hash `1ac9ef91a24c` |
+| F-01 with the real model | E4.3 missed an injection after token 384 in 1,095–1,875-character documents; E4.3.1 catches it |
+
+An unversioned edit to frozen `content_scanner.py` was found, preserved as a patch in `docs/unversioned_patches/`, and reverted.
+
+---
+
+## R-E4.3 (18 Oct 2026): previous release
 
 **Frozen engine:** `engine-E4.3` (`5ddb610`, `FROZEN_E43.sha256`). The launcher and console default to E4.3. `MANDATE_ENGINE=E4.2.1` (or E4.2, E4.1) still selects an earlier validated engine. Details: `RELEASE_E43.md`. Model storage: `MODEL_RESTORE.md`.
 
