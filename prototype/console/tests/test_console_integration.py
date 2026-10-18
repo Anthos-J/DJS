@@ -52,8 +52,8 @@ class T01Surface(unittest.TestCase):
 
     def test_health_reports_real_engine(self):
         st, h = call("/console/health")
-        self.assertEqual(st, 200); self.assertTrue(h["control"]["reachable"]); self.assertEqual(h["control"]["meta"]["engine"], "E4.3")
-        self.assertTrue(h["engine_ok"]); self.assertEqual(h["container_env"].get("MANDATE_ENGINE"), "E4.3")
+        self.assertEqual(st, 200); self.assertTrue(h["control"]["reachable"]); self.assertEqual(h["control"]["meta"]["engine"], "E4.3.1")
+        self.assertTrue(h["engine_ok"]); self.assertEqual(h["container_env"].get("MANDATE_ENGINE"), "E4.3.1")
         self.assertTrue(h["control"]["meta"]["injection_detector"]["enabled"])
         self.assertEqual(h["control"]["meta"]["learned_sequence_model"]["points"], 0)
 
@@ -200,7 +200,7 @@ class T06Reset(unittest.TestCase):
         st, r = action("/console/reset"); self.assertEqual(st, 200); self.assertTrue(r["ok"], r)
         st, ags = call("/api/agents"); self.assertEqual({a["agent_id"] for a in ags}, {"agent:cell-a", "agent:cell-b"})
         self.assertTrue(all(a["status"] == "active" for a in ags))
-        st, m = call("/api/meta"); self.assertFalse(m["recovery"]); self.assertEqual(m["engine"], "E4.3"); self.assertEqual(m["counts"]["pending_approvals"], 0)
+        st, m = call("/api/meta"); self.assertFalse(m["recovery"]); self.assertEqual(m["engine"], "E4.3.1"); self.assertEqual(m["counts"]["pending_approvals"], 0)
 
 
 if __name__ == "__main__":

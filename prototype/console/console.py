@@ -17,6 +17,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import verify_evidence_pack   # offline verifier, also used to self-check every exported pack
 import llm_agent   # optional live-LLM agent (off unless GROQ_API_KEY and MANDATE_LLM_CONSENT=1 are set)
+import workbench   # R-E4.3.1 "Your task": bring your own task and documents; orchestrates only the real components
 
 ROOT = Path(__file__).resolve().parent.parent           # validation/prototype
 VAL = ROOT.parent                                        # validation/
@@ -25,7 +26,7 @@ CONTROL = os.environ.get("MANDATE_CONTROL_URL", "http://127.0.0.1:8800")
 PORT = int(os.environ.get("MANDATE_CONSOLE_PORT", "8090"))
 DEMO_TOKEN = os.environ.get("MANDATE_OWNER_TOKEN", "demo-owner-token")
 INJECT = os.environ.get("MANDATE_CONSOLE_DEMO_TOKEN") == "1"
-ENGINE_REQUIRED = os.environ.get("MANDATE_ENGINE", "E4.3")   # release R-E4.3; set MANDATE_ENGINE for an earlier validated engine
+ENGINE_REQUIRED = os.environ.get("MANDATE_ENGINE", "E4.3.1")   # release R-E4.3.1; set MANDATE_ENGINE for an earlier validated engine
 DC = ["docker", "compose", "-f", str(ROOT / "compose.yaml")]
 ENV = {**os.environ, "MSYS_NO_PATHCONV": "1", "SPIKE_IMAGE": os.environ.get("SPIKE_IMAGE", "mandate-spike-py312:wave2"),
        "NGINX_IMAGE": os.environ.get("NGINX_IMAGE", "nginx@sha256:5616878291a2eed594aee8db4dade5878cf7edcb475e59193904b198d9b830de"),
@@ -474,7 +475,16 @@ class H(BaseHTTPRequestHandler):
 
     def body(self):
         n = int(self.headers.get("Content-Length") or 0)
+        if n > 400_000:                                    # workbench documents are capped at 100 KB of text
+            raise ValueError("request too large")
         return self.rfile.read(n) if n else b""
+
+    def jbody(self):
+        try:
+            b = json.loads(self.body() or b"{}")
+            return b if isinstance(b, dict) else None
+        except Exception:
+            return None
 
     def proxy(self, method):
         data = self.body() if method == "POST" else None
@@ -508,6 +518,11 @@ class H(BaseHTTPRequestHandler):
             return self.send(st, body)
         if self.path == "/console/llm":
             return self.send(200, {**llm_agent.status(), "tasks": [{"id": k, "title": v["title"]} for k, v in llm_agent.TASKS.items()]})
+        if self.path == "/console/workbench":
+            return self.send(200, {**workbench.catalogue(WB_ROLES, ENGINE_REQUIRED), "llm": llm_agent.status(), "docs": workbench.list_docs(), "runs": workbench.list_runs()})
+        if self.path.startswith("/console/workbench/runs/"):
+            r = workbench.get_run(self.path.split("/")[4].split("?")[0])
+            return self.send(200, r) if r else self.send(404, {"error": "unknown run"})
         if self.path == "/console/diagnostics":
             return self.send(200, diagnostics())
         if self.path == "/console/results":
@@ -561,6 +576,32 @@ class H(BaseHTTPRequestHandler):
                 return self.send(200, reset() if self.path == "/console/reset" else recovery_start())
             finally:
                 LOCK.release()
+        if self.path.startswith("/console/workbench"):
+            try:
+                b = self.jbody()
+            except ValueError as e:
+                return self.send(413, {"error": str(e)})
+            if b is None:
+                return self.send(400, {"error": "JSON object body required"})
+            parts = self.path.split("?")[0].strip("/").split("/")          # console, workbench, ...
+            if parts[2:] == ["docs"]:
+                return self.send(*workbench.add_doc(b.get("name"), b.get("text")))
+            if parts[2:] == ["docs", "delete"]:
+                return self.send(*workbench.delete_doc(b.get("name")))
+            if parts[2:] == ["docs", "samples"]:
+                return self.send(*workbench.load_samples())
+            if parts[2:] == ["docs", "preview"]:                          # detector preview of one workspace document (read-only)
+                n = workbench._clean_name(b.get("name")); f = workbench.WS / n if n else None
+                if not f or not f.is_file():
+                    return self.send(404, {"error": "no such document"})
+                return self.send(*control("/api/content/preview", {"text": f.read_text(encoding="utf-8", errors="replace")}, timeout=60))
+            if parts[2:] == ["assess"]:
+                return self.send(*workbench.assess(b, WB_ROLES))
+            if parts[2:] == ["run"]:
+                return self.send(*workbench.start(b, WB_HELPERS, WB_ROLES, llm_agent))
+            if len(parts) == 6 and parts[2] == "runs" and parts[4] == "approvals":
+                return self.send(*workbench.resolve_approval(parts[3], parts[5], b.get("approve") is True, b.get("note"), WB_HELPERS))
+            return self.send(404, {"error": "not found"})
         if self.path == "/console/verify-evidence":
             if VERIFY["state"] == "running":
                 return self.send(409, {"error": "verification already running"})
@@ -568,6 +609,9 @@ class H(BaseHTTPRequestHandler):
             return self.send(202, {"state": "running"})
         return self.send(404, {"error": "not found"})
 
+
+WB_ROLES = ROOT / "config" / ("roles_e431.json" if ENGINE_REQUIRED == "E4.3.1" else "roles_e421.json")
+WB_HELPERS = {"control": control, "agent_call": agent_call, "effects": effects, "lock": LOCK, "seed": SEED}
 
 if __name__ == "__main__":
     if "--seed" in sys.argv:                 # used by demo/launch.sh: load the declared demo baseline once

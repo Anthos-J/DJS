@@ -8,13 +8,14 @@ cd "$(dirname "$0")"
 command -v cygpath >/dev/null || export PATH="$(pwd)/../tools:$PATH"
 R="e2e/runs/$(date +%Y%m%dT%H%M%S)-${1:-demo}"; mkdir -p "$R"
 export SPIKE_IMAGE=mandate-spike-py312:wave2
-if [ "${MANDATE_ENGINE:-}" = "E4.3" ]; then   # E4.3's injection detector needs onnxruntime in the control plane only
+case "${MANDATE_ENGINE:-}" in E4.3|E4.3.1) DETECTOR=1;; *) DETECTOR=0;; esac
+if [ "$DETECTOR" = "1" ]; then   # E4.3/E4.3.1's injection detector needs onnxruntime in the control plane only
   export CONTROL_IMAGE=mandate-control-e43:1
   docker image inspect "$CONTROL_IMAGE" >/dev/null 2>&1 || docker build -q -t "$CONTROL_IMAGE" control/image >/dev/null
   want=$(grep ' \*config/injection_model/model.onnx$' FROZEN_E43.sha256 | cut -d' ' -f1)
   have=$( [ -f config/injection_model/model.onnx ] && sha256sum config/injection_model/model.onnx | cut -d' ' -f1)
   if [ -z "$want" ] || [ "$have" != "$want" ]; then
-    echo "REFUSED: E4.3 needs config/injection_model/model.onnx with sha256 $want (found: ${have:-missing})."
+    echo "REFUSED: ${MANDATE_ENGINE} needs config/injection_model/model.onnx with sha256 $want (found: ${have:-missing})."
     echo "         Restore it: python ../tools/restore_injection_model.py <model archive>   (see MODEL_RESTORE.md)"; exit 5
   fi
 fi
@@ -32,10 +33,10 @@ $CHK runtime mandate > "$R/cell_policy_runtime.json"; rc=$?; echo "runtime_check
 { docker image inspect "$SPIKE_IMAGE" --format 'spike_image={{.Id}}'; echo "nginx_image=$NGINX_IMAGE"; [ -n "${CONTROL_IMAGE:-}" ] && docker image inspect "$CONTROL_IMAGE" --format 'control_image={{.Id}}'; } > "$R/images.txt"
 for i in $(seq 1 30); do curl -sf http://127.0.0.1:8800/api/meta >/dev/null 2>&1 && break; sleep 1; done
 echo "${MANDATE_ENGINE:-E2}" > "$R/ENGINE.txt"
-if [ "${MANDATE_ENGINE:-}" = "E4.3" ]; then
+if [ "$DETECTOR" = "1" ]; then
   det=$(curl -sf http://127.0.0.1:8800/api/meta | python -c "import json,sys; d=json.load(sys.stdin).get('injection_detector',{}); print(int(bool(d.get('enabled'))))" 2>/dev/null)
   echo "injection_detector_enabled=${det:-0}" | tee -a "$R/deploy.log"
-  [ "${det:-0}" = "1" ] || { $DC down -v --remove-orphans >/dev/null 2>&1; echo "TORN DOWN: E4.3 control plane did not load the injection detector"; exit 6; }
+  [ "${det:-0}" = "1" ] || { $DC down -v --remove-orphans >/dev/null 2>&1; echo "TORN DOWN: ${MANDATE_ENGINE} control plane did not load the injection detector"; exit 6; }
 fi
 if [ "${1:-}" = "demo" ]; then
   MANDATE_DEMO=1 python e2e/e2e_driver.py "$R" > "$R/e2e_console.log" 2>&1; grep -E "SUMMARY" "$R/e2e_console.log"

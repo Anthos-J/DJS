@@ -13,7 +13,9 @@ from starlette.responses import JSONResponse, FileResponse
 from starlette.routing import Route, Mount
 from starlette.staticfiles import StaticFiles
 ENGINE_VERSION = os.environ.get("MANDATE_ENGINE", "E2")   # E3 is opt-in; default stays the validated E2 engine
-if ENGINE_VERSION == "E4.3":
+if ENGINE_VERSION == "E4.3.1":
+    from mandate.engine_e431 import Engine
+elif ENGINE_VERSION == "E4.3":
     from mandate.engine_e43 import Engine
 elif ENGINE_VERSION == "E4.2.1":
     from mandate.engine_e421 import Engine
@@ -35,7 +37,7 @@ PEP_TOKEN = os.environ.get("MANDATE_PEP_TOKEN", "demo-pep-token")
 OWNER_TOKEN = os.environ.get("MANDATE_OWNER_TOKEN", "demo-owner-token")
 AUDIT = os.environ.get("MANDATE_AUDIT", "/data/audit.jsonl")
 os.makedirs(os.path.dirname(AUDIT), exist_ok=True)
-if ENGINE_VERSION in ("E4.2", "E4.2.1", "E4.3"):   # durable, single-writer security state; a refused start exits (the PEP then fails closed)
+if ENGINE_VERSION in ("E4.2", "E4.2.1", "E4.3", "E4.3.1"):   # durable, single-writer security state; a refused start exits (the PEP then fails closed)
     from mandate.state_e42 import StateError
     try:
         ENGINE = Engine(policy_dir=os.environ.get("MANDATE_POLICY_DIR"), audit_path=AUDIT,
@@ -84,6 +86,8 @@ async def observe(req):
     if not hasattr(ENGINE, "observe_content"):
         return J({"scanned": False})
     ev = await req.json()
+    if ENGINE_VERSION == "E4.3.1":   # E4.3.1 accepts the PEP's truncation flag (unverified -> taint)
+        return J(ENGINE.observe_content(ev.get("agent_id"), ev.get("tool"), ev.get("decision_id"), ev.get("text", ""), truncated=bool(ev.get("truncated"))))
     return J(ENGINE.observe_content(ev.get("agent_id"), ev.get("tool"), ev.get("decision_id"), ev.get("text", "")))
 
 
@@ -167,6 +171,44 @@ async def simulate(req):
               "note": "Dry run on a copy of the live state: not sent to the PEP or the tool server, not written to the audit, no approval created.",
               "decision": {k: rec.get(k) for k in ("response", "reason", "control", "risk_score", "risk_band", "confidence", "factors", "expected_authority",
                                                    "agent_status_change", "cedar", "provenance_label")}})
+
+
+@need_owner
+async def simulate_plan(req):
+    """R-E4.3.1 workbench: a whole plan, in order, on ONE throwaway copy of the live state (so a read's taint carries to later
+    steps). Nothing is sent to the PEP or the tool server; the real audit, approvals and agents are untouched. Content checks
+    (the injection detector) need real tool output, so they run only on the real path."""
+    b = await req.json()
+    steps = b.get("steps") if isinstance(b, dict) else None
+    if not b.get("agent_id") or not isinstance(steps, list) or not 1 <= len(steps) <= 20:
+        return J({"error": "agent_id and 1-20 steps are required"}, 400)
+    before = (len(ENGINE.events), len(ENGINE.audit.records), len(ENGINE.approvals))
+    sim, out = sandbox(), []
+    for s in steps:
+        if not isinstance(s, dict) or not isinstance(s.get("tool"), str):
+            return J({"error": "each step needs a tool name"}, 400)
+        rec = sim.decide({"agent_id": b["agent_id"], "tool": s["tool"], "args": s.get("args") if isinstance(s.get("args"), dict) else {},
+                          "destination": s.get("destination") or "internal"})
+        out.append({"tool": s["tool"], "args": s.get("args") or {}, **{k: rec.get(k) for k in ("response", "reason", "control", "risk_score", "risk_band",
+                                                                                              "confidence", "factors", "expected_authority", "cedar")}})
+    after = (len(ENGINE.events), len(ENGINE.audit.records), len(ENGINE.approvals))
+    return J({"simulation": True, "executed": False, "live_state_unchanged": before == after, "steps": out,
+              "note": "Dry run of the whole plan on one copy of the live state. Document content is not available in a dry run, so the injection detector does not run here."})
+
+
+@need_owner
+async def content_preview(req):
+    """R-E4.3.1 workbench: score a document with the loaded detector. Read-only: no session, audit or alert is changed.
+    It is a preview only; the real protection is the post-read scan on the PEP path."""
+    b = await req.json()
+    s = getattr(ENGINE, "injection_scanner", None)
+    text = b.get("text") if isinstance(b, dict) else None
+    if not isinstance(text, str) or len(text) > 200_000:
+        return J({"error": "text (a string up to 200,000 characters) is required"}, 400)
+    if s is None:
+        return J({"available": False, "note": "this engine has no loaded injection detector"})
+    r = s.scan_document(text)
+    return J({"available": True, "preview_only": True, **{k: v for k, v in (r or {}).items() if k != "label"}})
 
 
 @need_owner
@@ -288,7 +330,7 @@ app = Starlette(routes=[
     Route("/api/agents/{aid}/task", agent_task, methods=["POST"]), Route("/api/agents/{aid}/baseline", baseline),
     Route("/api/events", events), Route("/api/alerts", alerts), Route("/api/approvals", approvals),
     Route("/api/approvals/{apid}", approvals, methods=["POST"]), Route("/api/delegations", delegations, methods=["GET", "POST"]),
-    Route("/api/audit", audit), Route("/api/simulate", simulate, methods=["POST"]), Route("/api/recovery/ack", recovery_ack, methods=["POST"]), Route("/api/eval", evaluation), Route("/api/seed", seed, methods=["POST"]),
+    Route("/api/audit", audit), Route("/api/simulate", simulate, methods=["POST"]), Route("/api/simulate_plan", simulate_plan, methods=["POST"]), Route("/api/content/preview", content_preview, methods=["POST"]), Route("/api/recovery/ack", recovery_ack, methods=["POST"]), Route("/api/eval", evaluation), Route("/api/seed", seed, methods=["POST"]),
     Mount("/static", StaticFiles(directory=str(ROOT / "control" / "static")), name="static")])
 
 if __name__ == "__main__":

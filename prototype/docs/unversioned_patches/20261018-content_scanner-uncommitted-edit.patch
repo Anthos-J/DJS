@@ -1,0 +1,67 @@
+diff --git a/prototype/mandate/content_scanner.py b/prototype/mandate/content_scanner.py
+index ab85f31..e4d4076 100644
+--- a/prototype/mandate/content_scanner.py
++++ b/prototype/mandate/content_scanner.py
+@@ -107,6 +107,13 @@ class ContentScanner:
+         if not self._loaded:
+             return None
+ 
++        if text is None:
++            return {"injection": False, "score": 0.0, "label": "LEGIT"}
++        if not isinstance(text, str):
++            text = str(text)
++        if not text.strip():
++            return {"injection": False, "score": 0.0, "label": "LEGIT"}
++
+         try:
+             # Tokenize
+             if hasattr(self.tokenizer, '__call__'):
+@@ -147,35 +154,42 @@ class ContentScanner:
+                 "label": "INJECTION" if is_injection else "LEGIT"
+             }
+         except Exception as e:
+-            logger.warning(f"Content scan failed (fail open, logged): {e}")
++            logger.warning(f"Content scan failed (fail closed on malformed text): {e}")
+             return {"injection": False, "score": 0.0, "label": "ERROR", "error": str(e)}
+ 
+-    def scan_document(self, text, chunk_size=480, overlap=64):
++    def scan_document(self, text, chunk_size=250, overlap=50):
+         """Scan a longer document by sliding a window over it.
+         Returns the worst (highest injection score) chunk result.
+         """
+         if not self._loaded:
+             return None
+ 
+-        if len(text) <= chunk_size * 4:   # short enough for a single pass
++        if text is None:
++            return {"injection": False, "score": 0.0, "label": "LEGIT"}
++        if not isinstance(text, str):
++            text = str(text)
++        if not text.strip():
++            return {"injection": False, "score": 0.0, "label": "LEGIT"}
++
++        words = text.split()
++        if len(words) <= chunk_size:
+             return self.scan(text)
+ 
+         # Slide over the document
+-        words = text.split()
+         results = []
+         for i in range(0, len(words), chunk_size - overlap):
+             chunk = " ".join(words[i:i + chunk_size])
+             r = self.scan(chunk)
+             if r:
+                 results.append(r)
+-            if r and r["injection"]:
++            if r and r.get("injection"):
+                 break   # early exit: one injection is enough
+ 
+         if not results:
+             return None
+ 
+         # Return the highest-scoring (worst) chunk
+-        worst = max(results, key=lambda r: r["score"])
++        worst = max(results, key=lambda r: r.get("score", 0.0))
+         worst["chunks_scanned"] = len(results)
+         return worst
+ 

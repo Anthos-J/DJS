@@ -1,0 +1,17 @@
+test_engine Ran 13 tests in 0.229s OK 
+test_engine_e2 Ran 9 tests in 0.136s OK 
+test_engine_e3 Ran 22 tests in 0.261s OK 
+test_engine_e4 Ran 33 tests in 0.728s OK 
+test_engine_e41 Ran 35 tests in 0.756s OK 
+test_engine_e42 Ran 58 tests in 7.412s OK 
+test_engine_e421 Ran 60 tests in 6.613s OK 
+test_e421_rules_on_e43 Ran 60 tests in 14.273s OK 
+test_engine_e43 Ran 34 tests in 3.867s OK 
+test_e421_rules_on_e431 Ran 60 tests in 13.806s OK 
+test_engine_e431 Ran 26 tests in 12.849s OK 
+== suites_vs_E3
+SUMMARY 19 / 22
+== suites_vs_E4
+SUMMARY 39 / 44
+test_workbench_unit (host) Ran 12 tests in 8.971s  OK 
+image=mandate-control-e43:1 network=none

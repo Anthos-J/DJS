@@ -77,6 +77,33 @@ WIKI_FIXTURES = {
 def read_doc(page: str, ctx: Context) -> str:
     effect(ctx, "read_doc", page=page); return WIKI_FIXTURES.get(page, f"wiki page {page}")
 
+# E4.3.1 workspace: owner-provided, sanitized documents (console "Your task" workbench). Mounted READ-ONLY into this tool
+# server only (never into the agent cells); agents reach them only through the PEP. Plain text formats, names [A-Za-z0-9._-].
+WORKSPACE = "/workspace"
+
+
+def _ws_files():
+    try:
+        return sorted(f for f in os.listdir(WORKSPACE) if not f.startswith(".") and os.path.isfile(os.path.join(WORKSPACE, f)))
+    except FileNotFoundError:
+        return []
+
+
+@mcp.tool
+def list_workspace_docs(ctx: Context) -> str:
+    effect(ctx, "list_workspace_docs")
+    return json.dumps([{"name": f, "bytes": os.path.getsize(os.path.join(WORKSPACE, f))} for f in _ws_files()])
+
+
+@mcp.tool
+def read_workspace_doc(name: str, ctx: Context) -> str:
+    effect(ctx, "read_workspace_doc", name=name)
+    if name not in _ws_files():                                     # exact listed names only: no paths, no traversal
+        return f"no workspace document named {name!r}; available: {_ws_files()}"
+    with open(os.path.join(WORKSPACE, name), encoding="utf-8", errors="replace") as f:
+        return f.read()
+
+
 @mcp.tool
 def write_summary(title: str, ctx: Context, text: str = "") -> str:
     effect(ctx, "write_summary", title=title); return "summary saved"

@@ -76,6 +76,18 @@ def _chat(messages):
         raise RuntimeError(f"provider HTTP {e.code}: {e.read()[:200].decode(errors='replace')}")
 
 
+def chat(messages, tools):
+    """One model turn with an explicit tool list (used by the console workbench). Same provider, model and key handling."""
+    body = json.dumps({"model": MODEL, "messages": messages, "tools": tools, "tool_choice": "auto", "temperature": 0}).encode()
+    req = urllib.request.Request(URL, data=body, method="POST", headers={"Content-Type": "application/json", "User-Agent": "mandate-console",
+                                                                        "Authorization": "Bearer " + os.environ["GROQ_API_KEY"]})
+    try:
+        with urllib.request.urlopen(req, timeout=60) as r:
+            return json.loads(r.read())["choices"][0]["message"]
+    except urllib.error.HTTPError as e:                       # never echo request headers
+        raise RuntimeError(f"provider HTTP {e.code}: {e.read()[:200].decode(errors='replace')}")
+
+
 def run(task_id, run, agent_call, effects, ensure, control):
     """Drive one live-model task. `run` is the console's transcript object; the other args are console helpers."""
     t = TASKS[task_id]

@@ -15,6 +15,7 @@
   </a>
   <nav class="areas" id="areas" aria-label="Main">
     <a href="#/" data-area="home">Home</a>
+    <a href="#/task" data-area="task">Your task</a>
     <a href="#/demo" data-area="see">See it work</a>
     <a href="#/agents" data-area="operate">Operate <span class="count" id="nav-ap"></span></a>
     <a href="#/results" data-area="proof">Proof</a>
@@ -27,7 +28,7 @@
 <div id="banner" class="banner" hidden></div>
 <main id="view" aria-live="polite"></main>
 <footer class="foot">
-  <span>MANDATE prototype · engine E4.2.1</span>
+  <span id="foot-engine">MANDATE prototype</span>
   <span>Scripted demo agents (an optional live LLM can be enabled) · mock tool server · outbound effects simulated</span>
   <span>Not SECURITY-TESTED · not independently reviewed · <a href="#/limits">known limits</a></span>
 </footer>
@@ -39,5 +40,6 @@
   <menu><button value="cancel" formnovalidate class="ghost">Cancel</button><button id="dlgok" value="ok" class="primary">Confirm</button></menu>
 </form></dialog>
 <script src="/app.js"></script>
+<script src="/workbench.js"></script>
 </body>
 </html>

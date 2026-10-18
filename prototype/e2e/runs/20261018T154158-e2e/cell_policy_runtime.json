@@ -1,0 +1,68 @@
+{
+ "mode": "runtime",
+ "compliant": true,
+ "violations": [],
+ "facts": {
+  "networks": {
+   "mandate_cellnet_a": {
+    "id": "56820b16be661256fc673397b02d1db1c563137a7e6bdda0b415244bde7cf59b",
+    "driver": "bridge",
+    "internal": true,
+    "enable_ipv6": false,
+    "options": {
+     "com.docker.network.bridge.gateway_mode_ipv4": "isolated",
+     "com.docker.network.bridge.gateway_mode_ipv6": "isolated",
+     "com.docker.network.enable_ipv4": "true"
+    },
+    "ipam": [
+     {
+      "Subnet": "172.24.0.0/16"
+     }
+    ],
+    "host_bridge": "br-56820b16be66",
+    "host_bridge_ipv4": [],
+    "members": [
+     "sidecar_a(cell-netns-owner)",
+     "terminator(gateway)"
+    ]
+   },
+   "mandate_cellnet_b": {
+    "id": "8200acae794a24baaa82bc19b88716963d723dc1cc4f5bb5897fd4382af2f994",
+    "driver": "bridge",
+    "internal": true,
+    "enable_ipv6": false,
+    "options": {
+     "com.docker.network.bridge.gateway_mode_ipv4": "isolated",
+     "com.docker.network.bridge.gateway_mode_ipv6": "isolated",
+     "com.docker.network.enable_ipv4": "true"
+    },
+    "ipam": [
+     {
+      "Subnet": "172.25.0.0/16"
+     }
+    ],
+    "host_bridge": "br-8200acae794a",
+    "host_bridge_ipv4": [],
+    "members": [
+     "sidecar_b(cell-netns-owner)",
+     "terminator(gateway)"
+    ]
+   }
+  },
+  "host_vm_ipv4_addrs": [
+   "1: lo    inet 127.0.0.1/8 scope host lo\\       valid_lft forever preferred_lft forever",
+   "2: services1    inet 192.168.65.6/32 scope global services1\\       valid_lft forever preferred_lft forever",
+   "3: eth0    inet 192.168.65.3/24 brd 192.168.65.255 scope global eth0\\       valid_lft forever preferred_lft forever",
+   "8: docker0    inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0\\       valid_lft forever preferred_lft forever",
+   "10: br-08fc0df28ef3    inet 172.20.0.1/16 brd 172.20.255.255 scope global br-08fc0df28ef3\\       valid_lft forever preferred_lft forever",
+   "13: br-c44727315c7a    inet 172.21.0.1/16 brd 172.21.255.255 scope global br-c44727315c7a\\       valid_lft forever preferred_lft forever",
+   "750: br-6cb5443e095f    inet 172.22.0.1/16 brd 172.22.255.255 scope global br-6cb5443e095f\\       valid_lft forever preferred_lft forever",
+   "751: br-a500738feca9    inet 172.23.0.1/16 brd 172.23.255.255 scope global br-a500738feca9\\       valid_lft forever preferred_lft forever",
+   "754: br-86d5123d4955    inet 172.26.0.1/16 brd 172.26.255.255 scope global br-86d5123d4955\\       valid_lft forever preferred_lft forever"
+  ],
+  "cell_networks": [
+   "mandate_cellnet_a",
+   "mandate_cellnet_b"
+  ]
+ }
+}

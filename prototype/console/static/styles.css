@@ -265,3 +265,28 @@ menu { display: flex; justify-content: flex-end; gap: 8px; padding: 0; margin: 1
 details.tech.mini { background: none; border: 0; margin-top: 4px; }
 details.tech.mini > summary { padding: 2px 0; font-weight: 500; color: var(--ink-3); font-size: 12.5px; }
 details.tech.mini > div { padding: 6px 0 0; }
+
+/* R-E4.3.1 "Your task" workbench */
+.wb-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.wb-chips button { font-weight: 500; text-align: left; }
+.wb-pick { display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 12px; cursor: pointer; background: var(--card); }
+.wb-pick input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.wb-pick.on { border-color: var(--indigo); box-shadow: 0 0 0 1px var(--indigo); background: var(--indigo-soft); }
+.wb-pick.off { opacity: .6; cursor: not-allowed; }
+.wb-pick:focus-within { outline: 2px solid var(--indigo); outline-offset: 2px; }
+.wb-drop { display: flex; flex-direction: column; align-items: center; gap: 4px; margin-top: 10px; padding: 18px; border: 1.5px dashed var(--rule); border-radius: 12px; cursor: pointer; text-align: center; }
+.wb-drop.over, .wb-drop:hover { border-color: var(--indigo); background: var(--indigo-soft); }
+.wb-doclist { display: flex; flex-direction: column; gap: 6px; }
+.wb-doc { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 8px 10px; border: 1px solid var(--rule-2); border-radius: 10px; background: var(--paper-2); }
+.wb-step { display: grid; grid-template-columns: 22px minmax(150px, 220px) minmax(0, 1fr) auto; gap: 8px; align-items: center; margin-top: 8px; }
+.wb-args { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 6px; }
+.wb-tools { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+.wb-list { margin: 8px 0 0; padding-left: 18px; } .wb-list li + li { margin-top: 6px; }
+.wb-tl { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+.wb-ev { padding: 12px 14px; border: 1px solid var(--rule); border-radius: 12px; background: var(--card); }
+.wb-ev.sys { background: var(--paper-2); border-style: dashed; font-size: 14px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.wb-ev.model { background: var(--info-soft); border-color: color-mix(in srgb, var(--info) 25%, transparent); }
+.wb-think { white-space: pre-wrap; font-size: 14px; margin-top: 4px; overflow-wrap: anywhere; }
+.wb-ev pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: 12px; max-height: 260px; overflow: auto; }
+@media (max-width: 860px) { .wb-step { grid-template-columns: 22px minmax(0, 1fr) auto; } .wb-step .wb-args { grid-column: 2 / -1; } .split.wb { grid-template-columns: minmax(0, 1fr); } }
+.areas a { white-space: nowrap; }

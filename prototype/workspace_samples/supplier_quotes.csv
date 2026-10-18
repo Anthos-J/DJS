@@ -1,0 +1,4 @@
+supplier,item,unit_price_usd,min_order,lead_time_weeks,payment_terms
+umbrella,valve DN50,41.50,20,3,net-30
+stark,valve DN50,44.00,10,2,net-45
+wayne,valve DN50,39.80,100,6,prepaid

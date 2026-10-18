@@ -15,13 +15,14 @@ const stamp = (resp, big) => { const [t, c] = VERDICT[resp] || [resp, "neutral"]
 const TOOLS_H = { search_suppliers: "search suppliers", get_prices: "look up prices", read_supplier_doc: "open a supplier document", create_purchase_request: "place a purchase order",
   send_email: "send an email", read_hr_record: "read HR records", update_hr_record: "change an HR record", read_inbox: "read the HR inbox", web_search: "fetch a public web page",
   read_doc: "read an internal wiki page", write_summary: "write to the company wiki", upload_file: "upload a file", read_logs: "read service logs", query_metrics: "check service health metrics",
+  list_workspace_docs: "list your documents", read_workspace_doc: "read one of your documents",
   restart_service: "restart a service", deploy_release: "deploy a release", delegate_task: "hand work to another agent" };
 const toolH = t => TOOLS_H[t] || String(t || "").replace(/_/g, " ");
 const ROLE_H = { procurement: "Procurement", research: "Research", hr_assistant: "HR assistant", devops: "DevOps" };
 const agentName = (id, role) => { const cell = /cell-(\w)/.exec(id || ""); return `${ROLE_H[role] || "Agent"}${cell ? " agent " + cell[1].toUpperCase() : ""}`; };
 const STATUS = { active: ["Active", "allow"], restricted: ["Restricted", "held"], quarantined: ["Quarantined", "block"] };
 const statusTag = s => { const [t, c] = STATUS[s] || [s, ""]; return `<span class="tag ${c}"><span class="d"></span>${esc(t)}</span>`; };
-const argBrief = a => { if (!a) return ""; const v = a.employee || a.to || a.doc || a.item || a.page || a.title || a.url || (a.amount != null ? `${a.amount}` : "") || a.service || "";
+const argBrief = a => { if (!a) return ""; const v = a.employee || a.to || a.doc || a.name || a.item || a.page || a.title || a.url || (a.amount != null ? `${a.amount}` : "") || a.service || "";
   return v ? ` <span class="ink2">(${esc(String(v).slice(0, 60))})</span>` : ""; };
 // why, in words, from the engine's control code and reason (never invented: unknown codes fall back to the engine's own reason)
 function why(d) {
@@ -33,7 +34,7 @@ function why(d) {
     recipient_authorization: "HR data may only go to the people the task is about, and this recipient is not one of them.",
     spend_limit: "The amount goes beyond what the task authorised in total.",
     read_volume: "The agent is reading far more data than its task budget allows (a scraping pattern).",
-    untrusted_store_write: "The agent just read untrusted web content, so writing into the trusted wiki needs a human to check it first.",
+    untrusted_store_write: "The agent just read untrusted content (a web page or a document), so writing into the trusted wiki needs a human to check it first.",
     uncorroborated_trigger: "A restart based only on untrusted logs needs a trusted health check of the same service first.",
     tainted_sensitive_flow: "Sensitive data and untrusted input are in the same session, so moving the data out needs a check.",
     recovery_mode: "The system is recovering from lost history, so every action needs an owner's approval until recovery is acknowledged.",
@@ -126,11 +127,13 @@ async function refreshStatus() {
   else if (h && h.engine_ok === false) { b.hidden = false; b.innerHTML = `<b>Wrong engine:</b> running ${esc(m.engine)}; the submission demo requires ${esc(h.engine_required)}. Restart with <span class="mono">bash demo/launch.sh</span>.`; }
   else b.hidden = true;
   if (m) $("#nav-ap").textContent = m.counts.pending_approvals || "";
+  if (m && $("#foot-engine")) $("#foot-engine").textContent = `MANDATE prototype · engine ${m.engine}`;
 }
 
 // ================================================================ routing
 const AREAS = {
   home: { routes: ["home"] },
+  task: { routes: ["task", "taskrun"] },
   see: { routes: ["demo", "simulate", "llm"], tabs: [["demo", "Guided scenarios"], ["simulate", "Try an attack"], ["llm", "Live AI agent"]] },
   operate: { routes: ["agents", "approvals", "investigate", "graph"], tabs: [["agents", "Agents & mandates"], ["approvals", "Approvals"], ["investigate", "Decisions"], ["graph", "Attack map"]] },
   proof: { routes: ["results", "audit", "limits", "recovery", "diagnostics"], tabs: [["results", "Results"], ["audit", "Audit trail"], ["limits", "Known limits"], ["recovery", "Recovery"], ["diagnostics", "System health"]] },
@@ -170,7 +173,7 @@ VIEWS.home = async el => {
           <div class="eyebrow">AI agents now act on your behalf</div>
           <h1 style="margin-top:14px">Every action an AI agent takes passes a <em>checkpoint</em> first.</h1>
           <p class="lede">MANDATE checks each tool call an agent tries to make against its ${term("mandate", "mandate")}, meaning what it was actually hired to do. It decides <b>before</b> anything happens: allow it, hold it for a human, or block it. A tricked or drifting agent can't quietly read the wrong data, send it somewhere new, or overstep its job.</p>
-          <div class="cta"><a class="btn primary" href="#/demo">Watch it stop an attack →</a><a class="btn" href="#/simulate">Try your own attack</a><button class="ghost" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">How it works ↓</button></div>
+          <div class="cta"><a class="btn primary" href="#/task">Bring your own task →</a><a class="btn" href="#/demo">Watch it stop an attack</a><a class="btn" href="#/simulate">Try your own attack</a><button class="ghost" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">How it works ↓</button></div>
         </div>
         <div class="checkpoint" aria-label="latest checkpoint">
           <div class="eyebrow">${latest ? "Latest checkpoint · live" : "Live checkpoint"}</div>
@@ -688,4 +691,4 @@ VIEWS.diagnostics = async el => {
 })();
 // kept for links and tests from the previous release
 VIEWS.overview = VIEWS.home;
-route();
+document.addEventListener("DOMContentLoaded", route);   // after every script (workbench.js adds views) has loaded

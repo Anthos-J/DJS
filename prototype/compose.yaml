@@ -59,7 +59,7 @@ services:
     image: ${SPIKE_IMAGE}
     labels: {mandate.role: tool-server}
     command: ["python", "/p/backend_proto.py"]
-    volumes: ["./pep:/p:ro", "tool_log:/log"]
+    volumes: ["./pep:/p:ro", "tool_log:/log", "./workspace:/workspace:ro"]   # E4.3.1 workbench documents (read-only, tool server only)
     networks: [toolnet]
     depends_on: {pki: {condition: service_completed_successfully}}
 

@@ -111,7 +111,7 @@ rec("E8-audit-chain", "control-plane audit hash chain verifies", au["ok"], summa
 
 # E10 (E4+ only): HR disclosure checked at the RECEIVING service. The owner re-roles cell A as an HR assistant with a
 # structured scope (subject grace); a colleague named in the instruction (dave) must not receive mail.
-if os.environ.get("MANDATE_ENGINE") in ("E4", "E4.1", "E4.2", "E4.2.1", "E4.3"):
+if os.environ.get("MANDATE_ENGINE") in ("E4", "E4.1", "E4.2", "E4.2.1", "E4.3", "E4.3.1"):
     api(f"/api/agents/{A}/task", {"role": "hr_assistant"})
     api(f"/api/agents/{A}/task", {"task": "records", "instruction": "update grace's record; dave asked about it", "subjects": ["grace"]})
     o, ef = step("agent_a", [["read_hr_record", {"employee": "grace"}], ["send_email", {"to": "dave", "destination": "internal"}],
@@ -123,7 +123,7 @@ if os.environ.get("MANDATE_ENGINE") in ("E4", "E4.1", "E4.2", "E4.2.1", "E4.3"):
         and not mails_to_dave, effects=[e["tool"] for e in ef], mails_to_dave=len(mails_to_dave),
         summary=f"effects={[e['tool'] for e in ef]} mails_to_dave={len(mails_to_dave)} controls={[e.get('control') for e in evs]}")
 
-E42 = os.environ.get("MANDATE_ENGINE") in ("E4.2", "E4.2.1", "E4.3")
+E42 = os.environ.get("MANDATE_ENGINE") in ("E4.2", "E4.2.1", "E4.3", "E4.3.1")
 
 def wait_control(up=True, secs=60):
     for _ in range(secs):

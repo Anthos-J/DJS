@@ -20,6 +20,7 @@ PEP_ONLY = {"_delegation", "_approval"}   # PEP-level arguments; never forwarded
 
 
 OBSERVE = CONTROL.rsplit("/api/", 1)[0] + "/api/observe"
+MAX_SCAN_CHARS = 200_000   # longer results are reported as truncated; E4.3.1 then treats them as unverified (taint)
 
 
 def report_content(ev):
@@ -65,7 +66,8 @@ class ControlPEP(Middleware):
         result = await call_next(context)
         text = " ".join(getattr(x, "text", "") or "" for x in (getattr(result, "content", None) or []))
         try:   # post-execution content scan, before the agent sees the result
-            s = await asyncio.to_thread(report_content, {"agent_id": ident, "tool": name, "decision_id": d.get("decision_id"), "text": text[:20000]})
+            s = await asyncio.to_thread(report_content, {"agent_id": ident, "tool": name, "decision_id": d.get("decision_id"),
+                                                         "text": text[:MAX_SCAN_CHARS], "truncated": len(text) > MAX_SCAN_CHARS})
         except Exception as e:
             pb.log({"phase": "observe-unreachable", "tool": name, "identity": ident, "err": repr(e)[:200]})
             raise ToolError("DENY: content could not be checked (fail closed)")
