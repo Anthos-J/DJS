@@ -14,7 +14,7 @@
 | Detector held-out tests (separate) | Injections caught / false alarms: deepset 44/59 / 1/56; unseen e-mails 294/300 / 1/293; unseen source 229/300 / 0/300 | `config/injection_model.provenance.json` |
 | Live LLM (separate; Groq `openai/gpt-oss-120b`) | 14/15 runs PASS (1 provider HTTP 400); 47 model calls; 4/4 fault checks with zero effects | `e2e/runs/20261018T121446-llm-live/`; post-integration re-run `e2e/runs/20261018T123437-llm-live/`: 5/5 PASS, 16 calls, 4/4 faults with zero effects |
 | Detector as the deciding control | Live runs: not decisive (the model's web fetch already tainted the session). Scripted counterfactual A: E4.2.1 allows the poisoned wiki write, E4.3 holds it | `tests/runs/*-detector-counterfactual/output.txt` |
-| Model integrity | `model.onnx` sha256 `c69d502d…ae1c` in three places: frozen manifest, installed file, the owner's Colab zip. Restore verified from a clean directory | `MODEL_RESTORE.md`, zip verification in `submission_assets/zip_verification/` |
+| Model integrity | `model.onnx` sha256 `c69d502d…ae1c` in three places: frozen manifest, installed file, the owner's Colab zip. Restore verified from a clean directory | `MODEL_RESTORE.md`, clean-extraction check in `tests/runs/*-zip-clean-extraction/` (script `tests/zip_clean_extraction_check.sh`) |
 
 **Claims not made:** no independent review, no clean-machine reproduction, not SECURITY-TESTED, no perfect prevention, no claim that the detector reduces attack success in general.
 
