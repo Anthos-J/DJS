@@ -5,11 +5,11 @@
 #   6 restore installs and verifies the real model     7 launch from the extracted tree: E4.3, detector loaded, E2E 17/17
 # Usage: bash tests/zip_clean_extraction_check.sh <submission_dir> <out_dir>
 set -u
-SUB="$1"; OUT="$2"; mkdir -p "$OUT"; LOG="$OUT/check.log"; : > "$LOG"
+SUB="$(cygpath -m "$1")"; OUT="$(cygpath -m "$2")"; mkdir -p "$OUT"; LOG="$OUT/check.log"; : > "$LOG"
 export PATH="/c/Users/SEBIN/AppData/Local/Programs/DockerDesktop/resources/bin:$PATH" MSYS_NO_PATHCONV=1 PYTHONIOENCODING=utf-8
 log() { echo "$*" | tee -a "$LOG"; }
-X="$(mktemp -d)"; log "clean extraction dir: $X"
-cd "$SUB" || exit 1
+X="$(cygpath -m "$(mktemp -d)")"; log "clean extraction dir: $X"
+cd "$SUB" || { log "cannot cd to $SUB"; exit 1; }
 for z in MANDATE_E4.3_submission.zip MANDATE_E4.3_injection_model.zip; do
   if sha256sum -c "$z.sha256" >/dev/null 2>&1; then log "1 checksum OK  $z"; else log "1 checksum FAIL $z"; fi
 done
@@ -25,7 +25,8 @@ hits = [n for n in names if pat.search(z.read(n)) or (key and key.encode() in z.
 print("3 secrets scan:", "none found" if not hits else hits, "| model.onnx inside code ZIP:", any(n.endswith("model.onnx") for n in names),
       "| .env/.llm.env files:", [n for n in names if n.endswith((".env", ".llm.env"))])
 PY
-cd "$R/prototype"
+cd "$R/prototype" || { log "ABORT: extraction missing at $R"; exit 1; }
+log "working in extracted tree: $(pwd)"
 export SPIKE_IMAGE=mandate-spike-py312:wave2 NGINX_IMAGE=nginx@sha256:5616878291a2eed594aee8db4dade5878cf7edcb475e59193904b198d9b830de
 MANDATE_ENGINE=E4.3 bash run_prototype.sh e2e > "$OUT/no_model_launch.txt" 2>&1; rc=$?
 log "4 launch E4.3 without model: exit $rc ($(grep -o 'REFUSED[^.]*' "$OUT/no_model_launch.txt" | head -1))"
